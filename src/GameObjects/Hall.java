@@ -7,19 +7,22 @@ class Hall {
     Rune rune;
     int minimumObjectsRequired;
 
-    void placeObject(GameObject object) {
+    public void placeObject(GameObject object) {
         // Place object in hall
     }
 
-    void checkObjectRequirements() {
+    public void checkObjectRequirements() {
         // Check if all objects are placed
     }
 
-    void selectRandomLocation() {
+    public void selectRandomLocation() {
         // Select random location in hall
     }
 
-    void addMonsterToHall() {
+    public void addMonsterToHall() {
         // Add monster to hall
+    }
+    public void initiliazeBuildMode() {
+        // Initialize build mode
     }
 }

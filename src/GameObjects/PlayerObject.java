@@ -3,11 +3,11 @@ package GameObjects;
 
 public class PlayerObject{
     public PlayerObject() {
-        items: List<Enchantment>;
-        Lives: int
-        inventory: Inventory //(Bag containing Enchantments)
-        position: Point //(Grid coordinates)
-        ProtectionStatus: bool //(Indicates if thecloak of protection is active)
+        List<Enchantment> items;
+        int lives; 
+        Inventory inventory;  //(Bag containing Enchantments)
+        Point position;  //(Grid coordinates)
+        boolean ProtectionStatus;  //(Indicates if thecloak of protection is active)
 
         public boolean checkProtection(){
 

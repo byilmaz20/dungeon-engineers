@@ -11,30 +11,34 @@ public class GameController {
         selectedDirection = "";
         isPaused = false;
     }
-    
+    public void initiliazeBuildMode() {
+        currentHall.initiliazeBuildMode();
+    }
+    public void updateHall() {
+    }
+    public void leftClick() {
+    } //???
+    public void checkType() {
+    }
+    public void pressArrowKey(String direction) {
+        selectedDirection = direction;
+    }
+    public void pressKeyboard(Enchantment enchantment) {
+        selectedEnchantment = enchantment;
+    }
+    public void pressPauseButton() {
+        isPaused = !isPaused;
+    }
+    public void findRune() {
+    }
+    public void clickObject() {
+    }
+    public void clickInventoryBag() {
+    }
+    public void initiliazeBuildModer() {
+    }
 }
 /* 
-currentHall: Hall
-- selectedEnchantment: Enchantment
-- selectedDirection: string
-- isPaused: bool
-0..
-*
-Coordinates with
-- isGameRunning: bool
-- monsters: List<Monster>
-- player: Player
-- currentHall: Hall
-runGame()
-verifyRandomLocation()
-updateHall()
-checkGameOver()
-0..
-*
-0..
-*
-0..
-*
 initiliazeBuildMode()
 updateHall()
 leftClick()

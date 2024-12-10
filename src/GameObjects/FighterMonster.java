@@ -9,4 +9,5 @@ class FighterMonster extends Monster {
     public void stab(player: Player){
         // Stab player
     }
+    
 }

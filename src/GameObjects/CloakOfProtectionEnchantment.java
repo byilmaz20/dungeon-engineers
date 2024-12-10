@@ -6,5 +6,8 @@ class CloakOfProtectionEnchantment extends Enchantment {
     public void applyEffect(){
         // Apply the effect of the enchantment
     }
+    public void removeEffect(){
+        // Remove the effect of the enchantment
+    }
 
 }

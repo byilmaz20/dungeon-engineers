@@ -9,5 +9,8 @@ class FighterMonster extends Monster {
     public void stab(player: Player){
         // Stab player
     }
+    public void attack(player: Player){
+        // Attack player
+    }
     
 }

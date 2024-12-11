@@ -12,5 +12,8 @@ class FighterMonster extends Monster {
     public void attack(player: Player){
         // Attack player
     }
+    public void die(){
+        // Die
+    }
     
 }

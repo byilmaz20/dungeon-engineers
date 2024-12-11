@@ -9,5 +9,8 @@ class CloakOfProtectionEnchantment extends Enchantment {
     public void removeEffect(){
         // Remove the effect of the enchantment
     }
+    public void die(){
+        // Die
+    }
 
 }

@@ -37,6 +37,9 @@ public class GameController {
     }
     public void initiliazeBuildModer() {
     }
+    public void hello(){
+        
+    }
 }
 /* 
 initiliazeBuildMode()

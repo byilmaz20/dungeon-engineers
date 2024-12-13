@@ -13,7 +13,7 @@ public class MainMenuScreen extends UIScreen {
 
     public MainMenuScreen() {
         super(600, 600, "Main Menu", 
-                "/Users/begumyilmaz/Documents/okul/koç/4.1/comp302/project/projectrepo/src/Images/BackgroundImages/mainMenuBackground.png");        
+                "/src/Images/BackgroundImages/mainMenuBackground.png");        
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
@@ -30,31 +30,37 @@ public class MainMenuScreen extends UIScreen {
     }
 
     private void setStartGameButton() {
-        startGameButton = new JButton("Start Game");
+        startGameButton = new JButton();
         startGameButton.setBounds(254, 250, 129, 33);
-        
+        startGameButton.setOpaque(false);
+        startGameButton.setContentAreaFilled(false);
+        startGameButton.setBorderPainted(false);
         startGameButton.addActionListener(e -> {
             this.dispose();
-            new PlayModeScreen();
+            new BuildModeScreen();
         });
         backgroundPanel.add(startGameButton);
     }
 
     private void setHelpButton() {
-        helpButton = new JButton("Help");
+        helpButton = new JButton();
         helpButton.setBounds(254, 285, 129, 33);
-        helpButton.setFont(new Font("Arial", Font.BOLD, 16));
-        helpButton.addActionListener(e -> {
-            this.dispose();
+        helpButton.setOpaque(false);
+        helpButton.setContentAreaFilled(false);
+        helpButton.setBorderPainted(false);
+            helpButton.addActionListener(e -> {
+            //this.dispose();
             new HelpScreen();
         });
         backgroundPanel.add(helpButton);
     }
 
     private void setExitButton() {
-        exitButton = new JButton("Exit");
+        exitButton = new JButton();
         exitButton.setBounds(254, 320, 129, 33);
-        exitButton.setFont(new Font("Arial", Font.BOLD, 16));
+        exitButton.setOpaque(false);
+        exitButton.setContentAreaFilled(false);
+        exitButton.setBorderPainted(false);
         exitButton.addActionListener(e -> System.exit(0));
         backgroundPanel.add(exitButton);
     }

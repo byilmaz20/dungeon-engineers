@@ -12,7 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 
-public class UIScreen extends JFrame{
+public abstract class UIScreen extends JFrame{
 
     public JPanel backgroundPanel;
     private final int width;
@@ -24,6 +24,25 @@ public class UIScreen extends JFrame{
         this.width = width;
         this.height = height;
         this.backgroundPath = backgroundPath;
+    }
+    public UIScreen(int width, int height, String title){
+        super("ROKUE-LIKE DUNGEON ENGINEERS");
+        this.width = width;
+        this.height = height;
+        backgroundPanel = new JPanel();
+        setContentPane(backgroundPanel);  
+        this.setResizable(false);
+    	this.setTitle("Dungeon Engineers ROKUE-LIKE");
+    	this.setSize(width, height);
+    	this.setLocationRelativeTo(null);
+    	this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    	this.getContentPane().setLayout(null);
+        backgroundPanel.setBounds(0, 0, width, height);
+        backgroundPanel.setLocation(0, 0);
+        backgroundPanel.setSize(new Dimension(width, height));
+        backgroundPanel.setLayout(null);
+        backgroundPanel.setOpaque(false);
+        setContentPane(backgroundPanel);   
     }
 
     public void setBackgroundImage() {

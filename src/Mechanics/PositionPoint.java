@@ -13,7 +13,7 @@ public class PositionPoint {
         return Math.sqrt(Math.pow(this.x - other.x, 2) + Math.pow(this.y - other.y, 2));
     }
 
-    public boolean equals(PositionPoint other) {
+    public boolean  equals(PositionPoint other) {
         return this.x == other.x && this.y == other.y;
     }
 

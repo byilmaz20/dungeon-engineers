@@ -1,14 +1,19 @@
 package src.Mechanics;
+import src.GameObjects.Monster;
+import src.GameObjects.PlayerObject;
+import src.GameObjects.Hall;
+import java.util.List;
+import java.util.ArrayList;
 
 public class GameSystem {
-    boolean isGameRunning;
+    boolean  isGameRunning;
     List<Monster> monsters;
-    Player player;
+    PlayerObject player;
     Hall currentHall;
     public GameSystem() {
         isGameRunning = false;
         monsters = new ArrayList<Monster>();
-        player = new Player();
+        player = new PlayerObject();
         currentHall = new Hall();
     }
     public void runGame() {

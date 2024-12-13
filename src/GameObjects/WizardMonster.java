@@ -1,9 +1,11 @@
-package GameObjects;
-class WizardMonster extends Monster {
-    public WizardMonster(Point position){
+package src.GameObjects;
+import src.Mechanics.PositionPoint;
+
+public class WizardMonster extends Monster {
+    public WizardMonster(PositionPoint position){
         super(position);
     }
-    public void teleportRune(rune: Rune, objects:List<GameObject>) {
-        // Teleport to rune
-    }   
+    // public void teleportRune(Rune rune, List<GameObject> objects) {
+    //     // Teleport to rune
+    // }   
 }

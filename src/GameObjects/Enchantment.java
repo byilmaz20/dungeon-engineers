@@ -1,10 +1,20 @@
-package GameObjects;
-abstract class Enchantment {
-    EnchantmentType type;
-    boolean isStorable;
+package src.GameObjects;
+import src.GameObjects.EnchantmentTypes;
+import src.Mechanics.PositionPoint;
+
+
+public class Enchantment { //TODO abstract olmamalı
+    
+    EnchantmentTypes type;
+    boolean  isStorable;
     int duration;
-    Point position;
-    Enchantment(EnchantmentType type, bool isStorable, int duration, Point position){
+    PositionPoint position;
+
+    public Enchantment(){
+        // Default constructor
+    }
+    
+    public Enchantment(EnchantmentTypes type, boolean  isStorable, int duration, PositionPoint position){
         this.type = type;
         this.isStorable = isStorable;
         this.duration = duration;
@@ -14,14 +24,17 @@ abstract class Enchantment {
         // Collect the enchantment
     }
     // Abstract method applyEffect
-    public abstract void applyEffect();
+    public void applyEffect(){
+        // Apply the effect of the enchantment
+    }
     public void removeEnchantment(){
         // Remove the enchantment
     }
     public void addItem(Enchantment enchantment){
         // Add an item to the enchantment
     }
-    public void decreaseItem(EnchantmentType enchantmentType){
+    public void decreaseItem(EnchantmentTypes enchantmentType){
         // Decrease the item
     }
+    
 }

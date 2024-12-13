@@ -1,12 +1,13 @@
 package src.Swing;
-
+import src.GameObjects.Enchantment;
+import src.GameObjects.Inventory;
 import src.Mechanics.PositionPoint;
 
 public class GameView {
     PositionPoint playerPosition;
     Inventory inventory;
     Enchantment activeEnchantment;
-    boolean isDoorOpen;
+    boolean  isDoorOpen;
     public void displayVisualFeedback() {
     }
     public void notifyLifeLost() {

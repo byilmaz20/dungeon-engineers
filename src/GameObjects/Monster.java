@@ -9,6 +9,9 @@ public class Monster {
         this.position = position;
         this.isTriggered = false;
     }
+    public void updatePosition() {
+        // Move monster
+    }
     public void selectRandomMonster() {
         // Select random monster
     }

@@ -1,4 +1,6 @@
 package src.UI;
+import javax.swing.text.html.parser.Entity;
+
 import src.GameObjects.Enchantment;
 import src.GameObjects.Inventory;
 import src.Mechanics.PositionPoint;
@@ -8,6 +10,17 @@ public class GameViewScreen {
     Inventory inventory;
     Enchantment activeEnchantment;
     boolean  isDoorOpen;
+
+    //press on Pause pausecontroller 
+
+
+    public void addObjectToScreen(Entity entity, PositionPoint position) {
+    } 
+    public void removeObjectFromScreen(Entity entity) {
+    }
+    public void moveObjectOnScreen(Entity entity, PositionPoint newPosition) {
+    }
+
     public void displayVisualFeedback() {
     }
     public void notifyLifeLost() {

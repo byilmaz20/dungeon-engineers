@@ -1,10 +1,12 @@
 package src.GameController;
+import src.GameObjects.Hall;
+import src.GameObjects.Enchantment;
 
 public class GameController {
     Hall currentHall;
     Enchantment selectedEnchantment;
     String selectedDirection;
-    boolean isPaused;
+    boolean  isPaused;
     public GameController() {
         currentHall = new Hall();
         selectedEnchantment = new Enchantment();

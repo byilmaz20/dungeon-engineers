@@ -1,6 +1,9 @@
-package GameObjects;
-class ArcherMonster extends Monster {
-    public ArcherMonster(Point position){
+package src.GameObjects;
+import src.Mechanics.PositionPoint;
+
+
+public class ArcherMonster extends Monster {
+    public ArcherMonster(PositionPoint position){
         super(position);
     }
     public void shootArrow(PlayerObject player){

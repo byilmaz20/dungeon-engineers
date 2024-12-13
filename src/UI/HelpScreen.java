@@ -1,4 +1,4 @@
-package src.Swing;
+package src.UI;
 
 public class HelpScreen {
     

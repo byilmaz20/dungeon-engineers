@@ -1,13 +1,18 @@
-package GameObjects;
+package src.GameObjects;
 
-public class PlayerObject{
-    public PlayerObject() {
-        Hall currentHall;
-        boolean isPaused; 
-        int timeRemaining;
-        boolean isGameOver;
-        
-        public bool containsRune(){
+public class GameObject{
+    Hall currentHall;
+    boolean isPaused; 
+    int timeRemaining;
+    boolean  isGameOver;
+
+    public GameObject() {
+        currentHall = new Hall();
+        isPaused = false;
+        timeRemaining = 0;
+        isGameOver = false;
+    }
+        public boolean containsRune(){
             return true;
         }
         public void freezeGameActions(){
@@ -16,8 +21,9 @@ public class PlayerObject{
         public void unfreezeGameActions(){
             this.isPaused = false;
         }
-        public void setGameRunning(boolean running){
+        public void setGameRunning(boolean  running){
             this.isGameOver = !running;
         }
+    }
 
         

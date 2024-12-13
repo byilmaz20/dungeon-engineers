@@ -1,6 +1,8 @@
-package GameObjects;
-class RevealEnchantment extends Enchantment {
-    RevealEnchantment(EnchantmentType type, bool isStorable, int duration, Point position){
+package src.GameObjects;
+import src.Mechanics.PositionPoint;
+
+public class RevealEnchantment extends Enchantment {
+    RevealEnchantment(EnchantmentTypes type, boolean isStorable, int duration, PositionPoint position){
         super(type, isStorable, duration, position);
     }
     public void applyEffect(){

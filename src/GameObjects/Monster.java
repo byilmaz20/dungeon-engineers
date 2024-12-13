@@ -1,7 +1,14 @@
-package GameObjects;
-class Monster {
-    Point position;
-    boolean isTriggered;
+package src.GameObjects;
+import src.Mechanics.PositionPoint;
+
+public class Monster {
+    PositionPoint position;
+    boolean  isTriggered;
+
+    public Monster(PositionPoint position){
+        this.position = position;
+        this.isTriggered = false;
+    }
     public void selectRandomMonster() {
         // Select random monster
     }

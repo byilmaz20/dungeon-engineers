@@ -13,6 +13,9 @@ public class GameController {
         selectedDirection = "";
         isPaused = false;
     }
+
+    //for 10k t SPAWNCONTROLLER.spawnrandomMONter()
+
     public void initiliazeBuildMode() {
         currentHall.initiliazeBuildMode();
     }

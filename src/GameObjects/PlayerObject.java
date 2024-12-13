@@ -15,6 +15,7 @@ public class PlayerObject{
         boolean  ProtectionStatus;  //(Indicates if thecloak of protection is active)
 
         // public boolean checkProtection(){
+        //     return true;
 
         // }
         // public void checkAvailability(enchantment){

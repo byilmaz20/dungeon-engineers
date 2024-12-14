@@ -1,32 +1,64 @@
 // create a java class
 package src.GameObjects;
+import src.Mechanics.Direction;
 import src.Mechanics.PositionPoint;
-import src.GameObjects.Enchantment;
-import src.GameObjects.Inventory;
-import java.util.List;
 
 
 public class PlayerObject{
-    public PlayerObject() {
-        List<Enchantment> items;
-        int lives; 
-        Inventory inventory;  //(Bag containing Enchantments)
-        PositionPoint position;  //(Grid coordinates)
-        boolean  ProtectionStatus;  //(Indicates if thecloak of protection is active)
+    int lives; 
+    Inventory inventory;  //(Bag containing Enchantments)
+    PositionPoint position;  //(Grid coordinates)
+    boolean  ProtectionStatus;  //(Indicates if thecloak of protection is active)
 
-        // public boolean checkProtection(){
-        //     return true;
+    public PlayerObject(){
+        // TODO: should have input as PositionPoint position to set the initial position of the player
+        this.lives = 3;
+        this.inventory = new Inventory();
+        //this.position = position;
+        this.ProtectionStatus = false;
+    }
 
-        // }
-        // public void checkAvailability(enchantment){
-
-        // }
-        // public void updateLifeCount(-1){
-
-        // }
-        // public void calculateDamage(){
-            
-        // }
-
+    public boolean checkProtection(){
+        return this.ProtectionStatus;
+    }
+    public void activateProtection(){
+        this.ProtectionStatus = true;
+    }
+    public void deactivateProtection(){
+        this.ProtectionStatus = false;
+    }
+    public void updateLifeCount(int life){
+        this.lives += life;
+    }
+    public void setLifeCount(int life){
+        this.lives = life;
+    }
+    public int getLives() {
+        return this.lives;
+    }
+    //public void calculateDamage(){
+        
+    //}
+    public void movePlayer(Direction.DirectionEnum direction){
+        this.position = this.position.move(direction);
+    }
+    public void collectEnchantment(Enchantment enchantment){
+        if (enchantment.isStorable){
+            this.inventory.add(enchantment);
+        }
+        else{
+            enchantment.applyEffect();
+        }
+    }
+    public boolean throwEnchantment(Direction direction) {
+        // Throw luring gem enchantment
+        for (Enchantment enchantment : this.inventory.getItems()) {
+            if (enchantment instanceof LuringGemEnchantment luringGem) { // Pattern Matching for instanceof (Java 16+)
+                this.inventory.remove(enchantment);
+                luringGem.applyEffect(direction); // Call the specific method for LuringGemEnchantment
+                return true;
+            }
+        }
+        return false;
     }
 }

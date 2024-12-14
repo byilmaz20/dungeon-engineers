@@ -1,5 +1,4 @@
 package src.Mechanics;
-
 public class PositionPoint {
     public int x;
     public int y;
@@ -17,8 +16,13 @@ public class PositionPoint {
         return this.x == other.x && this.y == other.y;
     }
 
-    public PositionPoint move(Direction direction) {
-        return new PositionPoint(x, y);
+    public PositionPoint move(Direction.DirectionEnum direction) {
+        return switch (direction) {
+            case UP -> new PositionPoint(x, y + 1);
+            case DOWN -> new PositionPoint(x, y - 1);
+            case LEFT -> new PositionPoint(x - 1, y);
+            case RIGHT -> new PositionPoint(x + 1, y);
+        };
     }
 
 }

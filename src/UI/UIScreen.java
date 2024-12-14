@@ -56,7 +56,7 @@ public abstract class UIScreen extends JFrame{
     	
 
     	backgroundPanel = new JPanel() {
-            private Image backgroundImage = new ImageIcon(this.backgroundPath).getImage();
+            private Image backgroundImage = new ImageIcon(backgroundPath).getImage();
 
             @Override
             protected void paintComponent(Graphics g) {

@@ -14,7 +14,7 @@ public class MainMenuScreen extends UIScreen {
     public MainMenuScreen() {
         super(600, 600, "Main Menu", 
         "src/Images/BackgroundImages/mainMenuBackground.png");        
-
+        
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         initializeComponents();

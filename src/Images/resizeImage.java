@@ -1,8 +1,8 @@
-package src.Images.BackgroundImages;
+package src.Images;
 import javax.swing.*;
 import java.awt.*;
 
-public class deneme {
+public class resizeImage {
 
     public static void main(String[] args) {
         // Create the JFrame

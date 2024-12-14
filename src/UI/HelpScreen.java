@@ -6,12 +6,13 @@ import java.awt.*;
 public class HelpScreen extends UIScreen {
     private JButton BackGameButton;
     private JPanel leftPanel;
+    private UIScreen previous_Screen;
 
-    public HelpScreen() {
+    public HelpScreen(UIScreen previous_Screen) {
         super(600, 600, "Help", "src/Images/BackgroundImages/helpbackground.png");
         initializeComponents();
         setVisible(true);
-       
+       this.previous_Screen= previous_Screen;
     }
 
     private void initializeComponents() {
@@ -192,7 +193,7 @@ public class HelpScreen extends UIScreen {
         BackGameButton.setFont(new Font("Times New Roman", Font.BOLD, 20));
         BackGameButton.addActionListener(e -> {
             this.dispose();
-            new MainMenuScreen();
+            this.previous_Screen.setVisible(true);;
         });
 
         

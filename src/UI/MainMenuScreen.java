@@ -49,8 +49,8 @@ public class MainMenuScreen extends UIScreen {
         helpButton.setContentAreaFilled(false);
         helpButton.setBorderPainted(false);
             helpButton.addActionListener(e -> {
-            this.dispose();
-            new HelpScreen();
+            this.setVisible(false);
+            new HelpScreen(this);
             //TODO: IF CALLED FROM THE MAIN SCREEN, ARRANGE IT
         });
         backgroundPanel.add(helpButton);

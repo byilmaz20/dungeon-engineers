@@ -11,6 +11,7 @@ public class HelpScreen extends UIScreen {
         super(600, 600, "Help", "src/Images/BackgroundImages/helpbackground.png");
         initializeComponents();
         setVisible(true);
+       
     }
 
     private void initializeComponents() {
@@ -41,12 +42,12 @@ public class HelpScreen extends UIScreen {
     private void setupLeftPanel() {
         leftPanel = new JPanel();
         leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
-        leftPanel.setOpaque(false); // Transparent panel to allow the background to show
+        leftPanel.setOpaque(false); 
     
-        // Add padding to fit the blue area
-        leftPanel.setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50)); // Top, Left, Bottom, Right padding
+        
+        leftPanel.setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50)); 
     
-        // Add "MONSTERS" section and objects
+        
         
         addObjectToLeftPanel("src/Images/ObjectImages/player.png", "Player",
                 "The character is controlled by the player. The hero’s main goal is 'escaping the dungeon'. " +
@@ -77,7 +78,7 @@ public class HelpScreen extends UIScreen {
         addTitleToLeftPanel("MONSTERS");
 
         addObjectToLeftPanel("", "",
-        "3 different types of monsters get spawned in the halls every 8 seconds (The type of the"+
+        "3 different types of monsters get spawned in the halls every 8 seconds (The type of the "+
             "spawned monster is random.). They are trying to prevent the hero’s escape from the dungeon "+
                 "by attacking the hero." );
 
@@ -90,7 +91,7 @@ public class HelpScreen extends UIScreen {
                 "Type of an enemy that can only attack the player if the player is next to the monster. " +
                         "It can be distracted by luring gems.");
     
-        // Add "ENCHANTMENTS" section and objects
+       
         addTitleToLeftPanel("ENCHANTMENTS");
         addObjectToLeftPanel("", "",
             "Enchantments appear every 12 seconds in a random location. The player can collect "+
@@ -118,8 +119,8 @@ public class HelpScreen extends UIScreen {
         addTitleToLeftPanel("BUILD MODE");
 
         addObjectToLeftPanel("", "",
-            "The game starts in the build mode (after play a new game is clicked from the main menu). In"+
-                "build mode, player designs the insides of the halls by placing objects. The minimum criteria"+
+            "The game starts in the build mode (after play a new game is clicked from the main menu). In "+
+                "build mode, player designs the insides of the halls by placing objects. The minimum criteria "+
                     "for each hall is as follows:\r\n" +
                         "● There must be at least 6 objects in the earth hall.\r\n" + 
                         "● There must be at least 9 objects in the air hall. \r\n" +
@@ -129,7 +130,7 @@ public class HelpScreen extends UIScreen {
         addTitleToLeftPanel("GAMEPLAY");
 
         addObjectToLeftPanel("", "",
-            "The hero starts the game in the first hall of the dungeon. The hero’s main goal is to"+
+            "The hero starts the game in the first hall of the dungeon. The hero’s main goal is to "+
                 "escape from the dungeon by passing through 4 halls. The hero passes through the halls in the given order: Hall of "+
                     "Earth, Hall of Air, Hall of Water, and Hall of Fire. When the hero passes through the Hall of " +
                         "Fire the player wins the game.");
@@ -147,7 +148,7 @@ public class HelpScreen extends UIScreen {
         imagePanel.setBorder(BorderFactory.createEmptyBorder(0, 100, 0, 0));
     
         JLabel imageLabel = new JLabel();
-        ImageIcon icon = new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH));
+        ImageIcon icon = new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH));
         imageLabel.setIcon(icon);
         itemPanel.add(imageLabel, BorderLayout.WEST);
     
@@ -159,15 +160,15 @@ public class HelpScreen extends UIScreen {
     
         
         JLabel nameLabel = new JLabel(name);
-        nameLabel.setFont(new Font("Arial", Font.BOLD, 16));
-        nameLabel.setForeground(Color.BLUE); 
+        nameLabel.setFont(new Font("Times New Roman", Font.BOLD, 25));
+        nameLabel.setForeground(Color.CYAN); 
         nameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         textPanel.add(nameLabel);
     
         
         JTextArea descriptionLabel = new JTextArea(description);
-        descriptionLabel.setFont(new Font("Arial", Font.PLAIN, 15));
-        descriptionLabel.setForeground(Color.DARK_GRAY); 
+        descriptionLabel.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+        descriptionLabel.setForeground(Color.BLACK); 
         descriptionLabel.setLineWrap(true);
         descriptionLabel.setWrapStyleWord(true);
         descriptionLabel.setOpaque(false); 
@@ -187,9 +188,11 @@ public class HelpScreen extends UIScreen {
     }
 
     private void setBackButton() {
-        BackGameButton = new JButton("Back");
+        BackGameButton = new JButton("BACK");
+        BackGameButton.setFont(new Font("Times New Roman", Font.BOLD, 20));
         BackGameButton.addActionListener(e -> {
             this.dispose();
+            new MainMenuScreen();
         });
 
         
@@ -197,11 +200,14 @@ public class HelpScreen extends UIScreen {
         buttonPanel.setOpaque(false); 
         buttonPanel.add(BackGameButton);
         backgroundPanel.add(buttonPanel, BorderLayout.SOUTH);
+
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 33, 0)); 
+        buttonPanel.add(BackGameButton, BorderLayout.CENTER);
     }
 
     private void addTitleToLeftPanel(String title) {
         JLabel titleLabel = new JLabel(title);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 20)); 
+        titleLabel.setFont(new Font("Times New Roman", Font.BOLD, 30)); 
         titleLabel.setForeground(Color.RED); 
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT); 
     

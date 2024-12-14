@@ -10,10 +10,11 @@ public class PlayerObject{
     PositionPoint position;  //(Grid coordinates)
     boolean  ProtectionStatus;  //(Indicates if thecloak of protection is active)
 
-    public PlayerObject(PositionPoint position){
+    public PlayerObject(){
+        // TODO: should have input as PositionPoint position to set the initial position of the player
         this.lives = 3;
         this.inventory = new Inventory();
-        this.position = position;
+        //this.position = position;
         this.ProtectionStatus = false;
     }
 

@@ -3,9 +3,6 @@ import src.Mechanics.PositionPoint;
 
 public class WizardMonster extends Monster {
     public WizardMonster(PositionPoint position){
-        super(position);
+        super(position, null);
     }
-    // public void teleportRune(Rune rune, List<GameObject> objects) {
-    //     // Teleport to rune
-    // }   
 }

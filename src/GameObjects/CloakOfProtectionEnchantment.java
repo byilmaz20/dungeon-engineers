@@ -4,8 +4,8 @@ import src.Mechanics.PositionPoint;
 
 public class CloakOfProtectionEnchantment extends Enchantment {
     
-    public CloakOfProtectionEnchantment(boolean  isStorable, int duration, PositionPoint position){
-        super(EnchantmentTypes.CLOAK_OF_PROTECTION_ENCHANTMENT, isStorable, duration, position);
+    public CloakOfProtectionEnchantment(int duration, PositionPoint position, Hall hall) {
+        super(EnchantmentTypes.CLOAK_OF_PROTECTION_ENCHANTMENT, true, 20, position, hall);
     }
     
     public void applyEffect(){

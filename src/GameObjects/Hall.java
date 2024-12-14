@@ -7,19 +7,40 @@ import src.GameObjects.Rune;
 
 
 public class Hall {
-    String name; //(Earth, Air, Water, Fire) //TODO: Enum
-    List<GameObject> objects;
-    List<Monster> monsters;
-    List<Enchantment> enchantments;
+    HallTypes hallType;
+    List<Entity> entities;
     Rune rune;
     int minimumObjectsRequired;
 
-    public void placeObject(GameObject object) {
+    public Hall(HallTypes hallType) {
+        this.hallType = hallType;
+        switch (hallType) {
+            case EARTH:
+                minimumObjectsRequired = 6;                
+                break;
+            case AIR:
+                minimumObjectsRequired = 9;
+                break;
+            case WATER:
+                minimumObjectsRequired = 13;
+                break;
+            case FIRE:
+                minimumObjectsRequired = 17;
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void placeEntity(Entity entity) {
         // Place object in hall
     }
 
-    public void checkObjectRequirements() {
-        // Check if all objects are placed
+    public boolean checkObjectRequirements() {
+        if (entities.size() >= minimumObjectsRequired) {
+            return true;
+        }
+        return false;
     }
 
     public void selectRandomLocation() {
@@ -28,8 +49,5 @@ public class Hall {
 
     public void addMonsterToHall() {
         // Add monster to hall
-    }
-    public void initiliazeBuildMode() {
-        // Initialize build mode
     }
 }

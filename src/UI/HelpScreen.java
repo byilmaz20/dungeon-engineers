@@ -17,72 +17,124 @@ public class HelpScreen extends UIScreen {
         setBackgroundImage();
 
     
-    backgroundPanel.setLayout(new BorderLayout());
+        backgroundPanel.setLayout(new BorderLayout());
 
     
-    setupLeftPanel();
+        setupLeftPanel();
 
     
-    JScrollPane scrollableLeftPanel = new JScrollPane(leftPanel);
-    scrollableLeftPanel.setOpaque(false);
-    scrollableLeftPanel.getViewport().setOpaque(false);
-    scrollableLeftPanel.setBorder(null); 
-    scrollableLeftPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-    scrollableLeftPanel.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        JScrollPane scrollableLeftPanel = new JScrollPane(leftPanel);
+        scrollableLeftPanel.setOpaque(false);
+        scrollableLeftPanel.getViewport().setOpaque(false);
+        scrollableLeftPanel.setBorder(BorderFactory.createEmptyBorder(50, 0, 50, 0));
+        scrollableLeftPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollableLeftPanel.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
+        scrollableLeftPanel.getVerticalScrollBar().setUnitIncrement(30);
+        
+        backgroundPanel.add(scrollableLeftPanel, BorderLayout.CENTER);
 
-    
-    backgroundPanel.add(scrollableLeftPanel, BorderLayout.CENTER);
-
-    
-    setBackButton();
+        
+        setBackButton();
     }
 
     private void setupLeftPanel() {
         leftPanel = new JPanel();
         leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
-        leftPanel.setPreferredSize(new Dimension(600, 1500));
-        leftPanel.setOpaque(false); 
-
+        leftPanel.setOpaque(false); // Transparent panel to allow the background to show
+    
+        // Add padding to fit the blue area
+        leftPanel.setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50)); // Top, Left, Bottom, Right padding
+    
+        // Add "MONSTERS" section and objects
         
         addObjectToLeftPanel("src/Images/ObjectImages/player.png", "Player",
                 "The character is controlled by the player. The hero’s main goal is 'escaping the dungeon'. " +
                         "The player navigates the hero by pressing the arrow keys on the keyboard. The player " +
                         "should avoid the monsters and find the runes to open the hall’s doors.");
 
-        addObjectToLeftPanel("src/Images/ObjectImages/archer.png", "Archer",
+        addObjectToLeftPanel("", "Time",
+                        "For each hall, the player has a time limit to pass the dungeon."+
+                        "If the timer expires, the game is over.");
+
+        addObjectToLeftPanel("src/Images/ObjectImages/exit.png", "Exit Button",
+                        "This button closes the game windows and opens the main menu screen. ");
+
+        addObjectToLeftPanel("src/Images/ObjectImages/pause.png", "Pause Button",
+                        "This button pauses the game.");
+
+        addObjectToLeftPanel("src/Images/ObjectImages/play.png", "Resume Button",
+                        "This button resumes the paused game.");
+
+        addObjectToLeftPanel("src/Images/ObjectImages/heart.png", "Lives",
+                "The hero has 3 lives at the beginning of the game. If the hero loses all their lives, the " +
+                    "game is over. The hero can collect extra lives during the game. The hero's lives are displayed " +
+                        "on the right side of the game." );
+
+        addObjectToLeftPanel("src/Images/ObjectImages/Inventory.png", "Inventory",
+            "Inventory displays the collected enchantments and their counts.");
+
+        addTitleToLeftPanel("MONSTERS");
+
+        addObjectToLeftPanel("", "",
+        "3 different types of monsters get spawned in the halls every 8 seconds (The type of the"+
+            "spawned monster is random.). They are trying to prevent the hero’s escape from the dungeon "+
+                "by attacking the hero." );
+
+        addObjectToLeftPanel("src/Images/ObjectImages/archer.png", "Archer Monster",
                 "Type of an enemy that can shoot arrows within the range of 4 grids. It cannot detect " +
                         "the player if the player uses a cloak of protection.");
-
-        addObjectToLeftPanel("src/Images/ObjectImages/wizard.png", "Wizard",
-                "Type of an enemy that can teleport the rune to a random location every 5 seconds. " );
-
-        addObjectToLeftPanel("src/Images/ObjectImages/fighter.png", "Fighter",
-                "Type of an enemy that can only attack the player if the player is next to the monster.  " +
-                         "It can be distracted by luring gems.");
-
+        addObjectToLeftPanel("src/Images/ObjectImages/wizard.png", "Wizard Monster",
+                "Type of an enemy that can teleport the rune to a random location every 5 seconds.");
+        addObjectToLeftPanel("src/Images/ObjectImages/fighter.png", "Fighter Monster",
+                "Type of an enemy that can only attack the player if the player is next to the monster. " +
+                        "It can be distracted by luring gems.");
+    
+        // Add "ENCHANTMENTS" section and objects
+        addTitleToLeftPanel("ENCHANTMENTS");
+        addObjectToLeftPanel("", "",
+            "Enchantments appear every 12 seconds in a random location. The player can collect "+
+                "these enchantments by left-clicking on them. If the player does not collect the enchantments "+
+                    "in 6 seconds, they disappear. They can be collected from any grid; the player does not need to "+
+                        "be next to enchantments to collect them.");
         addObjectToLeftPanel("src/Images/ObjectImages/reveal.png", "Reveal",
-                "To use this enchantment, the player must press the “R” button on the keyboard after  "+
-                    "collecting it. The “reveal” enchantment shows a rectangle size of 4x4 where the rune is"+
-                        " hidden." );
-
+                "To use this enchantment, the player must press the “R” button on the keyboard after " +
+                        "collecting it. The “reveal” enchantment shows a rectangle size of 4x4 where the rune is hidden.");
         addObjectToLeftPanel("src/Images/ObjectImages/cloak.png", "Cloak of Protection",
-                "To use this enchantment, the player must press the “P” button on the keyboard after "+
-                "collecting it. When the player uses the “cloak of protection” enchantment, the hero cannot be "+
-                "seen by the archer monster for 20 seconds." );
-
+                "To use this enchantment, the player must press the “P” button on the keyboard after " +
+                        "collecting it. When the player uses the “cloak of protection” enchantment, the hero cannot be " +
+                        "seen by the archer monster for 20 seconds.");
         addObjectToLeftPanel("src/Images/ObjectImages/lure.png", "Luring Gem",
-                "To use this enchantment, the player needs to press the “B” button and then one of the"+
-                "following buttons “W”, “A”, “S” or “D” to select which direction to throw the lure after "+
-                "collecting it. The “Luring gem” enchantment is used to fool the fighter monster. The fighter "+
-                "monster follows the gem." );
+                "To use this enchantment, the player needs to press the “B” button and then one of the " +
+                        "following buttons “W”, “A”, “S” or “D” to select which direction to throw the lure after " +
+                        "collecting it. The “Luring gem” enchantment is used to fool the fighter monster. The fighter " +
+                        "monster follows the gem.");
+        addObjectToLeftPanel("src/Images/ObjectImages/extra_life.png", "Extra Life",
+                "This enchantment increases the hero’s lives by one. Like the extra time enchantment, the addition " +
+                        "of the extra life happens the moment it is collected.");
+        addObjectToLeftPanel("src/Images/ObjectImages/extra_time.png", "Extra Time",
+                "When the user collects an 'extra life' enchantment, the hero’s lives are increased by 1.");
 
-        addObjectToLeftPanel("src/Images/ObjectImages/magic_heart.png", "Extra Life",
-                "This enchantment increases the hero’s lives be one. Like extra " +
-                         "time enchantment, the addition of the extra life happens the\r\n" + //
-                                                          "moment it is collected.");
-            
+        addTitleToLeftPanel("BUILD MODE");
+
+        addObjectToLeftPanel("", "",
+            "The game starts in the build mode (after play a new game is clicked from the main menu). In"+
+                "build mode, player designs the insides of the halls by placing objects. The minimum criteria"+
+                    "for each hall is as follows:\r\n" +
+                        "● There must be at least 6 objects in the earth hall.\r\n" + 
+                        "● There must be at least 9 objects in the air hall. \r\n" +
+                        "● There must be at least 13 objects in the water hall. \r\n" +
+                        "● There must be at least 17 objects in the fire hall. \r");
+
+        addTitleToLeftPanel("GAMEPLAY");
+
+        addObjectToLeftPanel("", "",
+            "The hero starts the game in the first hall of the dungeon. The hero’s main goal is to"+
+                "escape from the dungeon by passing through 4 halls. The hero passes through the halls in the given order: Hall of "+
+                    "Earth, Hall of Air, Hall of Water, and Hall of Fire. When the hero passes through the Hall of " +
+                        "Fire the player wins the game.");
     }
+    
 
     private void addObjectToLeftPanel(String imagePath, String name, String description) {
         
@@ -109,11 +161,12 @@ public class HelpScreen extends UIScreen {
         JLabel nameLabel = new JLabel(name);
         nameLabel.setFont(new Font("Arial", Font.BOLD, 16));
         nameLabel.setForeground(Color.BLUE); 
+        nameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         textPanel.add(nameLabel);
     
         
         JTextArea descriptionLabel = new JTextArea(description);
-        descriptionLabel.setFont(new Font("Arial", Font.PLAIN, 12));
+        descriptionLabel.setFont(new Font("Arial", Font.PLAIN, 15));
         descriptionLabel.setForeground(Color.DARK_GRAY); 
         descriptionLabel.setLineWrap(true);
         descriptionLabel.setWrapStyleWord(true);
@@ -144,5 +197,16 @@ public class HelpScreen extends UIScreen {
         buttonPanel.setOpaque(false); 
         buttonPanel.add(BackGameButton);
         backgroundPanel.add(buttonPanel, BorderLayout.SOUTH);
+    }
+
+    private void addTitleToLeftPanel(String title) {
+        JLabel titleLabel = new JLabel(title);
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 20)); 
+        titleLabel.setForeground(Color.RED); 
+        titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT); 
+    
+        leftPanel.add(Box.createRigidArea(new Dimension(0, 20)));
+        leftPanel.add(titleLabel);
+        leftPanel.add(Box.createRigidArea(new Dimension(0, 10)));
     }
 }

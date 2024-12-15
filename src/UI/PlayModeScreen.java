@@ -29,9 +29,9 @@ public class PlayModeScreen extends UIScreen {
     private void initializeComponents() {
         setBackgroundImage();
         setHallTypeImage();
-        //setPauseGameButton();
-        //setHelpButton();
-        //setExitButton();
+        setPauseGameButton();
+        setHelpButton();
+        setExitButton();
     }
     private void setHallTypeImage() {
         //add hall type image to the screen
@@ -53,19 +53,19 @@ public class PlayModeScreen extends UIScreen {
     }
     private void setPauseGameButton() {
         pauseGameButton = new JButton();
-        pauseGameButton.setBounds(254, 250, 129, 33);
+        pauseGameButton.setBounds(490, 35, 30, 30);
         pauseGameButton.setOpaque(false);
         pauseGameButton.setContentAreaFilled(false);
         pauseGameButton.setBorderPainted(false);
         pauseGameButton.addActionListener(e -> {
-            this.setVisible(false);
+            this.setVisible(true);
             //TODO:new PauseScreen();
         });
         backgroundPanel.add(pauseGameButton);
     }
     private void setHelpButton() {
         helpButton = new JButton();
-        helpButton.setBounds(254, 285, 129, 33);
+        helpButton.setBounds(435, 35, 30, 30);
         helpButton.setOpaque(false);
         helpButton.setContentAreaFilled(false);
         helpButton.setBorderPainted(false);
@@ -78,7 +78,7 @@ public class PlayModeScreen extends UIScreen {
     }
     private void setExitButton() {
         exitButton = new JButton();
-        exitButton.setBounds(254, 320, 129, 33);
+        exitButton.setBounds(540, 35, 30, 30);
         exitButton.setOpaque(false);
         exitButton.setContentAreaFilled(false);
         exitButton.setBorderPainted(false);

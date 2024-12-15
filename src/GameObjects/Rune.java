@@ -7,7 +7,8 @@ public class Rune extends Entity {
 
     public Rune(PositionPoint position, Hall hall) {
         super(position, hall);
-        
+                this.isFound = false; // Initialize the rune as not found
+
     }
   
 }

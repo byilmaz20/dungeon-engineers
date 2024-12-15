@@ -3,18 +3,16 @@ import src.GameObjects.EnchantmentTypes;
 import src.Mechanics.PositionPoint;
 
 
-public class Enchantment { //TODO abstract olmamalı
+public abstract class Enchantment extends Entity{ 
     
     EnchantmentTypes type;
     boolean  isStorable;
     int duration;
     PositionPoint position;
 
-    public Enchantment(){
-        // Default constructor
-    }
     
-    public Enchantment(EnchantmentTypes type, boolean  isStorable, int duration, PositionPoint position){
+    public Enchantment(EnchantmentTypes type, boolean  isStorable, int duration, PositionPoint position, Hall hall) {
+        super(position, hall);
         this.type = type;
         this.isStorable = isStorable;
         this.duration = duration;

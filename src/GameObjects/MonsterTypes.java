@@ -1,6 +1,7 @@
 package src.GameObjects;
 
 public enum MonsterTypes {
-    //TODO
-    
+    ArcherMonster,
+    FighterMonster,
+    WizardMonster,
 }

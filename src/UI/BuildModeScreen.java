@@ -1,4 +1,5 @@
 package src.UI;
+import src.GameController.GameController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -38,7 +39,6 @@ public class BuildModeScreen extends JPanel {
         JPanel hallPanel = createHallPanel();
         add(hallPanel, BorderLayout.CENTER);
 
-        // Standalone mode
         if (true) {
             JFrame frame = new JFrame("Build Mode");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -77,11 +77,11 @@ public class BuildModeScreen extends JPanel {
         JPanel objectPanel = new JPanel(new GridBagLayout()); // Use GridBagLayout for centering
         objectPanel.setBackground(new Color(60, 60, 60));
         objectPanel.setPreferredSize(new Dimension(150, 0));
-    
+
         JLabel title = new JLabel("Build Mode", SwingConstants.CENTER);
         title.setForeground(Color.WHITE);
         title.setFont(new Font("Arial", Font.BOLD, 18));
-    
+
         // Add title at the top
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -89,12 +89,12 @@ public class BuildModeScreen extends JPanel {
         gbc.insets = new Insets(10, 0, 20, 0); // Spacing around the title
         gbc.anchor = GridBagConstraints.CENTER;
         objectPanel.add(title, gbc);
-    
+
         // Add objects in the center
         String[] objects = objectImages.keySet().toArray(new String[0]);
         for (int i = 0; i < objects.length; i++) {
             JLabel objectLabel = new JLabel();
-    
+
             // Load and set object image
             String imagePath = objectImages.get(objects[i]);
             if (imagePath != null) {
@@ -102,7 +102,7 @@ public class BuildModeScreen extends JPanel {
                 Image scaledImage = icon.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH); // Scale image
                 objectLabel.setIcon(new ImageIcon(scaledImage));
             }
-    
+
             // Add mouse listener for selection
             objectLabel.addMouseListener(new MouseAdapter() {
                 @Override
@@ -110,15 +110,21 @@ public class BuildModeScreen extends JPanel {
                     selectObject(objectLabel);
                 }
             });
-    
+
             gbc.gridy = i + 1; // Increment row for each object
             gbc.insets = new Insets(10, 0, 10, 0); // Spacing between objects
             objectPanel.add(objectLabel, gbc);
         }
-    
+
+        // Add "Start Game" button at the bottom
+        JButton startGameButton = new JButton("Start Game");
+        startGameButton.addActionListener(e -> checkRequirementsAndStartGame());
+        gbc.gridy = objects.length + 1; // Place after objects
+        gbc.insets = new Insets(20, 0, 10, 0); // Spacing around the button
+        objectPanel.add(startGameButton, gbc);
+
         return objectPanel;
     }
-    
 
     private JPanel createHallPanel() {
         JPanel hallPanel = new JPanel();
@@ -186,14 +192,30 @@ public class BuildModeScreen extends JPanel {
 
         // Increment object count for the hall
         hallObjectCounts.put(hallName, hallObjectCounts.get(hallName) + 1);
+    }
 
-        // Check if the hall meets its minimum requirement
-        int objectCount = hallObjectCounts.get(hallName);
-        int minimumRequired = hallMinimumCounts.get(hallName);
+    private void checkRequirementsAndStartGame() {
+        StringBuilder errorMessage = new StringBuilder();
+        boolean allRequirementsMet = true;
 
-        if (objectCount < minimumRequired) {
-            JOptionPane.showMessageDialog(this,
-                    hallName + " needs at least " + minimumRequired + " objects. Currently: " + objectCount + ".");
+        for (String hallName : hallMinimumCounts.keySet()) {
+            int currentCount = hallObjectCounts.getOrDefault(hallName, 0);
+            int requiredCount = hallMinimumCounts.get(hallName);
+
+            if (currentCount < requiredCount) {
+                allRequirementsMet = false;
+                errorMessage.append(hallName)
+                        .append(" needs at least ")
+                        .append(requiredCount - currentCount)
+                        .append(" more objects.\n");
+            }
+        }
+
+        if (allRequirementsMet) {
+            JOptionPane.showMessageDialog(this, "Game starting!");
+            new GameController(); 
+        } else {
+            JOptionPane.showMessageDialog(this, "Cannot start the game:\n" + errorMessage);
         }
     }
 
@@ -201,7 +223,6 @@ public class BuildModeScreen extends JPanel {
         return hallPanels.get(hallName);
     }
 
-    
 }
 
 

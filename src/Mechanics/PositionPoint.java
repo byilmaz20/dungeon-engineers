@@ -1,4 +1,7 @@
 package src.Mechanics;
+
+import java.util.Random;
+
 public class PositionPoint {
     public int x;
     public int y;
@@ -15,7 +18,11 @@ public class PositionPoint {
     public boolean equals(PositionPoint other) {
         return this.x == other.x && this.y == other.y;
     }
-
+    public static Direction.DirectionEnum getRandomDirection() {
+        Direction.DirectionEnum[] directions = Direction.DirectionEnum.values();
+        Random random = new Random();
+        return directions[random.nextInt(directions.length)];
+    }
     public PositionPoint move(Direction.DirectionEnum direction) {
         switch (direction) {
             case UP:

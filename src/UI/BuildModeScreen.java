@@ -2,6 +2,8 @@ package src.UI;
 import src.GameController.GameController;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
+
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -180,8 +182,9 @@ public class BuildModeScreen extends JPanel {
                     g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
                 }
             };
-    
-            hall.setBorder(BorderFactory.createTitledBorder(hallName));
+            TitledBorder titledBorder = BorderFactory.createTitledBorder(hallName);
+            titledBorder.setTitleColor(Color.WHITE);
+            hall.setBorder(titledBorder);
             hall.setLayout(new GridLayout(hallGridSize, hallGridSize)); // 25x25 grid layout
     
             // Add empty cells for the 25x25 grid

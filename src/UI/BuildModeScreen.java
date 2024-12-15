@@ -90,14 +90,15 @@ public class BuildModeScreen extends JPanel {
         objectPanel.setPreferredSize(new Dimension(150, 0));
     
         // Add title to the top of the panel
-        //JLabel title = new JLabel("Build Mode", SwingConstants.CENTER);
-        //title.setForeground(Color.WHITE);
+        JLabel title = new JLabel("", SwingConstants.CENTER);
+        //title.setForeground(Color.BLACK);
         //title.setFont(new Font("Arial", Font.BOLD, 18));
     
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.insets = new Insets(10, 0, 20, 0);
+        
+        gbc.insets = new Insets(100, 0, 20, 0);
         gbc.anchor = GridBagConstraints.CENTER;
         objectPanel.add(title, gbc);
     
@@ -138,42 +139,53 @@ public class BuildModeScreen extends JPanel {
     }
     
 
+    
     private JPanel createHallPanel() {
         JPanel hallPanel = new JPanel();
         hallPanel.setLayout(new GridLayout(2, 2, 10, 10)); // Grid for 4 halls
         hallPanel.setBackground(new Color(40, 40, 40));
-
+    
         String[] hallNames = {"Hall of Water", "Hall of Earth", "Hall of Fire", "Hall of Air"};
+    
         for (String hallName : hallNames) {
-            JPanel hall = new JPanel();
+            // Custom JPanel for the hall with a background image
+            JPanel hall = new JPanel() {
+                private final Image backgroundImage = new ImageIcon("src/Images/BackgroundImages/hallbackground.png").getImage();
+    
+                @Override
+                protected void paintComponent(Graphics g) {
+                    super.paintComponent(g);
+                    g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+                }
+            };
+    
             hall.setBorder(BorderFactory.createTitledBorder(hallName));
             hall.setLayout(new GridLayout(hallGridSize, hallGridSize)); // 25x25 grid layout
-            hall.setBackground(new Color(80, 60, 60));
-
+    
             // Add empty cells for the 25x25 grid
             for (int i = 0; i < hallGridSize * hallGridSize; i++) {
                 JLabel cell = new JLabel();
-                cell.setOpaque(true);
-                cell.setBackground(new Color(80, 60, 60)); // Match hall background color
-                cell.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY)); // Optional grid lines
-
-                // Add mouse listener for placing the selected object
+                cell.setOpaque(false); // Transparent background for the grid cells
+                //cell.setBorder(BorderFactory.createLineBorder(new Color(50, 50, 50), 1)); // Grid lines
+    
+                // Add mouse listener for placing objects
                 cell.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
                         placeSelectedObject(cell, hallName);
                     }
                 });
-
-                hall.add(cell); // Add the cell to the hall grid
+    
+                hall.add(cell);
             }
-
+    
             hallPanels.put(hallName, hall);
             hallPanel.add(hall);
         }
-
+    
         return hallPanel;
     }
+    
 
     private void selectObject(JLabel objectLabel) {
         // Highlight the selected object visually (optional)

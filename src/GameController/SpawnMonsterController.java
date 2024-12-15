@@ -2,7 +2,9 @@ package src.GameController;
 
 import src.GameObjects.Hall;
 import src.GameObjects.HallTypes;
+import src.GameObjects.Hero;
 import src.GameObjects.Monster;
+import src.GameObjects.Rune;
 import src.Mechanics.GridEnvironment;
 import src.Mechanics.PositionPoint;
 
@@ -61,6 +63,10 @@ public class SpawnMonsterController {
             for (int y = 0; y <25; y++) {
                 if (grid.getmap()[x][y] instanceof Monster) {
                     System.out.print("M "); // Monster
+                } else if (grid.getmap()[x][y] instanceof Hero) {
+                    System.out.print("H "); // Monster
+                } else if (grid.getmap()[x][y] instanceof Rune) {
+                    System.out.print("R "); // Other Entity
                 } else if (grid.getmap()[x][y] != null) {
                     System.out.print("E "); // Other Entity
                 } else {

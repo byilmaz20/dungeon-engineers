@@ -1,5 +1,6 @@
 package src.GameController;
 
+import java.awt.GridBagConstraints;
 import java.util.Random;
 import src.GameObjects.Enchantment;
 import src.GameObjects.Hall;
@@ -18,26 +19,33 @@ public class PlayModeController {
     boolean  isDoorOpen;
     GridEnvironment grid;
     SpawnMonsterController monsterSpawner;
+    PlayModeScreen playModeScreen;
 
     public PlayModeController(Hall hall) {
-        this.grid = new GridEnvironment(hero.getPosition(), rune.getPosition(), currentHall);
-        this.monsterSpawner = new SpawnMonsterController(grid);
-        monsterSpawner.spawnMonster();
-        this.hero = new Hero();
         this.currentHall = hall;
+        this.playModeScreen = new PlayModeScreen(this.currentHall.hallType);
+        this.hero = new Hero();
+        
         Random random = new Random();
         int x = random.nextInt(25);
         int y = random.nextInt(25);
         PositionPoint runePosition = new PositionPoint(x, y);
         this.rune = new Rune(runePosition, currentHall);
+        this.grid = new GridEnvironment(hero.getPosition(), rune.getPosition(), currentHall);
+        this.monsterSpawner = new SpawnMonsterController(grid);
+        monsterSpawner.spawnMonster();
         this.activeEnchantment = null;
         this.isDoorOpen = false;
     }
-    public void updateScreen() {
-        
+    public void updatePlayModeScreen() {
+        this.grid.moveEntity(this.hero);
+        this.grid.moveEntity(this.rune);
     }
     public static void main(String[] args) {
-        new PlayModeScreen(HallTypes.EARTH);
+        PlayModeController controller = new PlayModeController(new Hall(HallTypes.EARTH));
+        System.out.println(controller.hero.getPosition());
+        controller.updatePlayModeScreen();
+        controller.monsterSpawner.printGrid(controller.grid);
     }
 
 }

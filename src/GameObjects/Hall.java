@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Hall {
-    HallTypes hallType;
+    public HallTypes hallType;
     List<Entity> entities;          // Main list of all entities
     List<Enchantment> enchantments; // Sublist for Enchantments
     List<Monster> monsters;         // Sublist for Monsters

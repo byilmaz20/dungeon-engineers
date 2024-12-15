@@ -74,30 +74,35 @@ public class BuildModeScreen extends JPanel {
     }
 
     private JPanel createObjectPanel() {
-        JPanel objectPanel = new JPanel();
-        objectPanel.setLayout(new BoxLayout(objectPanel, BoxLayout.Y_AXIS));
+        JPanel objectPanel = new JPanel(new GridBagLayout()); // Use GridBagLayout for centering
         objectPanel.setBackground(new Color(60, 60, 60));
         objectPanel.setPreferredSize(new Dimension(150, 0));
-
+    
         JLabel title = new JLabel("Build Mode", SwingConstants.CENTER);
         title.setForeground(Color.WHITE);
         title.setFont(new Font("Arial", Font.BOLD, 18));
-        objectPanel.add(Box.createVerticalGlue()); // Add flexible space at the top
-        objectPanel.add(title);
-        objectPanel.add(Box.createRigidArea(new Dimension(0, 20))); // Add fixed space below the title
-
-        // Objects to select (images only)
-        for (String obj : objectImages.keySet()) {
+    
+        // Add title at the top
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.insets = new Insets(10, 0, 20, 0); // Spacing around the title
+        gbc.anchor = GridBagConstraints.CENTER;
+        objectPanel.add(title, gbc);
+    
+        // Add objects in the center
+        String[] objects = objectImages.keySet().toArray(new String[0]);
+        for (int i = 0; i < objects.length; i++) {
             JLabel objectLabel = new JLabel();
-
+    
             // Load and set object image
-            String imagePath = objectImages.get(obj);
+            String imagePath = objectImages.get(objects[i]);
             if (imagePath != null) {
                 ImageIcon icon = new ImageIcon(imagePath);
                 Image scaledImage = icon.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH); // Scale image
                 objectLabel.setIcon(new ImageIcon(scaledImage));
             }
-
+    
             // Add mouse listener for selection
             objectLabel.addMouseListener(new MouseAdapter() {
                 @Override
@@ -105,14 +110,15 @@ public class BuildModeScreen extends JPanel {
                     selectObject(objectLabel);
                 }
             });
-
-            objectPanel.add(objectLabel);
-            objectPanel.add(Box.createRigidArea(new Dimension(0, 10))); // Add spacing between objects
+    
+            gbc.gridy = i + 1; // Increment row for each object
+            gbc.insets = new Insets(10, 0, 10, 0); // Spacing between objects
+            objectPanel.add(objectLabel, gbc);
         }
-
-        objectPanel.add(Box.createVerticalGlue()); // Add flexible space at the bottom
+    
         return objectPanel;
     }
+    
 
     private JPanel createHallPanel() {
         JPanel hallPanel = new JPanel();

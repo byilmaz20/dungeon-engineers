@@ -2,46 +2,78 @@ package src.UI;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.dnd.*;
-import java.awt.datatransfer.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.HashMap;
 import java.util.Map;
 
 public class BuildModeScreen extends JPanel {
 
-    private final Map<String, JPanel> hallPanels;
-    private final Map<String, Integer> objectSizes;
-    private final Map<String, String> objectImages; // Map to store image paths
-    private final int hallGridSize = 25; // 25x25 squares per hall
+    private final Map<String, JPanel> hallPanels; // Store hall panels
+    private final Map<String, String> objectImages; // Store object image paths
+    private final Map<String, Integer> hallObjectCounts; // Track object counts in each hall
+    private final Map<String, Integer> hallMinimumCounts; // Define minimum object counts per hall
+    private final int hallGridSize = 25; // 25x25 grid for each hall
+    private ImageIcon selectedObjectIcon; // Currently selected object icon
 
     public BuildModeScreen() {
         hallPanels = new HashMap<>();
-        objectSizes = new HashMap<>();
         objectImages = new HashMap<>();
+        hallObjectCounts = new HashMap<>();
+        hallMinimumCounts = new HashMap<>();
 
-        // Define object sizes
-        objectSizes.put("Barrel", 2); // Barrel covers 2 squares vertically
-        objectSizes.put("Stair", 1);  // Stair covers 1 square
-        objectSizes.put("1Box", 1);  // Single Box covers 1 square
-        objectSizes.put("2Box", 2);  // Two Boxes cover 2 squares vertically
-        objectSizes.put("Rectangle", 1); // Rectangle covers 1 square
-        objectSizes.put("Skull", 1);  // Skull covers 1 square
-        objectSizes.put("Chest", 1);  // Chest covers 1 square
-        objectSizes.put("Potion", 1); // Potion covers 1 square
+        // Define object images
+        setupObjectImages();
 
-        // Define object image paths
-        objectImages.put("Barrel", "images/barrel.png");
-        objectImages.put("Stair", "images/stair.png");
-        objectImages.put("1Box", "images/1box.png");
-        objectImages.put("2Box", "images/2box.png");
-        objectImages.put("Rectangle", "images/rectangle.png");
-        objectImages.put("Skull", "images/skull.png");
-        objectImages.put("Chest", "images/chest.png");
-        objectImages.put("Potion", "images/potion.png");
+        // Define minimum object counts for each hall
+        setupHallConstraints();
 
         setLayout(new BorderLayout());
 
-        // Right Panel for objects to drag
+        // Right Panel for objects to select
+        JPanel objectPanel = createObjectPanel();
+        add(objectPanel, BorderLayout.EAST);
+
+        // Main panel for halls
+        JPanel hallPanel = createHallPanel();
+        add(hallPanel, BorderLayout.CENTER);
+
+        // Standalone mode
+        if (true) {
+            JFrame frame = new JFrame("Build Mode");
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setSize(1200, 800);
+            frame.setContentPane(this);
+            frame.setVisible(true);
+        }
+    }
+
+    private void setupObjectImages() {
+        // Define object image paths
+        objectImages.put("Barrel", "src/Images/ObjectImages/Barrel.png");
+        objectImages.put("Stair", "src/Images/ObjectImages/Stair.png");
+        objectImages.put("1Box", "src/Images/ObjectImages/1Box.png");
+        objectImages.put("2Box", "src/Images/ObjectImages/2Box.png");
+        objectImages.put("Rectangle", "src/Images/ObjectImages/Rectangle.png");
+        objectImages.put("Skull", "src/Images/ObjectImages/Skull.png");
+        objectImages.put("Chest", "src/Images/ObjectImages/Chest.png");
+        objectImages.put("Potion", "src/Images/ObjectImages/Potion.png");
+    }
+
+    private void setupHallConstraints() {
+        hallMinimumCounts.put("Hall of Earth", 6);
+        hallMinimumCounts.put("Hall of Air", 9);
+        hallMinimumCounts.put("Hall of Water", 13);
+        hallMinimumCounts.put("Hall of Fire", 17);
+
+        // Initialize object counts for each hall
+        hallObjectCounts.put("Hall of Earth", 0);
+        hallObjectCounts.put("Hall of Air", 0);
+        hallObjectCounts.put("Hall of Water", 0);
+        hallObjectCounts.put("Hall of Fire", 0);
+    }
+
+    private JPanel createObjectPanel() {
         JPanel objectPanel = new JPanel();
         objectPanel.setLayout(new BoxLayout(objectPanel, BoxLayout.Y_AXIS));
         objectPanel.setBackground(new Color(60, 60, 60));
@@ -50,47 +82,39 @@ public class BuildModeScreen extends JPanel {
         JLabel title = new JLabel("Build Mode", SwingConstants.CENTER);
         title.setForeground(Color.WHITE);
         title.setFont(new Font("Arial", Font.BOLD, 18));
+        objectPanel.add(Box.createVerticalGlue()); // Add flexible space at the top
         objectPanel.add(title);
+        objectPanel.add(Box.createRigidArea(new Dimension(0, 20))); // Add fixed space below the title
 
-        // Objects to drag
-        String[] objects = {"Barrel", "Stair", "1Box", "2Box", "Rectangle", "Skull", "Chest", "Potion"};
-        for (String obj : objects) {
+        // Objects to select (images only)
+        for (String obj : objectImages.keySet()) {
             JLabel objectLabel = new JLabel();
-            objectLabel.setText(obj); // Set text for accessibility
-            objectLabel.setHorizontalTextPosition(SwingConstants.CENTER);
-            objectLabel.setVerticalTextPosition(SwingConstants.BOTTOM);
-            objectLabel.setOpaque(true);
-            objectLabel.setBackground(Color.LIGHT_GRAY);
-            objectLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-            objectLabel.setPreferredSize(new Dimension(100, 100));
 
             // Load and set object image
             String imagePath = objectImages.get(obj);
             if (imagePath != null) {
                 ImageIcon icon = new ImageIcon(imagePath);
-                Image scaledImage = icon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+                Image scaledImage = icon.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH); // Scale image
                 objectLabel.setIcon(new ImageIcon(scaledImage));
             }
 
-            // Enable drag functionality
-            objectLabel.setTransferHandler(new TransferHandler("text"));
-
-            // Add MouseListener for dragging
-            objectLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            // Add mouse listener for selection
+            objectLabel.addMouseListener(new MouseAdapter() {
                 @Override
-                public void mousePressed(java.awt.event.MouseEvent evt) {
-                    JComponent comp = (JComponent) evt.getSource();
-                    TransferHandler handler = comp.getTransferHandler();
-                    handler.exportAsDrag(comp, evt, TransferHandler.COPY);
+                public void mouseClicked(MouseEvent e) {
+                    selectObject(objectLabel);
                 }
             });
 
             objectPanel.add(objectLabel);
+            objectPanel.add(Box.createRigidArea(new Dimension(0, 10))); // Add spacing between objects
         }
 
-        add(objectPanel, BorderLayout.EAST);
+        objectPanel.add(Box.createVerticalGlue()); // Add flexible space at the bottom
+        return objectPanel;
+    }
 
-        // Main panel for halls
+    private JPanel createHallPanel() {
         JPanel hallPanel = new JPanel();
         hallPanel.setLayout(new GridLayout(2, 2, 10, 10)); // Grid for 4 halls
         hallPanel.setBackground(new Color(40, 40, 40));
@@ -99,110 +123,80 @@ public class BuildModeScreen extends JPanel {
         for (String hallName : hallNames) {
             JPanel hall = new JPanel();
             hall.setBorder(BorderFactory.createTitledBorder(hallName));
-            hall.setLayout(new GridLayout(hallGridSize, hallGridSize)); // 25x25 grid for objects inside hall
+            hall.setLayout(new GridLayout(hallGridSize, hallGridSize)); // 25x25 grid layout
             hall.setBackground(new Color(80, 60, 60));
 
-            // Add drop target to each hall
-            new DropTarget(hall, new DropTargetListener() {
-                @Override
-                public void dragEnter(DropTargetDragEvent dtde) {
-                    hall.setBackground(new Color(100, 100, 100)); // Highlight target
-                }
+            // Add empty cells for the 25x25 grid
+            for (int i = 0; i < hallGridSize * hallGridSize; i++) {
+                JLabel cell = new JLabel();
+                cell.setOpaque(true);
+                cell.setBackground(new Color(80, 60, 60)); // Match hall background color
+                cell.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY)); // Optional grid lines
 
-                @Override
-                public void dragOver(DropTargetDragEvent dtde) {
-                    // Optional: Keep the highlight
-                }
-
-                @Override
-
-                
-                public void dropActionChanged(DropTargetDragEvent dtde) {
-                    // No action needed
-                }
-
-                @Override
-                public void dragExit(DropTargetEvent dte) {
-                    hall.setBackground(new Color(80, 60, 60)); // Reset background
-                }
-
-                @Override
-                public void drop(DropTargetDropEvent dtde) {
-                    try {
-                        dtde.acceptDrop(DnDConstants.ACTION_COPY);
-
-                        // Retrieve the dropped data
-                        String droppedItem = (String) dtde.getTransferable().getTransferData(DataFlavor.stringFlavor);
-
-                        // Check object size
-                        int objectSize = objectSizes.getOrDefault(droppedItem, 1);
-
-                        // Create a JLabel for each square covered by the object
-                        for (int i = 0; i < objectSize; i++) {
-                            JLabel droppedLabel = new JLabel();
-                            droppedLabel.setText(droppedItem); // Set text for accessibility
-                            droppedLabel.setHorizontalTextPosition(SwingConstants.CENTER);
-                            droppedLabel.setVerticalTextPosition(SwingConstants.BOTTOM);
-                            droppedLabel.setOpaque(true);
-                            droppedLabel.setBackground(Color.LIGHT_GRAY);
-                            droppedLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-
-                            // Load and set object image
-                            String imagePath = objectImages.get(droppedItem);
-                            if (imagePath != null) {
-                                ImageIcon icon = new ImageIcon(imagePath);
-                                Image scaledImage = icon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
-                                droppedLabel.setIcon(new ImageIcon(scaledImage));
-                            }
-
-                            // Add MouseListener for deleting the dropped item
-                            droppedLabel.addMouseListener(new java.awt.event.MouseAdapter() {
-                                @Override
-                                public void mouseClicked(java.awt.event.MouseEvent evt) {
-                                    if (SwingUtilities.isRightMouseButton(evt)) {
-                                        JPanel parent = (JPanel) droppedLabel.getParent();
-                                        parent.remove(droppedLabel);
-                                        parent.revalidate();
-                                        parent.repaint();
-                                    }
-                                }
-                            });
-
-                            // Add the JLabel to the hall panel
-                            if (hall.getComponentCount() < hallGridSize * hallGridSize) {
-                                hall.add(droppedLabel);
-                            } else {
-                                JOptionPane.showMessageDialog(hall, "No more space in this hall!");
-                                break;
-                            }
-                        }
-
-                        hall.revalidate();
-                        hall.repaint();
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
+                // Add mouse listener for placing the selected object
+                cell.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        placeSelectedObject(cell, hallName);
                     }
-                }
-            });
+                });
 
-            hallPanels.put(hallName, hall); // Save reference to each hall
+                hall.add(cell); // Add the cell to the hall grid
+            }
+
+            hallPanels.put(hallName, hall);
             hallPanel.add(hall);
         }
 
-        add(hallPanel, BorderLayout.CENTER);
+        return hallPanel;
+    }
+
+    private void selectObject(JLabel objectLabel) {
+        // Highlight the selected object visually (optional)
+        for (Component comp : objectLabel.getParent().getComponents()) {
+            if (comp instanceof JLabel) {
+                ((JLabel) comp).setBorder(BorderFactory.createLineBorder(Color.BLACK)); // Reset others
+            }
+        }
+        objectLabel.setBorder(BorderFactory.createLineBorder(Color.YELLOW, 2)); // Highlight selected
+
+        // Set the selected object icon
+        selectedObjectIcon = (ImageIcon) objectLabel.getIcon();
+    }
+
+    private void placeSelectedObject(JLabel cell, String hallName) {
+        if (selectedObjectIcon == null) {
+            JOptionPane.showMessageDialog(this, "No object selected. Please select an object first.");
+            return;
+        }
+
+        if (cell.getIcon() != null) {
+            JOptionPane.showMessageDialog(this, "This cell is already occupied!");
+            return;
+        }
+
+        // Place the object in the cell
+        cell.setIcon(selectedObjectIcon);
+
+        // Increment object count for the hall
+        hallObjectCounts.put(hallName, hallObjectCounts.get(hallName) + 1);
+
+        // Check if the hall meets its minimum requirement
+        int objectCount = hallObjectCounts.get(hallName);
+        int minimumRequired = hallMinimumCounts.get(hallName);
+
+        if (objectCount < minimumRequired) {
+            JOptionPane.showMessageDialog(this,
+                    hallName + " needs at least " + minimumRequired + " objects. Currently: " + objectCount + ".");
+        }
     }
 
     public JPanel getHall(String hallName) {
         return hallPanels.get(hallName);
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame("Build Mode");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setContentPane(new BuildModeScreen());
-            frame.setSize(800, 600);
-            frame.setVisible(true);
-        });
-    }
+    
 }
+
+
+

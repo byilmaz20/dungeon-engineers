@@ -1,11 +1,13 @@
 package src.GameObjects;
 import src.Mechanics.PositionPoint;
 
-public class Rune {
+public class Rune extends Entity {
     PositionPoint position;
-    boolean isTriggered;
+    boolean isFound;
 
-    public Rune(){
+    public Rune(PositionPoint position, Hall hall) {
+        super(position, hall);
+        
     }
   
 }

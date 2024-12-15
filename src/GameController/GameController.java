@@ -8,17 +8,10 @@ public class GameController {
     String selectedDirection;
     boolean  isPaused;
     public GameController() {
-        currentHall = new Hall();
-        selectedEnchantment = new Enchantment();
-        selectedDirection = "";
-        isPaused = false;
     }
 
     //for 10k t SPAWNCONTROLLER.spawnrandomMONter()
 
-    public void initiliazeBuildMode() {
-        currentHall.initiliazeBuildMode();
-    }
     public void updateHall() {
     }
     public void leftClick() {
@@ -46,16 +39,3 @@ public class GameController {
         
     }
 }
-/* 
-initiliazeBuildMode()
-updateHall()
-leftClick()
-checkType()
-pressArrowKey(direction)
-pressKeyboard(enchantment)
-pressPauseButton()
-findRune()
-clickObject()
-clickInventoryBag()
-initiliazeBuildModer()
- */

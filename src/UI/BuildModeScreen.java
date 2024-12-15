@@ -112,7 +112,7 @@ public class BuildModeScreen extends JPanel {
         exitButton.setFocusPainted(false);
 
         // Load the exit button image
-        ImageIcon exitIcon = new ImageIcon("src/Images/ObjectImages/exit.png");
+        ImageIcon exitIcon = new ImageIcon("src/Images/ObjectImages/exit2.png");
         Image scaledExitImage = exitIcon.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
         exitButton.setIcon(new ImageIcon(scaledExitImage));
         // Add action listener for exiting the window

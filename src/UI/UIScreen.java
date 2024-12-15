@@ -1,12 +1,8 @@
 package src.UI;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.io.File;
-import java.io.IOException;
-
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -54,9 +50,20 @@ public abstract class UIScreen extends JFrame{
     	this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     	this.getContentPane().setLayout(null);
     	
-
     	backgroundPanel = new JPanel() {
-            private Image backgroundImage = new ImageIcon(backgroundPath).getImage();
+            private Image backgroundImage;
+
+            {
+                // Load the image
+                try {
+                    backgroundImage = new ImageIcon(backgroundPath).getImage();
+                    if (backgroundImage == null) {
+                        System.out.println("Failed to load image from: " + backgroundPath);
+                    }
+                } catch (Exception e) {
+                    System.out.println("Error loading image: " + e.getMessage());
+                }
+            }
 
             @Override
             protected void paintComponent(Graphics g) {

@@ -85,12 +85,12 @@ public class BuildModeScreen extends JPanel {
                 g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
             }
         };
-    
+        
         objectPanel.setLayout(new GridBagLayout());
         objectPanel.setPreferredSize(new Dimension(150, 0));
     
         // Add title to the top of the panel
-        JLabel title = new JLabel("", SwingConstants.CENTER);
+        //JLabel title = new JLabel("", SwingConstants.CENTER);
         //title.setForeground(Color.BLACK);
         //title.setFont(new Font("Arial", Font.BOLD, 18));
     
@@ -100,8 +100,30 @@ public class BuildModeScreen extends JPanel {
         
         gbc.insets = new Insets(100, 0, 20, 0);
         gbc.anchor = GridBagConstraints.CENTER;
-        objectPanel.add(title, gbc);
-    
+        //objectPanel.add(title, gbc);
+
+
+        // Exit Button at the Top with Image
+        JButton exitButton = new JButton();
+        exitButton.setBorderPainted(false);
+        exitButton.setContentAreaFilled(false);
+        exitButton.setFocusPainted(false);
+
+        // Load the exit button image
+        ImageIcon exitIcon = new ImageIcon("src/Images/ObjectImages/exit.png");
+        Image scaledExitImage = exitIcon.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+        exitButton.setIcon(new ImageIcon(scaledExitImage));
+        // Add action listener for exiting the window
+        exitButton.addActionListener(e -> {
+            SwingUtilities.getWindowAncestor(this).dispose(); // Close current window
+            new MainMenuScreen(); // Open Main Menu
+        });
+        gbc.gridy = 0;
+        gbc.insets = new Insets(10, 0, 20, 0); // Padding around the button
+
+
+        gbc.anchor = GridBagConstraints.CENTER;
+        objectPanel.add(exitButton, gbc);
         // Add object icons to the panel
         String[] objects = objectImages.keySet().toArray(new String[0]);
         for (int i = 0; i < objects.length; i++) {

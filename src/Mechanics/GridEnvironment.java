@@ -1,6 +1,7 @@
 package src.Mechanics;
 
 import src.GameObjects.Entity;
+import src.GameObjects.Hall;
 
 public class GridEnvironment {
     PositionPoint heroPosition;

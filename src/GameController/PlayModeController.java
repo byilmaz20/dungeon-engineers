@@ -2,13 +2,13 @@ package src.GameController;
 
 import src.GameObjects.Enchantment;
 import src.GameObjects.Entity;
+import src.GameObjects.Hero;
 import src.GameObjects.Inventory;
-import src.GameObjects.PlayerObject;
 import src.Mechanics.GridEnvironment;
 import src.Mechanics.PositionPoint;
 
 public class PlayModeController {
-    PlayerObject hero;
+    Hero hero;
     Inventory inventory;
     Enchantment activeEnchantment;
     boolean  isDoorOpen;

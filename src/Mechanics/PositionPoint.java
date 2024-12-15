@@ -24,5 +24,11 @@ public class PositionPoint {
             case RIGHT -> new PositionPoint(x + 1, y);
         };
     }
+    public int getX() {
+        return x;
+    }
+    public int getY() {
+        return y;
+    }
 
 }

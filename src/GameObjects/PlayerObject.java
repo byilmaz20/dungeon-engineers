@@ -61,4 +61,8 @@ public class PlayerObject{
         }
         return false;
     }
+    // get position of player
+    public PositionPoint getPosition(){
+        return this.position;
+    }
 }

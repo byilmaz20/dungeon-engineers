@@ -1,5 +1,7 @@
 package src.Mechanics;
 
+import src.GameObjects.Entity;
+
 public class GridEnvironment {
     PositionPoint heroPosition;
     PositionPoint runePosition;
@@ -21,6 +23,13 @@ public class GridEnvironment {
         return false;
     }
     public void updateGameState() {
+    }
+    public void addEntity(Entity entity, PositionPoint position) {
+        this.map[position.getX()][position.getY()] = position;
+    }
+    public void removeEntity(Entity entity) {
+    }
+    public void moveEntity(Entity entity, PositionPoint newPosition) {
     }
 
 }

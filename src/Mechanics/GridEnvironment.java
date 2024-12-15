@@ -1,11 +1,8 @@
 package src.Mechanics;
 
-<<<<<<< HEAD
-=======
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
->>>>>>> main
 import src.GameObjects.Entity;
 import src.GameObjects.Hall;
 
@@ -62,17 +59,6 @@ public class GridEnvironment {
         System.out.println("Invalid position for entity: " + entity.position);
         return false;
     }
-<<<<<<< HEAD
-    public void updateGameState() {
-    }
-    public void addEntity(Entity entity, PositionPoint position) {
-        this.map[position.getX()][position.getY()] = position;
-    }
-    public void removeEntity(Entity entity) {
-    }
-    public void moveEntity(Entity entity, PositionPoint newPosition) {
-    }
-=======
 }
 
     public boolean moveEntity(Entity entity, Direction direction) {
@@ -152,6 +138,5 @@ public Hall getHall() {
         return this.map;
     }
 
->>>>>>> main
 
 }

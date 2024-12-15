@@ -7,10 +7,6 @@ public class GameObject{
     boolean  isGameOver;
 
     public GameObject() {
-        currentHall = new Hall();
-        isPaused = false;
-        timeRemaining = 0;
-        isGameOver = false;
     }
         public boolean containsRune(){
             return true;

@@ -4,13 +4,20 @@ import src.Mechanics.Direction;
 import src.Mechanics.PositionPoint;
 
 
-public class PlayerObject{
+public class Hero extends Entity {
     int lives; 
     Inventory inventory;  //(Bag containing Enchantments)
     PositionPoint position;  //(Grid coordinates)
     boolean  ProtectionStatus;  //(Indicates if thecloak of protection is active)
-
-    public PlayerObject(){
+    public Hero(){
+        super(new PositionPoint(0,0), null);
+        this.lives = 3;
+        this.inventory = new Inventory();
+        this.position = new PositionPoint(0,0);
+        this.ProtectionStatus = false;
+    }
+    public Hero(PositionPoint position, Hall hall) {
+        super(position, hall);
         // TODO: should have input as PositionPoint position to set the initial position of the player
         this.lives = 3;
         this.inventory = new Inventory();
@@ -52,13 +59,12 @@ public class PlayerObject{
     }
     public boolean throwEnchantment(Direction direction) {
         // Throw luring gem enchantment
-        for (Enchantment enchantment : this.inventory.getItems()) {
-            if (enchantment instanceof LuringGemEnchantment luringGem) { // Pattern Matching for instanceof (Java 16+)
-                this.inventory.remove(enchantment);
-                luringGem.applyEffect(direction); // Call the specific method for LuringGemEnchantment
-                return true;
-            }
-        }
+        // for (Enchantment enchantment : this.inventory.getItems()) {
+        //     if (enchantment instanceof LuringGemEnchantment luringGem) { // Pattern Matching for instanceof (Java 16+)
+        //         this.inventory.remove(enchantment);
+        //         luringGem.applyEffect(direction); // Call the specific method for LuringGemEnchantment
+        //         return true;
+        //     }
         return false;
     }
     // get position of player

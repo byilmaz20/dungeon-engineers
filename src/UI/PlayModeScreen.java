@@ -85,7 +85,5 @@ public class PlayModeScreen extends UIScreen {
         exitButton.addActionListener(e -> System.exit(0));
         backgroundPanel.add(exitButton);
     }
-    public static void main(String[] args) {
-        new PlayModeScreen(HallTypes.EARTH);
-    }
+    
 }

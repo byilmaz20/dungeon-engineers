@@ -8,4 +8,13 @@ public class Direction {
         LEFT,
         RIGHT
     }
+    private DirectionEnum directionEnum;
+
+    public Direction(DirectionEnum directionEnum) {
+        this.directionEnum = directionEnum;
+    }
+
+    public DirectionEnum getDirectionEnum() {
+        return directionEnum;
+    }
 }

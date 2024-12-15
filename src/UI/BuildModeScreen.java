@@ -74,57 +74,69 @@ public class BuildModeScreen extends JPanel {
     }
 
     private JPanel createObjectPanel() {
-        JPanel objectPanel = new JPanel(new GridBagLayout()); // Use GridBagLayout for centering
-        objectPanel.setBackground(new Color(60, 60, 60));
+        // Custom JPanel to paint the background image
+        JPanel objectPanel = new JPanel() {
+            private final Image backgroundImage = new ImageIcon("src/Images/ObjectImages/buildmode.png").getImage();
+    
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                // Draw the background image, scaling it to fit the panel size
+                g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+            }
+        };
+    
+        objectPanel.setLayout(new GridBagLayout());
         objectPanel.setPreferredSize(new Dimension(150, 0));
-
-        JLabel title = new JLabel("Build Mode", SwingConstants.CENTER);
-        title.setForeground(Color.WHITE);
-        title.setFont(new Font("Arial", Font.BOLD, 18));
-
-        // Add title at the top
+    
+        // Add title to the top of the panel
+        //JLabel title = new JLabel("Build Mode", SwingConstants.CENTER);
+        //title.setForeground(Color.WHITE);
+        //title.setFont(new Font("Arial", Font.BOLD, 18));
+    
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.insets = new Insets(10, 0, 20, 0); // Spacing around the title
+        gbc.insets = new Insets(10, 0, 20, 0);
         gbc.anchor = GridBagConstraints.CENTER;
         objectPanel.add(title, gbc);
-
-        // Add objects in the center
+    
+        // Add object icons to the panel
         String[] objects = objectImages.keySet().toArray(new String[0]);
         for (int i = 0; i < objects.length; i++) {
             JLabel objectLabel = new JLabel();
-
+    
             // Load and set object image
             String imagePath = objectImages.get(objects[i]);
             if (imagePath != null) {
                 ImageIcon icon = new ImageIcon(imagePath);
-                Image scaledImage = icon.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH); // Scale image
+                Image scaledImage = icon.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
                 objectLabel.setIcon(new ImageIcon(scaledImage));
             }
-
-            // Add mouse listener for selection
+    
             objectLabel.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     selectObject(objectLabel);
                 }
             });
-
-            gbc.gridy = i + 1; // Increment row for each object
-            gbc.insets = new Insets(10, 0, 10, 0); // Spacing between objects
+    
+            gbc.gridy = i + 1;
+            gbc.insets = new Insets(10, 0, 10, 0);
             objectPanel.add(objectLabel, gbc);
         }
-
+    
         // Add "Start Game" button at the bottom
         JButton startGameButton = new JButton("Start Game");
         startGameButton.addActionListener(e -> checkRequirementsAndStartGame());
-        gbc.gridy = objects.length + 1; // Place after objects
-        gbc.insets = new Insets(20, 0, 10, 0); // Spacing around the button
+    
+        gbc.gridy = objects.length + 1;
+        gbc.insets = new Insets(20, 0, 10, 0);
         objectPanel.add(startGameButton, gbc);
-
+    
         return objectPanel;
     }
+    
 
     private JPanel createHallPanel() {
         JPanel hallPanel = new JPanel();

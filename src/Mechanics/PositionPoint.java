@@ -37,7 +37,11 @@ public class PositionPoint {
                 throw new IllegalArgumentException("Invalid direction: " + direction);
         }
     }
-    
-    
+    public int getX() {
+        return x;
+    }
+    public int getY() {
+        return y;
+    }
 
 }

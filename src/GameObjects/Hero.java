@@ -10,7 +10,7 @@ public class Hero extends Entity {
     PositionPoint position;  //(Grid coordinates)
     boolean  ProtectionStatus;  //(Indicates if thecloak of protection is active)
     public Hero(){
-        super(new PositionPoint(0,0), null);
+        super(new PositionPoint(24,0), null);
         this.lives = 3;
         this.inventory = new Inventory();
         this.position = new PositionPoint(0,0);
@@ -67,6 +67,8 @@ public class Hero extends Entity {
         //     }
         return false;
     }
-        
-    
+    // get position of player
+    public PositionPoint getPosition(){
+        return this.position;
+    }
 }

@@ -10,5 +10,8 @@ public class Rune extends Entity {
                 this.isFound = false; // Initialize the rune as not found
 
     }
+    public PositionPoint getPosition() {
+        return this.position;
+    }
   
 }

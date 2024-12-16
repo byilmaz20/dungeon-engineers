@@ -13,6 +13,7 @@ public class PlayModeScreen extends UIScreen {
     private JButton helpButton;
     private JButton exitButton;
     private ImageIcon hallimage;
+    private ImageIcon heroimage;
     private HallTypes hallType;
 
     public PlayModeScreen(HallTypes hallType) {
@@ -32,6 +33,8 @@ public class PlayModeScreen extends UIScreen {
         setPauseGameButton();
         setHelpButton();
         setExitButton();
+        placeHero();
+        placeRune();
     }
     private void setHallTypeImage() {
         //add hall type image to the screen
@@ -85,5 +88,25 @@ public class PlayModeScreen extends UIScreen {
         exitButton.addActionListener(e -> System.exit(0));
         backgroundPanel.add(exitButton);
     }
+    private void placeHero() {
+        String path = "/Users/ceylin/Desktop/comp302/project_code/projectrepo/src/Images/ObjectImages/player.png";
+        ImageIcon heroImageIcon = new ImageIcon(path); // Load the hero image
+        JLabel label = new JLabel(heroImageIcon); // Create the label with the original image
+        this.setLayout(null); // Use absolute positioning
     
+        // Use the icon's original dimensions
+        int width = heroImageIcon.getIconWidth();
+        int height = heroImageIcon.getIconHeight();
+        label.setBounds(58, 485, width, height); // Set position and size using original dimensions
+    
+        this.add(label); // Add the label to the frame
+        revalidate();
+        repaint(); // Refresh the frame to show the new component
+    }
+    private void placeRune() {  
+        
+    }
+    
+    
+
 }

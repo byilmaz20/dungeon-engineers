@@ -43,7 +43,6 @@ public class PlayModeController {
     }
     public static void main(String[] args) {
         PlayModeController controller = new PlayModeController(new Hall(HallTypes.EARTH));
-        System.out.println(controller.hero.getPosition());
         controller.updatePlayModeScreen();
         controller.monsterSpawner.printGrid(controller.grid);
     }

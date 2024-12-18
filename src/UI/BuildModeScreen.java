@@ -18,7 +18,7 @@ public class BuildModeScreen extends JPanel {
     private final Map<String, Integer> hallMinimumCounts; // Define minimum object counts per hall
     private final int hallGridSize = 25; // 25x25 grid for each hall
     private ImageIcon selectedObjectIcon; // Currently selected object icon
-    private final Map<String, Map<Point, String>> hallObjectPlacements = new HashMap<>();
+    private final Map<String, Map<Point, String>> hallObjectPlacements = new HashMap<>(); //store the coordinates of each object for each hall
 
     public BuildModeScreen() {
         hallPanels = new HashMap<>();
@@ -93,7 +93,7 @@ public class BuildModeScreen extends JPanel {
         objectPanel.setLayout(new GridBagLayout());
         objectPanel.setPreferredSize(new Dimension(150, 0));
     
-        // Adding title - Optional
+        // Adding title 
         //JLabel title = new JLabel("", SwingConstants.CENTER);
         //title.setForeground(Color.BLACK);
         //title.setFont(new Font("Arial", Font.BOLD, 18));
@@ -120,7 +120,7 @@ public class BuildModeScreen extends JPanel {
             new MainMenuScreen(); 
         });
         gbc.gridy = 0;
-        gbc.insets = new Insets(10, 0, 20, 0); // Padding 
+        gbc.insets = new Insets(10, 0, 20, 0);  
 
 
 
@@ -130,12 +130,17 @@ public class BuildModeScreen extends JPanel {
         String[] objects = objectImages.keySet().toArray(new String[0]);
         for (int i = 0; i < objects.length; i++) {
             JLabel objectLabel = new JLabel();
-    
+            
             String imagePath = objectImages.get(objects[i]);
             if (imagePath != null) {
                 ImageIcon icon = new ImageIcon(imagePath);
+            
+                
+
                 Image scaledImage = icon.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
-                objectLabel.setIcon(new ImageIcon(scaledImage));
+                ImageIcon last = new ImageIcon(scaledImage);
+                last.setDescription(objects[i]);
+                objectLabel.setIcon(last);
             }
     
             objectLabel.addMouseListener(new MouseAdapter() {
@@ -185,13 +190,13 @@ public class BuildModeScreen extends JPanel {
             hall.setBorder(titledBorder);
             hall.setLayout(new GridLayout(hallGridSize, hallGridSize)); 
     
-            // Adding empty cells 
+        
             for (int i = 0; i < hallGridSize * hallGridSize; i++) {
                 JLabel cell = new JLabel();
-                cell.setOpaque(false); // Transparent background 
+                cell.setOpaque(false); 
                 //cell.setBorder(BorderFactory.createLineBorder(new Color(50, 50, 50), 1)); // Grid lines
     
-                // Add mouse listener for placing objects
+                
                 cell.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
@@ -214,10 +219,10 @@ public class BuildModeScreen extends JPanel {
 
         for (Component comp : objectLabel.getParent().getComponents()) {
             if (comp instanceof JLabel) {
-                ((JLabel) comp).setBorder(BorderFactory.createLineBorder(Color.BLACK)); // Reset others
+                ((JLabel) comp).setBorder(BorderFactory.createLineBorder(Color.BLACK)); 
             }
         }
-        objectLabel.setBorder(BorderFactory.createLineBorder(Color.YELLOW, 2)); // Highlight 
+        objectLabel.setBorder(BorderFactory.createLineBorder(Color.YELLOW, 2)); 
 
         selectedObjectIcon = (ImageIcon) objectLabel.getIcon();
     }
@@ -234,14 +239,11 @@ public class BuildModeScreen extends JPanel {
             JOptionPane.showMessageDialog(this, "This cell is already occupied!");
             return;
         }
-        // Increment object count for the hall
         hallObjectCounts.put(hallName, hallObjectCounts.get(hallName) + 1);
 
-        // Place the object in the cell
         cell.setIcon(selectedObjectIcon);
 
         
-        // Calculate the coordinates of the cell within the grid
         JPanel hallPanel = hallPanels.get(hallName);
         int cellIndex = getComponentIndex(hallPanel, cell);
         
@@ -249,9 +251,17 @@ public class BuildModeScreen extends JPanel {
         int col = cellIndex % hallGridSize;
         Point coordinates = new Point(row, col);
         
-        // Store the object placement in the hall's object placements map
+        
         String objectName = getObjectNameByIcon(selectedObjectIcon);
         hallObjectPlacements.get(hallName).put(coordinates, objectName);
+
+        //coordinates chceck
+        //
+        /* for (Point p : hallObjectPlacements.get(hallName).keySet()) {
+            System.out.println(p.x);
+            System.out.println(p.y);
+            System.out.println(hallObjectPlacements.get(hallName).get(p));
+        } */
         
         
         
@@ -287,7 +297,8 @@ public class BuildModeScreen extends JPanel {
     public JPanel getHall(String hallName) {
         return hallPanels.get(hallName);
     }
-        // Helper method to get the index of a component within its container
+
+    //getting index of a object in the container
     private int getComponentIndex(Container container, Component component) {
         for (int i = 0; i < container.getComponentCount(); i++) {
             if (container.getComponent(i) == component) {
@@ -297,23 +308,20 @@ public class BuildModeScreen extends JPanel {
         return -1;
     }
 
+    //getting object name from icon
     private String getObjectNameByIcon(ImageIcon icon) {
         if (icon == null) {
             System.err.println("Provided ImageIcon is null.");
             return "Unknown Object";
         }
         String description = icon.getDescription();
+        
         if (description == null) {
             System.err.println("ImageIcon description is null for icon: " + icon);
             return "Unknown Object";
         }
-        for (Map.Entry<String, String> entry : objectImages.entrySet()) {
-            ImageIcon storedIcon = new ImageIcon(entry.getValue());
-            if (description.equals(storedIcon.getDescription())) {
-                return entry.getKey();
-            }
-        }
-        return "Unknown Object";
+        
+        return description;
     }
     
 }

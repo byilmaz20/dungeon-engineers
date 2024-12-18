@@ -18,6 +18,7 @@ public class BuildModeScreen extends JPanel {
     private final Map<String, Integer> hallMinimumCounts; // Define minimum object counts per hall
     private final int hallGridSize = 25; // 25x25 grid for each hall
     private ImageIcon selectedObjectIcon; // Currently selected object icon
+    private final Map<String, Map<Point, String>> hallObjectPlacements = new HashMap<>();
 
     public BuildModeScreen() {
         hallPanels = new HashMap<>();
@@ -36,6 +37,8 @@ public class BuildModeScreen extends JPanel {
 
         JPanel hallPanel = createHallPanel();
         add(hallPanel, BorderLayout.CENTER);
+
+        initializeHallObjectPlacements();
 
         if (true) {
             JFrame frame = new JFrame("Build Mode");
@@ -68,6 +71,13 @@ public class BuildModeScreen extends JPanel {
         hallObjectCounts.put("Hall of Air", 0);
         hallObjectCounts.put("Hall of Water", 0);
         hallObjectCounts.put("Hall of Fire", 0);
+    }
+
+    private void initializeHallObjectPlacements() {
+        String[] hallNames = {"Hall of Water", "Hall of Earth", "Hall of Fire", "Hall of Air"};
+        for (String hallName : hallNames) {
+            hallObjectPlacements.put(hallName, new HashMap<>());
+        }
     }
 
     private JPanel createObjectPanel() {
@@ -226,9 +236,45 @@ public class BuildModeScreen extends JPanel {
         // Place object to the cell
         cell.setIcon(selectedObjectIcon);
 
+        // Calculate the coordinates of the cell within the grid
+        JPanel hallPanel = hallPanels.get(hallName);
+        int cellIndex = getComponentIndex(hallPanel, cell);
+        int row = cellIndex / hallGridSize;
+        int col = cellIndex % hallGridSize;
+        Point coordinates = new Point(row, col);
+
+        String objectName = getObjectNameByIcon(selectedObjectIcon);
+        hallObjectPlacements.get(hallName).put(coordinates, objectName);
+
         // Increase object count for the hall
         hallObjectCounts.put(hallName, hallObjectCounts.get(hallName) + 1);
     }
+
+
+
+
+    private int getComponentIndex(Container container, Component component) {
+        for (int i = 0; i < container.getComponentCount(); i++) {
+            if (container.getComponent(i) == component) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private String getObjectNameByIcon(ImageIcon icon) {
+        for (Map.Entry<String, String> entry : objectImages.entrySet()) {
+            ImageIcon storedIcon = new ImageIcon(entry.getValue());
+            if (icon.getDescription().equals(storedIcon.getDescription())) {
+                return entry.getKey();
+            }
+        }
+        return "Unknown Object";
+    }
+
+
+
+
 
     private void checkRequirementsAndStartGame() {
         StringBuilder errorMessage = new StringBuilder();

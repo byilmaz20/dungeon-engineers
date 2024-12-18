@@ -1,130 +1,70 @@
 package src.GameController;
 
-import src.GameObjects.Hall;
-import src.GameObjects.HallTypes;
-import src.GameObjects.Enchantment;
 import src.Mechanics.Timer;
 
 public class GameController {
-    Hall currentHall;
-    Enchantment selectedEnchantment;
-    String selectedDirection;
-    boolean  isPaused;
+    private Timer timer;
+    private double lastEnchantmentTime;
+    private double lastMonsterSpawnTime;
+    private boolean isPaused;
 
-    private Timer timer; // Zamanlayıcı nesnesi
-    private int lastEnchantmentTime;
-    private int lastMonsterSpawnTime;
-
-    
     public GameController() {
-        timer = new Timer();
-        isPaused = false;
-        lastEnchantmentTime = 0;
-        lastMonsterSpawnTime = 0;
+        this.timer = new Timer();
+        this.lastEnchantmentTime = 0.0;
+        this.lastMonsterSpawnTime = 0.0;
+        this.isPaused = false;
     }
 
-
-    public void startGame(HallTypes hallType) {
-        currentHall = new Hall(hallType);
-        System.out.println("Starting Hall: " + hallType);
-        int hallTime = getHallTime(hallType);
-    
-        // Sıra: mechanicsCallback -> tickCallback
-        timer.startTimer(hallTime, this::checkMechanics, this::printRemainingTime);
+    public void startGame() {
+        timer.startTimer(30.0, this::checkMechanics, this::printStatus);
     }
-    
- 
-   
+
     private void checkMechanics() {
-        int elapsedTime = timer.getElapsedTime();
-    
-        // 7 saniyede bir canavar spawn et
-        if (elapsedTime - lastMonsterSpawnTime >= 7) {
+        double elapsedTime = timer.getElapsedTime();
+
+        if (elapsedTime - lastMonsterSpawnTime >= 7.0) {
             lastMonsterSpawnTime = elapsedTime;
             System.out.println("A new monster has been spawned!");
         }
-    
-        // 12 saniyede bir enchantment ekle ve 5 saniye zaman ekle
-        if (elapsedTime - lastEnchantmentTime >= 12) {
+
+        if (elapsedTime - lastEnchantmentTime >= 12.0) {
             lastEnchantmentTime = elapsedTime;
             System.out.println("An enchantment appeared!");
-            timer.addTime(5); // remainingTime'a doğrudan zaman eklenir
+            timer.addTime(5.0);
         }
     }
-    
 
-    private void printRemainingTime(int remainingTime) {
-        System.out.println("Remaining Time: " + remainingTime);
+    private void printStatus(int remainingTime) {
+        double elapsedTime = timer.getElapsedTime();
+        System.out.printf("Remaining Time: %d, Elapsed Time: %.1f\n", remainingTime, elapsedTime);
     }
 
-    /**
-     * Oyunu duraklatır veya devam ettirir.
-     */
     public void pressPauseButton() {
         if (isPaused) {
             timer.resumeTimer();
+            System.out.println("Game Resumed!");
         } else {
             timer.pauseTimer();
+            System.out.println("Game Paused!");
         }
         isPaused = !isPaused;
     }
 
-    private int getHallTime(HallTypes hallType) {
-        switch (hallType) {
-            case EARTH: return 30;
-            case AIR: return 40;
-            case WATER: return 50;
-            case FIRE: return 60;
-            default: return 0;
-        }
-    }
-
-
-
-    //for 10k t SPAWNCONTROLLER.spawnrandomMONter()
-
-    public void updateHall() {
-    }
-    public void leftClick() {
-    } //???
-    public void checkType() {
-    }
-    public void pressArrowKey(String direction) {
-        selectedDirection = direction;
-    }
-    public void pressKeyboard(Enchantment enchantment) {
-        selectedEnchantment = enchantment;
-    }
-
-    public void findRune() {
-    }
-    public void clickObject() {
-    }
-    public void clickInventoryBag() {
-    }
-    public void initiliazeBuildModer() {
-    }
-    public void hello(){
-        
-    }
-
-
     public static void main(String[] args) {
         GameController controller = new GameController();
-        controller.startGame(HallTypes.EARTH);
+        controller.startGame();
 
         try {
-            Thread.sleep(10000);
+            Thread.sleep(5000); // 5 saniye çalışsın
             controller.pressPauseButton(); // Pause
-            Thread.sleep(5000);
+            Thread.sleep(3000); // 3 saniye bekle
             controller.pressPauseButton(); // Resume
-            Thread.sleep(15000); // Oyunun devam etmesini gözlemle
+            Thread.sleep(7000); // 7 saniye çalışsın
+            controller.pressPauseButton(); // Pause
+            Thread.sleep(2000); // 2 saniye bekle
+            controller.pressPauseButton(); // Resume
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
-    
-   
-    
-}
-
+} 

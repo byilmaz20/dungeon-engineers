@@ -193,9 +193,17 @@ public class BuildModeScreen extends JPanel {
         
             for (int i = 0; i < hallGridSize * hallGridSize; i++) {
                 JLabel cell = new JLabel();
-                cell.setOpaque(false); 
+                ImageIcon icon = new ImageIcon("src/Images/BackgroundImages/cell.png");
+            
+                
+
+                Image scaledImage = icon.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+                
+                ImageIcon last = new ImageIcon(scaledImage);
+                last.setDescription("cell");
+                //cell.setOpaque(false); 
                 //cell.setBorder(BorderFactory.createLineBorder(new Color(50, 50, 50), 1)); // Grid lines
-    
+                cell.setIcon(last);
                 
                 cell.addMouseListener(new MouseAdapter() {
                     @Override
@@ -229,16 +237,24 @@ public class BuildModeScreen extends JPanel {
 
     private void placeSelectedObject(JLabel cell, String hallName) {
         
+        if (((ImageIcon) cell.getIcon()).getDescription()!="cell"){
+            ImageIcon icon = new ImageIcon("src/Images/BackgroundImages/cell.png");
+            Image scaledImage = icon.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);    
+            ImageIcon last = new ImageIcon(scaledImage);
+            last.setDescription("cell");
+            cell.setIcon(last);
+            return;
 
+        }
         if (selectedObjectIcon == null) {
             JOptionPane.showMessageDialog(this, "No object selected. Please select an object first.");
             return;
         }
-
-        if (cell.getIcon() != null) {
+        
+        /*if (cell.getIcon() != null) {
             JOptionPane.showMessageDialog(this, "This cell is already occupied!");
             return;
-        }
+        }*/
         hallObjectCounts.put(hallName, hallObjectCounts.get(hallName) + 1);
 
         cell.setIcon(selectedObjectIcon);

@@ -243,6 +243,16 @@ public class BuildModeScreen extends JPanel {
             ImageIcon last = new ImageIcon(scaledImage);
             last.setDescription("cell");
             cell.setIcon(last);
+
+            JPanel hallPanel = hallPanels.get(hallName);
+            int cellIndex = getComponentIndex(hallPanel, cell);
+        
+            int row = cellIndex / hallGridSize;
+            int col = cellIndex % hallGridSize;
+            Point coordinates = new Point(row, col);
+
+            hallObjectPlacements.get(hallName).remove(coordinates);
+
             return;
 
         }
@@ -277,7 +287,7 @@ public class BuildModeScreen extends JPanel {
             System.out.println(p.x);
             System.out.println(p.y);
             System.out.println(hallObjectPlacements.get(hallName).get(p));
-        } */
+        } */ 
         
         
         

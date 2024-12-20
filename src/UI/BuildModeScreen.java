@@ -42,7 +42,7 @@ public class BuildModeScreen extends JPanel {
         if (true) {
             JFrame frame = new JFrame("Build Mode");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setSize(1200, 800);
+            frame.setSize(910, 800);
             frame.setContentPane(this);
             frame.setVisible(true);
         }
@@ -267,7 +267,7 @@ public class BuildModeScreen extends JPanel {
         }*/
         hallObjectCounts.put(hallName, hallObjectCounts.get(hallName) + 1);
 
-        Image scaledImage = selectedObjectIcon.getImage().getScaledInstance(19, 19, Image.SCALE_SMOOTH);
+        Image scaledImage = selectedObjectIcon.getImage().getScaledInstance(14, 14, Image.SCALE_SMOOTH);
         ImageIcon last2 = new ImageIcon(scaledImage);
         cell.setIcon(null);
         cell.setIcon(last2);

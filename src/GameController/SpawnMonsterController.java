@@ -16,7 +16,7 @@ public class SpawnMonsterController {
     }
 
     // Spawn a monster at a random empty position
-    public void spawnMonster() {
+    public Monster spawnMonster() {
         PositionPoint randomLocation = grid.selectRandomLocation(); // Get a random empty position
         if (randomLocation != null) {
             // Create a random monster
@@ -25,10 +25,16 @@ public class SpawnMonsterController {
             // Place the monster on the grid
             if (grid.moveEntity(monster)) {
                 System.out.println("Spawned " + monster.getType() + " at position: " + randomLocation);
+                        return monster;
+
             } else {
                 System.out.println("Failed to place the monster at position: " + randomLocation);
+                return null;
             }
+
         }
+                        return null;
+
     }
     public static void main(String[] args) {
         // Step 1: Create a Hall instance (e.g., EARTH hall)
@@ -61,13 +67,13 @@ public class SpawnMonsterController {
     public static void printGrid(GridEnvironment grid) {
         for (int x = 0; x < 25; x++) {
             for (int y = 0; y <25; y++) {
-                if (grid.getmap()[x][y] instanceof Monster) {
+                if (grid.getMap()[x][y] instanceof Monster) {
                     System.out.print("M "); // Monster
-                } else if (grid.getmap()[x][y] instanceof Hero) {
+                } else if (grid.getMap()[x][y] instanceof Hero) {
                     System.out.print("H "); // Monster
-                } else if (grid.getmap()[x][y] instanceof Rune) {
+                } else if (grid.getMap()[x][y] instanceof Rune) {
                     System.out.print("R "); // Other Entity
-                } else if (grid.getmap()[x][y] != null) {
+                } else if (grid.getMap()[x][y] != null) {
                     System.out.print("E "); // Other Entity
                 } else {
                     System.out.print(". "); // Empty position

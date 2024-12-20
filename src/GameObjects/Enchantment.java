@@ -1,5 +1,4 @@
 package src.GameObjects;
-import src.GameObjects.EnchantmentTypes;
 import src.Mechanics.PositionPoint;
 
 
@@ -17,6 +16,9 @@ public abstract class Enchantment extends Entity{
         this.isStorable = isStorable;
         this.duration = duration;
         this.position = position;
+    }
+    public EnchantmentTypes getType() {
+        return type;
     }
     public void CollectEnchantment(){
         // Collect the enchantment

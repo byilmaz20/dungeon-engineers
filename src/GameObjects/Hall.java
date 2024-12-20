@@ -11,7 +11,7 @@ public class Hall {
     List<Obstacles> obstacles;      // Sublist for Obstacles
     Rune rune;
     int minimumObjectsRequired;
-
+    
     public Hall(HallTypes hallType) {
         this.hallType = hallType;
         this.entities = new ArrayList<>();
@@ -71,6 +71,22 @@ public class Hall {
     public List<Entity> getEntitys(){
         return entities;
     }
+   
 
-    
+    public Rune getRune() {
+        return rune;
+    }
+    public void setRune(Rune rune) {
+    this.rune = rune;
+}
+public Hero getHero() {
+    for (Entity entity : this.getEntitys()) { // Loop through all entities in the hall
+        if (entity instanceof Hero) { // Check if the entity is an instance of Hero
+            return (Hero) entity; // Cast and return the Hero
+        }
+    }
+    return null; // Return null if no Hero is found
+}
+
+
 }

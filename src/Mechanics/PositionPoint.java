@@ -26,9 +26,9 @@ public class PositionPoint {
     public PositionPoint move(Direction.DirectionEnum direction) {
         switch (direction) {
             case UP:
-                return new PositionPoint(x, y + 1);
-            case DOWN:
                 return new PositionPoint(x, y - 1);
+            case DOWN:
+                return new PositionPoint(x, y + 1);
             case LEFT:
                 return new PositionPoint(x - 1, y);
             case RIGHT:

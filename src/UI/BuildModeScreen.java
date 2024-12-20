@@ -267,7 +267,10 @@ public class BuildModeScreen extends JPanel {
         }*/
         hallObjectCounts.put(hallName, hallObjectCounts.get(hallName) + 1);
 
-        cell.setIcon(selectedObjectIcon);
+        Image scaledImage = selectedObjectIcon.getImage().getScaledInstance(19, 19, Image.SCALE_SMOOTH);
+        ImageIcon last2 = new ImageIcon(scaledImage);
+        cell.setIcon(null);
+        cell.setIcon(last2);
 
         
         JPanel hallPanel = hallPanels.get(hallName);

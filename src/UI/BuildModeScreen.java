@@ -48,7 +48,7 @@ public class BuildModeScreen extends JPanel {
         if (true) {
             JFrame frame = new JFrame("Build Mode");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setSize(910, 800);
+            frame.setSize(1210, 1000);
             frame.setContentPane(this);
             frame.setVisible(true);
         }
@@ -97,7 +97,7 @@ public class BuildModeScreen extends JPanel {
         };
         
         objectPanel.setLayout(new GridBagLayout());
-        objectPanel.setPreferredSize(new Dimension(150, 0));
+        objectPanel.setPreferredSize(new Dimension(250, 0));
     
         // Adding title 
         //JLabel title = new JLabel("", SwingConstants.CENTER);
@@ -119,7 +119,7 @@ public class BuildModeScreen extends JPanel {
         exitButton.setContentAreaFilled(false);
         exitButton.setFocusPainted(false);
         ImageIcon exitIcon = new ImageIcon("src/Images/ObjectImages/exit2.png");
-        Image scaledExitImage = exitIcon.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+        Image scaledExitImage = exitIcon.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH);
         exitButton.setIcon(new ImageIcon(scaledExitImage));
         exitButton.addActionListener(e -> {
             SwingUtilities.getWindowAncestor(this).dispose(); 
@@ -143,7 +143,7 @@ public class BuildModeScreen extends JPanel {
             
                 
 
-                Image scaledImage = icon.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+                Image scaledImage = icon.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH);
                 ImageIcon last = new ImageIcon(scaledImage);
                 last.setDescription(objects[i]);
                 objectLabel.setIcon(last);
@@ -217,7 +217,7 @@ public class BuildModeScreen extends JPanel {
                         JLabel cell = new JLabel();
 
                         ImageIcon icon = new ImageIcon(objectImages.get(obj));
-                        Image scaledImage = icon.getImage().getScaledInstance(14, 14, Image.SCALE_SMOOTH);
+                        Image scaledImage = icon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
                         ImageIcon last = new ImageIcon(scaledImage);
                         last.setDescription(obj);
                         cell.setIcon(last);
@@ -324,7 +324,7 @@ public class BuildModeScreen extends JPanel {
         }*/
         hallObjectCounts.put(hallName, hallObjectCounts.get(hallName) + 1);
 
-        Image scaledImage = selectedObjectIcon.getImage().getScaledInstance(14, 14, Image.SCALE_SMOOTH);
+        Image scaledImage = selectedObjectIcon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
         ImageIcon last2 = new ImageIcon(scaledImage);
         cell.setIcon(null);
         cell.setIcon(last2);
@@ -343,14 +343,14 @@ public class BuildModeScreen extends JPanel {
 
         //coordinates chceck
         //
-        for (Point p : hallObjectPlacements.get(hallName).keySet()) {
+        /* for (Point p : hallObjectPlacements.get(hallName).keySet()) {
             System.out.println(hallName);
             System.out.println(hallObjectCounts.get(hallName));
             System.out.println(p.x);
             System.out.println(p.y);
             System.out.println(hallObjectPlacements.get(hallName).get(p));
             
-        } 
+        } */ 
         
         
         

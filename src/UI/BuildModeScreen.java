@@ -7,8 +7,12 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Random;
+import java.util.Set;
 
 public class BuildModeScreen extends JPanel {
 
@@ -35,14 +39,16 @@ public class BuildModeScreen extends JPanel {
         JPanel objectPanel = createObjectPanel();
         add(objectPanel, BorderLayout.EAST);
 
+        initializeHallObjectPlacements();
+
         JPanel hallPanel = createHallPanel();
         add(hallPanel, BorderLayout.CENTER);
-        initializeHallObjectPlacements();
+        
 
         if (true) {
             JFrame frame = new JFrame("Build Mode");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setSize(1200, 800);
+            frame.setSize(1210, 1000);
             frame.setContentPane(this);
             frame.setVisible(true);
         }
@@ -91,7 +97,7 @@ public class BuildModeScreen extends JPanel {
         };
         
         objectPanel.setLayout(new GridBagLayout());
-        objectPanel.setPreferredSize(new Dimension(150, 0));
+        objectPanel.setPreferredSize(new Dimension(250, 0));
     
         // Adding title 
         //JLabel title = new JLabel("", SwingConstants.CENTER);
@@ -113,7 +119,7 @@ public class BuildModeScreen extends JPanel {
         exitButton.setContentAreaFilled(false);
         exitButton.setFocusPainted(false);
         ImageIcon exitIcon = new ImageIcon("src/Images/ObjectImages/exit2.png");
-        Image scaledExitImage = exitIcon.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+        Image scaledExitImage = exitIcon.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH);
         exitButton.setIcon(new ImageIcon(scaledExitImage));
         exitButton.addActionListener(e -> {
             SwingUtilities.getWindowAncestor(this).dispose(); 
@@ -137,7 +143,7 @@ public class BuildModeScreen extends JPanel {
             
                 
 
-                Image scaledImage = icon.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+                Image scaledImage = icon.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH);
                 ImageIcon last = new ImageIcon(scaledImage);
                 last.setDescription(objects[i]);
                 objectLabel.setIcon(last);
@@ -175,6 +181,10 @@ public class BuildModeScreen extends JPanel {
     
         String[] hallNames = {"Hall of Water", "Hall of Earth", "Hall of Fire", "Hall of Air"};
     
+        int[] randomIntegersPosition = randomArrayGenerator(45, 625);
+        
+        int indexOfArray = 0;
+
         for (String hallName : hallNames) {
             JPanel hall = new JPanel() {
                 private final Image backgroundImage = new ImageIcon("src/Images/BackgroundImages/hallbackground.png").getImage();
@@ -190,12 +200,65 @@ public class BuildModeScreen extends JPanel {
             hall.setBorder(titledBorder);
             hall.setLayout(new GridLayout(hallGridSize, hallGridSize)); 
     
-        
+            int minObject = indexOfArray+hallMinimumCounts.get(hallName);
+            
+            String[] randObj = randomObjectGenerator(hallMinimumCounts.get(hallName));
+            int objIndex = 0;
+
+            
+
             for (int i = 0; i < hallGridSize * hallGridSize; i++) {
+
+                if (indexOfArray < minObject){
+                    
+                    if (i == randomIntegersPosition[indexOfArray]){
+                        
+                        String obj = randObj[objIndex];
+                        JLabel cell = new JLabel();
+
+                        ImageIcon icon = new ImageIcon(objectImages.get(obj));
+                        Image scaledImage = icon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+                        ImageIcon last = new ImageIcon(scaledImage);
+                        last.setDescription(obj);
+                        cell.setIcon(last);
+
+                        cell.addMouseListener(new MouseAdapter() {
+                            @Override
+                            public void mouseClicked(MouseEvent e) {
+                                placeSelectedObject(cell, hallName);
+                            }
+                        });
+            
+                        hall.add(cell);
+
+
+                        indexOfArray+=1;
+                        objIndex +=1;
+
+                        hallObjectCounts.put(hallName, hallObjectCounts.get(hallName) + 1);
+                 
+                        int row = i / hallGridSize;
+                        int col = i % hallGridSize;
+                        Point coordinates = new Point(row, col);
+                        
+                        hallObjectPlacements.get(hallName).put(coordinates, obj);
+
+                        continue;
+                    }
+
+                }
                 JLabel cell = new JLabel();
-                cell.setOpaque(false); 
+                ImageIcon icon = new ImageIcon("src/Images/BackgroundImages/cell.png");
+            
+                
+
+                Image scaledImage = icon.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+                
+                ImageIcon last = new ImageIcon(scaledImage);
+                last.setDescription("cell");
+                //cell.setOpaque(false); 
                 //cell.setBorder(BorderFactory.createLineBorder(new Color(50, 50, 50), 1)); // Grid lines
-    
+                cell.setIcon(last);
                 
                 cell.addMouseListener(new MouseAdapter() {
                     @Override
@@ -205,8 +268,9 @@ public class BuildModeScreen extends JPanel {
                 });
     
                 hall.add(cell);
+                
             }
-    
+            
             hallPanels.put(hallName, hall);
             hallPanel.add(hall);
         }
@@ -229,19 +293,41 @@ public class BuildModeScreen extends JPanel {
 
     private void placeSelectedObject(JLabel cell, String hallName) {
         
+        if (((ImageIcon) cell.getIcon()).getDescription()!="cell"){
+            ImageIcon icon = new ImageIcon("src/Images/BackgroundImages/cell.png");
+            Image scaledImage = icon.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);    
+            ImageIcon last = new ImageIcon(scaledImage);
+            last.setDescription("cell");
+            cell.setIcon(last);
 
+            JPanel hallPanel = hallPanels.get(hallName);
+            int cellIndex = getComponentIndex(hallPanel, cell);
+        
+            int row = cellIndex / hallGridSize;
+            int col = cellIndex % hallGridSize;
+            Point coordinates = new Point(row, col);
+
+            hallObjectPlacements.get(hallName).remove(coordinates);
+            hallObjectCounts.put(hallName, hallObjectCounts.get(hallName) - 1);
+
+            return;
+
+        }
         if (selectedObjectIcon == null) {
             JOptionPane.showMessageDialog(this, "No object selected. Please select an object first.");
             return;
         }
-
-        if (cell.getIcon() != null) {
+        
+        /*if (cell.getIcon() != null) {
             JOptionPane.showMessageDialog(this, "This cell is already occupied!");
             return;
-        }
+        }*/
         hallObjectCounts.put(hallName, hallObjectCounts.get(hallName) + 1);
 
-        cell.setIcon(selectedObjectIcon);
+        Image scaledImage = selectedObjectIcon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+        ImageIcon last2 = new ImageIcon(scaledImage);
+        cell.setIcon(null);
+        cell.setIcon(last2);
 
         
         JPanel hallPanel = hallPanels.get(hallName);
@@ -258,10 +344,13 @@ public class BuildModeScreen extends JPanel {
         //coordinates chceck
         //
         /* for (Point p : hallObjectPlacements.get(hallName).keySet()) {
+            System.out.println(hallName);
+            System.out.println(hallObjectCounts.get(hallName));
             System.out.println(p.x);
             System.out.println(p.y);
             System.out.println(hallObjectPlacements.get(hallName).get(p));
-        } */
+            
+        } */ 
         
         
         
@@ -324,6 +413,41 @@ public class BuildModeScreen extends JPanel {
         return description;
     }
     
+    private int[] randomArrayGenerator(int arraySize, int randomLength){
+        Set<Integer> uniqueNumbers = new HashSet<>();
+   
+        Random random = new Random();
+
+        while (uniqueNumbers.size() < arraySize) {
+            int randomNumber = random.nextInt(randomLength); // Generate random number in the range [0, range)
+            uniqueNumbers.add(randomNumber);
+        }
+        int[] randomIntegers = uniqueNumbers.stream().mapToInt(Integer::intValue).toArray();
+        
+        Arrays.sort(randomIntegers, 0, 13);
+        Arrays.sort(randomIntegers, 13, 19);
+        Arrays.sort(randomIntegers, 19, 36);
+        Arrays.sort(randomIntegers, 36, 45);
+       
+        return randomIntegers;
+    }
+
+    private String[] randomObjectGenerator(int arraySize){
+        int[] randomIntegers = new int[arraySize];
+        Random random = new Random();
+        for (int i = 0; i < randomIntegers.length; i++) {
+            randomIntegers[i] = random.nextInt(8); 
+        }
+
+        String[] Strings = {"Barrel", "Stair", "1Box", "2Box", "Rectangle", "Skull", "Chest", "Potion"};
+        String[] randomStrings =  new String[arraySize];
+
+        for (int i = 0; i < randomStrings.length; i++) {
+            randomStrings[i] = Strings[randomIntegers[i]]; 
+        }
+
+        return randomStrings;
+    }
 }
 
 

@@ -4,15 +4,19 @@ import src.Mechanics.Timer;
 
 public class GameController {
     private Timer timer;
-    private double lastEnchantmentTime;
-    private double lastMonsterSpawnTime;
     private boolean isPaused;
+
+    private double lastMonsterSpawnTime;
+    private double lastEnchantmentTime;
+
+    private final double monsterStartDelay = 6.0;
+    private final double enchantmentStartDelay = 12.0;
 
     public GameController() {
         this.timer = new Timer();
-        this.lastEnchantmentTime = 0.0;
-        this.lastMonsterSpawnTime = 0.0;
         this.isPaused = false;
+        this.lastMonsterSpawnTime = -monsterStartDelay;
+        this.lastEnchantmentTime = -enchantmentStartDelay;
     }
 
     public void startGame() {
@@ -20,23 +24,25 @@ public class GameController {
     }
 
     private void checkMechanics() {
-        double elapsedTime = timer.getElapsedTime();
+        double elapsedTime = Math.floor(timer.getElapsedTime());
+        System.out.printf("Checking Mechanics - Elapsed Time: %.0f\n", elapsedTime);
 
-        if (elapsedTime - lastMonsterSpawnTime >= 7.0) {
+        if (elapsedTime >= monsterStartDelay && elapsedTime - lastMonsterSpawnTime >= 6.0) {
             lastMonsterSpawnTime = elapsedTime;
             System.out.println("A new monster has been spawned!");
         }
 
-        if (elapsedTime - lastEnchantmentTime >= 12.0) {
+        if (elapsedTime >= enchantmentStartDelay && elapsedTime - lastEnchantmentTime >= 12.0) {
             lastEnchantmentTime = elapsedTime;
             System.out.println("An enchantment appeared!");
             timer.addTime(5.0);
+            System.out.printf("Remaining Time After Enchantment: %d seconds\n", (int) Math.ceil(timer.getRemainingTime()));
         }
     }
 
     private void printStatus(int remainingTime) {
-        double elapsedTime = timer.getElapsedTime();
-        System.out.printf("Remaining Time: %d, Elapsed Time: %.1f\n", remainingTime, elapsedTime);
+        double elapsedTime = Math.floor(timer.getElapsedTime());
+        System.out.printf("Remaining Time: %d, Elapsed Time: %.0f\n", remainingTime, elapsedTime);
     }
 
     public void pressPauseButton() {
@@ -55,16 +61,16 @@ public class GameController {
         controller.startGame();
 
         try {
-            Thread.sleep(5000); // 5 saniye çalışsın
-            controller.pressPauseButton(); // Pause
-            Thread.sleep(3000); // 3 saniye bekle
-            controller.pressPauseButton(); // Resume
-            Thread.sleep(7000); // 7 saniye çalışsın
-            controller.pressPauseButton(); // Pause
-            Thread.sleep(2000); // 2 saniye bekle
-            controller.pressPauseButton(); // Resume
+            Thread.sleep(5000);
+            controller.pressPauseButton();
+            Thread.sleep(3000);
+            controller.pressPauseButton();
+            Thread.sleep(7000);
+            controller.pressPauseButton();
+            Thread.sleep(2000);
+            controller.pressPauseButton();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
-} 
+}

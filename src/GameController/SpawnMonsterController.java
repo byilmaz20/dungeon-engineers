@@ -11,7 +11,7 @@ import src.Mechanics.PositionPoint;
 public class SpawnMonsterController {
     private GridEnvironment grid;
 
-    public SpawnMonsterController(GridEnvironment grid) {
+    public SpawnMonsterController(GridEnvironment grid) { 
         this.grid = grid; // Initialize with the grid
     }
 
@@ -31,10 +31,8 @@ public class SpawnMonsterController {
                 System.out.println("Failed to place the monster at position: " + randomLocation);
                 return null;
             }
-
         }
-                        return null;
-
+        return null;
     }
     public static void main(String[] args) {
         // Step 1: Create a Hall instance (e.g., EARTH hall)

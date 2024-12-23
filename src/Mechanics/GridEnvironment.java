@@ -6,10 +6,12 @@ import java.util.Random;
 import src.GameController.TimeController;
 import src.GameObjects.Entity;
 import src.GameObjects.Hall;
+import src.GameObjects.Hero;
+import src.GameObjects.Rune;
 
 public class GridEnvironment {
-    PositionPoint heroPosition;
-    PositionPoint runePosition;
+    public Hero hero;
+    public Rune rune;
     Hall hall;
     boolean isRuneFound;
     Entity[][] map; // Grid of entities
@@ -26,13 +28,14 @@ public class GridEnvironment {
         this.gridChangeListener = listener;
     }
 
-    public GridEnvironment(PositionPoint heroPosition, PositionPoint runePosition, Hall hall) {
+    public GridEnvironment(Hall hall) {
         this.timeController = new TimeController(this);
-        this.heroPosition = heroPosition;
+        this.map = new Entity[mapWidth][mapHeight];
         this.hall = hall;
-        this.runePosition = runePosition;
+        this.hero = new Hero(selectRandomLocation(), hall);
+        this.rune = new Rune(getRandomPositionForRune(), hall);
+        
 
-        this.map = new Entity[mapWidth][mapHeight]; // Initialize a 25x25 grid
         this.isRuneFound = false;
         for (Entity entity : hall.getEntitys()) { // Use the getter method
             if (isPositionValid(entity.position)) {
@@ -79,10 +82,9 @@ public class GridEnvironment {
             map[entity.position.x][entity.position.y] = null; // Clear current position
             entity.position = newPosition; // Update entity position
             map[newPosition.x][newPosition.y] = entity; // Set entity in new position
-
+            //TODO: alt satıra gerek var mı emin olamadım - Ceylin
             if (entity instanceof src.GameObjects.Hero) {
-                heroPosition = newPosition;
-                
+                hero.position = newPosition;
             }
 
             notifyGridChange();
@@ -119,6 +121,14 @@ public class GridEnvironment {
 
         System.out.println("Random available position selected: " + randomPosition);
         return randomPosition;
+    }
+
+    public PositionPoint getRandomPositionForRune() {
+        Random random = new Random();
+
+        PositionPoint runePosition = hall.getObstacles().get(random.nextInt(hall.getObstacles().size())).position;
+        System.out.println("Random position for rune selected: " + runePosition.x + ", " + runePosition.y); 
+        return runePosition;
     }
 
     public Hall getHall() {

@@ -4,7 +4,6 @@ import java.awt.*;
 import javax.swing.*;
 import src.GameObjects.*;
 import src.Mechanics.GridEnvironment;
-import src.Mechanics.PositionPoint;
 
 public class PlayModeScreen extends UIScreen {
     private final int gridWidth = 25; // Number of columns
@@ -212,14 +211,4 @@ public class PlayModeScreen extends UIScreen {
         return null; // Return null if no image path is available
     }
 
-    public static void main(String[] args) {
-        PositionPoint heroPosition = new PositionPoint(0, 0);
-        PositionPoint runePosition = new PositionPoint(24, 24);
-        
-
-        Hall hall = new Hall(HallTypes.EARTH);
-        Rune rune = new Rune(runePosition, hall);
-
-        new PlayModeScreen(new GridEnvironment(heroPosition, runePosition, hall));
-    }
 }

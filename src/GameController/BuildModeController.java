@@ -33,7 +33,7 @@ public class BuildModeController {
                 Point point = innerEntry.getKey();
                 String value = innerEntry.getValue();
 
-                PositionPoint pp = new PositionPoint(point.x, point.y);
+                PositionPoint pp = new PositionPoint(point.y, point.x);
 
                 ObstacleType obst = null;
                 if (value == "Skull"){ obst = ObstacleType.SKULL;}

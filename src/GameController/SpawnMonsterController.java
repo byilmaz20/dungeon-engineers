@@ -39,7 +39,7 @@ public class SpawnMonsterController {
         Hall hall = new Hall(HallTypes.EARTH);
 
         // Step 2: Initialize the GridEnvironment with the Hall
-        GridEnvironment grid = new GridEnvironment(new PositionPoint(0, 0), new PositionPoint(5, 5), hall);
+        GridEnvironment grid = new GridEnvironment(hall);
 
         // Step 3: Create a SpawnMonsterController to spawn monsters
         SpawnMonsterController spawner = new SpawnMonsterController(grid);

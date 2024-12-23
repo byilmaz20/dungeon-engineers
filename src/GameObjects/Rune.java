@@ -13,5 +13,8 @@ public class Rune extends Entity {
     public PositionPoint getPosition() {
         return this.position;
     }
+    public void setPosition(PositionPoint position) {
+        this.position = position;
+    }
   
 }

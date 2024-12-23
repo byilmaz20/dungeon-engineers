@@ -62,7 +62,8 @@ public class PlayModeScreen extends UIScreen {
             for (int x = 0; x < gridWidth; x++) {
                 JPanel cell = new JPanel();
                 cell.setPreferredSize(new Dimension(scaledCellSize, scaledCellSize)); // Update cell size
-                cell.setOpaque(false); // Transparent cells
+                //cell.setOpaque(false); // Transparent cells
+                cell.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1)); // Add border to cells
                 cell.setLayout(new BorderLayout());
 
                 gridPanels[y][x] = cell;

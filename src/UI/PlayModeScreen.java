@@ -51,10 +51,10 @@ public class PlayModeScreen extends UIScreen {
         //add hall type image to the screen
         String path = "";
         switch (this.hallType) {
-            case AIR -> path = "/Users/ceylin/Desktop/comp302/project_code/projectrepo/src/Images/BackgroundImages/air.png";
-            case EARTH -> path = "/Users/ceylin/Desktop/comp302/project_code/projectrepo/src/Images/BackgroundImages/earth.png";
-            case FIRE -> path = "/Users/ceylin/Desktop/comp302/project_code/projectrepo/src/Images/BackgroundImages/fire.png";
-            case WATER -> path = "/Users/ceylin/Desktop/comp302/project_code/projectrepo/src/Images/BackgroundImages/water.png";
+            case AIR -> path = "src/Images/BackgroundImages/air.png";
+            case EARTH -> path = "src/Images/BackgroundImages/earth.png";
+            case FIRE -> path = "src/Images/BackgroundImages/fire.png";
+            case WATER -> path = "src/Images/BackgroundImages/water.png";
         }
         hallimage = new ImageIcon(path);
         Image resizedHallImage = hallimage.getImage().getScaledInstance(100, 60, Image.SCALE_SMOOTH); // Desired width and height

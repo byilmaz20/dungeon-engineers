@@ -219,7 +219,6 @@ public class PlayModeScreen extends UIScreen {
 
         Hall hall = new Hall(HallTypes.EARTH);
         Rune rune = new Rune(runePosition, hall);
-        hall.setRune(rune);
 
         new PlayModeScreen(new GridEnvironment(heroPosition, runePosition, hall));
     }

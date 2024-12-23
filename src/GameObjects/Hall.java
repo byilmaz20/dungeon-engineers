@@ -9,7 +9,6 @@ public class Hall {
     List<Enchantment> enchantments; // Sublist for Enchantments
     List<Monster> monsters;         // Sublist for Monsters
     List<Obstacles> obstacles;      // Sublist for Obstacles
-    Rune rune;
     int minimumObjectsRequired;
     
     public Hall(HallTypes hallType) {
@@ -73,12 +72,7 @@ public class Hall {
     }
    
 
-    public Rune getRune() {
-        return rune;
-    }
-    public void setRune(Rune rune) {
-    this.rune = rune;
-}
+
 public Hero getHero() {
     for (Entity entity : this.getEntitys()) { // Loop through all entities in the hall
         if (entity instanceof Hero) { // Check if the entity is an instance of Hero

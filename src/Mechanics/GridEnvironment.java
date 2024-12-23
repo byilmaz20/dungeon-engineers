@@ -30,7 +30,7 @@ public class GridEnvironment {
         this.timeController = new TimeController(this);
         this.heroPosition = heroPosition;
         this.hall = hall;
-        this.runePosition = hall.getRune().getPosition();
+        this.runePosition = runePosition;
 
         this.map = new Entity[mapWidth][mapHeight]; // Initialize a 25x25 grid
         this.isRuneFound = false;

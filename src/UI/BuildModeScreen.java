@@ -1,9 +1,4 @@
 package src.UI;
-import src.GameController.TimeController;
-
-import javax.swing.*;
-import javax.swing.border.TitledBorder;
-
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -13,6 +8,11 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
+import javax.swing.*;
+import javax.swing.border.TitledBorder;
+import src.GameController.BuildModeController;
+import src.GameController.GameFlowController;
+import src.GameObjects.Hall;
 
 public class BuildModeScreen extends JPanel {
 
@@ -377,6 +377,13 @@ public class BuildModeScreen extends JPanel {
 
         if (allRequirementsMet) {
             JOptionPane.showMessageDialog(this, "Game starting!");
+            new BuildModeController();
+            for (Map.Entry<String, Hall> entry : BuildModeController.Halls.entrySet()) {
+                Hall hall = entry.getValue();
+                System.out.println(hall);
+            }
+            
+            new GameFlowController();
         } else {
             JOptionPane.showMessageDialog(this, "Cannot start the game:\n" + errorMessage);
         }

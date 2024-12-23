@@ -35,6 +35,7 @@ public class PlayModeController {
         this.activeEnchantment = null;
         this.isDoorOpen = false;
         this.playModeScreen = new PlayModeScreen(grid);
+        System.out.println("Play Mode Controller Initialized");
         new PlayModeScreen(grid);
     }
     public void updatePlayModeScreen() {

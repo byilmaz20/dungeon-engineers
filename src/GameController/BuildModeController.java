@@ -1,18 +1,15 @@
 package src.GameController;
 
+import java.awt.Point;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-
-
-import src.GameObjects.Entity;
 import src.GameObjects.Hall;
 import src.GameObjects.HallTypes;
 import src.GameObjects.Obstacles;
 import src.GameObjects.Obstacles.ObstacleType;
 import src.Mechanics.PositionPoint;
 import src.UI.BuildModeScreen;
-import java.awt.Point;
 
 public class BuildModeController {
     public static final Map<String, Hall> Halls = new HashMap<>();
@@ -53,10 +50,14 @@ public class BuildModeController {
                 Obstacles ent  = new Obstacles(pp, hall, obst);
                 hall.placeEntity(ent);
 
+
             }
+            Halls.put(outerKey, hall);
+            
         }
         
 
     }
+    
     
 }

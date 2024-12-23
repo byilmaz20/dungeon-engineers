@@ -12,13 +12,14 @@ import src.Mechanics.PositionPoint;
 import src.UI.PlayModeScreen;
 
 public class Main {
+    
     public static void main(String[] args) {
         Hall hall = new Hall(HallTypes.EARTH);
         PositionPoint position = new PositionPoint(2, 4);
-                PositionPoint position2  =new PositionPoint(5, 21);
-                                PositionPoint position3  =new PositionPoint(21, 14);
+        PositionPoint position2  =new PositionPoint(5, 21);
+        PositionPoint position3  =new PositionPoint(21, 14);
 
-                Monster monster = new Monster(position2, hall);
+        Monster monster = new Monster(position2, hall);
         Hero hero  = new Hero(position3, hall);
 
         Rune rune = new Rune(position, hall);
@@ -30,7 +31,7 @@ public class Main {
         PlayModeScreen pms = new PlayModeScreen(HallTypes.FIRE,grid); // Test with FIRE hall type
         SpawnMonsterController spawn = new SpawnMonsterController(grid);
         spawn.spawnMonster();
-                spawn.spawnMonster();
+        spawn.spawnMonster();
         spawn.spawnMonster();
         spawn.spawnMonster();
         spawn.spawnMonster();

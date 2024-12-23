@@ -1,5 +1,5 @@
 package src.UI;
-import src.GameController.GameController;
+import src.GameController.TimeController;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -377,7 +377,6 @@ public class BuildModeScreen extends JPanel {
 
         if (allRequirementsMet) {
             JOptionPane.showMessageDialog(this, "Game starting!");
-            new GameController(); 
         } else {
             JOptionPane.showMessageDialog(this, "Cannot start the game:\n" + errorMessage);
         }

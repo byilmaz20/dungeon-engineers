@@ -13,12 +13,12 @@ public class Hall {
     int minimumObjectsRequired;
     
     public Hall(HallTypes hallType) {
+        
         this.hallType = hallType;
         this.entities = new ArrayList<>();
         this.enchantments = new ArrayList<>();
         this.monsters = new ArrayList<>();
         this.obstacles = new ArrayList<>();
-
         switch (hallType) {
             case EARTH:
                 minimumObjectsRequired = 6;                

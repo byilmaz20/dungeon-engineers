@@ -3,6 +3,8 @@ package src.Mechanics;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import src.GameController.TimeController;
 import src.GameObjects.Entity;
 import src.GameObjects.Hall;
 
@@ -14,6 +16,7 @@ public class GridEnvironment {
     Entity[][] map; // Grid of entities
     int mapWidth = 25; // Fixed grid width
     int mapHeight = 25; // Fixed grid height
+    TimeController timeController;
     private GridChangeListener gridChangeListener;
 
     public interface GridChangeListener {
@@ -25,6 +28,7 @@ public class GridEnvironment {
     }
 
     public GridEnvironment(PositionPoint heroPosition, PositionPoint runePosition, Hall hall) {
+        this.timeController = new TimeController(this);
         this.heroPosition = heroPosition;
         this.hall = hall;
                 this.runePosition = hall.getRune().getPosition();

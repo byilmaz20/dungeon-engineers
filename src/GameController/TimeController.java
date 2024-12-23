@@ -1,26 +1,49 @@
 package src.GameController;
 
+import src.GameObjects.Hall;
+import src.GameObjects.HallTypes;
+import src.GameObjects.Hero;
+import src.GameObjects.Monster;
+import src.GameObjects.Rune;
+import src.Mechanics.GridEnvironment;
+import src.Mechanics.PositionPoint;
 import src.Mechanics.Timer;
 
-public class GameController {
+/*
+yeni hall olusunca grid gridini kullanarak 
+timeController = new TimeController(grid) yapılacak
+sonra timeController.startGame() yapılacak
+sonra her sey otomatik calisacak
+ekranda time gostermek icin de sonradan ekleyecez
+ornek kullanım bunun maininde
+ */
+
+public class TimeController {
     private Timer timer;
     private boolean isPaused;
+    private double intitialTime;
 
     private double lastMonsterSpawnTime;
     private double lastEnchantmentTime;
 
     private final double monsterStartDelay = 6.0;
     private final double enchantmentStartDelay = 12.0;
+    GridEnvironment grid;
+    SpawnMonsterController spawner;
 
-    public GameController() {
+    public TimeController(GridEnvironment grid) {
         this.timer = new Timer();
         this.isPaused = false;
         this.lastMonsterSpawnTime = -monsterStartDelay;
         this.lastEnchantmentTime = -enchantmentStartDelay;
+        this.intitialTime = 30.0; //TODO Gridden alınacak !!! = griddeki obje sayisi * 5 olarak guncellenecek
+        this.grid = grid;
+        spawner = new SpawnMonsterController(grid);
     }
 
     public void startGame() {
-        timer.startTimer(30.0, this::checkMechanics, this::printStatus);
+        timer.startTimer(intitialTime, this::checkMechanics, this::printStatus);
+
     }
 
     private void checkMechanics() {
@@ -28,6 +51,8 @@ public class GameController {
         System.out.printf("Checking Mechanics - Elapsed Time: %.0f\n", elapsedTime);
 
         if (elapsedTime >= monsterStartDelay && elapsedTime - lastMonsterSpawnTime >= 6.0) {
+            SpawnMonsterController spawn = new SpawnMonsterController(grid);
+            spawn.spawnMonster();
             lastMonsterSpawnTime = elapsedTime;
             
             System.out.println("A new monster has been spawned!");
@@ -41,7 +66,7 @@ public class GameController {
         }
     }
 
-    private void printStatus(int remainingTime) {
+    private void printStatus(int remainingTime) { //todo bunu UI guncellemesi icin tickcallback olarak degistircez
         double elapsedTime = Math.floor(timer.getElapsedTime());
         System.out.printf("Remaining Time: %d, Elapsed Time: %.0f\n", remainingTime, elapsedTime);
     }
@@ -56,12 +81,32 @@ public class GameController {
         }
         isPaused = !isPaused;
     }
+    public void applyTimeEchantment() {
+        timer.addTime(5.0);
+        System.out.printf("Remaining Time Increased by 5 seconds\n");
+    }
 
     public static void main(String[] args) {
-        GameController controller = new GameController();
+        Hall hall = new Hall(HallTypes.EARTH);
+        PositionPoint position = new PositionPoint(2, 4);
+        PositionPoint position2  =new PositionPoint(5, 21);
+        PositionPoint position3  =new PositionPoint(21, 14);
+
+        Monster monster = new Monster(position2, hall);
+        Hero hero  = new Hero(position3, hall);
+        Rune rune = new Rune(position, hall);
+        hall.placeEntity(hero);
+        hall.placeEntity(monster);
+        hall.setRune(rune);
+        GridEnvironment grid = new GridEnvironment(position, position, hall);
+
+        //GridEnvironment grid = new GridEnvironment(null, null, new Hall(HallTypes.EARTH));
+        TimeController controller = new TimeController(grid);
         controller.startGame();
 
+/* 
         try {
+            
             Thread.sleep(5000);
             controller.pressPauseButton();
             Thread.sleep(3000);
@@ -72,6 +117,6 @@ public class GameController {
             controller.pressPauseButton();
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 }

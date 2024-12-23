@@ -23,7 +23,6 @@ public class PlayModeController {
 
     public PlayModeController(Hall hall) {
         this.currentHall = hall;
-        this.playModeScreen = new PlayModeScreen(this.currentHall.hallType);
         this.hero = new Hero();
         
         Random random = new Random();
@@ -36,6 +35,7 @@ public class PlayModeController {
         monsterSpawner.spawnMonster();
         this.activeEnchantment = null;
         this.isDoorOpen = false;
+        this.playModeScreen = new PlayModeScreen(this.currentHall.hallType, grid);
     }
     public void updatePlayModeScreen() {
         this.grid.moveEntity(this.hero);

@@ -4,6 +4,7 @@ import java.awt.*;
 import javax.swing.*;
 import src.GameObjects.*;
 import src.Mechanics.GridEnvironment;
+import src.Mechanics.PositionPoint;
 
 public class PlayModeScreen extends UIScreen {
     private final int gridWidth = 25; // Number of columns
@@ -16,6 +17,7 @@ public class PlayModeScreen extends UIScreen {
     private JButton helpButton;
     private JButton exitButton;
     private HallTypes hallType;
+    private ImageIcon hallimage;
 
     private GridEnvironment gridEnvironment; // Reference to the GridEnvironment
 
@@ -39,7 +41,63 @@ public class PlayModeScreen extends UIScreen {
 
     private void initializeComponents() {
         setBackgroundImage();
+        setHallTypeImage();
+        setPauseGameButton();
+        setHelpButton();
+        setExitButton();
         
+    }
+    private void setHallTypeImage() {
+        //add hall type image to the screen
+        String path = "";
+        switch (this.hallType) {
+            case AIR -> path = "/Users/ceylin/Desktop/comp302/project_code/projectrepo/src/Images/BackgroundImages/air.png";
+            case EARTH -> path = "/Users/ceylin/Desktop/comp302/project_code/projectrepo/src/Images/BackgroundImages/earth.png";
+            case FIRE -> path = "/Users/ceylin/Desktop/comp302/project_code/projectrepo/src/Images/BackgroundImages/fire.png";
+            case WATER -> path = "/Users/ceylin/Desktop/comp302/project_code/projectrepo/src/Images/BackgroundImages/water.png";
+        }
+        hallimage = new ImageIcon(path);
+        Image resizedHallImage = hallimage.getImage().getScaledInstance(100, 60, Image.SCALE_SMOOTH); // Desired width and height
+        ImageIcon resizedHallIcon = new ImageIcon(resizedHallImage);
+        JLabel label = new JLabel(resizedHallIcon);
+        this.setLayout(null);
+        label.setBounds(170, 0, 200, 100);
+        this.add(label, BorderLayout.CENTER);
+        this.setVisible(true);
+    }
+    private void setPauseGameButton() {
+        pauseGameButton = new JButton();
+        pauseGameButton.setBounds(526, 33, 35, 35);
+        pauseGameButton.setOpaque(false);
+        pauseGameButton.setContentAreaFilled(false);
+        pauseGameButton.setBorderPainted(false);
+        pauseGameButton.addActionListener(e -> {
+            this.setVisible(true);
+            //TODO:new PauseScreen();
+        });
+        backgroundPanel.add(pauseGameButton);
+    }
+    private void setHelpButton() {
+        helpButton = new JButton();
+        helpButton.setBounds(468, 33, 35, 35);
+        helpButton.setOpaque(false);
+        helpButton.setContentAreaFilled(false);
+        helpButton.setBorderPainted(false);
+            helpButton.addActionListener(e -> {
+            this.setVisible(false);
+            new HelpScreen(this);
+            //TODO: IF CALLED FROM THE MAIN SCREEN, ARRANGE IT
+        });
+        backgroundPanel.add(helpButton);
+    }
+    private void setExitButton() {
+        exitButton = new JButton();
+        exitButton.setBounds(586, 35, 35, 35);
+        exitButton.setOpaque(false);
+        exitButton.setContentAreaFilled(false);
+        exitButton.setBorderPainted(false);
+        exitButton.addActionListener(e -> System.exit(0));
+        backgroundPanel.add(exitButton);
     }
 
     private void initializeGrid() {
@@ -151,5 +209,17 @@ public class PlayModeScreen extends UIScreen {
             };
         }
         return null; // Return null if no image path is available
+    }
+
+    public static void main(String[] args) {
+        PositionPoint heroPosition = new PositionPoint(0, 0);
+        PositionPoint runePosition = new PositionPoint(24, 24);
+        
+
+        Hall hall = new Hall(HallTypes.EARTH);
+        Rune rune = new Rune(runePosition, hall);
+        hall.setRune(rune);
+
+        new PlayModeScreen(HallTypes.EARTH, new GridEnvironment(heroPosition, runePosition, hall));
     }
 }

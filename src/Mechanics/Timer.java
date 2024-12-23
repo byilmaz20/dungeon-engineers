@@ -20,7 +20,7 @@ public class Timer {
         this.lastUpdateTime = System.currentTimeMillis();
 
         tickCallback.accept((int) Math.ceil(remainingTime));
-
+        //todo eger cagırılan fonksiyonun suresi uzadıgı icin visual guncelleme sıkıntısı cıkarsa kontrol et
         timerThread = new Thread(() -> {
             while (remainingTime > 0) {
                 long loopStartTime = System.currentTimeMillis();
@@ -50,6 +50,7 @@ public class Timer {
                 }
             }
             System.out.println("Timer Finished!");
+            //TODO burada aksiyon alınacak UI baglantısı icin
         });
         timerThread.start();
     }

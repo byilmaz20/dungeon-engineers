@@ -21,10 +21,10 @@ public class PlayModeScreen extends UIScreen {
 
     private GridEnvironment gridEnvironment; // Reference to the GridEnvironment
 
-    public PlayModeScreen(HallTypes hallType, GridEnvironment gridEnvironment) {
+    public PlayModeScreen(GridEnvironment gridEnvironment) {
         super(650, 650, "Play Mode Screen", 
         "src/Images/BackgroundImages/HALL.png");
-        this.hallType = hallType;
+        this.hallType = gridEnvironment.getHall().hallType;
         this.gridEnvironment = gridEnvironment;
 
         // Set up grid listener to update UI on grid changes
@@ -37,6 +37,7 @@ public class PlayModeScreen extends UIScreen {
         updateGridFromEnvironment(gridEnvironment.getMap()); // Initialize grid with current map
 
         setVisible(true);
+        System.out.println("Play Mode Screen Initialized");
     }
 
     private void initializeComponents() {
@@ -220,6 +221,6 @@ public class PlayModeScreen extends UIScreen {
         Rune rune = new Rune(runePosition, hall);
         hall.setRune(rune);
 
-        new PlayModeScreen(HallTypes.EARTH, new GridEnvironment(heroPosition, runePosition, hall));
+        new PlayModeScreen(new GridEnvironment(heroPosition, runePosition, hall));
     }
 }

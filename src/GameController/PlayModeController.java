@@ -1,6 +1,5 @@
 package src.GameController;
 
-import java.awt.GridBagConstraints;
 import java.util.Random;
 import src.GameObjects.Enchantment;
 import src.GameObjects.Hall;
@@ -35,7 +34,8 @@ public class PlayModeController {
         monsterSpawner.spawnMonster();
         this.activeEnchantment = null;
         this.isDoorOpen = false;
-        this.playModeScreen = new PlayModeScreen(this.currentHall.hallType, grid);
+        this.playModeScreen = new PlayModeScreen(grid);
+        new PlayModeScreen(grid);
     }
     public void updatePlayModeScreen() {
         this.grid.moveEntity(this.hero);

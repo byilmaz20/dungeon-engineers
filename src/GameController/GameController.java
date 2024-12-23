@@ -29,6 +29,7 @@ public class GameController {
 
         if (elapsedTime >= monsterStartDelay && elapsedTime - lastMonsterSpawnTime >= 6.0) {
             lastMonsterSpawnTime = elapsedTime;
+            
             System.out.println("A new monster has been spawned!");
         }
 

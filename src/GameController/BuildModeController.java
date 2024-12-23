@@ -54,6 +54,8 @@ public class BuildModeController {
                 hall.placeEntity(ent);
 
             }
+            Halls.put(outerKey, hall);
+
         }
         
 

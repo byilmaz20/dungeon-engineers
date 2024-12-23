@@ -22,7 +22,7 @@ public class BuildModeScreen extends JPanel {
     private final Map<String, Integer> hallMinimumCounts; // Define minimum object counts per hall
     private final int hallGridSize = 25; // 25x25 grid for each hall
     private ImageIcon selectedObjectIcon; // Currently selected object icon
-    private final Map<String, Map<Point, String>> hallObjectPlacements = new HashMap<>(); //store the coordinates of each object for each hall
+    public static final Map<String, Map<Point, String>> hallObjectPlacements = new HashMap<>(); //store the coordinates of each object for each hall
 
     public BuildModeScreen() {
         hallPanels = new HashMap<>();

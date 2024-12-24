@@ -1,5 +1,7 @@
 package src.GameController;
 
+import javax.swing.JOptionPane;
+
 import src.GameObjects.Hall;
 import src.GameObjects.HallTypes;
 import src.GameObjects.Hero;
@@ -37,6 +39,7 @@ public class TimeController {
         this.lastMonsterSpawnTime = -monsterStartDelay;
         this.lastEnchantmentTime = -enchantmentStartDelay;
         this.intitialTime = 30.0; //TODO Gridden alınacak !!! = griddeki obje sayisi * 5 olarak guncellenecek
+        //todo monster için ayrıca girdi verebilsin
         this.grid = grid;
         spawner = new SpawnMonsterController(grid);
     }
@@ -61,13 +64,18 @@ public class TimeController {
             
             System.out.println("A new monster has been spawned!");
         }
-
-        if (elapsedTime >= enchantmentStartDelay && elapsedTime - lastEnchantmentTime >= 12.0) {
-            lastEnchantmentTime = elapsedTime;
-            System.out.println("An enchantment appeared!");
-            timer.addTime(5.0);
-            System.out.printf("Remaining Time After Enchantment: %d seconds\n", (int) Math.ceil(timer.getRemainingTime()));
+        double remainingTime = timer.getRemainingTime();
+        if (remainingTime <= 0) {
+            System.out.println("Time finished Game Over!");
+            System.exit(0);
         }
+
+        // if (elapsedTime >= enchantmentStartDelay && elapsedTime - lastEnchantmentTime >= 12.0) {
+        //     lastEnchantmentTime = elapsedTime;
+        //     System.out.println("An enchantment appeared!");
+        //     timer.addTime(5.0);
+        //     System.out.printf("Remaining Time After Enchantment: %d seconds\n", (int) Math.ceil(timer.getRemainingTime()));
+        // }
     }
 
     private void printStatus(int remainingTime) { //todo bunu UI guncellemesi icin tickcallback olarak degistircez

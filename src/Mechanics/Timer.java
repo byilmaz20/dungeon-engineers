@@ -26,7 +26,6 @@ public class Timer {
 
     
     private void notifyTimeChange() {
-
         if (timeChangeListener != null) {
             timeChangeListener.onTimeChanged(remainingTime);
         }

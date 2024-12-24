@@ -1,5 +1,7 @@
 package src.GameController;
 
+import src.Mechanics.Timer;
+
 import src.GameObjects.Enchantment;
 import src.GameObjects.Hall;
 import src.Mechanics.GridEnvironment;
@@ -24,7 +26,8 @@ public class PlayModeController{
         this.activeEnchantment = null;
         this.isDoorOpen = false;
         this.timeController = new TimeController(grid);
-        this.playModeScreen = new PlayModeScreen(grid, timeController.getTimer());
+        Timer timer = timeController.getTimer();
+        this.playModeScreen = new PlayModeScreen(grid, timeController);
 
     }
     public void disposeScreen() {

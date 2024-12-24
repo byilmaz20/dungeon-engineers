@@ -3,6 +3,7 @@ package src.UI;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
 import javax.swing.*;
 import src.GameObjects.*;
 import src.Mechanics.Direction;
@@ -130,11 +131,20 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
         for (int y = 0; y < gridHeight; y++) {
             for (int x = 0; x < gridWidth; x++) {
                 JPanel cell = new JPanel();
-                cell.setPreferredSize(new Dimension(scaledCellSize, scaledCellSize)); // Update cell size
-                //cell.setOpaque(false); // Transparent cells
-                cell.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1)); // Add border to cells
+                cell.setPreferredSize(new Dimension(scaledCellSize, scaledCellSize));
+                cell.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
                 cell.setLayout(new BorderLayout());
-
+                
+                // Attach MouseListener to each cell
+                final int cellX = x;
+                final int cellY = y;
+                cell.addMouseListener(new java.awt.event.MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        handleCellClick(cellX, cellY);
+                    }
+                });
+    
                 gridPanels[y][x] = cell;
                 gridPanel.add(cell);
             }
@@ -263,5 +273,11 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
         // Do nothing
     }
 
-
+    private void handleCellClick(int x, int y) {        
+        if (gridEnvironment.map[x][y] instanceof Rune) {
+            System.out.println("Rune has been clicked: " + x + ", " + y);
+            gridEnvironment.checkRuneFound();
+        } 
+    }
+    
 }

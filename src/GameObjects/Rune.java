@@ -15,5 +15,8 @@ public class Rune extends Entity {
     public void setPosition(PositionPoint position) {
         this.position = position;
     }
+    public void found() {
+        this.isFound = true;
+    }
   
 }

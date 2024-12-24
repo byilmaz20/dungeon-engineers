@@ -13,8 +13,7 @@ public class GridEnvironment {
     public Hero hero;
     public Rune rune;
     Hall hall;
-    boolean isRuneFound;
-    Entity[][] map; // Grid of entities
+    public Entity[][] map; // Grid of entities
     int mapWidth = 25; // Fixed grid width
     int mapHeight = 25; // Fixed grid height
     TimeController timeController;
@@ -37,7 +36,6 @@ public class GridEnvironment {
         hall.entities.add(rune);
         hall.entities.add(hero);
 
-        this.isRuneFound = false;
         for (Entity entity : hall.getEntitys()) { // Use the getter method
             System.out.println(entity.getClass().getSimpleName() + " at: " + entity.position);
             if (entity instanceof Rune) {
@@ -103,10 +101,23 @@ public class GridEnvironment {
             return false;
         }
     }
-
-    public boolean isRuneFound() {
-        return isRuneFound;
+    public boolean checkRuneFound() {
+        boolean isAdjacent = false;
+        if ((hero.position.x == rune.position.x && hero.position.y == rune.position.y - 1) ||  // Above
+            (hero.position.x == rune.position.x && hero.position.y == rune.position.y + 1) ||  // Below
+            (hero.position.y == rune.position.y && hero.position.x == rune.position.x - 1) ||  // Left
+            (hero.position.y == rune.position.y && hero.position.x == rune.position.x + 1)) {  // Right
+            
+            isAdjacent = true;
+        }
+        if (isAdjacent) {
+            rune.found();
+            System.out.println("Rune found!");
+            return true;
+        }
+        return false;
     }
+
 
     public PositionPoint selectRandomLocation() {
         List<PositionPoint> availablePositions = new ArrayList<>();

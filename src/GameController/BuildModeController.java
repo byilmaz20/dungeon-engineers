@@ -53,7 +53,6 @@ public class BuildModeController {
 
             }
             Halls.put(outerKey, hall);
-            
         }
         
 

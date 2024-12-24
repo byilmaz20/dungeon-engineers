@@ -41,13 +41,13 @@ public class GridEnvironment {
             if (entity instanceof Rune) {
                 // TODO1: varolan obstacleı silmeden rune u üstüne yapıştır.
                 map[entity.position.x][entity.position.y] = entity; // Place the entity on the grid
-                System.out.println("Entity placed on grid at: " + entity.position);
+                //System.out.println("Entity placed on grid at: " + entity.position);
             }else{
                 if (isPositionValid(entity.position)) {
                     map[entity.position.x][entity.position.y] = entity; // Place the entity on the grid
-                    System.out.println("Entity placed on grid at: " + entity.position);
+                    //System.out.println("Entity placed on grid at: " + entity.position);
                 } else {
-                    System.out.println("Invalid position for entity: " + entity.position);
+                    //System.out.println("Invalid position for entity: " + entity.position);
                 }
             }
         }
@@ -112,7 +112,7 @@ public class GridEnvironment {
         }
         if (isAdjacent) {
             rune.found();
-            System.out.println("Rune found!");
+            
             return true;
         }
         return false;

@@ -1,4 +1,5 @@
 package src.GameObjects;
+import src.GameController.GameFlowController;
 import src.Mechanics.PositionPoint;
 
 public class Rune extends Entity {
@@ -17,6 +18,7 @@ public class Rune extends Entity {
     }
     public void found() {
         this.isFound = true;
+        GameFlowController.proceedNextHall();
     }
   
 }

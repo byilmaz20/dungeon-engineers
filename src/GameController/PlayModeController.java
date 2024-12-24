@@ -24,6 +24,9 @@ public class PlayModeController{
         this.isDoorOpen = false;
         this.playModeScreen = new PlayModeScreen(grid);
     }
+    public void disposeScreen() {
+        playModeScreen.dispose();
+    }
 
 
 }

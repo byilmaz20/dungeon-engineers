@@ -1,10 +1,10 @@
 package src.GameController;
 
-import src.UI.BuildModeScreen;
+import src.UI.MainMenuScreen;
 
 public class Main {
     
     public static void main(String[] args) {
-        new BuildModeScreen();
+        new MainMenuScreen();
     }
 }

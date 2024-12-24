@@ -22,10 +22,10 @@ public class BuildModeController {
             Map<Point, String> innerMap = outerEntry.getValue();
 
             HallTypes halltyp = null;
-            if (outerKey == "Hall of Earth"){ halltyp = HallTypes.EARTH;}
-            if (outerKey == "Hall of Air"){ halltyp = HallTypes.AIR;}
-            if (outerKey == "Hall of Water"){ halltyp = HallTypes.WATER;}
-            if (outerKey == "Hall of Fire"){ halltyp = HallTypes.FIRE;}
+            if (outerKey == "Hall of EARTH"){ halltyp = HallTypes.EARTH;}
+            if (outerKey == "Hall of AIR"){ halltyp = HallTypes.AIR;}
+            if (outerKey == "Hall of WATER"){ halltyp = HallTypes.WATER;}
+            if (outerKey == "Hall of FIRE"){ halltyp = HallTypes.FIRE;}
 
             Hall hall = new Hall(halltyp);
 

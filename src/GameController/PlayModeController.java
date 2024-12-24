@@ -5,7 +5,7 @@ import src.GameObjects.Hall;
 import src.Mechanics.GridEnvironment;
 import src.UI.PlayModeScreen;
 
-public class PlayModeController {
+public class PlayModeController{
     
     Hall currentHall;
     Enchantment activeEnchantment;
@@ -23,11 +23,6 @@ public class PlayModeController {
         this.activeEnchantment = null;
         this.isDoorOpen = false;
         this.playModeScreen = new PlayModeScreen(grid);
-        System.out.println("Play Mode Controller Initialized");
-    }
-    public void updatePlayModeScreen() {
-        this.grid.moveEntity(this.grid.hero);
-        this.grid.moveEntity(this.grid.rune);
     }
 
 

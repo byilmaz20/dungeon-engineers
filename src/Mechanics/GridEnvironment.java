@@ -35,6 +35,7 @@ public class GridEnvironment {
         this.hero = new Hero(selectRandomLocation(), hall);
         this.rune = new Rune(getRandomPositionForRune(), hall);
         hall.entities.add(rune);
+        hall.entities.add(hero);
 
         this.isRuneFound = false;
         for (Entity entity : hall.getEntitys()) { // Use the getter method

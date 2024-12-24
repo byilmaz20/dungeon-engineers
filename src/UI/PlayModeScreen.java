@@ -1,11 +1,15 @@
 package src.UI;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import javax.swing.*;
 import src.GameObjects.*;
+import src.Mechanics.Direction;
+import src.Mechanics.Direction.DirectionEnum;
 import src.Mechanics.GridEnvironment;
 
-public class PlayModeScreen extends UIScreen {
+public class PlayModeScreen extends UIScreen implements KeyListener{
     private final int gridWidth = 25; // Number of columns
     private final int gridHeight = 25; // Number of rows
     private final int baseCellSize = 25; // Base size of each cell
@@ -25,19 +29,26 @@ public class PlayModeScreen extends UIScreen {
         "src/Images/BackgroundImages/HALL.png");
         this.hallType = gridEnvironment.getHall().hallType;
         this.gridEnvironment = gridEnvironment;
-
+    
         // Set up grid listener to update UI on grid changes
         this.gridEnvironment.setGridChangeListener(this::updateGridFromEnvironment);
-
+    
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+    
         initializeComponents();
         initializeGrid();
         updateGridFromEnvironment(gridEnvironment.getMap()); // Initialize grid with current map
-
+    
+        // Ensure the component is focusable and has focus
+        setFocusable(true);
+        requestFocusInWindow();
+    
+        addKeyListener(this);
+    
         setVisible(true);
         System.out.println("Play Mode Screen Initialized");
     }
+    
 
     private void initializeComponents() {
         setBackgroundImage();
@@ -216,5 +227,41 @@ public class PlayModeScreen extends UIScreen {
         }
         return null; // Return null if no image path is available
     }
+    @Override
+    public boolean isFocusable() {
+        return true;
+    }
+        @Override
+    public void keyPressed(KeyEvent e) {
+        System.out.println("Key Pressed");
+        int keyCode = e.getKeyCode();
+        switch (keyCode) {
+            case KeyEvent.VK_LEFT:
+                System.out.println("Left key pressed");
+                gridEnvironment.moveEntity(gridEnvironment.hero, new Direction(DirectionEnum.LEFT));
+                break;
+            case KeyEvent.VK_RIGHT:
+                gridEnvironment.moveEntity(gridEnvironment.hero, new Direction(DirectionEnum.RIGHT));
+                break;
+            case KeyEvent.VK_UP:
+                gridEnvironment.moveEntity(gridEnvironment.hero, new Direction(DirectionEnum.UP));
+                break;
+            case KeyEvent.VK_DOWN:
+                gridEnvironment.moveEntity(gridEnvironment.hero, new Direction(DirectionEnum.DOWN));
+                break;
+            default:
+                System.out.println("Unhandled Key: " + keyCode);
+                break;
+        }
+    }
+    @Override
+    public void keyReleased(KeyEvent e) {
+        // Do nothing
+    }
+    @Override
+    public void keyTyped(KeyEvent e) {
+        // Do nothing
+    }
+
 
 }

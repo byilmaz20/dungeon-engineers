@@ -24,36 +24,41 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
     private JButton exitButton;
     private HallTypes hallType;
     private ImageIcon hallimage;
+    private Timer timer;
+    private double remainingTime;
 
 
     private GridEnvironment gridEnvironment; // Reference to the GridEnvironment
 
 
-    public PlayModeScreen(GridEnvironment gridEnvironment) {
+    public PlayModeScreen(GridEnvironment gridEnvironment, Timer timer) {
         
         super(650, 650, "Play Mode Screen", 
         "src/Images/BackgroundImages/HALL.png");
-        this.hallType = gridEnvironment.getHall().hallType;
-        this.gridEnvironment = gridEnvironment;
+            this.hallType = gridEnvironment.getHall().hallType;
+            this.gridEnvironment = gridEnvironment;
+            this.timer = timer;
 
+            // Set up grid listener to update UI on grid changes
+            this.gridEnvironment.setGridChangeListener(this::updateGridFromEnvironment);
+            this.timer.setTimeChangeListener(this::updateTime);
 
-        // Set up grid listener to update UI on grid changes
-        this.gridEnvironment.setGridChangeListener(this::updateGridFromEnvironment);
-    
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    
-        initializeComponents();
-        initializeGrid();
-        updateGridFromEnvironment(gridEnvironment.getMap()); // Initialize grid with current map
-    
-        // Ensure the component is focusable and has focus
-        setFocusable(true);
-        requestFocusInWindow();
-    
-        addKeyListener(this);
-    
-        setVisible(true);
-        System.out.println("Play Mode Screen Initialized");
+            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+            initializeComponents();
+            initializeGrid();
+            updateGridFromEnvironment(gridEnvironment.getMap()); // Initialize grid with current map
+            updateTime(timer.getRemainingTime());
+
+            // Ensure the component is focusable and has focus
+            setFocusable(true);
+            requestFocusInWindow();
+
+            addKeyListener(this);
+
+            setVisible(true);
+            System.out.println("Play Mode Screen Initialized");
+        }
     }
     
 
@@ -179,6 +184,11 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
         backgroundPanel.add(gridPanel);
         revalidate();
         repaint();
+    }
+
+    private void updateTime(double remainingTime) { //TODO text eklenecek
+        this.remainingTime = remainingTime;
+        System.out.println("Time updated: " + remainingTime);
     }
 
     private void updateGridFromEnvironment(Entity[][] map) {

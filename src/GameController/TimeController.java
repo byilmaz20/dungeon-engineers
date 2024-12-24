@@ -41,6 +41,10 @@ public class TimeController {
         spawner = new SpawnMonsterController(grid);
     }
 
+    public Timer getTimer() {
+        return timer;
+    }
+
     public void startGame() {
         timer.startTimer(intitialTime, this::checkMechanics, this::printStatus);
 

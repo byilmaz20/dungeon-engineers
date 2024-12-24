@@ -13,6 +13,7 @@ public class PlayModeController{
     GridEnvironment grid;
     SpawnMonsterController monsterSpawner;
     PlayModeScreen playModeScreen;
+    TimeController timeController;
 
     public PlayModeController(Hall hall) {
         this.currentHall = hall;
@@ -22,7 +23,9 @@ public class PlayModeController{
         monsterSpawner.spawnMonster();
         this.activeEnchantment = null;
         this.isDoorOpen = false;
-        this.playModeScreen = new PlayModeScreen(grid);
+        this.timeController = new TimeController(grid);
+        this.playModeScreen = new PlayModeScreen(grid, timeController.getTimer());
+
     }
     public void disposeScreen() {
         playModeScreen.dispose();

@@ -5,13 +5,12 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import javax.swing.*;
-
-import src.GameController.TimeController;
 import src.GameObjects.*;
 import src.Mechanics.Direction;
 import src.Mechanics.Direction.DirectionEnum;
 import src.Mechanics.GridEnvironment;
 import src.Mechanics.Timer;
+import src.GameController.TimeController;
 
 public class PlayModeScreen extends UIScreen implements KeyListener{
     private final int gridWidth = 25; // Number of columns
@@ -118,6 +117,7 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
                 // Resume butonuna tıklandığında
                 pauseGameButton.setIcon(pauseIcon); // Pause ikonuna geri dön
                 System.out.println("Game Resumed!"); 
+                resumeGame();
             }
         });
     
@@ -329,6 +329,9 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
             gridEnvironment.checkRuneFound();
         } 
     }
-
+    public void resumeGame(){
+        this.dispose();
+        new PlayModeScreen(gridEnvironment, timeController);
+    }
     
 }

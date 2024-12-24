@@ -21,7 +21,7 @@ public class SpawnEnchantmentController {
             // Create a random enchantment
             Enchantment enchantment = new Enchantment(randomLocation, grid.getHall());
 
-            // Place the monster on the grid
+            // Place the enchantment on the grid
             if (grid.moveEntity(enchantment)) {
                 System.out.println("Spawned " + enchantment.getType() + " at position: " + randomLocation);
                         return enchantment;

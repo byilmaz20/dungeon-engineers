@@ -1,7 +1,7 @@
 package src.UI;
 
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
 
 public class HelpScreen extends UIScreen {
     private JButton BackGameButton;
@@ -193,7 +193,12 @@ public class HelpScreen extends UIScreen {
         BackGameButton.setFont(new Font("Times New Roman", Font.BOLD, 20));
         BackGameButton.addActionListener(e -> {
             this.dispose();
-            this.previous_Screen.setVisible(true);;
+            if (previous_Screen instanceof PlayModeScreen) {
+                ((PlayModeScreen) previous_Screen).resumeGame();
+            }
+            else{
+                this.previous_Screen.setVisible(true);;
+            }
         });
 
         

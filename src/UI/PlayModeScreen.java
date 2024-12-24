@@ -23,14 +23,18 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
     private HallTypes hallType;
     private ImageIcon hallimage;
 
+
     private GridEnvironment gridEnvironment; // Reference to the GridEnvironment
 
+
     public PlayModeScreen(GridEnvironment gridEnvironment) {
+        
         super(650, 650, "Play Mode Screen", 
         "src/Images/BackgroundImages/HALL.png");
         this.hallType = gridEnvironment.getHall().hallType;
         this.gridEnvironment = gridEnvironment;
-    
+
+
         // Set up grid listener to update UI on grid changes
         this.gridEnvironment.setGridChangeListener(this::updateGridFromEnvironment);
     
@@ -47,7 +51,6 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
         addKeyListener(this);
     
         setVisible(true);
-        System.out.println("Play Mode Screen Initialized");
     }
     
 
@@ -77,6 +80,7 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
         this.add(label, BorderLayout.CENTER);
         this.setVisible(true);
     }
+    
     private void setPauseGameButton() {
         pauseGameButton = new JButton();
         pauseGameButton.setBounds(506, 30, 48, 45); // Butonun boyutlarını ve pozisyonunu ayarla
@@ -106,6 +110,8 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
     
         backgroundPanel.add(pauseGameButton); // Butonu arayüze ekle
     }
+    
+        
     private void setHelpButton() {
         helpButton = new JButton();
         helpButton.setBounds(468, 33, 35, 35);
@@ -322,6 +328,4 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
         new PlayModeScreen(gridEnvironment);
     }
     
-    
-
 }

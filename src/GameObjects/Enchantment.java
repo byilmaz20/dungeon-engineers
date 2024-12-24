@@ -1,24 +1,31 @@
 package src.GameObjects;
 import src.Mechanics.PositionPoint;
+import java.util.Random;
 
 
-public abstract class Enchantment extends Entity{ 
+public class Enchantment extends Entity{ 
     
     EnchantmentTypes type;
     boolean  isStorable;
     int duration;
-    PositionPoint position;
 
     
-    public Enchantment(EnchantmentTypes type, boolean  isStorable, int duration, PositionPoint position, Hall hall) {
+    public Enchantment(PositionPoint position, Hall hall) {
         super(position, hall);
-        this.type = type;
-        this.isStorable = isStorable;
-        this.duration = duration;
-        this.position = position;
+        this.type = selectRandomEnchantment();
+        this.isStorable = false;
+        this.duration = 10;
     }
+
+    public EnchantmentTypes selectRandomEnchantment() {
+        EnchantmentTypes[] enchantmentTypes = EnchantmentTypes.values(); // Get all enchantment types
+        Random random = new Random();
+        return enchantmentTypes[random.nextInt(enchantmentTypes.length)];
+    }
+    
+
     public EnchantmentTypes getType() {
-        return type;
+        return this.type;
     }
     public void CollectEnchantment(){
         // Collect the enchantment

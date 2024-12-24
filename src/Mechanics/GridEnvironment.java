@@ -34,15 +34,22 @@ public class GridEnvironment {
         this.hall = hall;
         this.hero = new Hero(selectRandomLocation(), hall);
         this.rune = new Rune(getRandomPositionForRune(), hall);
-        
+        hall.entities.add(rune);
 
         this.isRuneFound = false;
         for (Entity entity : hall.getEntitys()) { // Use the getter method
-            if (isPositionValid(entity.position)) {
+            System.out.println(entity.getClass().getSimpleName() + " at: " + entity.position);
+            if (entity instanceof Rune) {
+                // TODO1: varolan obstacleı silmeden rune u üstüne yapıştır.
                 map[entity.position.x][entity.position.y] = entity; // Place the entity on the grid
                 System.out.println("Entity placed on grid at: " + entity.position);
-            } else {
-                System.out.println("Invalid position for entity: " + entity.position);
+            }else{
+                if (isPositionValid(entity.position)) {
+                    map[entity.position.x][entity.position.y] = entity; // Place the entity on the grid
+                    System.out.println("Entity placed on grid at: " + entity.position);
+                } else {
+                    System.out.println("Invalid position for entity: " + entity.position);
+                }
             }
         }
     }
@@ -119,7 +126,7 @@ public class GridEnvironment {
         Random random = new Random();
         PositionPoint randomPosition = availablePositions.get(random.nextInt(availablePositions.size()));
 
-        System.out.println("Random available position selected: " + randomPosition);
+        //System.out.println("Random available position selected: " + randomPosition);
         return randomPosition;
     }
 

@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Hall {
     public HallTypes hallType;
-    List<Entity> entities;          // Main list of all entities
+    public List<Entity> entities;          // Main list of all entities
     List<Enchantment> enchantments; // Sublist for Enchantments
     List<Monster> monsters;         // Sublist for Monsters
     List<Obstacles> obstacles;      // Sublist for Obstacles
@@ -48,7 +48,7 @@ public class Hall {
         } else if (entity instanceof Obstacles) {
             obstacles.add((Obstacles) entity);
         }
-        System.out.println("Entity added: " + entity.getClass().getSimpleName());
+        //System.out.println("Entity added: " + entity.getClass().getSimpleName());
     }
 
     // Getter methods for specific sublists

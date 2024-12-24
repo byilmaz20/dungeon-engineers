@@ -152,6 +152,9 @@ public class PlayModeScreen extends UIScreen {
                     JLabel entityLabel = createEntityLabel(entity);
                     gridPanels[y][x].add(entityLabel, BorderLayout.CENTER);
                 }
+                if (entity instanceof Rune) {
+                    System.out.println("Rune found at position: " + x + ", " + y);
+                }
             }
         }
 
@@ -207,6 +210,9 @@ public class PlayModeScreen extends UIScreen {
                 case LURING_GEM_ENCHANTMENT -> "src/Images/ObjectImages/lure.png";
                 case EXTRA_LIFE_ENCHANTMENT -> "src/Images/ObjectImages/extra_life.png";
             };
+        } else if (entity instanceof Rune) {
+            //TODO: need to add rune image
+            return "src/Images/ObjectImages/lure.png";
         }
         return null; // Return null if no image path is available
     }

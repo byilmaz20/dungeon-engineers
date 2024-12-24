@@ -5,8 +5,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import javax.swing.*;
-
-import src.GameController.TimeController;
 import src.GameObjects.*;
 import src.Mechanics.Direction;
 import src.Mechanics.Direction.DirectionEnum;
@@ -53,7 +51,6 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
         addKeyListener(this);
     
         setVisible(true);
-        System.out.println("Play Mode Screen Initialized");
     }
     
 
@@ -107,6 +104,7 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
                 // Resume butonuna tıklandığında
                 pauseGameButton.setIcon(pauseIcon); // Pause ikonuna geri dön
                 System.out.println("Game Resumed!"); 
+                resumeGame();
             }
         });
     
@@ -305,4 +303,8 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
         } 
     }
     
+    public void resumeGame(){
+        this.dispose();
+        new PlayModeScreen(gridEnvironment);
+    }
 }

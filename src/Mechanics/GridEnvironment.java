@@ -31,12 +31,10 @@ public class GridEnvironment {
         this.timeController = new TimeController(this);
         this.map = new Entity[mapWidth][mapHeight];
         this.hall = hall;
-        //this.hero = new Hero(selectRandomLocation(), hall);
-        //this.rune = new Rune(getRandomPositionForRune(), hall);
-        //hall.entities.add(rune);
-        //hall.entities.add(hero);
-        this.hero= this.hall.hero;
-        this.rune=this.hall.rune;
+        this.hero = new Hero(selectRandomLocation(), hall);
+        this.rune = new Rune(getRandomPositionForRune(), hall);
+        hall.entities.add(rune);
+        hall.entities.add(hero);
 
         for (Entity entity : hall.getEntitys()) { // Use the getter method
             System.out.println(entity.getClass().getSimpleName() + " at: " + entity.position);

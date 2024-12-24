@@ -3,7 +3,7 @@ import src.Mechanics.PositionPoint;
 
 public class RevealEnchantment extends Enchantment {
     RevealEnchantment(PositionPoint position, Hall hall){
-        super(EnchantmentTypes.REVEAL_ENCHANTMENT, true, 10, position, hall);
+        super(position, hall);
     }
     public void applyEffect(){
         // Apply the effect of the enchantment

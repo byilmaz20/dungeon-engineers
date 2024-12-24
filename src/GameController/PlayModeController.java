@@ -33,6 +33,9 @@ public class PlayModeController{
     public void disposeScreen() {
         playModeScreen.dispose();
     }
+    public TimeController getTimeController() {
+        return timeController;
+    }
 
 
 }

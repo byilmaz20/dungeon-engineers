@@ -112,12 +112,14 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
         pauseGameButton.addActionListener(e -> {
             if (pauseGameButton.getIcon().equals(pauseIcon)) {
                 pauseGameButton.setIcon(resumeIcon); // Resume ikonuna geçiş yap
+                timer.pauseTimer(); // Oyunu duraklat
                 System.out.println("Game Paused!");
             } else {
                 // Resume butonuna tıklandığında
                 pauseGameButton.setIcon(pauseIcon); // Pause ikonuna geri dön
+                timer.resumeTimer(); // Oyunu devam ettir
                 System.out.println("Game Resumed!"); 
-                resumeGame();
+                //resumeGame();
             }
         });
     
@@ -126,8 +128,8 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
     
     private void setTimeDisplay() {
         timeLabel = new JLabel("" + remainingTime);
-        timeLabel.setBounds(500, 190, 150, 50); // Adjust size and position as needed
-        timeLabel.setFont(new Font("Arial", Font.BOLD, 25)); // Set custom font
+        timeLabel.setBounds(530, 180, 150, 50); // Adjust size and position as needed
+        timeLabel.setFont(new Font("Arial", Font.BOLD, 50)); // Set custom font
         timeLabel.setForeground(Color.BLACK); // Set text color
         timeLabel.setOpaque(false); // Allow background color
         backgroundPanel.add(timeLabel);
@@ -203,7 +205,7 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
     private void updateTime(double remainingTime) { //TODO text eklenecek
         this.remainingTime = remainingTime;
         System.out.println("Time updated: " + remainingTime);
-        timeLabel.setText("Time: " + (int) remainingTime);
+        timeLabel.setText("" + (int) remainingTime);
     }
 
     private void updateGridFromEnvironment(Entity[][] map) {

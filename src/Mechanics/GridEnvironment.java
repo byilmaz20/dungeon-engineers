@@ -28,7 +28,6 @@ public class GridEnvironment {
     }
 
     public GridEnvironment(Hall hall) {
-        this.timeController = new TimeController(this);
         this.map = new Entity[mapWidth][mapHeight];
         this.hall = hall;
         this.hero = new Hero(selectRandomLocation(), hall);
@@ -51,6 +50,8 @@ public class GridEnvironment {
                 }
             }
         }
+        this.timeController = new TimeController(this);
+
     }
 
     private boolean isPositionValid(PositionPoint position) {

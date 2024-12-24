@@ -1,10 +1,14 @@
 package src.GameController;
 
+import javax.swing.JOptionPane;
+
 import src.GameObjects.Hall;
 import src.GameObjects.HallTypes;
 import src.GameObjects.Hero;
 import src.GameObjects.Monster;
+import src.GameObjects.Obstacles;
 import src.GameObjects.Rune;
+import src.GameObjects.Obstacles.ObstacleType;
 import src.Mechanics.GridEnvironment;
 import src.Mechanics.PositionPoint;
 import src.Mechanics.Timer;
@@ -36,9 +40,15 @@ public class TimeController {
         this.isPaused = false;
         this.lastMonsterSpawnTime = -monsterStartDelay;
         this.lastEnchantmentTime = -enchantmentStartDelay;
-        this.intitialTime = 30.0; //TODO Gridden alınacak !!! = griddeki obje sayisi * 5 olarak guncellenecek
         this.grid = grid;
+        this.intitialTime = grid.getHall().getObstacles().size() * 5;
+        //todo monster için ayrıca girdi verebilsin
+        
         spawner = new SpawnMonsterController(grid);
+    }
+
+    public Timer getTimer() {
+        return timer;
     }
 
     public void startGame() {
@@ -57,13 +67,18 @@ public class TimeController {
             
             System.out.println("A new monster has been spawned!");
         }
-
-        if (elapsedTime >= enchantmentStartDelay && elapsedTime - lastEnchantmentTime >= 12.0) {
-            lastEnchantmentTime = elapsedTime;
-            System.out.println("An enchantment appeared!");
-            timer.addTime(5.0);
-            System.out.printf("Remaining Time After Enchantment: %d seconds\n", (int) Math.ceil(timer.getRemainingTime()));
+        double remainingTime = timer.getRemainingTime();
+        if (remainingTime <= 0) {
+            System.out.println("Time finished Game Over!");
+            System.exit(0);
         }
+
+        // if (elapsedTime >= enchantmentStartDelay && elapsedTime - lastEnchantmentTime >= 12.0) {
+        //     lastEnchantmentTime = elapsedTime;
+        //     System.out.println("An enchantment appeared!");
+        //     timer.addTime(5.0);
+        //     System.out.printf("Remaining Time After Enchantment: %d seconds\n", (int) Math.ceil(timer.getRemainingTime()));
+        // }
     }
 
     private void printStatus(int remainingTime) { //todo bunu UI guncellemesi icin tickcallback olarak degistircez
@@ -91,15 +106,20 @@ public class TimeController {
         PositionPoint position = new PositionPoint(2, 4);
         PositionPoint position2  =new PositionPoint(5, 21);
         PositionPoint position3  =new PositionPoint(21, 14);
+        PositionPoint position4  =new PositionPoint(21, 14);
 
         Monster monster = new Monster(position2, hall);
         Hero hero  = new Hero(position3, hall);
         Rune rune = new Rune(position, hall);
+        Obstacles obstacle = new Obstacles(position4, hall, ObstacleType.CHEST);
+        hall.placeEntity(rune);
         hall.placeEntity(hero);
         hall.placeEntity(monster);
-        GridEnvironment grid = new GridEnvironment(hall);
+        hall.placeEntity(obstacle);
 
-        //GridEnvironment grid = new GridEnvironment(null, null, new Hall(HallTypes.EARTH));
+        GridEnvironment grid = new GridEnvironment(hall);
+        System.out.println(hall);
+
         TimeController controller = new TimeController(grid);
         controller.startGame();
 

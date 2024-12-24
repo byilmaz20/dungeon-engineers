@@ -1,5 +1,7 @@
 package src.GameController;
 
+import src.Mechanics.Timer;
+
 import src.GameObjects.Enchantment;
 import src.GameObjects.Hall;
 import src.Mechanics.GridEnvironment;
@@ -13,6 +15,7 @@ public class PlayModeController{
     GridEnvironment grid;
     SpawnMonsterController monsterSpawner;
     PlayModeScreen playModeScreen;
+    TimeController timeController;
 
     public PlayModeController(Hall hall) {
         this.currentHall = hall;
@@ -22,10 +25,16 @@ public class PlayModeController{
         monsterSpawner.spawnMonster();
         this.activeEnchantment = null;
         this.isDoorOpen = false;
-        this.playModeScreen = new PlayModeScreen(grid);
+        this.timeController = new TimeController(grid);
+        Timer timer = timeController.getTimer();
+        this.playModeScreen = new PlayModeScreen(grid, timeController);
+
     }
     public void disposeScreen() {
         playModeScreen.dispose();
+    }
+    public TimeController getTimeController() {
+        return timeController;
     }
 
 

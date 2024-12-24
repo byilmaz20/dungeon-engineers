@@ -23,6 +23,7 @@ public class GameFlowController {
     public static void proceedNextHall() {
         if (playModeController != null) {
             playModeController.disposeScreen();
+            playModeController.getTimeController().getTimer().pauseTimer();
         }
 
         System.out.println(currentHall.hallType + " hall completed!");
@@ -45,6 +46,11 @@ public class GameFlowController {
     private static void finishGame() {
         gameFinished = true;
         System.out.println("\n All halls completed! Congratulations, you've finished the game! ");
+        System.exit(0); 
+    }
+    private static void endGame() {
+        gameFinished = true;
+        System.out.println("\n Game Over! ");
         System.exit(0); 
     }
 }

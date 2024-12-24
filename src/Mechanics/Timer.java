@@ -2,23 +2,43 @@ package src.Mechanics;
 
 import java.util.function.Consumer;
 
+import src.GameObjects.Entity;
+import src.Mechanics.GridEnvironment.GridChangeListener;
+
 public class Timer {
     private double remainingTime;
     private double elapsedTime;
     private boolean isPaused;
     private long lastUpdateTime;
     private Thread timerThread;
+    private TimeChangeListener timeChangeListener;
+
+    public interface TimeChangeListener {
+        void onTimeChanged(double remainingTime);
+    }
+    public synchronized void setTimeChangeListener(TimeChangeListener listener) {
+        this.timeChangeListener = listener;
+    }
 
     public Timer() {
         this.isPaused = false;
     }
+
+    
+    private void notifyTimeChange() {
+        if (timeChangeListener != null) {
+            timeChangeListener.onTimeChanged(remainingTime);
+        }
+        System.out.println("Time changed at: " + System.currentTimeMillis());
+
+    }
+
 
     public void startTimer(double initialTime, Runnable mechanicsCallback, Consumer<Integer> tickCallback) {
         this.remainingTime = initialTime;
         this.elapsedTime = 0.0;
         this.isPaused = false;
         this.lastUpdateTime = System.currentTimeMillis();
-
         tickCallback.accept((int) Math.ceil(remainingTime));
         //todo eger cagırılan fonksiyonun suresi uzadıgı icin visual guncelleme sıkıntısı cıkarsa kontrol et
         timerThread = new Thread(() -> {
@@ -48,6 +68,7 @@ public class Timer {
                     Thread.currentThread().interrupt();
                     break;
                 }
+                notifyTimeChange();
             }
             System.out.println("Timer Finished!");
             //TODO burada aksiyon alınacak UI baglantısı icin

@@ -378,7 +378,7 @@ public class BuildModeScreen extends JPanel {
 
         if (allRequirementsMet) {
             JOptionPane.showMessageDialog(this, "Game starting!");     
-            JOptionPane.showMessageDialog(this, "Game starting!");
+            
             new BuildModeController();
             for (Map.Entry<String, Hall> entry : BuildModeController.Halls.entrySet()) {
                 Hall hall = entry.getValue();

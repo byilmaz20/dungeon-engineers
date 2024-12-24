@@ -24,6 +24,7 @@ public class BuildModeScreen extends JPanel {
     private ImageIcon selectedObjectIcon; // Currently selected object icon
     public static final Map<String, Map<Point, String>> hallObjectPlacements = new HashMap<>(); //store the coordinates of each object for each hall
     private JFrame frame;
+    private static int[] indexes = new int[1000];
     
     public BuildModeScreen() {
         hallPanels = new HashMap<>();
@@ -161,13 +162,25 @@ public class BuildModeScreen extends JPanel {
             gbc.insets = new Insets(10, 0, 10, 0);
             objectPanel.add(objectLabel, gbc);
         }
-    
-        // Adding "Start Game" button 
-        JButton startGameButton = new JButton("Start Game");
-        startGameButton.addActionListener(e -> checkRequirementsAndStartGame());
+        // Adding "Random Init" button 
+        JButton randomInitButton = new JButton("Random Place");
+        
+        randomInitButton.setForeground(Color.BLACK); // Text color
+        randomInitButton.addActionListener(e -> startRandomInit());
     
         gbc.gridy = objects.length + 1;
         gbc.insets = new Insets(20, 0, 10, 0);
+        objectPanel.add(randomInitButton, gbc);
+
+
+        // Adding "Start Game" button 
+        JButton startGameButton = new JButton("Start Game");
+        
+        startGameButton.setForeground(Color.BLACK); // Text color
+        startGameButton.addActionListener(e -> checkRequirementsAndStartGame());
+    
+        gbc.gridy = objects.length + 1;
+        gbc.insets = new Insets(120, 0, 10, 0);
         objectPanel.add(startGameButton, gbc);
     
         return objectPanel;
@@ -182,9 +195,9 @@ public class BuildModeScreen extends JPanel {
     
         String[] hallNames = {"Hall of WATER", "Hall of EARTH", "Hall of FIRE", "Hall of AIR"};
     
-        int[] randomIntegersPosition = randomArrayGenerator(45, 625);
+        //int[] randomIntegersPosition = randomArrayGenerator(45, 625);
         
-        int indexOfArray = 0;
+        //int indexOfArray = 0;
 
         for (String hallName : hallNames) {
             JPanel hall = new JPanel() {
@@ -201,16 +214,16 @@ public class BuildModeScreen extends JPanel {
             hall.setBorder(titledBorder);
             hall.setLayout(new GridLayout(hallGridSize, hallGridSize)); 
     
-            int minObject = indexOfArray+hallMinimumCounts.get(hallName);
+            //int minObject = indexOfArray+hallMinimumCounts.get(hallName);
             
-            String[] randObj = randomObjectGenerator(hallMinimumCounts.get(hallName));
-            int objIndex = 0;
+            //String[] randObj = randomObjectGenerator(hallMinimumCounts.get(hallName));
+            //int objIndex = 0;
 
             
 
             for (int i = 0; i < hallGridSize * hallGridSize; i++) {
 
-                if (indexOfArray < minObject){
+                /* if (indexOfArray < minObject){
                     
                     if (i == randomIntegersPosition[indexOfArray]){
                         
@@ -247,7 +260,7 @@ public class BuildModeScreen extends JPanel {
                         continue;
                     }
 
-                }
+                } */
                 JLabel cell = new JLabel();
                 ImageIcon icon = new ImageIcon("src/Images/BackgroundImages/cell.png");
             
@@ -293,8 +306,9 @@ public class BuildModeScreen extends JPanel {
     }
 
     private void placeSelectedObject(JLabel cell, String hallName) {
-        
+        //System.err.println(((ImageIcon) cell.getIcon()).getDescription());
         if (((ImageIcon) cell.getIcon()).getDescription()!="cell"){
+            
             ImageIcon icon = new ImageIcon("src/Images/BackgroundImages/cell.png");
             Image scaledImage = icon.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);    
             ImageIcon last = new ImageIcon(scaledImage);
@@ -334,9 +348,14 @@ public class BuildModeScreen extends JPanel {
         JPanel hallPanel = hallPanels.get(hallName);
         int cellIndex = getComponentIndex(hallPanel, cell);
         
+        indexes = addElement(indexes, cellIndex);
         int row = cellIndex / hallGridSize;
         int col = cellIndex % hallGridSize;
         Point coordinates = new Point(row, col);
+
+        for (int number : indexes) {
+            System.out.println("Element: " + number);
+        }
         
         
         String objectName = getObjectNameByIcon(selectedObjectIcon);
@@ -358,6 +377,90 @@ public class BuildModeScreen extends JPanel {
         
         
     }
+
+
+
+
+    private void startRandomInit() {
+        int[] randomIntegersPosition = randomArrayGenerator(45, 625);
+        int indexOfArray = 0;
+        for (String hallName : hallPanels.keySet()) {
+            JPanel hall = hallPanels.get(hallName);
+    
+            int minObject = indexOfArray+hallMinimumCounts.get(hallName)-hallObjectCounts.get(hallName);
+            
+            String[] randObj = randomObjectGenerator(hallMinimumCounts.get(hallName)-hallObjectCounts.get(hallName));
+
+            int objIndex = 0;
+
+            
+            for (int i = 0; i < hallGridSize * hallGridSize; i++) {
+
+                if (indexOfArray < minObject){
+                    
+                    if (i == randomIntegersPosition[indexOfArray]){
+                        
+                        String obj = randObj[objIndex];
+                        
+                        JLabel cell = (JLabel) hall.getComponent(i);
+
+                        ImageIcon icon = new ImageIcon(objectImages.get(obj));
+                        Image scaledImage = icon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+                        ImageIcon last = new ImageIcon(scaledImage);
+                        last.setDescription(obj);
+                        cell.setIcon(last);
+            
+                        //hall.add(cell);
+
+
+                        indexOfArray+=1;
+                        objIndex +=1;
+
+                        hallObjectCounts.put(hallName, hallObjectCounts.get(hallName) + 1);
+                 
+                        int row = i / hallGridSize;
+                        int col = i % hallGridSize;
+                        Point coordinates = new Point(row, col);
+                        System.out.println(((ImageIcon) cell.getIcon()).getDescription());
+                        hallObjectPlacements.get(hallName).put(coordinates, obj);
+
+                        continue;
+                    }
+
+                }
+                /* JLabel cell = new JLabel();
+                ImageIcon icon = new ImageIcon("src/Images/BackgroundImages/cell.png");
+            
+                
+
+                Image scaledImage = icon.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+                
+                ImageIcon last = new ImageIcon(scaledImage);
+                last.setDescription("cell");
+                //cell.setOpaque(false); 
+                //cell.setBorder(BorderFactory.createLineBorder(new Color(50, 50, 50), 1)); // Grid lines
+                cell.setIcon(last);
+                
+                cell.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        placeSelectedObject(cell, hallName);
+                    }
+                });
+    
+                hall.add(cell); */
+                
+            }
+            
+            
+        }
+        
+    }
+
+
+
+
+
 
     private void checkRequirementsAndStartGame() {
         StringBuilder errorMessage = new StringBuilder();
@@ -426,17 +529,33 @@ public class BuildModeScreen extends JPanel {
         Set<Integer> uniqueNumbers = new HashSet<>();
    
         Random random = new Random();
-
+        
+        
+        Set<Integer> excludedSet = new HashSet<>();
+        for (int num : indexes) {
+            excludedSet.add(num);
+        }
         while (uniqueNumbers.size() < arraySize) {
-            int randomNumber = random.nextInt(randomLength); // Generate random number in the range [0, range)
-            uniqueNumbers.add(randomNumber);
+            int number = random.nextInt(randomLength); // Generate a number between 0 and 624
+            if (!excludedSet.contains(number) && !uniqueNumbers.contains(number)) {
+                uniqueNumbers.add(number); // Add to the generated set
+            }
         }
         int[] randomIntegers = uniqueNumbers.stream().mapToInt(Integer::intValue).toArray();
         
-        Arrays.sort(randomIntegers, 0, 13);
-        Arrays.sort(randomIntegers, 13, 19);
-        Arrays.sort(randomIntegers, 19, 36);
-        Arrays.sort(randomIntegers, 36, 45);
+        int waterc = hallMinimumCounts.get("Hall of WATER")- hallObjectCounts.get("Hall of WATER");
+        System.out.println(waterc);
+        int earthc = hallMinimumCounts.get("Hall of EARTH")-hallObjectCounts.get("Hall of EARTH");
+        System.out.println(earthc);
+        int airc = hallMinimumCounts.get("Hall of AIR")-hallObjectCounts.get("Hall of AIR");
+        System.out.println(airc);
+        int firec = hallMinimumCounts.get("Hall of FIRE")-hallObjectCounts.get("Hall of FIRE");
+        System.out.println(firec);
+
+        Arrays.sort(randomIntegers, 0, waterc);
+        Arrays.sort(randomIntegers, waterc, waterc+earthc);
+        Arrays.sort(randomIntegers, waterc+earthc, waterc+earthc+airc);
+        Arrays.sort(randomIntegers, waterc+earthc+airc, waterc+earthc+airc+firec);
        
         return randomIntegers;
     }
@@ -456,6 +575,28 @@ public class BuildModeScreen extends JPanel {
         }
 
         return randomStrings;
+    }
+
+    public static boolean isExcluded(int number, int[] excludedNumbers) {
+        for (int excluded : excludedNumbers) {
+            if (number == excluded) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static int[] addElement(int[] original, int element) {
+        // Create a new array with an additional space
+        int[] newArray = new int[original.length + 1];
+
+        // Copy elements from the old array to the new array
+        System.arraycopy(original, 0, newArray, 0, original.length);
+
+        // Add the new element at the end
+        newArray[newArray.length - 1] = element;
+
+        return newArray;
     }
 }
 

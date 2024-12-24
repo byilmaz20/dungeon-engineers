@@ -23,7 +23,8 @@ public class BuildModeScreen extends JPanel {
     private final int hallGridSize = 25; // 25x25 grid for each hall
     private ImageIcon selectedObjectIcon; // Currently selected object icon
     public static final Map<String, Map<Point, String>> hallObjectPlacements = new HashMap<>(); //store the coordinates of each object for each hall
-
+    private JFrame frame;
+    
     public BuildModeScreen() {
         hallPanels = new HashMap<>();
         objectImages = new HashMap<>();
@@ -46,7 +47,7 @@ public class BuildModeScreen extends JPanel {
         
 
         if (true) {
-            JFrame frame = new JFrame("Build Mode");
+            frame = new JFrame("Build Mode");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setSize(1210, 1000);
             frame.setContentPane(this);
@@ -384,6 +385,7 @@ public class BuildModeScreen extends JPanel {
             }
             
             new GameFlowController();
+            frame.setVisible(false);
         } else {
             JOptionPane.showMessageDialog(this, "Cannot start the game:\n" + errorMessage);
         }

@@ -97,8 +97,7 @@ public class TimeController {
         Rune rune = new Rune(position, hall);
         hall.placeEntity(hero);
         hall.placeEntity(monster);
-        hall.setRune(rune);
-        GridEnvironment grid = new GridEnvironment(position, position, hall);
+        GridEnvironment grid = new GridEnvironment(hall);
 
         //GridEnvironment grid = new GridEnvironment(null, null, new Hall(HallTypes.EARTH));
         TimeController controller = new TimeController(grid);

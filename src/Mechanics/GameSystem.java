@@ -14,7 +14,7 @@ public class GameSystem {
     public GameSystem() {
         isGameRunning = false;
         monsters = new ArrayList<Monster>();
-        hero = new Hero();
+        hero = new Hero(null, currentHall);
         currentHall = null;
     }
     public void runGame() {

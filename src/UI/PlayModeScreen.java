@@ -106,6 +106,7 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
         // Pause ve resume ikonlarını yükle
         Icon pauseIcon = new ImageIcon(new ImageIcon("src/Images/ObjectImages/pauseIcon.png")
                 .getImage().getScaledInstance(35, 35, Image.SCALE_SMOOTH)); // Pause ikonu
+                
         Icon resumeIcon = new ImageIcon(new ImageIcon("src/Images/ObjectImages/ResumeIcon.png")
                 .getImage().getScaledInstance(35, 35, Image.SCALE_SMOOTH)); // Resume ikonu
     

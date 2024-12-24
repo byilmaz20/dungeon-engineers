@@ -9,6 +9,8 @@ import src.GameObjects.*;
 import src.Mechanics.Direction;
 import src.Mechanics.Direction.DirectionEnum;
 import src.Mechanics.GridEnvironment;
+import src.Mechanics.Timer;
+import src.GameController.TimeController;
 
 public class PlayModeScreen extends UIScreen implements KeyListener{
     private final int gridWidth = 25; // Number of columns
@@ -22,36 +24,46 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
     private JButton exitButton;
     private HallTypes hallType;
     private ImageIcon hallimage;
+    private Timer timer;
+    private double remainingTime;
+    private TimeController timeController;
+    private JLabel timeLabel;
 
 
     private GridEnvironment gridEnvironment; // Reference to the GridEnvironment
 
 
-    public PlayModeScreen(GridEnvironment gridEnvironment) {
-        
+    public PlayModeScreen(GridEnvironment gridEnvironment, TimeController timeController) {
         super(650, 650, "Play Mode Screen", 
         "src/Images/BackgroundImages/HALL.png");
-        this.hallType = gridEnvironment.getHall().hallType;
-        this.gridEnvironment = gridEnvironment;
+        timer = timeController.getTimer();
+            this.hallType = gridEnvironment.getHall().hallType;
+            this.gridEnvironment = gridEnvironment;
+            this.timer = timer;
 
+            // Set up grid listener to update UI on grid changes
+            this.gridEnvironment.setGridChangeListener(this::updateGridFromEnvironment);
+            this.timer.setTimeChangeListener(this::updateTime);
 
-        // Set up grid listener to update UI on grid changes
-        this.gridEnvironment.setGridChangeListener(this::updateGridFromEnvironment);
-    
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    
-        initializeComponents();
-        initializeGrid();
-        updateGridFromEnvironment(gridEnvironment.getMap()); // Initialize grid with current map
-    
-        // Ensure the component is focusable and has focus
-        setFocusable(true);
-        requestFocusInWindow();
-    
-        addKeyListener(this);
-    
-        setVisible(true);
+            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+            initializeComponents();
+            initializeGrid();
+            updateGridFromEnvironment(gridEnvironment.getMap()); // Initialize grid with current map
+            updateTime(timer.getRemainingTime());
+
+            // Ensure the component is focusable and has focus
+            setFocusable(true);
+            requestFocusInWindow();
+
+            addKeyListener(this);
+
+            setVisible(true);
+            System.out.println("Play Mode Screen Initialized");
+            timeController.startGame();
+
     }
+    
     
 
     private void initializeComponents() {
@@ -60,6 +72,7 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
         setPauseGameButton();
         setHelpButton();
         setExitButton();
+        setTimeDisplay();
         
     }
     private void setHallTypeImage() {
@@ -99,18 +112,28 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
         pauseGameButton.addActionListener(e -> {
             if (pauseGameButton.getIcon().equals(pauseIcon)) {
                 pauseGameButton.setIcon(resumeIcon); // Resume ikonuna geçiş yap
+                timer.pauseTimer(); // Oyunu duraklat
                 System.out.println("Game Paused!");
             } else {
                 // Resume butonuna tıklandığında
                 pauseGameButton.setIcon(pauseIcon); // Pause ikonuna geri dön
+                timer.resumeTimer(); // Oyunu devam ettir
                 System.out.println("Game Resumed!"); 
-                resumeGame();
+                //resumeGame();
             }
         });
     
         backgroundPanel.add(pauseGameButton); // Butonu arayüze ekle
     }
     
+    private void setTimeDisplay() {
+        timeLabel = new JLabel("" + remainingTime);
+        timeLabel.setBounds(530, 180, 150, 50); // Adjust size and position as needed
+        timeLabel.setFont(new Font("Arial", Font.BOLD, 50)); // Set custom font
+        timeLabel.setForeground(Color.BLACK); // Set text color
+        timeLabel.setOpaque(false); // Allow background color
+        backgroundPanel.add(timeLabel);
+    }
         
     private void setHelpButton() {
         helpButton = new JButton();
@@ -177,6 +200,12 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
         backgroundPanel.add(gridPanel);
         revalidate();
         repaint();
+    }
+
+    private void updateTime(double remainingTime) { //TODO text eklenecek
+        this.remainingTime = remainingTime;
+        System.out.println("Time updated: " + remainingTime);
+        timeLabel.setText("" + (int) remainingTime);
     }
 
     private void updateGridFromEnvironment(Entity[][] map) {
@@ -302,9 +331,9 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
             gridEnvironment.checkRuneFound();
         } 
     }
-    
     public void resumeGame(){
         this.dispose();
-        new PlayModeScreen(gridEnvironment);
+        new PlayModeScreen(gridEnvironment, timeController);
     }
+    
 }

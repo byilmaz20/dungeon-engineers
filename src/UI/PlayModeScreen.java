@@ -1,12 +1,16 @@
 package src.UI;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
 import javax.swing.*;
 import src.GameObjects.*;
+import src.Mechanics.Direction;
+import src.Mechanics.Direction.DirectionEnum;
 import src.Mechanics.GridEnvironment;
-import src.Mechanics.PositionPoint;
 
-public class PlayModeScreen extends UIScreen {
+public class PlayModeScreen extends UIScreen implements KeyListener{
     private final int gridWidth = 25; // Number of columns
     private final int gridHeight = 25; // Number of rows
     private final int baseCellSize = 25; // Base size of each cell
@@ -21,23 +25,31 @@ public class PlayModeScreen extends UIScreen {
 
     private GridEnvironment gridEnvironment; // Reference to the GridEnvironment
 
-    public PlayModeScreen(HallTypes hallType, GridEnvironment gridEnvironment) {
+    public PlayModeScreen(GridEnvironment gridEnvironment) {
         super(650, 650, "Play Mode Screen", 
         "src/Images/BackgroundImages/HALL.png");
-        this.hallType = hallType;
+        this.hallType = gridEnvironment.getHall().hallType;
         this.gridEnvironment = gridEnvironment;
-
+    
         // Set up grid listener to update UI on grid changes
         this.gridEnvironment.setGridChangeListener(this::updateGridFromEnvironment);
-
+    
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+    
         initializeComponents();
         initializeGrid();
         updateGridFromEnvironment(gridEnvironment.getMap()); // Initialize grid with current map
-
+    
+        // Ensure the component is focusable and has focus
+        setFocusable(true);
+        requestFocusInWindow();
+    
+        addKeyListener(this);
+    
         setVisible(true);
+        System.out.println("Play Mode Screen Initialized");
     }
+    
 
     private void initializeComponents() {
         setBackgroundImage();
@@ -119,11 +131,20 @@ public class PlayModeScreen extends UIScreen {
         for (int y = 0; y < gridHeight; y++) {
             for (int x = 0; x < gridWidth; x++) {
                 JPanel cell = new JPanel();
-                cell.setPreferredSize(new Dimension(scaledCellSize, scaledCellSize)); // Update cell size
-                //cell.setOpaque(false); // Transparent cells
-                cell.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1)); // Add border to cells
+                cell.setPreferredSize(new Dimension(scaledCellSize, scaledCellSize));
+                cell.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
                 cell.setLayout(new BorderLayout());
-
+                
+                // Attach MouseListener to each cell
+                final int cellX = x;
+                final int cellY = y;
+                cell.addMouseListener(new java.awt.event.MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        handleCellClick(cellX, cellY);
+                    }
+                });
+    
                 gridPanels[y][x] = cell;
                 gridPanel.add(cell);
             }
@@ -151,6 +172,9 @@ public class PlayModeScreen extends UIScreen {
                 if (entity != null) {
                     JLabel entityLabel = createEntityLabel(entity);
                     gridPanels[y][x].add(entityLabel, BorderLayout.CENTER);
+                }
+                if (entity instanceof Rune) {
+                    System.out.println("Rune found at position: " + x + ", " + y);
                 }
             }
         }
@@ -207,19 +231,53 @@ public class PlayModeScreen extends UIScreen {
                 case LURING_GEM_ENCHANTMENT -> "src/Images/ObjectImages/lure.png";
                 case EXTRA_LIFE_ENCHANTMENT -> "src/Images/ObjectImages/extra_life.png";
             };
+        } else if (entity instanceof Rune) {
+            //TODO: need to add rune image
+            return "src/Images/ObjectImages/lure.png";
         }
         return null; // Return null if no image path is available
     }
-
-    public static void main(String[] args) {
-        PositionPoint heroPosition = new PositionPoint(0, 0);
-        PositionPoint runePosition = new PositionPoint(24, 24);
-        
-
-        Hall hall = new Hall(HallTypes.EARTH);
-        Rune rune = new Rune(runePosition, hall);
-        hall.setRune(rune);
-
-        new PlayModeScreen(HallTypes.EARTH, new GridEnvironment(heroPosition, runePosition, hall));
+    @Override
+    public boolean isFocusable() {
+        return true;
     }
+        @Override
+    public void keyPressed(KeyEvent e) {
+        System.out.println("Key Pressed");
+        int keyCode = e.getKeyCode();
+        switch (keyCode) {
+            case KeyEvent.VK_LEFT:
+                System.out.println("Left key pressed");
+                gridEnvironment.moveEntity(gridEnvironment.hero, new Direction(DirectionEnum.LEFT));
+                break;
+            case KeyEvent.VK_RIGHT:
+                gridEnvironment.moveEntity(gridEnvironment.hero, new Direction(DirectionEnum.RIGHT));
+                break;
+            case KeyEvent.VK_UP:
+                gridEnvironment.moveEntity(gridEnvironment.hero, new Direction(DirectionEnum.UP));
+                break;
+            case KeyEvent.VK_DOWN:
+                gridEnvironment.moveEntity(gridEnvironment.hero, new Direction(DirectionEnum.DOWN));
+                break;
+            default:
+                System.out.println("Unhandled Key: " + keyCode);
+                break;
+        }
+    }
+    @Override
+    public void keyReleased(KeyEvent e) {
+        // Do nothing
+    }
+    @Override
+    public void keyTyped(KeyEvent e) {
+        // Do nothing
+    }
+
+    private void handleCellClick(int x, int y) {        
+        if (gridEnvironment.map[x][y] instanceof Rune) {
+            System.out.println("Rune has been clicked: " + x + ", " + y);
+            gridEnvironment.checkRuneFound();
+        } 
+    }
+    
 }

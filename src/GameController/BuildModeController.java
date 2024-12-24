@@ -1,18 +1,15 @@
 package src.GameController;
 
+import java.awt.Point;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-
-
-import src.GameObjects.Entity;
 import src.GameObjects.Hall;
 import src.GameObjects.HallTypes;
 import src.GameObjects.Obstacles;
 import src.GameObjects.Obstacles.ObstacleType;
 import src.Mechanics.PositionPoint;
 import src.UI.BuildModeScreen;
-import java.awt.Point;
 
 public class BuildModeController {
     public static final Map<String, Hall> Halls = new HashMap<>();
@@ -25,10 +22,10 @@ public class BuildModeController {
             Map<Point, String> innerMap = outerEntry.getValue();
 
             HallTypes halltyp = null;
-            if (outerKey == "Hall of Earth"){ halltyp = HallTypes.EARTH;}
-            if (outerKey == "Hall of Air"){ halltyp = HallTypes.AIR;}
-            if (outerKey == "Hall of Water"){ halltyp = HallTypes.WATER;}
-            if (outerKey == "Hall of Fire"){ halltyp = HallTypes.FIRE;}
+            if (outerKey == "Hall of EARTH"){ halltyp = HallTypes.EARTH;}
+            if (outerKey == "Hall of AIR"){ halltyp = HallTypes.AIR;}
+            if (outerKey == "Hall of WATER"){ halltyp = HallTypes.WATER;}
+            if (outerKey == "Hall of FIRE"){ halltyp = HallTypes.FIRE;}
 
             Hall hall = new Hall(halltyp);
 
@@ -36,7 +33,7 @@ public class BuildModeController {
                 Point point = innerEntry.getKey();
                 String value = innerEntry.getValue();
 
-                PositionPoint pp = new PositionPoint(point.x, point.y);
+                PositionPoint pp = new PositionPoint(point.y, point.x);
 
                 ObstacleType obst = null;
                 if (value == "Skull"){ obst = ObstacleType.SKULL;}
@@ -53,12 +50,13 @@ public class BuildModeController {
                 Obstacles ent  = new Obstacles(pp, hall, obst);
                 hall.placeEntity(ent);
 
+
             }
             Halls.put(outerKey, hall);
-
         }
         
 
     }
+    
     
 }

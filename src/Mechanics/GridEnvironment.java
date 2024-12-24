@@ -6,13 +6,14 @@ import java.util.Random;
 import src.GameController.TimeController;
 import src.GameObjects.Entity;
 import src.GameObjects.Hall;
+import src.GameObjects.Hero;
+import src.GameObjects.Rune;
 
 public class GridEnvironment {
-    PositionPoint heroPosition;
-    PositionPoint runePosition;
+    public Hero hero;
+    public Rune rune;
     Hall hall;
-    boolean isRuneFound;
-    Entity[][] map; // Grid of entities
+    public Entity[][] map; // Grid of entities
     int mapWidth = 25; // Fixed grid width
     int mapHeight = 25; // Fixed grid height
     TimeController timeController;
@@ -26,20 +27,28 @@ public class GridEnvironment {
         this.gridChangeListener = listener;
     }
 
-    public GridEnvironment(PositionPoint heroPosition, PositionPoint runePosition, Hall hall) {
+    public GridEnvironment(Hall hall) {
         this.timeController = new TimeController(this);
-        this.heroPosition = heroPosition;
+        this.map = new Entity[mapWidth][mapHeight];
         this.hall = hall;
-        this.runePosition = hall.getRune().getPosition();
+        this.hero = new Hero(selectRandomLocation(), hall);
+        this.rune = new Rune(getRandomPositionForRune(), hall);
+        hall.entities.add(rune);
+        hall.entities.add(hero);
 
-        this.map = new Entity[mapWidth][mapHeight]; // Initialize a 25x25 grid
-        this.isRuneFound = false;
         for (Entity entity : hall.getEntitys()) { // Use the getter method
-            if (isPositionValid(entity.position)) {
+            System.out.println(entity.getClass().getSimpleName() + " at: " + entity.position);
+            if (entity instanceof Rune) {
+                // TODO1: varolan obstacleı silmeden rune u üstüne yapıştır.
                 map[entity.position.x][entity.position.y] = entity; // Place the entity on the grid
-                System.out.println("Entity placed on grid at: " + entity.position);
-            } else {
-                System.out.println("Invalid position for entity: " + entity.position);
+                //System.out.println("Entity placed on grid at: " + entity.position);
+            }else{
+                if (isPositionValid(entity.position)) {
+                    map[entity.position.x][entity.position.y] = entity; // Place the entity on the grid
+                    //System.out.println("Entity placed on grid at: " + entity.position);
+                } else {
+                    //System.out.println("Invalid position for entity: " + entity.position);
+                }
             }
         }
     }
@@ -79,10 +88,9 @@ public class GridEnvironment {
             map[entity.position.x][entity.position.y] = null; // Clear current position
             entity.position = newPosition; // Update entity position
             map[newPosition.x][newPosition.y] = entity; // Set entity in new position
-
+            //TODO: alt satıra gerek var mı emin olamadım - Ceylin
             if (entity instanceof src.GameObjects.Hero) {
-                heroPosition = newPosition;
-                
+                hero.position = newPosition;
             }
 
             notifyGridChange();
@@ -93,10 +101,23 @@ public class GridEnvironment {
             return false;
         }
     }
-
-    public boolean isRuneFound() {
-        return isRuneFound;
+    public boolean checkRuneFound() {
+        boolean isAdjacent = false;
+        if ((hero.position.x == rune.position.x && hero.position.y == rune.position.y - 1) ||  // Above
+            (hero.position.x == rune.position.x && hero.position.y == rune.position.y + 1) ||  // Below
+            (hero.position.y == rune.position.y && hero.position.x == rune.position.x - 1) ||  // Left
+            (hero.position.y == rune.position.y && hero.position.x == rune.position.x + 1)) {  // Right
+            
+            isAdjacent = true;
+        }
+        if (isAdjacent) {
+            rune.found();
+            
+            return true;
+        }
+        return false;
     }
+
 
     public PositionPoint selectRandomLocation() {
         List<PositionPoint> availablePositions = new ArrayList<>();
@@ -117,8 +138,16 @@ public class GridEnvironment {
         Random random = new Random();
         PositionPoint randomPosition = availablePositions.get(random.nextInt(availablePositions.size()));
 
-        System.out.println("Random available position selected: " + randomPosition);
+        //System.out.println("Random available position selected: " + randomPosition);
         return randomPosition;
+    }
+
+    public PositionPoint getRandomPositionForRune() {
+        Random random = new Random();
+
+        PositionPoint runePosition = hall.getObstacles().get(random.nextInt(hall.getObstacles().size())).position;
+        System.out.println("Random position for rune selected: " + runePosition.x + ", " + runePosition.y); 
+        return runePosition;
     }
 
     public Hall getHall() {

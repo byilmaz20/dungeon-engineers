@@ -1,9 +1,4 @@
 package src.UI;
-import src.GameController.TimeController;
-
-import javax.swing.*;
-import javax.swing.border.TitledBorder;
-
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -13,6 +8,11 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
+import javax.swing.*;
+import javax.swing.border.TitledBorder;
+import src.GameController.BuildModeController;
+import src.GameController.GameFlowController;
+import src.GameObjects.Hall;
 
 public class BuildModeScreen extends JPanel {
 
@@ -54,7 +54,7 @@ public class BuildModeScreen extends JPanel {
         }
     }
     private void initializeHallObjectPlacements() {
-        String[] hallNames = {"Hall of Water", "Hall of Earth", "Hall of Fire", "Hall of Air"};
+        String[] hallNames = {"Hall of WATER", "Hall of EARTH", "Hall of FIRE", "Hall of AIR"};
         for (String hallName : hallNames) {
             hallObjectPlacements.put(hallName, new HashMap<>());
         }
@@ -73,16 +73,16 @@ public class BuildModeScreen extends JPanel {
    
 
     private void setupHallConstraints() {
-        hallMinimumCounts.put("Hall of Earth", 6);
-        hallMinimumCounts.put("Hall of Air", 9);
-        hallMinimumCounts.put("Hall of Water", 13);
-        hallMinimumCounts.put("Hall of Fire", 17);
+        hallMinimumCounts.put("Hall of EARTH", 6);
+        hallMinimumCounts.put("Hall of AIR", 9);
+        hallMinimumCounts.put("Hall of WATER", 13);
+        hallMinimumCounts.put("Hall of FIRE", 17);
 
 
-        hallObjectCounts.put("Hall of Earth", 0);
-        hallObjectCounts.put("Hall of Air", 0);
-        hallObjectCounts.put("Hall of Water", 0);
-        hallObjectCounts.put("Hall of Fire", 0);
+        hallObjectCounts.put("Hall of EARTH", 0);
+        hallObjectCounts.put("Hall of AIR", 0);
+        hallObjectCounts.put("Hall of WATER", 0);
+        hallObjectCounts.put("Hall of FIRE", 0);
     }
 
     private JPanel createObjectPanel() {
@@ -179,7 +179,7 @@ public class BuildModeScreen extends JPanel {
         hallPanel.setLayout(new GridLayout(2, 2, 10, 10)); 
         hallPanel.setBackground(new Color(40, 40, 40));
     
-        String[] hallNames = {"Hall of Water", "Hall of Earth", "Hall of Fire", "Hall of Air"};
+        String[] hallNames = {"Hall of WATER", "Hall of EARTH", "Hall of FIRE", "Hall of AIR"};
     
         int[] randomIntegersPosition = randomArrayGenerator(45, 625);
         
@@ -377,6 +377,13 @@ public class BuildModeScreen extends JPanel {
 
         if (allRequirementsMet) {
             JOptionPane.showMessageDialog(this, "Game starting!");
+            new BuildModeController();
+            for (Map.Entry<String, Hall> entry : BuildModeController.Halls.entrySet()) {
+                Hall hall = entry.getValue();
+                System.out.println(hall);
+            }
+            
+            new GameFlowController();
         } else {
             JOptionPane.showMessageDialog(this, "Cannot start the game:\n" + errorMessage);
         }

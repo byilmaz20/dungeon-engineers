@@ -1,4 +1,6 @@
 package src.GameObjects;
+import src.GameObjects.Obstacles.ObstacleType;
+import src.Mechanics.GridEnvironment;
 import src.Mechanics.PositionPoint;
 
 
@@ -6,9 +8,30 @@ public class ArcherMonster extends Monster {
     public ArcherMonster(PositionPoint position, Hall hall){
         super(position, hall);
     }
-    public void shootArrow(Hero hero){
-        // Shoot an arrow if the distance between the player and the archer monster is less than 4
-        // check if the hero wears a cloak of protection, then hero will not lose life
-        // If the hero is not wearing a cloak of protection, then the archer monster will shoot an arrow at the hero and update the hero's life count.
-        }
+
+    
+    public boolean shootArrow(Hero hero) {
+        PositionPoint archerPosition = this.getPosition(); // Assuming Monster class has getPosition()
+                PositionPoint heroPosition = hero.getPosition();   // Assuming Hero class has getPosition()
+        
+                // Calculate the distance between the archer monster and the hero
+                double distance = archerPosition.distanceTo(heroPosition);
+        
+                // Check if the hero is within 4 squares
+                if (distance < 4) {
+                    hero.updateLifeCount(-1);  
+                    return true;
+                
+                } else {
+                    hero.updateLifeCount(0); 
+                    return false;
+                }
+            }
+        
+        
+            private PositionPoint getPosition() {
+                return this.position;
+            }
+
+   
 }

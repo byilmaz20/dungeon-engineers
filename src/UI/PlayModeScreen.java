@@ -5,6 +5,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import javax.swing.*;
+
+import src.GameController.TimeController;
 import src.GameObjects.*;
 import src.Mechanics.Direction;
 import src.Mechanics.Direction.DirectionEnum;
@@ -23,14 +25,18 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
     private HallTypes hallType;
     private ImageIcon hallimage;
 
+
     private GridEnvironment gridEnvironment; // Reference to the GridEnvironment
 
+
     public PlayModeScreen(GridEnvironment gridEnvironment) {
+        
         super(650, 650, "Play Mode Screen", 
         "src/Images/BackgroundImages/HALL.png");
         this.hallType = gridEnvironment.getHall().hallType;
         this.gridEnvironment = gridEnvironment;
-    
+
+
         // Set up grid listener to update UI on grid changes
         this.gridEnvironment.setGridChangeListener(this::updateGridFromEnvironment);
     
@@ -77,18 +83,37 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
         this.add(label, BorderLayout.CENTER);
         this.setVisible(true);
     }
+    
     private void setPauseGameButton() {
         pauseGameButton = new JButton();
-        pauseGameButton.setBounds(526, 33, 35, 35);
+        pauseGameButton.setBounds(506, 30, 48, 45); // Butonun boyutlarını ve pozisyonunu ayarla
         pauseGameButton.setOpaque(false);
         pauseGameButton.setContentAreaFilled(false);
         pauseGameButton.setBorderPainted(false);
+    
+        // Pause ve resume ikonlarını yükle
+        Icon pauseIcon = new ImageIcon(new ImageIcon("src/Images/ObjectImages/pauseIcon.png")
+                .getImage().getScaledInstance(35, 35, Image.SCALE_SMOOTH)); // Pause ikonu
+        Icon resumeIcon = new ImageIcon(new ImageIcon("src/Images/ObjectImages/ResumeIcon.png")
+                .getImage().getScaledInstance(35, 35, Image.SCALE_SMOOTH)); // Resume ikonu
+    
+        pauseGameButton.setIcon(pauseIcon); // İlk başta pause ikonunu göster
+    
         pauseGameButton.addActionListener(e -> {
-            this.setVisible(true);
-            //TODO:new PauseScreen();
+            if (pauseGameButton.getIcon().equals(pauseIcon)) {
+                pauseGameButton.setIcon(resumeIcon); // Resume ikonuna geçiş yap
+                System.out.println("Game Paused!");
+            } else {
+                // Resume butonuna tıklandığında
+                pauseGameButton.setIcon(pauseIcon); // Pause ikonuna geri dön
+                System.out.println("Game Resumed!"); 
+            }
         });
-        backgroundPanel.add(pauseGameButton);
+    
+        backgroundPanel.add(pauseGameButton); // Butonu arayüze ekle
     }
+    
+        
     private void setHelpButton() {
         helpButton = new JButton();
         helpButton.setBounds(468, 33, 35, 35);

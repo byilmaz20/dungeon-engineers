@@ -138,4 +138,8 @@ public class TimeController implements ITimeControllers {
             e.printStackTrace();
         }*/
     }
+
+    public void setInitializeTime(Timer remainingTime){
+        this.intitialTime = remainingTime.getRemainingTime();
+    }
 }

@@ -380,6 +380,7 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
     public void resumeGame(){
         this.dispose();
         System.out.println(this.timeController.getTimer().getRemainingTime() + " is left!");
+        this.timeController.setInitializeTime(this.timeController.getTimer());
         new PlayModeScreen(this.gridEnvironment, this.timeController, this.timeController.getTimer().getRemainingTime());
     }
     

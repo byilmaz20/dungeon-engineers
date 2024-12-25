@@ -2,9 +2,6 @@ package src.Mechanics;
 
 import java.util.function.Consumer;
 
-import src.GameObjects.Entity;
-import src.Mechanics.GridEnvironment.GridChangeListener;
-
 public class Timer {
     private double remainingTime;
     private double elapsedTime;
@@ -28,7 +25,7 @@ public class Timer {
         if (timeChangeListener != null) {
             timeChangeListener.onTimeChanged(remainingTime);
         }
-        System.out.println("Time changed at: " + System.currentTimeMillis());
+        //System.out.println("Time changed at: " + System.currentTimeMillis());
 
     }
 

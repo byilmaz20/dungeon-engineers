@@ -145,7 +145,7 @@ public class BuildModeScreen extends JPanel {
             
                 
 
-                Image scaledImage = icon.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH);
+                Image scaledImage = icon.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
                 ImageIcon last = new ImageIcon(scaledImage);
                 last.setDescription(objects[i]);
                 objectLabel.setIcon(last);
@@ -421,7 +421,7 @@ public class BuildModeScreen extends JPanel {
                         int row = i / hallGridSize;
                         int col = i % hallGridSize;
                         Point coordinates = new Point(row, col);
-                        System.out.println(((ImageIcon) cell.getIcon()).getDescription());
+                        //System.out.println(((ImageIcon) cell.getIcon()).getDescription());
                         hallObjectPlacements.get(hallName).put(coordinates, obj);
 
                         continue;
@@ -485,7 +485,7 @@ public class BuildModeScreen extends JPanel {
             new BuildModeController();
             for (Map.Entry<String, Hall> entry : BuildModeController.Halls.entrySet()) {
                 Hall hall = entry.getValue();
-                System.out.println(hall);
+                //System.out.println(hall);
             }
             
             new GameFlowController();
@@ -544,13 +544,13 @@ public class BuildModeScreen extends JPanel {
         int[] randomIntegers = uniqueNumbers.stream().mapToInt(Integer::intValue).toArray();
         
         int waterc = hallMinimumCounts.get("Hall of WATER")- hallObjectCounts.get("Hall of WATER");
-        System.out.println(waterc);
+        //System.out.println(waterc);
         int earthc = hallMinimumCounts.get("Hall of EARTH")-hallObjectCounts.get("Hall of EARTH");
-        System.out.println(earthc);
+        //System.out.println(earthc);
         int airc = hallMinimumCounts.get("Hall of AIR")-hallObjectCounts.get("Hall of AIR");
-        System.out.println(airc);
+        //System.out.println(airc);
         int firec = hallMinimumCounts.get("Hall of FIRE")-hallObjectCounts.get("Hall of FIRE");
-        System.out.println(firec);
+        //System.out.println(firec);
 
         Arrays.sort(randomIntegers, 0, waterc);
         Arrays.sort(randomIntegers, waterc, waterc+earthc);

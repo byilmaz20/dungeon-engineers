@@ -5,13 +5,13 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import javax.swing.*;
+import src.GameController.ITimeControllers;
+import src.GameController.TimeController;
 import src.GameObjects.*;
 import src.Mechanics.Direction;
 import src.Mechanics.Direction.DirectionEnum;
 import src.Mechanics.GridEnvironment;
 import src.Mechanics.Timer;
-import src.GameController.ITimeControllers;
-import src.GameController.TimeController;
 
 public class PlayModeScreen extends UIScreen implements KeyListener{
     private final int gridWidth = 25; // Number of columns
@@ -35,10 +35,11 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
     private GridEnvironment gridEnvironment; // Reference to the GridEnvironment
 
 
-    public PlayModeScreen(GridEnvironment gridEnvironment, TimeController timeController) {
+    public PlayModeScreen(GridEnvironment gridEnvironment, TimeController timeController, double remainingTime) {
         super(650, 650, "Play Mode Screen", 
         "src/Images/BackgroundImages/HALL.png");
-            timer = timeController.getTimer();
+            this.timeController = timeController;
+            this.timer = this.timeController.getTimer();
             this.hallType = gridEnvironment.getHall().hallType;
             this.gridEnvironment = gridEnvironment;
             
@@ -63,11 +64,10 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
             setVisible(true);
             System.out.println("Play Mode Screen Initialized");
             timeController.startGame();
-            updateTime(timer.getRemainingTime());
+            updateTime(remainingTime);
     }
     
     
-
     private void initializeComponents() {
         setBackgroundImage();
         setHallTypeImage();
@@ -120,7 +120,7 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
                 // Resume butonuna tıklandığında
                 pauseGameButton.setIcon(pauseIcon); // Pause ikonuna geri dön
                 System.out.println("Game Resumed!"); 
-                //resumeGame();
+                resumeGame();
             }
             for (ITimeControllers timeController : gridEnvironment.getTimeControllers()) {
                 timeController.pressPauseButton();
@@ -236,7 +236,7 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
 
     private void updateTime(double remainingTime) { //TODO text eklenecek
         this.remainingTime = remainingTime;
-        System.out.println("Time updated: " + remainingTime);
+        //System.out.println("Time updated: " + remainingTime);
         timeLabel.setText("" + (int) remainingTime);
     }
 
@@ -369,7 +369,8 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
     }
     public void resumeGame(){
         this.dispose();
-        new PlayModeScreen(gridEnvironment, timeController);
+        System.out.println(this.timeController.getTimer().getRemainingTime() + " is left!");
+        new PlayModeScreen(this.gridEnvironment, this.timeController, this.timeController.getTimer().getRemainingTime());
     }
     
 }

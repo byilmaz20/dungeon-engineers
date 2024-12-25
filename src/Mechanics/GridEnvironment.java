@@ -11,6 +11,7 @@ import src.GameObjects.Hall;
 import src.GameObjects.Hero;
 import src.GameObjects.Monster;
 import src.GameObjects.MonsterTypes;
+import src.GameObjects.Obstacles;
 import src.GameObjects.Rune;
 
 public class GridEnvironment {
@@ -23,11 +24,14 @@ public class GridEnvironment {
     TimeController timeController;
     private GridChangeListener gridChangeListener;
     private List<ITimeControllers> timeControllers;
-
+    public Obstacles runeInObject;
     public interface GridChangeListener {
         void onGridChanged(Entity[][] map);
     }
 
+    public Obstacles getRuneInObject(){
+        return runeInObject;
+    }
     public void setGridChangeListener(GridChangeListener listener) {
         this.gridChangeListener = listener;
     }
@@ -173,8 +177,9 @@ public class GridEnvironment {
 
     public PositionPoint getRandomPositionForRune() {
         Random random = new Random();
-
-        PositionPoint runePosition = hall.getObstacles().get(random.nextInt(hall.getObstacles().size())).position;
+        int randomNumber = random.nextInt(hall.getObstacles().size());
+        PositionPoint runePosition = hall.getObstacles().get(randomNumber).position;
+        runeInObject = hall.getObstacles().get(randomNumber);
         System.out.println("Random position for rune selected: " + runePosition.x + ", " + runePosition.y); 
         return runePosition;
     }

@@ -7,6 +7,8 @@ import src.GameController.TimeController;
 import src.GameObjects.Entity;
 import src.GameObjects.Hall;
 import src.GameObjects.Hero;
+import src.GameObjects.Monster;
+import src.GameObjects.MonsterTypes;
 import src.GameObjects.Rune;
 
 public class GridEnvironment {
@@ -93,11 +95,26 @@ public class GridEnvironment {
             if (entity instanceof src.GameObjects.Hero) {
                 hero.position = newPosition;
             }
+            List<Monster> monsters = hall.getMonsters();
+            for (Monster monster : monsters) {
+                if (monster.getType() == MonsterTypes.FighterMonster) {
+                    if (((src.GameObjects.FighterMonster) monster).fighterAttack(this.hero)){
+                        System.out.println("Hero's remaining lifes = " +this.hero.getLives());
+                    }
+                } 
+                else if ((monster.getType() == MonsterTypes.ArcherMonster)) {
+                    if (((src.GameObjects.ArcherMonster) monster).shootArrow(this.hero)){
+                        System.out.println("Hero's remaining lifes = " +this.hero.getLives());
+                    }
+                }
+            }
+
 
             notifyGridChange();
             System.out.println("Entity moved to: " + newPosition);
             return true;
-        } else {
+        } 
+        else {
             System.out.println("Invalid movement. Position occupied or out of bounds.");
             return false;
         }

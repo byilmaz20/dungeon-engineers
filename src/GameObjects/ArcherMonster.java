@@ -7,12 +7,13 @@ import src.Mechanics.PositionPoint;
 public class ArcherMonster extends Monster {
     public ArcherMonster(PositionPoint position, Hall hall){
         super(position, hall);
+        this.type = MonsterTypes.ArcherMonster;
     }
 
     
     public boolean shootArrow(Hero hero) {
-        PositionPoint archerPosition = this.getPosition(); // Assuming Monster class has getPosition()
-                PositionPoint heroPosition = hero.getPosition();   // Assuming Hero class has getPosition()
+        PositionPoint archerPosition = this.getPosition(); 
+                PositionPoint heroPosition = hero.getPosition(); 
         
                 // Calculate the distance between the archer monster and the hero
                 double distance = archerPosition.distanceTo(heroPosition);

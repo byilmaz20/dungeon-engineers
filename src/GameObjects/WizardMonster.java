@@ -7,6 +7,7 @@ import src.Mechanics.PositionPoint;
 public class WizardMonster extends Monster {
     public WizardMonster(PositionPoint position){
         super(position, null);
+        this.type = MonsterTypes.WizardMonster;
     }
     public void teleportRune(GridEnvironment grid) {
     Random random = new Random();

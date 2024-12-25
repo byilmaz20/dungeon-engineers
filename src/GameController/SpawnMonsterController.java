@@ -1,10 +1,14 @@
 package src.GameController;
 
+import src.GameObjects.ArcherMonster;
+import src.GameObjects.FighterMonster;
 import src.GameObjects.Hall;
 import src.GameObjects.HallTypes;
 import src.GameObjects.Hero;
 import src.GameObjects.Monster;
+import src.GameObjects.MonsterTypes;
 import src.GameObjects.Rune;
+import src.GameObjects.WizardMonster;
 import src.Mechanics.GridEnvironment;
 import src.Mechanics.PositionPoint;
 
@@ -19,13 +23,28 @@ public class SpawnMonsterController {
     public Monster spawnMonster() {
         PositionPoint randomLocation = grid.selectRandomLocation(); // Get a random empty position
         if (randomLocation != null) {
+            MonsterTypes type = Monster.selectRandomMonster();
             // Create a random monster
-            Monster monster = new Monster(randomLocation, grid.getHall());
+            Monster monster;
+            switch (type) {
+                case FighterMonster:
+                    monster = new FighterMonster(randomLocation, grid.getHall());
+                    break;
+                case ArcherMonster:
+                    monster = new ArcherMonster(randomLocation, grid.getHall());
+                    break;
+                case WizardMonster:
+                    monster = new WizardMonster(randomLocation);
+                    break;
+                default:
+                    throw new IllegalStateException("Unexpected value: " + type);
+            }
+            
 
             // Place the monster on the grid
             if (grid.moveEntity(monster)) {
                 System.out.println("Spawned " + monster.getType() + " at position: " + randomLocation);
-                        return monster;
+                    return monster;
 
             } else {
                 System.out.println("Failed to place the monster at position: " + randomLocation);

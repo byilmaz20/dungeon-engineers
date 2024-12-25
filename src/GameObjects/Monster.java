@@ -30,7 +30,7 @@ public class Monster extends Entity {
     }
 
     // Select a random monster type
-    public MonsterTypes selectRandomMonster() {
+    public static MonsterTypes selectRandomMonster() {
         MonsterTypes[] monsterTypes = MonsterTypes.values(); // Get all monster types
         Random random = new Random();
         return monsterTypes[random.nextInt(monsterTypes.length)];

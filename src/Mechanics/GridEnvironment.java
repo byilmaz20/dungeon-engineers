@@ -3,7 +3,6 @@ package src.Mechanics;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
 import src.GameController.ITimeControllers;
 import src.GameController.TimeController;
 import src.GameObjects.Entity;
@@ -87,10 +86,10 @@ public class GridEnvironment {
             hall.placeEntity(entity); // Add to the hall's entity list
 
             notifyGridChange();
-            System.out.println("Entity placed at: " + entity.position);
+            //System.out.println("Entity placed at: " + entity.position);
             return true;
         } else {
-            System.out.println("Invalid position for entity: " + entity.position);
+            //System.out.println("Invalid position for entity: " + entity.position);
             return false;
         }
     }
@@ -122,7 +121,7 @@ public class GridEnvironment {
 
 
             notifyGridChange();
-            System.out.println("Entity moved to: " + newPosition);
+            //System.out.println("Entity moved to: " + newPosition);
             return true;
         } 
         else {
@@ -191,7 +190,7 @@ public class GridEnvironment {
         if (gridChangeListener != null) {
             gridChangeListener.onGridChanged(map);
         }
-        System.out.println("Grid changed at: " + System.currentTimeMillis());
+        //System.out.println("Grid changed at: " + System.currentTimeMillis());
 
     }
 

@@ -22,7 +22,7 @@ public class GameFlowController {
 
     public static void proceedNextHall() {
         if (playModeController != null) {
-            playModeController.disposeScreen();
+            //playModeController.disposeScreen();
             playModeController.getTimeController().getTimer().pauseTimer();
         }
 

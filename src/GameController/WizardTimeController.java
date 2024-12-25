@@ -45,12 +45,12 @@ public class WizardTimeController implements ITimeControllers {
 
     private void checkMechanics() {
         double elapsedTime = Math.floor(timer.getElapsedTime());
-        System.out.printf("Checking Mechanics - Elapsed Time until wizard spawn: %.0f\n", elapsedTime);
+        //System.out.printf("Checking Mechanics - Elapsed Time until wizard spawn: %.0f\n", elapsedTime);
 
         if (elapsedTime >= RuneStartDelay && elapsedTime - lastRuneSpawnTime >= 6.0) {
             wizard.teleportRune(grid);
             lastRuneSpawnTime = elapsedTime;
-            System.out.println("Rune has been spawned!");
+            //System.out.println("Rune has been spawned!");
         }
         // double remainingTime = timer.getRemainingTime();
         // if (remainingTime <= 0) {

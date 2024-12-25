@@ -195,9 +195,10 @@ public class HelpScreen extends UIScreen {
             this.dispose();
             if (previous_Screen instanceof PlayModeScreen) {
                 ((PlayModeScreen) previous_Screen).resumeGame();
+                //((PlayModeScreen) previous_Screen).setVisible(true);
             }
             else{
-                this.previous_Screen.setVisible(true);;
+                this.previous_Screen.setVisible(true);
             }
         });
 

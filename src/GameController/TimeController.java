@@ -1,14 +1,12 @@
 package src.GameController;
 
-import javax.swing.JOptionPane;
-
 import src.GameObjects.Hall;
 import src.GameObjects.HallTypes;
 import src.GameObjects.Hero;
 import src.GameObjects.Monster;
 import src.GameObjects.Obstacles;
-import src.GameObjects.Rune;
 import src.GameObjects.Obstacles.ObstacleType;
+import src.GameObjects.Rune;
 import src.Mechanics.GridEnvironment;
 import src.Mechanics.PositionPoint;
 import src.Mechanics.Timer;
@@ -59,14 +57,14 @@ public class TimeController implements ITimeControllers {
 
     private void checkMechanics() {
         double elapsedTime = Math.floor(timer.getElapsedTime());
-        System.out.printf("Checking Mechanics - Elapsed Time: %.0f\n", elapsedTime);
+        //System.out.printf("Checking Mechanics - Elapsed Time: %.0f\n", elapsedTime);
 
         if (elapsedTime >= monsterStartDelay && elapsedTime - lastMonsterSpawnTime >= 6.0) {
             SpawnMonsterController spawn = new SpawnMonsterController(grid);
             spawn.spawnMonster();
             lastMonsterSpawnTime = elapsedTime;
             
-            System.out.println("A new monster has been spawned!");
+            //System.out.println("A new monster has been spawned!");
         }
         double remainingTime = timer.getRemainingTime();
         if (remainingTime <= 0) {
@@ -84,7 +82,7 @@ public class TimeController implements ITimeControllers {
 
     private void printStatus(int remainingTime) { //todo bunu UI guncellemesi icin tickcallback olarak degistircez
         double elapsedTime = Math.floor(timer.getElapsedTime());
-        System.out.printf("Remaining Time: %d, Elapsed Time: %.0f\n", remainingTime, elapsedTime);
+        //System.out.printf("Remaining Time: %d, Elapsed Time: %.0f\n", remainingTime, elapsedTime);
     }
 
     public void pressPauseButton() {

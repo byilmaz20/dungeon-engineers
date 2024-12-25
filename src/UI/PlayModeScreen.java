@@ -10,6 +10,7 @@ import src.Mechanics.Direction;
 import src.Mechanics.Direction.DirectionEnum;
 import src.Mechanics.GridEnvironment;
 import src.Mechanics.Timer;
+import src.GameController.ITimeControllers;
 import src.GameController.TimeController;
 
 public class PlayModeScreen extends UIScreen implements KeyListener{
@@ -28,6 +29,7 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
     private double remainingTime;
     private TimeController timeController;
     private JLabel timeLabel;
+    private JLabel lifeLabel;
 
 
     private GridEnvironment gridEnvironment; // Reference to the GridEnvironment
@@ -37,22 +39,20 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
         super(650, 650, "Play Mode Screen", 
         "src/Images/BackgroundImages/HALL.png");
             timer = timeController.getTimer();
-            this.timer = timer;
             this.hallType = gridEnvironment.getHall().hallType;
             this.gridEnvironment = gridEnvironment;
             
-            
-
             // Set up grid listener to update UI on grid changes
             this.gridEnvironment.setGridChangeListener(this::updateGridFromEnvironment);
             this.timer.setTimeChangeListener(this::updateTime);
+            this.gridEnvironment.getHero().setLifeCountListener(this::updateLifeCount);
 
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
             initializeComponents();
             initializeGrid();
             updateGridFromEnvironment(gridEnvironment.getMap()); // Initialize grid with current map
-            updateTime(timer.getRemainingTime());
+            
 
             // Ensure the component is focusable and has focus
             setFocusable(true);
@@ -63,7 +63,7 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
             setVisible(true);
             System.out.println("Play Mode Screen Initialized");
             timeController.startGame();
-
+            updateTime(timer.getRemainingTime());
     }
     
     
@@ -75,7 +75,7 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
         setHelpButton();
         setExitButton();
         setTimeDisplay();
-        
+        setLifeCountDisplay();
     }
     private void setHallTypeImage() {
         //add hall type image to the screen
@@ -115,26 +115,36 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
         pauseGameButton.addActionListener(e -> {
             if (pauseGameButton.getIcon().equals(pauseIcon)) {
                 pauseGameButton.setIcon(resumeIcon); // Resume ikonuna geçiş yap
-                timer.pauseTimer(); // Oyunu duraklat
                 System.out.println("Game Paused!");
             } else {
                 // Resume butonuna tıklandığında
                 pauseGameButton.setIcon(pauseIcon); // Pause ikonuna geri dön
-                timer.resumeTimer(); // Oyunu devam ettir
                 System.out.println("Game Resumed!"); 
                 //resumeGame();
+            }
+            for (ITimeControllers timeController : gridEnvironment.getTimeControllers()) {
+                timeController.pressPauseButton();
             }
         });
     
         backgroundPanel.add(pauseGameButton); // Butonu arayüze ekle
     }
     
+    private void setLifeCountDisplay() {
+        lifeLabel = new JLabel("Lives: " + gridEnvironment.getHero().getLives());
+        lifeLabel.setBounds(530, 200, 150, 50); 
+        lifeLabel.setFont(new Font("Arial", Font.BOLD, 10)); 
+        lifeLabel.setForeground(Color.BLACK); 
+        lifeLabel.setOpaque(false); 
+        backgroundPanel.add(lifeLabel); 
+    }
+
     private void setTimeDisplay() {
         timeLabel = new JLabel("" + remainingTime);
-        timeLabel.setBounds(530, 180, 150, 50); // Adjust size and position as needed
-        timeLabel.setFont(new Font("Arial", Font.BOLD, 50)); // Set custom font
-        timeLabel.setForeground(Color.BLACK); // Set text color
-        timeLabel.setOpaque(false); // Allow background color
+        timeLabel.setBounds(530, 180, 150, 50); 
+        timeLabel.setFont(new Font("Arial", Font.BOLD, 50)); 
+        timeLabel.setForeground(Color.BLACK); 
+        timeLabel.setOpaque(false); 
         backgroundPanel.add(timeLabel);
     }
         
@@ -228,6 +238,10 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
         this.remainingTime = remainingTime;
         System.out.println("Time updated: " + remainingTime);
         timeLabel.setText("" + (int) remainingTime);
+    }
+
+    private void updateLifeCount(int lifeCount) {
+        lifeLabel.setText("Lives: " + lifeCount);
     }
 
     private void updateGridFromEnvironment(Entity[][] map) {

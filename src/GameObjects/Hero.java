@@ -8,6 +8,8 @@ public class Hero extends Entity {
     int lives; 
     Inventory inventory;  //(Bag containing Enchantments)
     boolean  ProtectionStatus;  //(Indicates if thecloak of protection is active)
+    private LifeCountListener listener;
+
     public Hero(PositionPoint heroPosition, Hall hall) {
         super(heroPosition, hall);
         this.lives = 3;
@@ -24,9 +26,15 @@ public class Hero extends Entity {
     public void deactivateProtection(){
         this.ProtectionStatus = false;
     }
-    public void updateLifeCount(int life){
-        this.lives += life;
+    public void increaseLifeCount(){
+        this.lives += 1;
+        notifyLifeChange();
     }
+    public void decreaseLifeCount(){
+        this.lives -= 1;
+        notifyLifeChange();
+    }
+
     public void setLifeCount(int life){
         this.lives = life;
     }
@@ -60,5 +68,20 @@ public class Hero extends Entity {
     // get position of player
     public PositionPoint getPosition(){
         return this.position;
+    }
+
+
+    public interface LifeCountListener {
+        void onLifeChanged(int lives);
+    }
+    
+    public synchronized void setLifeCountListener(LifeCountListener listener) {
+        this.listener = listener;
+    }
+
+    private void notifyLifeChange() {
+        if (listener != null) {
+            listener.onLifeChanged(lives);
+        }
     }
 }

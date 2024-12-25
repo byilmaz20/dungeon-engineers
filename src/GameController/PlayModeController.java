@@ -15,11 +15,10 @@ public class PlayModeController{
     GridEnvironment grid;
     SpawnMonsterController monsterSpawner;
     PlayModeScreen playModeScreen;
-    TimeController timeController;
+    TimeController timeController; // asıl time controller spawn monster ve enchnatmentı kontrol eder
 
     public PlayModeController(Hall hall) {
         this.currentHall = hall;
-        
         this.grid = new GridEnvironment(currentHall);
         this.monsterSpawner = new SpawnMonsterController(grid);
         monsterSpawner.spawnMonster();
@@ -36,6 +35,7 @@ public class PlayModeController{
     public TimeController getTimeController() {
         return timeController;
     }
+    
 
 
 }

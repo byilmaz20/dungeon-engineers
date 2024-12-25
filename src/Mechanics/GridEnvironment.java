@@ -3,6 +3,8 @@ package src.Mechanics;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import src.GameController.ITimeControllers;
 import src.GameController.TimeController;
 import src.GameObjects.Entity;
 import src.GameObjects.Hall;
@@ -20,6 +22,7 @@ public class GridEnvironment {
     int mapHeight = 25; // Fixed grid height
     TimeController timeController;
     private GridChangeListener gridChangeListener;
+    private List<ITimeControllers> timeControllers;
 
     public interface GridChangeListener {
         void onGridChanged(Entity[][] map);
@@ -36,6 +39,7 @@ public class GridEnvironment {
         this.rune = new Rune(getRandomPositionForRune(), hall);
         hall.entities.add(rune);
         hall.entities.add(hero);
+        this.timeControllers = new ArrayList<>();
 
         for (Entity entity : hall.getEntitys()) { // Use the getter method
             System.out.println(entity.getClass().getSimpleName() + " at: " + entity.position);
@@ -54,6 +58,13 @@ public class GridEnvironment {
         }
         this.timeController = new TimeController(this);
 
+    }
+
+    public void addTimeController(ITimeControllers timeController) {
+        this.timeControllers.add(timeController);
+    }
+    public List<ITimeControllers> getTimeControllers() {
+        return this.timeControllers;
     }
 
     private boolean isPositionValid(PositionPoint position) {
@@ -183,4 +194,12 @@ public class GridEnvironment {
         System.out.println("Grid changed at: " + System.currentTimeMillis());
 
     }
+
+    public Rune getRune() {
+        return this.rune;
+    }
+    public Hero getHero() {
+        return this.hero;
+    }
+
 }

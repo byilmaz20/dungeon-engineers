@@ -1,19 +1,24 @@
 package src.GameObjects;
+import src.GameController.FighterTimeController;
 import src.GameObjects.Obstacles.ObstacleType;
 import src.Mechanics.Direction;
 import src.Mechanics.GridEnvironment;
 import src.Mechanics.PositionPoint;
+import src.Mechanics.Timer;
 
 public class FighterMonster extends Monster {
-    public FighterMonster(PositionPoint position, Hall hall){
+    private FighterTimeController fighterTimeController;
+    private Timer fighterTimer;
+    public FighterMonster(PositionPoint position, Hall hall, GridEnvironment grid) {
         super(position, hall);
         this.type = MonsterTypes.FighterMonster;
+        this.fighterTimeController = new FighterTimeController(grid, this);
+        fighterTimeController.startTimeController();
+        fighterTimer = fighterTimeController.getTimer();
     }
     public void moveRandomly(GridEnvironment grid) {
         // Select a random direction
         Direction.DirectionEnum randomDirection = PositionPoint.getRandomDirection();
-        
-        
         // Check if movement is valid and attempt to move
         if (grid.checkMovement(this, new Direction(randomDirection))) {
             
@@ -22,6 +27,7 @@ public class FighterMonster extends Monster {
         } 
         else {
             System.out.println("FighterMonster's random move was blocked.");
+            moveRandomly(grid);
         }
     }
 
@@ -40,10 +46,9 @@ public class FighterMonster extends Monster {
         if (heroPosition.getX() >= minX && heroPosition.getX() <= maxX &&
             heroPosition.getY() >= minY && heroPosition.getY() <= maxY) {
             // Hero is within attack range
-            hero.updateLifeCount(-1);
+            hero.decreaseLifeCount();
             return true;
         } else {
-            hero.updateLifeCount(0);
             // Hero is out of range
             return false;
         }

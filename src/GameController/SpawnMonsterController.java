@@ -28,13 +28,13 @@ public class SpawnMonsterController {
             Monster monster;
             switch (type) {
                 case FighterMonster:
-                    monster = new FighterMonster(randomLocation, grid.getHall());
+                    monster = new FighterMonster(randomLocation, grid.getHall(), grid);
                     break;
                 case ArcherMonster:
                     monster = new ArcherMonster(randomLocation, grid.getHall());
                     break;
                 case WizardMonster:
-                    monster = new WizardMonster(randomLocation);
+                    monster = new WizardMonster(randomLocation, grid.getHall(), grid);
                     break;
                 default:
                     throw new IllegalStateException("Unexpected value: " + type);

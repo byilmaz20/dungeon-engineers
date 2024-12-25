@@ -22,7 +22,7 @@ ekranda time gostermek icin de sonradan ekleyecez
 ornek kullanım bunun maininde
  */
 
-public class TimeController {
+public class TimeController implements ITimeControllers {
     private Timer timer;
     private boolean isPaused;
     private double intitialTime;
@@ -45,6 +45,7 @@ public class TimeController {
         //todo monster için ayrıca girdi verebilsin
         
         spawner = new SpawnMonsterController(grid);
+        grid.addTimeController(this);
     }
 
     public Timer getTimer() {
@@ -96,6 +97,7 @@ public class TimeController {
         }
         isPaused = !isPaused;
     }
+
     public void applyTimeEchantment() {
         timer.addTime(5.0);
         System.out.printf("Remaining Time Increased by 5 seconds\n");

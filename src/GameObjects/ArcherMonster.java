@@ -20,11 +20,11 @@ public class ArcherMonster extends Monster {
         
                 // Check if the hero is within 4 squares
                 if (distance < 4) {
-                    hero.updateLifeCount(-1);  
+                    hero.decreaseLifeCount();
+                    System.out.printf("Archer Monster shot an arrow at the hero! Hero's life count: %d\n", hero.getLives());
                     return true;
                 
                 } else {
-                    hero.updateLifeCount(0); 
                     return false;
                 }
             }

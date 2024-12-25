@@ -23,7 +23,6 @@ public class Timer {
     public Timer() {
         this.isPaused = false;
     }
-
     
     private void notifyTimeChange() {
         if (timeChangeListener != null) {

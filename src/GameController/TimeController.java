@@ -50,6 +50,10 @@ public class TimeController implements ITimeControllers {
         return timer;
     }
 
+    public void setIsPausedToHelp(){
+        this.isPaused = !this.isPaused;
+    }
+
     public void startGame() {
         timer.startTimer(intitialTime, this::checkMechanics, this::printStatus);
 

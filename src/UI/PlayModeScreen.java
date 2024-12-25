@@ -161,6 +161,7 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
             for (ITimeControllers timeController : gridEnvironment.getTimeControllers()) {
                 timeController.pressPauseButton();
             }
+            timeController.setIsPausedToHelp();
             new HelpScreen(this);
             //TODO: IF CALLED FROM THE MAIN SCREEN, ARRANGE IT
         });

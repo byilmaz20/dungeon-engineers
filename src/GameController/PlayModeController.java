@@ -1,10 +1,9 @@
 package src.GameController;
 
-import src.Mechanics.Timer;
-
 import src.GameObjects.Enchantment;
 import src.GameObjects.Hall;
 import src.Mechanics.GridEnvironment;
+import src.Mechanics.Timer;
 import src.UI.PlayModeScreen;
 
 public class PlayModeController{
@@ -26,7 +25,7 @@ public class PlayModeController{
         this.isDoorOpen = false;
         this.timeController = new TimeController(grid);
         Timer timer = timeController.getTimer();
-        this.playModeScreen = new PlayModeScreen(grid, timeController);
+        this.playModeScreen = new PlayModeScreen(grid, timeController, timer.getRemainingTime());
 
     }
     public void disposeScreen() {

@@ -35,7 +35,7 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
     private GridEnvironment gridEnvironment; // Reference to the GridEnvironment
 
 
-    public PlayModeScreen(GridEnvironment gridEnvironment, TimeController timeController) {
+    public PlayModeScreen(GridEnvironment gridEnvironment, TimeController timeController, double remainingTime) {
         super(650, 650, "Play Mode Screen", 
         "src/Images/BackgroundImages/HALL.png");
             this.timeController = timeController;
@@ -64,7 +64,7 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
             setVisible(true);
             System.out.println("Play Mode Screen Initialized");
             timeController.startGame();
-            updateTime(timer.getRemainingTime());
+            updateTime(remainingTime);
     }
     
     
@@ -369,7 +369,8 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
     }
     public void resumeGame(){
         this.dispose();
-        new PlayModeScreen(this.gridEnvironment, this.timeController);
+        System.out.println(this.timeController.getTimer().getRemainingTime() + " is left!");
+        new PlayModeScreen(this.gridEnvironment, this.timeController, this.timeController.getTimer().getRemainingTime());
     }
     
 }

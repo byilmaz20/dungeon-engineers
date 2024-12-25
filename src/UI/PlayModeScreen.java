@@ -8,6 +8,7 @@ import javax.swing.*;
 import src.GameController.ITimeControllers;
 import src.GameController.TimeController;
 import src.GameObjects.*;
+import src.GameObjects.Obstacles.ObstacleType;
 import src.Mechanics.Direction;
 import src.Mechanics.Direction.DirectionEnum;
 import src.Mechanics.GridEnvironment;
@@ -320,6 +321,15 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
                 case EXTRA_LIFE_ENCHANTMENT -> "src/Images/ObjectImages/extra_life.png";
             };
         } else if (entity instanceof Rune) {
+            Obstacles obs = gridEnvironment.getRuneInObject();
+            if (obs.getType()==ObstacleType.SKULL){return "src/Images/ObjectImages/Skull.png";}
+            if (obs.getType()==ObstacleType.STAIR){return "src/Images/ObjectImages/Stair.png";}
+            if (obs.getType()==ObstacleType.RECTANGLE){return "src/Images/ObjectImages/Rectangle.png";}
+            if (obs.getType()==ObstacleType.ONE_BOX){return "src/Images/ObjectImages/1Box.png";}
+            if (obs.getType()==ObstacleType.TWO_BOX){return "src/Images/ObjectImages/2Box.png";}
+            if (obs.getType()==ObstacleType.BARREL){return "src/Images/ObjectImages/Barrel.png";}
+            if (obs.getType()==ObstacleType.CHEST){return "src/Images/ObjectImages/Chest.png";}
+            if (obs.getType()==ObstacleType.POTION){return "src/Images/ObjectImages/Potion.png";}
             //TODO: need to add rune image
             return "src/Images/ObjectImages/lure.png";
         }

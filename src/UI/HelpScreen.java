@@ -3,6 +3,8 @@ package src.UI;
 import java.awt.*;
 import javax.swing.*;
 
+import src.GameController.TimeController;
+
 public class HelpScreen extends UIScreen {
     private JButton BackGameButton;
     private JPanel leftPanel;
@@ -195,11 +197,12 @@ public class HelpScreen extends UIScreen {
             this.dispose();
             if (previous_Screen instanceof PlayModeScreen) {
                 ((PlayModeScreen) previous_Screen).resumeGame();
+                ((PlayModeScreen) previous_Screen).getTimeController().getIsPausedFalse();
                 //((PlayModeScreen) previous_Screen).setVisible(true);
             }
             else{
                 this.previous_Screen.setVisible(true);
-            }
+            }          
         });
 
         

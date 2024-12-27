@@ -388,5 +388,11 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
         this.timeController.setInitializeTime(this.timeController.getTimer());
         new PlayModeScreen(this.gridEnvironment, this.timeController, this.timeController.getTimer().getRemainingTime());
     }
+
+
+    public TimeController getTimeController() {
+        // TODO Auto-generated method stub
+        return this.timeController;
+    }
     
 }

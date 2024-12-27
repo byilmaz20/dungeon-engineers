@@ -33,6 +33,9 @@ public class TimeController implements ITimeControllers {
     GridEnvironment grid;
     SpawnMonsterController spawner;
 
+    
+
+
     public TimeController(GridEnvironment grid) {
         this.timer = new Timer();
         this.isPaused = false;
@@ -49,9 +52,14 @@ public class TimeController implements ITimeControllers {
     public Timer getTimer() {
         return timer;
     }
-
+    public void getIsPausedFalse() {
+        isPaused = false;
+    }
     public void setIsPausedToHelp(){
-        this.isPaused = !this.isPaused;
+       
+        this.isPaused = true;
+        timer.pauseTimer();
+        
     }
 
     public void startGame() {
@@ -93,11 +101,14 @@ public class TimeController implements ITimeControllers {
         if (isPaused) {
             timer.resumeTimer();
             System.out.println("Game Resumed!");
+            
         } else {
             timer.pauseTimer();
             System.out.println("Game Paused!");
+            
         }
         isPaused = !isPaused;
+        
     }
 
     public void applyTimeEchantment() {

@@ -198,6 +198,7 @@ public class HelpScreen extends UIScreen {
             if (previous_Screen instanceof PlayModeScreen) {
                 ((PlayModeScreen) previous_Screen).resumeGame();
                 ((PlayModeScreen) previous_Screen).getTimeController().getIsPausedFalse();
+                
                 //((PlayModeScreen) previous_Screen).setVisible(true);
             }
             else{

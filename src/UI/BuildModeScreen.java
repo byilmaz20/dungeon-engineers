@@ -387,9 +387,24 @@ public class BuildModeScreen extends JPanel {
         for (String hallName : hallPanels.keySet()) {
             JPanel hall = hallPanels.get(hallName);
     
-            int minObject = indexOfArray+hallMinimumCounts.get(hallName)-hallObjectCounts.get(hallName);
+            int minObject;
+            if (hallObjectCounts.get(hallName)<hallMinimumCounts.get(hallName)){
+                minObject = indexOfArray+hallMinimumCounts.get(hallName)-hallObjectCounts.get(hallName);
+            }
+            else{
+                minObject = indexOfArray+hallMinimumCounts.get(hallName);
+                indexOfArray = minObject;
+            }
+
+
+            String[] randObj;
+            if (hallObjectCounts.get(hallName)<hallMinimumCounts.get(hallName)){
+                randObj = randomObjectGenerator(hallMinimumCounts.get(hallName)-hallObjectCounts.get(hallName));
+                }
+            else{
+                randObj = randomObjectGenerator(hallMinimumCounts.get(hallName));
+                }
             
-            String[] randObj = randomObjectGenerator(hallMinimumCounts.get(hallName)-hallObjectCounts.get(hallName));
 
             int objIndex = 0;
 
@@ -480,7 +495,7 @@ public class BuildModeScreen extends JPanel {
         }
 
         if (allRequirementsMet) {
-            JOptionPane.showMessageDialog(this, "Game starting!");     
+            //JOptionPane.showMessageDialog(this, "Game starting!");     
             
             new BuildModeController();
             for (Map.Entry<String, Hall> entry : BuildModeController.Halls.entrySet()) {
@@ -543,14 +558,42 @@ public class BuildModeScreen extends JPanel {
         }
         int[] randomIntegers = uniqueNumbers.stream().mapToInt(Integer::intValue).toArray();
         
-        int waterc = hallMinimumCounts.get("Hall of WATER")- hallObjectCounts.get("Hall of WATER");
+        int waterc;
         //System.out.println(waterc);
-        int earthc = hallMinimumCounts.get("Hall of EARTH")-hallObjectCounts.get("Hall of EARTH");
+        int earthc;
         //System.out.println(earthc);
-        int airc = hallMinimumCounts.get("Hall of AIR")-hallObjectCounts.get("Hall of AIR");
+        int airc;
         //System.out.println(airc);
-        int firec = hallMinimumCounts.get("Hall of FIRE")-hallObjectCounts.get("Hall of FIRE");
+        int firec;
         //System.out.println(firec);
+
+        if (hallObjectCounts.get("Hall of WATER")<=hallMinimumCounts.get("Hall of WATER")){
+            waterc = hallMinimumCounts.get("Hall of WATER")- hallObjectCounts.get("Hall of WATER");
+        }
+        else{
+            waterc=hallMinimumCounts.get("Hall of WATER");
+        }
+
+        if (hallObjectCounts.get("Hall of EARTH")<=hallMinimumCounts.get("Hall of EARTH")){
+            earthc = hallMinimumCounts.get("Hall of EARTH")- hallObjectCounts.get("Hall of EARTH");
+        }
+        else{
+            earthc=hallMinimumCounts.get("Hall of EARTH");
+        }
+
+        if (hallObjectCounts.get("Hall of AIR")<=hallMinimumCounts.get("Hall of AIR")){
+            airc = hallMinimumCounts.get("Hall of AIR")- hallObjectCounts.get("Hall of AIR");
+        }
+        else{
+            airc=hallMinimumCounts.get("Hall of AIR");
+        }
+
+        if (hallObjectCounts.get("Hall of FIRE")<=hallMinimumCounts.get("Hall of FIRE")){
+            firec = hallMinimumCounts.get("Hall of FIRE")- hallObjectCounts.get("Hall of FIRE");
+        }
+        else{
+            firec=hallMinimumCounts.get("Hall of FIRE");
+        }
 
         Arrays.sort(randomIntegers, 0, waterc);
         Arrays.sort(randomIntegers, waterc, waterc+earthc);

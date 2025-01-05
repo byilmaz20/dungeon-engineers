@@ -23,7 +23,7 @@ public class PlayModeController{
         monsterSpawner.spawnMonster();
         this.activeEnchantment = null;
         this.isDoorOpen = false;
-        this.timeController = new TimeController(grid);
+        this.timeController = grid.getMainTimeController();
         Timer timer = timeController.getTimer();
         this.playModeScreen = new PlayModeScreen(grid, timeController, timer.getRemainingTime());
 

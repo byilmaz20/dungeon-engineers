@@ -90,15 +90,20 @@ public class FighterTimeController implements ITimeControllers {
         GridEnvironment grid = new GridEnvironment(hall);
 
         WizardMonster wizard = new WizardMonster(position3, hall, grid);
+        FighterMonster fighter = new FighterMonster(position3, hall, grid);
         Hero hero  = new Hero(position3, hall);
         Rune rune = new Rune(position, hall);
         hall.placeEntity(rune);
         hall.placeEntity(hero);
         hall.placeEntity(wizard);
+        hall.placeEntity(fighter);
         
         System.out.println(hall);
 
+        grid.getMainTimeController().startGame();
+
         TimeController controller = new TimeController(grid);
+
         controller.startGame();
     }
 }

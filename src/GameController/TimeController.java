@@ -49,6 +49,10 @@ public class TimeController implements ITimeControllers {
         grid.addTimeController(this);
     }
 
+    public double getInitialTime() {
+        return intitialTime;
+    }
+
     public Timer getTimer() {
         return timer;
     }
@@ -156,5 +160,11 @@ public class TimeController implements ITimeControllers {
 
     public void setInitializeTime(Timer remainingTime){
         this.intitialTime = remainingTime.getRemainingTime();
+    }
+    public synchronized double getElapsedTime() {
+        return timer.getElapsedTime();
+    }
+    public synchronized double getRemainingTime() {
+        return timer.getRemainingTime();
     }
 }

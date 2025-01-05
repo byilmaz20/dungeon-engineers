@@ -20,7 +20,7 @@ public class GridEnvironment {
     public Entity[][] map; // Grid of entities
     int mapWidth = 25; // Fixed grid width
     int mapHeight = 25; // Fixed grid height
-    TimeController timeController;
+    TimeController mainTimeController;
     private GridChangeListener gridChangeListener;
     private List<ITimeControllers> timeControllers;
     public Obstacles runeInObject;
@@ -59,10 +59,11 @@ public class GridEnvironment {
                 }
             }
         }
-        this.timeController = new TimeController(this);
-
+        this.mainTimeController = new TimeController(this);
     }
-
+    public TimeController getMainTimeController() {
+        return this.mainTimeController;
+    }
     public void addTimeController(ITimeControllers timeController) {
         this.timeControllers.add(timeController);
     }
@@ -88,13 +89,33 @@ public class GridEnvironment {
         if (isPositionValid(entity.position)) {
             map[entity.position.x][entity.position.y] = entity; // Set entity in its position
             hall.placeEntity(entity); // Add to the hall's entity list
-
             notifyGridChange();
             //System.out.println("Entity placed at: " + entity.position);
             return true;
         } else {
             //System.out.println("Invalid position for entity: " + entity.position);
             return false;
+        }
+    }
+
+    public void removeEntity(Entity entity) {
+        map[entity.position.x][entity.position.y] = null; // Clear entity from the grid
+        hall.removeEntity(entity); // Remove from the hall's entity list
+        notifyGridChange();
+        //System.out.println("Entity removed from: " + entity.position);
+    }
+
+    public void moveEntityToNewPosition(Entity entity, PositionPoint newPosition) {
+        if (isPositionValid(newPosition)) {
+            map[entity.position.x][entity.position.y] = null; // Clear current position
+            entity.position = newPosition; // Update entity position
+            map[newPosition.x][newPosition.y] = entity; // Set entity in new position
+            hall.removeEntity(entity); // Remove from the hall's entity list if exists
+            hall.placeEntity(entity); // Add to the hall's entity list
+            notifyGridChange();
+            //System.out.println("Entity moved to: " + newPosition);
+        } else {
+            System.out.println("Invalid movement. Position occupied or out of bounds.");
         }
     }
 
@@ -153,7 +174,6 @@ public class GridEnvironment {
 
     public PositionPoint selectRandomLocation() {
         List<PositionPoint> availablePositions = new ArrayList<>();
-
         for (int x = 0; x < mapWidth; x++) {
             for (int y = 0; y < mapHeight; y++) {
                 if (map[x][y] == null) {
@@ -161,15 +181,12 @@ public class GridEnvironment {
                 }
             }
         }
-
         if (availablePositions.isEmpty()) {
             System.out.println("No available positions found.");
             return null;
         }
-
         Random random = new Random();
         PositionPoint randomPosition = availablePositions.get(random.nextInt(availablePositions.size()));
-
         //System.out.println("Random available position selected: " + randomPosition);
         return randomPosition;
     }
@@ -196,7 +213,6 @@ public class GridEnvironment {
             gridChangeListener.onGridChanged(map);
         }
         //System.out.println("Grid changed at: " + System.currentTimeMillis());
-
     }
 
     public Rune getRune() {

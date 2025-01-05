@@ -6,6 +6,10 @@ import src.GameObjects.Hero;
 import src.GameObjects.Monster;
 import src.GameObjects.Obstacles;
 import src.GameObjects.Obstacles.ObstacleType;
+import src.GameObjects.WizardMonsterBehavior.DisappearAction;
+import src.GameObjects.WizardMonsterBehavior.IWizardBehavior;
+import src.GameObjects.WizardMonsterBehavior.TeleportHeroAction;
+import src.GameObjects.WizardMonsterBehavior.TeleportRuneAction;
 import src.GameObjects.Rune;
 import src.GameObjects.WizardMonster;
 import src.Mechanics.GridEnvironment;
@@ -18,6 +22,7 @@ public class WizardTimeController implements ITimeControllers {
     private double intitialTime;
     private Rune rune;
     private WizardMonster wizard;
+    private IWizardBehavior wizardBehavior;
 
     private double lastRuneSpawnTime;
 
@@ -42,21 +47,30 @@ public class WizardTimeController implements ITimeControllers {
     public void startTimeController() {
         timer.startTimer(intitialTime, this::checkMechanics, this::printStatus);
     }
+    public void setWizardBehavior(IWizardBehavior wizardBehavior) {
+        this.wizardBehavior = wizardBehavior;
+    }
 
     private void checkMechanics() {
-        double elapsedTime = Math.floor(timer.getElapsedTime());
-        //System.out.printf("Checking Mechanics - Elapsed Time until wizard spawn: %.0f\n", elapsedTime);
+        //todo time kontrolleri genel time controllerda olsun
+        double mainRemainingTime = Math.floor(grid.getMainTimeController().getTimer().getRemainingTime());
+        double mainInitialTime = grid.getMainTimeController().getInitialTime();
 
-        if (elapsedTime >= RuneStartDelay && elapsedTime - lastRuneSpawnTime >= 6.0) {
-            wizard.teleportRune(grid);
-            lastRuneSpawnTime = elapsedTime;
-            //System.out.println("Rune has been spawned!");
+        //System.out.printf("Checking Mechanics - Elapsed Time until wizard spawn: %.0f\n", elapsedTime);
+        if (mainRemainingTime > mainInitialTime * 0.7){
+            setWizardBehavior(new TeleportRuneAction());
+            System.out.println("Behavior set to Teleport Rune");
         }
-        // double remainingTime = timer.getRemainingTime();
-        // if (remainingTime <= 0) {
-        //     System.out.println("Time finished Game Over!");
-        //     System.exit(0);
-        // }
+        if (mainRemainingTime <= mainInitialTime * 0.7 && mainRemainingTime >= mainInitialTime * 0.3){
+            setWizardBehavior(new DisappearAction());
+            System.out.println("Behavior set to Disappear");
+        }
+        if (mainRemainingTime < mainInitialTime * 0.3){
+            setWizardBehavior(new TeleportHeroAction());
+            System.out.println("Behavior set to Teleport Hero, Remaining Time: " + mainRemainingTime + " Initial Time: " + mainInitialTime
+            + "elapsed time: " + grid.getMainTimeController().getTimer().getRemainingTime());
+        }
+        wizardBehavior.takeAction(this);
     }
 
     private void printStatus(int remainingTime) { 
@@ -106,5 +120,25 @@ public class WizardTimeController implements ITimeControllers {
 
         TimeController controller = new TimeController(grid);
         controller.startGame();
+    }
+
+    public double getElapsedTime() {
+        return timer.getElapsedTime();
+    }
+
+    public double getLastRuneSpawnTime() {
+        return lastRuneSpawnTime;
+    }
+
+    public double getRuneStartDelay() {
+        return RuneStartDelay;
+    }
+
+    public WizardMonster getWizard() {
+        return wizard;
+    }
+
+    public GridEnvironment getGrid() {
+        return grid;
     }
 }

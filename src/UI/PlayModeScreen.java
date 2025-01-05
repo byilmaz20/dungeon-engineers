@@ -268,7 +268,7 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
                     gridPanels[y][x].add(entityLabel, BorderLayout.CENTER);
                 }
                 if (entity instanceof Rune) {
-                    System.out.println("Rune found at position: " + x + ", " + y);
+                    //System.out.println("Rune found at position: " + x + ", " + y);
                 }
             }
         }
@@ -346,11 +346,10 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
     }
         @Override
     public void keyPressed(KeyEvent e) {
-        System.out.println("Key Pressed");
+        //System.out.println("Key Pressed");
         int keyCode = e.getKeyCode();
         switch (keyCode) {
             case KeyEvent.VK_LEFT:
-                System.out.println("Left key pressed");
                 gridEnvironment.moveEntity(gridEnvironment.hero, new Direction(DirectionEnum.LEFT));
                 break;
             case KeyEvent.VK_RIGHT:
@@ -382,7 +381,7 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
             gridEnvironment.checkRuneFound();
         } 
     }
-    public void resumeGame(){
+    public void resumeGame(){ //TODO
         this.dispose();
         System.out.println(this.timeController.getTimer().getRemainingTime() + " is left!");
         this.timeController.setInitializeTime(this.timeController.getTimer());

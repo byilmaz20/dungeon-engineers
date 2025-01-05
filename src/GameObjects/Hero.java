@@ -69,6 +69,9 @@ public class Hero extends Entity {
     public PositionPoint getPosition(){
         return this.position;
     }
+    public void setPositon(PositionPoint position){
+        this.position = position;
+    }
 
 
     public interface LifeCountListener {

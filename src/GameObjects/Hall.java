@@ -51,6 +51,12 @@ public class Hall {
         //System.out.println("Entity added: " + entity.getClass().getSimpleName());
     }
 
+    // Remove an entity and update sublists if needed
+    public void removeEntity(Entity entity) {
+        entities.remove(entity); // Remove from main list
+        //System.out.println("Entity removed: " + entity.getClass().getSimpleName());
+    }
+
     // Getter methods for specific sublists
     public List<Enchantment> getEnchantments() {
         return enchantments;

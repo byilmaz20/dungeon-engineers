@@ -86,6 +86,9 @@ public class Hero extends Entity {
         this.position = position;
     }
 
+    public Inventory getInventory() {
+return this.inventory;    }
+
 
     public interface LifeCountListener {
         void onLifeChanged(int lives);

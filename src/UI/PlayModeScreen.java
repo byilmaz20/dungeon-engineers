@@ -32,7 +32,8 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
     private double remainingTime;
     private TimeController timeController;
     private JLabel timeLabel;
-    private JLabel lifeLabel;
+   
+    private JPanel lifePanel;
 
 
     private GridEnvironment gridEnvironment; // Reference to the GridEnvironment
@@ -161,14 +162,16 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
     }
     
     private void setLifeCountDisplay() {
-        lifeLabel = new JLabel("Lives: " + gridEnvironment.getHero().getLives());
-        lifeLabel.setBounds(970, 250, 150, 50); 
-        lifeLabel.setFont(new Font("Arial", Font.BOLD, 30)); 
-        //lifeLabel.setForeground(Color.BLACK); 
-        lifeLabel.setForeground(Color.decode("#262b2d"));
-        lifeLabel.setOpaque(false); 
-        backgroundPanel.add(lifeLabel); 
+        lifePanel = new JPanel();
+        //lifePanel.setBounds(970, 250, 150, 50); 
+        lifePanel.setBounds(900, 250, 150, 50); 
+        lifePanel.setOpaque(false); 
+        lifePanel.setLayout(new FlowLayout(FlowLayout.LEFT)); // Kalpler yatay sıralanır
+        backgroundPanel.add(lifePanel);
+    
+        updateLifeCount(gridEnvironment.getHero().getLives());
     }
+
 
     private void setTimeDisplay() {
         timeLabel = new JLabel("" + remainingTime);
@@ -284,8 +287,18 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
     }
 
     private void updateLifeCount(int lifeCount) {
-        lifeLabel.setText("Lives: " + lifeCount);
-    }
+        lifePanel.removeAll(); 
+        ImageIcon heartIcon = new ImageIcon(new ImageIcon("src/Images/ObjectImages/heart.png")
+                .getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH)); 
+
+        for (int i = 0; i < lifeCount; i++) {
+            JLabel heartLabel = new JLabel(heartIcon);
+            lifePanel.add(heartLabel); 
+        }
+        lifePanel.revalidate(); 
+        lifePanel.repaint(); 
+    } 
+
 
     private void updateGridFromEnvironment(Entity[][] map, PositionPoint... changedPositions) {
         for (PositionPoint pos : changedPositions) {

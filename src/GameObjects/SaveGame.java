@@ -22,7 +22,8 @@ import java.io.IOException;
 
 public class SaveGame implements Serializable{
     public static GameFlowController gameState;
-        public static void saveGame() {
+    public Hall hall;
+        public void saveGame() {
             // Create a new JFrame for the save dialog
             JFrame saveFrame = new JFrame("Save Game");
             saveFrame.setSize(400, 150);
@@ -36,7 +37,7 @@ public class SaveGame implements Serializable{
             // Input field for the save name
             JTextField saveNameField = new JTextField();
             saveFrame.add(saveNameField, BorderLayout.CENTER);
-    
+            this.hall = gameState.getCurrentHall();
             // Panel for buttons
             JPanel buttonPanel = new JPanel();
             JButton saveButton = new JButton("Save");
@@ -70,7 +71,7 @@ public class SaveGame implements Serializable{
                          ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
                         // Serialize the game state and save to file
                         System.out.println(gameState.getCurrentHall().getHallTypes());
-                        out.writeObject(gameState.getCurrentHall());
+                        out.writeObject(hall);
                        
                     JOptionPane.showMessageDialog(saveFrame, 
                                                   "Game saved successfully as \"" + saveName + "\".",

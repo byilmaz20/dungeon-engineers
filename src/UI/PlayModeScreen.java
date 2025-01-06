@@ -184,18 +184,19 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
         backgroundPanel.add(exitButton);
     }
 
-    private void initializeGrid() {
-        int scaledCellSize = (int) (baseCellSize * scaleFactor); // Calculate new cell size
-        int gridPanelWidth = gridWidth * scaledCellSize + 10; // Add a bit more width for the increased push
-        int gridPanelHeight = gridHeight * scaledCellSize;
+    private void oldinitializeGrid() {
+        double scaledCellSize = 19.5;
+        System.out.println("scaledCellSize: " + scaledCellSize);
+        double gridPanelWidth = gridWidth * scaledCellSize + 10; // Add a bit more width for the increased push
+        double gridPanelHeight = gridHeight * scaledCellSize;
     
-        // Center the grid panel within the display
-        int xOffset = 64; // Adjust the horizontal center slightly for the shifts
-        int yOffset = 211; // Center vertically
+        int xOffset = 170; 
+        int yOffset = 290; 
     
         JPanel gridPanel = new JPanel(null); // Use null layout for custom positioning
-        gridPanel.setBounds(xOffset, yOffset, gridPanelWidth, gridPanelHeight);
-        gridPanel.setOpaque(true); // Transparent grid
+        gridPanel.setBounds(xOffset, yOffset, (int) gridPanelWidth, (int) gridPanelHeight);
+
+        gridPanel.setOpaque(true); 
     
         gridPanels = new JPanel[gridHeight][gridWidth];
     
@@ -206,8 +207,10 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
         for (int y = 0; y < gridHeight; y++) {
             for (int x = 0; x < gridWidth; x++) {
                 JPanel cell = new JPanel();
-                cell.setOpaque(false); // Make the cell transparent
-                cell.setBorder(null);  // Remove the border to avoid visible separation
+                cell.setOpaque(true); // Make the cell transparent
+                cell.setBackground(new Color(240, 240, 240)); // Light background for visibility (optional)
+                cell.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));  // Remove the border to avoid visible separation
+                //cell.setBorder(null);
                 cell.setLayout(new BorderLayout());
     
                 // Calculate gradient shift
@@ -220,10 +223,10 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
                     shift = baseShift + (int) (maxShift * factor); // Base shift + scaled shift
                 }
     
-                int cellX = x * scaledCellSize + shift;
-                int cellY = y * scaledCellSize;
+                double cellX = x * scaledCellSize + shift;
+                double cellY = y * scaledCellSize;
     
-                cell.setBounds(cellX, cellY, scaledCellSize, scaledCellSize);
+                cell.setBounds((int) cellX, (int) cellY,  (int) scaledCellSize, (int) scaledCellSize);
     
                 // Attach MouseListener to each cell
                 final int cellXIndex = x;
@@ -245,6 +248,115 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
         revalidate();
         repaint();
     }
+    
+    private void initializeGridnew() {
+        double cellSize = 20; 
+        int gridWidth = 25; 
+        int gridHeight = 25; 
+    
+        double gridPanelWidth = gridWidth * cellSize; 
+        double gridPanelHeight = gridHeight * cellSize;
+    
+        int xOffset = 170; 
+        int yOffset = 287; 
+    
+        JPanel gridPanel = new JPanel(null); 
+        gridPanel.setBounds(xOffset, yOffset, (int) Math.ceil(gridPanelWidth), (int) Math.ceil(gridPanelHeight));
+        gridPanel.setOpaque(false); 
+        gridPanel.setBackground(new Color(200, 200, 200)); 
+    
+        gridPanels = new JPanel[gridHeight][gridWidth];
+    
+        for (int y = 0; y < gridHeight; y++) {
+            for (int x = 0; x < gridWidth; x++) {
+                JPanel cell = new JPanel();
+                cell.setOpaque(false);
+                cell.setBackground(new Color(240, 240, 240));
+                cell.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+                cell.setLayout(new BorderLayout());
+    
+                // Calculate precise position for each cell
+                int cellX = (int) Math.round(x * cellSize);
+                int cellY = (int) Math.round(y * cellSize);
+    
+                cell.setBounds(cellX, cellY, (int) Math.ceil(cellSize), (int) Math.ceil(cellSize));
+    
+                // Mouse listener for interactions
+                final int cellXIndex = x;
+                final int cellYIndex = y;
+                cell.addMouseListener(new java.awt.event.MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        handleCellClick(cellXIndex, cellYIndex);
+                    }
+                });
+    
+                gridPanels[y][x] = cell;
+                gridPanel.add(cell);
+            }
+        }
+    
+        // Add the grid panel to the background
+        backgroundPanel.add(gridPanel);
+        backgroundPanel.revalidate();
+        backgroundPanel.repaint();
+    }
+    
+    private void initializeGrid() {
+        double cellWidth = 20; // Width of each cell
+        double cellHeight = 19.7; // Height of each cell
+        int gridWidth = 25; // Number of columns
+        int gridHeight = 25; // Number of rows
+    
+        double gridPanelWidth = gridWidth * cellWidth; 
+        double gridPanelHeight = gridHeight * cellHeight;
+    
+        int xOffset = 170; 
+        int yOffset = 290; 
+    
+        // Create a JPanel for the grid with null layout for manual positioning
+        JPanel gridPanel = new JPanel(null); 
+        gridPanel.setBounds(xOffset, yOffset, (int) Math.ceil(gridPanelWidth), (int) Math.ceil(gridPanelHeight));
+        gridPanel.setOpaque(false); 
+        gridPanel.setBackground(new Color(200, 200, 200)); 
+    
+        gridPanels = new JPanel[gridHeight][gridWidth];
+    
+        for (int y = 0; y < gridHeight; y++) {
+            for (int x = 0; x < gridWidth; x++) {
+                JPanel cell = new JPanel();
+                cell.setOpaque(false); // Transparent cell background
+                cell.setBackground(new Color(240, 240, 240)); // Light background
+                //cell.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1)); // Cell borders
+                cell.setLayout(new BorderLayout());
+    
+                // Calculate precise position for each cell
+                int cellX = (int) Math.round(x * cellWidth);
+                int cellY = (int) Math.round(y * cellHeight);
+    
+                cell.setBounds(cellX, cellY, (int) Math.ceil(cellWidth), (int) Math.ceil(cellHeight));
+    
+                // Mouse listener for interactions
+                final int cellXIndex = x;
+                final int cellYIndex = y;
+                cell.addMouseListener(new java.awt.event.MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        handleCellClick(cellXIndex, cellYIndex);
+                    }
+                });
+    
+                gridPanels[y][x] = cell;
+                gridPanel.add(cell);
+            }
+        }
+    
+        // Add the grid panel to the background
+        backgroundPanel.add(gridPanel);
+        backgroundPanel.revalidate();
+        backgroundPanel.repaint();
+    }
+      
     private void populateInitialEntities(Entity[][] map) {
         for (int y = 0; y < gridHeight; y++) {
             for (int x = 0; x < gridWidth; x++) {

@@ -1,13 +1,42 @@
 package src.GameObjects;
+import src.GameController.CloakUseController;
+import src.GameController.EnchantmentTimeController;
+import src.GameController.LuringGemController;
 import src.Mechanics.Direction;
+import src.Mechanics.GridEnvironment;
 import src.Mechanics.PositionPoint;
+import src.Mechanics.Timer;
 
 public class LuringGemEnchantment extends Enchantment {
-    public LuringGemEnchantment(PositionPoint position, Hall hall) {
+    private EnchantmentTimeController enchantmentTimeController;
+    private LuringGemController luringGemController;
+    private Timer luringGemTimer;
+    private Timer enchantmentTimer;
+    private GridEnvironment grid;
+    public LuringGemEnchantment(PositionPoint position, Hall hall, GridEnvironment grid) {
         super(position, hall);
-    }//todo duration sacma oldu
+    
+        this.type = EnchantmentTypes.LURING_GEM_ENCHANTMENT;
+        this.isStorable = false;
+        this.enchantmentTimeController = new EnchantmentTimeController(grid, this);
+        this.grid = grid;
+        enchantmentTimeController.startTimeController();
+        enchantmentTimer = enchantmentTimeController.getTimer();
+        this.luringGemController = new LuringGemController(grid);
+
+    }    
+
     public void applyEffect(Direction direction) {
-        // Apply the effect specific to the luring gem in the given direction
+        
+        for (Monster monster : grid.getHall().getMonsters()) {
+            if (monster instanceof FighterMonster) {
+                ((FighterMonster)monster).setLureDirection(direction);
+            }
+        }
+
+        grid.getHero().activateFooling();
+        luringGemController.startTimeController();
+        luringGemTimer = luringGemController.getTimer();
         System.out.println("Applying Luring Gem effect in direction: " + direction);
     }
 }

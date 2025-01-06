@@ -9,12 +9,14 @@ import src.Mechanics.Timer;
 public class FighterMonster extends Monster {
     private FighterTimeController fighterTimeController;
     private Timer fighterTimer;
+    private Direction lureDirection;
     public FighterMonster(PositionPoint position, Hall hall, GridEnvironment grid) {
         super(position, hall);
         this.type = MonsterTypes.FighterMonster;
         this.fighterTimeController = new FighterTimeController(grid, this);
         fighterTimeController.startTimeController();
         fighterTimer = fighterTimeController.getTimer();
+        Direction lureDirection;
     }
     public void moveRandomly(GridEnvironment grid) {
         // Select a random direction
@@ -52,6 +54,16 @@ public class FighterMonster extends Monster {
             // Hero is out of range
             return false;
         }
+    }
+
+
+
+    public Direction getLureDirection() {
+        return lureDirection;
+    }
+
+    public void setLureDirection(Direction lureDirection) {
+        this.lureDirection = lureDirection;
     }
     
     // private void stabHero(Hero hero) {

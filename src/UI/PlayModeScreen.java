@@ -38,7 +38,9 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
 
 
     public PlayModeScreen(GridEnvironment gridEnvironment, TimeController timeController, double remainingTime) {
+
         super(1200, 900, "Play Mode Screen", 
+
         "src/Images/BackgroundImages/HALL.png");
         //650x650
         this.timeController = timeController;

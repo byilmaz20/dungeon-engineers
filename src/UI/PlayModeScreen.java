@@ -39,38 +39,39 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
 
 
     public PlayModeScreen(GridEnvironment gridEnvironment, TimeController timeController, double remainingTime) {
-        super(650, 650, "Play Mode Screen", 
+        super(1200, 900, "Play Mode Screen", 
         "src/Images/BackgroundImages/HALL.png");
-            this.timeController = timeController;
-            this.timer = this.timeController.getTimer();
-            this.hallType = gridEnvironment.getHall().hallType;
-            this.gridEnvironment = gridEnvironment;
-            
-            // Set up grid listener to update UI on grid changes
-            this.gridEnvironment.setGridChangeListener(this::updateGridFromEnvironment);
-            // setGridChangeListener is assigning updateGridFromEnvironment 
-            // as the implementation of the onGridChanged method in the GridChangeListener interface.
-            this.timer.setTimeChangeListener(this::updateTime);
-            this.gridEnvironment.getHero().setLifeCountListener(this::updateLifeCount);
+        //650x650
+        this.timeController = timeController;
+        this.timer = this.timeController.getTimer();
+        this.hallType = gridEnvironment.getHall().hallType;
+        this.gridEnvironment = gridEnvironment;
+        
+        // Set up grid listener to update UI on grid changes
+        this.gridEnvironment.setGridChangeListener(this::updateGridFromEnvironment);
+        // setGridChangeListener is assigning updateGridFromEnvironment 
+        // as the implementation of the onGridChanged method in the GridChangeListener interface.
+        this.timer.setTimeChangeListener(this::updateTime);
+        this.gridEnvironment.getHero().setLifeCountListener(this::updateLifeCount);
 
-            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-            initializeComponents();
-            initializeGrid();
-            populateInitialEntities(this.gridEnvironment.map);
-            updateGridFromEnvironment(gridEnvironment.getMap()); // Initialize grid with current map
-            
+        initializeComponents();
+        initializeGrid();
+        populateInitialEntities(this.gridEnvironment.map);
+        updateGridFromEnvironment(gridEnvironment.getMap()); // Initialize grid with current map
+        
 
-            // Ensure the component is focusable and has focus
-            setFocusable(true);
-            requestFocusInWindow();
+        // Ensure the component is focusable and has focus
+        setFocusable(true);
+        requestFocusInWindow();
 
-            addKeyListener(this);
+        addKeyListener(this);
 
-            setVisible(true);
-            System.out.println("Play Mode Screen Initialized");
-            timeController.startGame();
-            updateTime(remainingTime);
+        setVisible(true);
+        System.out.println("Play Mode Screen Initialized");
+        timeController.startGame();
+        updateTime(remainingTime);
     }
     
     

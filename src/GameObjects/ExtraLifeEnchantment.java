@@ -4,24 +4,24 @@ import src.Mechanics.GridEnvironment;
 import src.Mechanics.PositionPoint;
 import src.Mechanics.Timer;
 
-public class RevealEnchantment extends Enchantment {
+public class ExtraLifeEnchantment extends Enchantment {
     private EnchantmentTimeController enchantmentTimeController;
     private Timer enchantmentTimer;
     private GridEnvironment grid;
-
-
-    public RevealEnchantment(PositionPoint position, Hall hall, GridEnvironment grid) {
+    public ExtraLifeEnchantment(PositionPoint position, Hall hall, GridEnvironment grid) {
         super(position, hall);
-        this.type = EnchantmentTypes.REVEAL_ENCHANTMENT;
-        this.isStorable = false;
+        this.type = EnchantmentTypes.EXTRA_LIFE_ENCHANTMENT;
         this.enchantmentTimeController = new EnchantmentTimeController(grid, this);
         this.grid = grid;
         enchantmentTimeController.startTimeController();
         enchantmentTimer = enchantmentTimeController.getTimer();
-    } 
+    }    
+
+
 
 
     public void applyEffect(){
-        // Apply the effect of the enchantment
+        grid.getHero().increaseLifeCount();
     }
+
 }

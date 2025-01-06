@@ -193,7 +193,7 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
     
         JPanel gridPanel = new JPanel(null); // Use null layout for custom positioning
         gridPanel.setBounds(xOffset, yOffset, gridPanelWidth, gridPanelHeight);
-        gridPanel.setOpaque(false); // Transparent grid
+        gridPanel.setOpaque(true); // Transparent grid
     
         gridPanels = new JPanel[gridHeight][gridWidth];
     

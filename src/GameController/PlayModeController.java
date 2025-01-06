@@ -25,7 +25,7 @@ public class PlayModeController{
         this.isDoorOpen = false;
         this.timeController = grid.getMainTimeController();
         Timer timer = timeController.getTimer();
-        this.playModeScreen = new PlayModeScreen(grid, timeController, timer.getRemainingTime());
+        this.playModeScreen = new PlayModeScreen(grid, timeController);
 
     }
     public void disposeScreen() {

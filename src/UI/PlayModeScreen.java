@@ -32,6 +32,7 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
     private JLabel timeLabel;
     private JLabel lifeLabel;
 
+    boolean bPressed = false;
 
     private GridEnvironment gridEnvironment; // Reference to the GridEnvironment
 
@@ -348,7 +349,6 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
     public void keyPressed(KeyEvent e) {
         System.out.println("Key Pressed");
         int keyCode = e.getKeyCode();
-        boolean bPressed = false;
         switch (keyCode) {
             case KeyEvent.VK_LEFT:
                 System.out.println("Left key pressed");

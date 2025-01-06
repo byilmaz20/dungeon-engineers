@@ -152,11 +152,13 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
         this.dispose();
         System.out.println(this.timeController.getTimer().getRemainingTime() + " is left!");
         //this.timeController.setInitializeTime(this.timeController.getTimer());
-        new PlayModeScreen(this.gridEnvironment, this.timeController);
+        
         for (ITimeControllers timeController : gridEnvironment.getTimeControllers()) {
             timeController.pressPauseButton();
         }
         isPaused = false;
+        timeController.setInitialTime(timeController.getTimer().getRemainingTime());
+        new PlayModeScreen(this.gridEnvironment, this.timeController);
     }
     
     private void setLifeCountDisplay() {
@@ -278,7 +280,8 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
     private void updateTime(double remainingTime) { //TODO text eklenecek
         this.remainingTime = remainingTime;
         //System.out.println("Time updated: " + remainingTime);
-        timeLabel.setText("" + (int) remainingTime);
+        if (!isPaused)
+            timeLabel.setText("" + (int) remainingTime);
     }
 
     private void updateLifeCount(int lifeCount) {

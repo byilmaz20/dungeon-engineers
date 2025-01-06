@@ -88,6 +88,9 @@ public class Hero extends Entity {
 
     public Inventory getInventory() {
 return this.inventory;    }
+public void SetInventory(Inventory inventory){
+ this.inventory = inventory;
+ }
 
 
     public interface LifeCountListener {

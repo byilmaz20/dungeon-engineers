@@ -16,6 +16,7 @@ import src.Mechanics.GridEnvironment;
 import src.Mechanics.PositionPoint;
 import src.Mechanics.Timer;
 
+
 public class PlayModeScreen extends UIScreen implements KeyListener{
     private final int gridWidth = 25; // Number of columns
     private final int gridHeight = 25; // Number of rows
@@ -35,6 +36,7 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
     private JLabel timeLabel;
    
     private JPanel lifePanel;
+    private JPanel inventoryPanel;
 
 
     private GridEnvironment gridEnvironment; // Reference to the GridEnvironment
@@ -88,6 +90,10 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
         setExitButton();
         setTimeDisplay();
         setLifeCountDisplay();
+        setInventoryDisplay();
+        initializeInventoryChangeListener();
+
+
     }
     private void setHallTypeImage() {
         //add hall type image to the screen
@@ -208,6 +214,65 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
         exitButton.addActionListener(e -> System.exit(0));
         backgroundPanel.add(exitButton);
     }
+    private void setInventoryDisplay() {
+    inventoryPanel = new JPanel();
+    inventoryPanel.setBounds(868, 480, 220, 100); // Shifted panel slightly downwards
+    inventoryPanel.setOpaque(false); 
+    inventoryPanel.setLayout(new GridLayout(1, 3, -56, 50)); // Further increased vertical gap
+
+    updateInventoryDisplay(); // Populate inventory items initially
+
+    backgroundPanel.add(inventoryPanel); // Add inventory panel to the background
+}
+
+private void updateInventoryDisplay() {
+    inventoryPanel.removeAll(); // Clear the inventory panel for updates
+
+    // Icon paths for enchantments
+    String cloakIconPath = "src/Images/ObjectImages/cloak.png";
+    String revealIconPath = "src/Images/ObjectImages/reveal.png";
+    String lureIconPath = "src/Images/ObjectImages/lure.png";
+
+    // Display cloak enchantment with quantity
+    addEnchantmentToInventoryDisplay(cloakIconPath, gridEnvironment.getHero().getInventory().getQuantity(EnchantmentTypes.CLOAK_OF_PROTECTION_ENCHANTMENT));
+
+    // Display reveal enchantment with quantity
+    addEnchantmentToInventoryDisplay(revealIconPath, gridEnvironment.getHero().getInventory().getQuantity(EnchantmentTypes.REVEAL_ENCHANTMENT));
+
+    // Display lure enchantment with quantity
+    addEnchantmentToInventoryDisplay(lureIconPath, gridEnvironment.getHero().getInventory().getQuantity(EnchantmentTypes.LURING_GEM_ENCHANTMENT));
+
+    inventoryPanel.revalidate(); // Refresh the panel
+    inventoryPanel.repaint();    // Update the UI
+}
+
+
+private void addEnchantmentToInventoryDisplay(String iconPath, int quantity) {
+    JPanel enchantmentPanel = new JPanel();
+    enchantmentPanel.setLayout(new BorderLayout()); // Arrange icon and quantity vertically
+    enchantmentPanel.setOpaque(false); // Transparent background
+    enchantmentPanel.setBorder(BorderFactory.createEmptyBorder(-10, 5, 20, 5)); // Slightly adjusted bottom padding
+
+    ImageIcon icon = new ImageIcon(new ImageIcon(iconPath).getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH));
+    JLabel iconLabel = new JLabel(icon); // Icon for enchantment
+    JLabel quantityLabel = new JLabel("x" + quantity); // Quantity label
+    quantityLabel.setFont(new Font("Arial", Font.BOLD, 18)); // Styling the quantity text
+    quantityLabel.setForeground(Color.BLACK); // Text color
+    quantityLabel.setHorizontalAlignment(SwingConstants.CENTER); // Center align quantity
+
+    enchantmentPanel.add(iconLabel, BorderLayout.CENTER); // Add icon to the center
+    enchantmentPanel.add(quantityLabel, BorderLayout.SOUTH); // Add quantity below the icon
+
+    inventoryPanel.add(enchantmentPanel); // Add the enchantment panel to the inventory panel
+}
+
+
+// Ensure inventory updates dynamically
+private void initializeInventoryChangeListener() {
+    gridEnvironment.getHero().getInventory().setInventoryChangeListener(() -> {
+        SwingUtilities.invokeLater(this::updateInventoryDisplay); // Safely update the UI on the Event Dispatch Thread
+    });
+}
 
 
     private void initializeGrid() {
@@ -441,5 +506,7 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
         // TODO Auto-generated method stub
         return this.timeController;
     }
+    
+
     
 }

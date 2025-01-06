@@ -50,7 +50,7 @@ public class BuildModeScreen extends JPanel {
             frame = new JFrame("Build Mode");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             //frame.setSize(1210, 1000);
-            frame.setSize(1090, 810);
+            frame.setSize(1200, 900);
             frame.setResizable(false);
             
             frame.setContentPane(this);

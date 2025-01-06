@@ -99,24 +99,24 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
         ImageIcon resizedHallIcon = new ImageIcon(resizedHallImage);
         JLabel label = new JLabel(resizedHallIcon);
         this.setLayout(null);
-        label.setBounds(170, 0, 200, 100);
+        label.setBounds(430, 1, 200, 150);
         this.add(label, BorderLayout.CENTER);
         this.setVisible(true);
     }
     
     private void setPauseGameButton() {
         pauseGameButton = new JButton();
-        pauseGameButton.setBounds(506, 30, 48, 45); // Butonun boyutlarını ve pozisyonunu ayarla
+        pauseGameButton.setBounds(937, 37, 77, 77); // Butonun boyutlarını ve pozisyonunu ayarla
         pauseGameButton.setOpaque(false);
         pauseGameButton.setContentAreaFilled(false);
         pauseGameButton.setBorderPainted(false);
     
         // Pause ve resume ikonlarını yükle
         Icon pauseIcon = new ImageIcon(new ImageIcon("src/Images/ObjectImages/pauseIcon.png")
-                .getImage().getScaledInstance(35, 35, Image.SCALE_SMOOTH)); // Pause ikonu
+                .getImage().getScaledInstance(77, 77, Image.SCALE_SMOOTH)); // Pause ikonu
                 
         Icon resumeIcon = new ImageIcon(new ImageIcon("src/Images/ObjectImages/ResumeIcon.png")
-                .getImage().getScaledInstance(35, 35, Image.SCALE_SMOOTH)); // Resume ikonu
+                .getImage().getScaledInstance(77, 77, Image.SCALE_SMOOTH)); // Resume ikonu
     
         pauseGameButton.setIcon(pauseIcon); // İlk başta pause ikonunu göster
     
@@ -140,25 +140,27 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
     
     private void setLifeCountDisplay() {
         lifeLabel = new JLabel("Lives: " + gridEnvironment.getHero().getLives());
-        lifeLabel.setBounds(530, 200, 150, 50); 
-        lifeLabel.setFont(new Font("Arial", Font.BOLD, 10)); 
-        lifeLabel.setForeground(Color.BLACK); 
+        lifeLabel.setBounds(970, 250, 150, 50); 
+        lifeLabel.setFont(new Font("Arial", Font.BOLD, 30)); 
+        //lifeLabel.setForeground(Color.BLACK); 
+        lifeLabel.setForeground(Color.decode("#262b2d"));
         lifeLabel.setOpaque(false); 
         backgroundPanel.add(lifeLabel); 
     }
 
     private void setTimeDisplay() {
         timeLabel = new JLabel("" + remainingTime);
-        timeLabel.setBounds(530, 180, 150, 50); 
+        timeLabel.setBounds(900, 250, 150, 50); 
         timeLabel.setFont(new Font("Arial", Font.BOLD, 50)); 
-        timeLabel.setForeground(Color.BLACK); 
+        //timeLabel.setForeground(Color.BLACK); 
+        timeLabel.setForeground(Color.decode("#262b2d"));
         timeLabel.setOpaque(false); 
         backgroundPanel.add(timeLabel);
     }
         
     private void setHelpButton() {
         helpButton = new JButton();
-        helpButton.setBounds(468, 33, 35, 35);
+        helpButton.setBounds(827, 37, 77, 77);
         helpButton.setOpaque(false);
         helpButton.setContentAreaFilled(false);
         helpButton.setBorderPainted(false);
@@ -176,7 +178,7 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
     }
     private void setExitButton() {
         exitButton = new JButton();
-        exitButton.setBounds(586, 35, 35, 35);
+        exitButton.setBounds(1045, 37, 77, 77);
         exitButton.setOpaque(false);
         exitButton.setContentAreaFilled(false);
         exitButton.setBorderPainted(false);
@@ -184,48 +186,42 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
         backgroundPanel.add(exitButton);
     }
 
+
     private void initializeGrid() {
-        int scaledCellSize = (int) (baseCellSize * scaleFactor); // Calculate new cell size
-        int gridPanelWidth = gridWidth * scaledCellSize + 10; // Add a bit more width for the increased push
-        int gridPanelHeight = gridHeight * scaledCellSize;
+        double cellWidth = 20; // Width of each cell
+        double cellHeight = 19.7; // Height of each cell
+        int gridWidth = 25; // Number of columns
+        int gridHeight = 25; // Number of rows
     
-        // Center the grid panel within the display
-        int xOffset = 64; // Adjust the horizontal center slightly for the shifts
-        int yOffset = 211; // Center vertically
+        double gridPanelWidth = gridWidth * cellWidth; 
+        double gridPanelHeight = gridHeight * cellHeight;
     
-        JPanel gridPanel = new JPanel(null); // Use null layout for custom positioning
-        gridPanel.setBounds(xOffset, yOffset, gridPanelWidth, gridPanelHeight);
-        gridPanel.setOpaque(true); // Transparent grid
+        int xOffset = 170; 
+        int yOffset = 290; 
+    
+        // Create a JPanel for the grid with null layout for manual positioning
+        JPanel gridPanel = new JPanel(null); 
+        gridPanel.setBounds(xOffset, yOffset, (int) Math.ceil(gridPanelWidth), (int) Math.ceil(gridPanelHeight));
+        gridPanel.setOpaque(false); 
+        gridPanel.setBackground(new Color(200, 200, 200)); 
     
         gridPanels = new JPanel[gridHeight][gridWidth];
     
-        int baseShift = 2; // A subtle base shift applied uniformly across the grid
-        int maxShift = 6; // Maximum shift for cells at the far right
-    
-        // Initialize each cell with the updated shifts
         for (int y = 0; y < gridHeight; y++) {
             for (int x = 0; x < gridWidth; x++) {
                 JPanel cell = new JPanel();
-                cell.setOpaque(false); // Make the cell transparent
-                cell.setBorder(null);  // Remove the border to avoid visible separation
+                cell.setOpaque(false); // Transparent cell background
+                cell.setBackground(new Color(240, 240, 240)); // Light background
+                //cell.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1)); // Cell borders
                 cell.setLayout(new BorderLayout());
     
-                // Calculate gradient shift
-                int shift;
-                if (x < gridWidth / 2) {
-                    shift = baseShift - 1; // Slight negative shift for the left side
-                } else {
-                    // Gradual positive shift for the right side
-                    double factor = (double) (x - gridWidth / 2) / (gridWidth / 2); // Normalized position (0 to 1)
-                    shift = baseShift + (int) (maxShift * factor); // Base shift + scaled shift
-                }
+                // Calculate precise position for each cell
+                int cellX = (int) Math.round(x * cellWidth);
+                int cellY = (int) Math.round(y * cellHeight);
     
-                int cellX = x * scaledCellSize + shift;
-                int cellY = y * scaledCellSize;
+                cell.setBounds(cellX, cellY, (int) Math.ceil(cellWidth), (int) Math.ceil(cellHeight));
     
-                cell.setBounds(cellX, cellY, scaledCellSize, scaledCellSize);
-    
-                // Attach MouseListener to each cell
+                // Mouse listener for interactions
                 final int cellXIndex = x;
                 final int cellYIndex = y;
                 cell.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -240,11 +236,12 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
             }
         }
     
-        // Add the grid panel to the background panel
+        // Add the grid panel to the background
         backgroundPanel.add(gridPanel);
-        revalidate();
-        repaint();
+        backgroundPanel.revalidate();
+        backgroundPanel.repaint();
     }
+      
     private void populateInitialEntities(Entity[][] map) {
         for (int y = 0; y < gridHeight; y++) {
             for (int x = 0; x < gridWidth; x++) {
@@ -292,7 +289,10 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
         if (imagePath != null) {
             ImageIcon entityIcon = new ImageIcon(imagePath);
             Image scaledImage = entityIcon.getImage().getScaledInstance(
-                    (int) (baseCellSize * scaleFactor), (int) (baseCellSize * scaleFactor), Image.SCALE_SMOOTH);
+                15, 
+                15, 
+                Image.SCALE_SMOOTH 
+        );
             return new JLabel(new ImageIcon(scaledImage));
         }
         return new JLabel(); // Return empty label if no image path is found

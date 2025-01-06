@@ -50,6 +50,9 @@ public class WizardTimeController implements ITimeControllers {
     public void setWizardBehavior(IWizardBehavior wizardBehavior) {
         this.wizardBehavior = wizardBehavior;
     }
+    public IWizardBehavior getWizardBehavior() {
+        return wizardBehavior;
+    }
 
     private void checkMechanics() {
         //todo time kontrolleri genel time controllerda olsun
@@ -57,7 +60,7 @@ public class WizardTimeController implements ITimeControllers {
         double mainInitialTime = grid.getMainTimeController().getInitialTime();
 
         //System.out.printf("Checking Mechanics - Elapsed Time until wizard spawn: %.0f\n", elapsedTime);
-        if (mainRemainingTime > mainInitialTime * 0.7){
+        if (mainRemainingTime > mainInitialTime * 0.7 && !(this.getWizardBehavior() instanceof TeleportRuneAction)){
             setWizardBehavior(new TeleportRuneAction());
             //System.out.println("Behavior set to Teleport Rune");
         }
@@ -140,5 +143,8 @@ public class WizardTimeController implements ITimeControllers {
 
     public GridEnvironment getGrid() {
         return grid;
+    }
+    public void setLastRuneSpawnTime(double lastRuneSpawnTime) {
+        this.lastRuneSpawnTime = lastRuneSpawnTime;
     }
 }

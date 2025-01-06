@@ -103,7 +103,7 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
         ImageIcon resizedHallIcon = new ImageIcon(resizedHallImage);
         JLabel label = new JLabel(resizedHallIcon);
         this.setLayout(null);
-        label.setBounds(170, 0, 200, 100);
+        label.setBounds(430, 1, 200, 150);
         this.add(label, BorderLayout.CENTER);
         this.setVisible(true);
     }
@@ -144,18 +144,20 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
     
     private void setLifeCountDisplay() {
         lifeLabel = new JLabel("Lives: " + gridEnvironment.getHero().getLives());
-        lifeLabel.setBounds(530, 200, 150, 50); 
-        lifeLabel.setFont(new Font("Arial", Font.BOLD, 10)); 
-        lifeLabel.setForeground(Color.BLACK); 
+        lifeLabel.setBounds(970, 250, 150, 50); 
+        lifeLabel.setFont(new Font("Arial", Font.BOLD, 30)); 
+        //lifeLabel.setForeground(Color.BLACK); 
+        lifeLabel.setForeground(Color.decode("#262b2d"));
         lifeLabel.setOpaque(false); 
         backgroundPanel.add(lifeLabel); 
     }
 
     private void setTimeDisplay() {
         timeLabel = new JLabel("" + remainingTime);
-        timeLabel.setBounds(530, 180, 150, 50); 
+        timeLabel.setBounds(900, 250, 150, 50); 
         timeLabel.setFont(new Font("Arial", Font.BOLD, 50)); 
-        timeLabel.setForeground(Color.BLACK); 
+        //timeLabel.setForeground(Color.BLACK); 
+        timeLabel.setForeground(Color.decode("#262b2d"));
         timeLabel.setOpaque(false); 
         backgroundPanel.add(timeLabel);
     }

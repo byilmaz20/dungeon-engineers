@@ -33,10 +33,7 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
     private double remainingTime;
     private TimeController timeController;
     private JLabel timeLabel;
-   
     private JPanel lifePanel;
-
-
     private GridEnvironment gridEnvironment; // Reference to the GridEnvironment
 
 
@@ -50,7 +47,7 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
         this.timer = this.timeController.getTimer();
         this.hallType = gridEnvironment.getHall().hallType;
         this.gridEnvironment = gridEnvironment;
-        this.remainingTime = this.timer.getRemainingTime();
+        
         // Set up grid listener to update UI on grid changes
         this.gridEnvironment.setGridChangeListener(this::updateGridFromEnvironment);
         // setGridChangeListener is assigning updateGridFromEnvironment 
@@ -72,11 +69,13 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
 
         addKeyListener(this);
 
-        setVisible(true);
+        
         System.out.println("Play Mode Screen Initialized");
         timeController.startGame();
+        this.remainingTime = this.timer.getRemainingTime();
 
         updateTime(remainingTime);
+        setVisible(true);
     }
     
     
@@ -181,6 +180,7 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
         //timeLabel.setForeground(Color.BLACK); 
         timeLabel.setForeground(Color.decode("#262b2d"));
         timeLabel.setOpaque(false); 
+        timeLabel.setText("" + (int) remainingTime);
         backgroundPanel.add(timeLabel);
     }
         

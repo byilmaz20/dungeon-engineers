@@ -74,9 +74,11 @@ public abstract class UIScreen extends JFrame{
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                // Draw the image to fill the entire panel
-                g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+                if (backgroundImage != null) {
+                    g.drawImage(backgroundImage, 0, 0, this);
+                }
             }
+
         };
 
         backgroundPanel.setBounds(0, 0, width, height);

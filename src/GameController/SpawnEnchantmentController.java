@@ -3,12 +3,15 @@ package src.GameController;
 import src.GameObjects.Hall;
 import src.GameObjects.HallTypes;
 import src.GameObjects.Hero;
+
+import java.io.Serializable;
+
 import src.GameObjects.Enchantment;
 import src.GameObjects.Rune;
 import src.Mechanics.GridEnvironment;
 import src.Mechanics.PositionPoint;
 
-public class SpawnEnchantmentController {
+public class SpawnEnchantmentController implements Serializable{
     private GridEnvironment grid;
 
     public SpawnEnchantmentController(GridEnvironment grid) {

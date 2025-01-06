@@ -1,9 +1,10 @@
 package src.GameObjects;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class Inventory {
+public class Inventory implements Serializable{
     private final List<Enchantment> items;
 
     public Inventory() {

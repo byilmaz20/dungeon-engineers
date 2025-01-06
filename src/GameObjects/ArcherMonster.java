@@ -1,10 +1,12 @@
 package src.GameObjects;
+import java.io.Serializable;
+
 import src.GameObjects.Obstacles.ObstacleType;
 import src.Mechanics.GridEnvironment;
 import src.Mechanics.PositionPoint;
 
 
-public class ArcherMonster extends Monster {
+public class ArcherMonster extends Monster implements Serializable{
     public ArcherMonster(PositionPoint position, Hall hall){
         super(position, hall);
         this.type = MonsterTypes.ArcherMonster;

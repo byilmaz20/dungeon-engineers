@@ -1,9 +1,11 @@
 package src.GameObjects;
 import src.Mechanics.PositionPoint;
+
+import java.io.Serializable;
 import java.util.Random;
 
 
-public class Enchantment extends Entity{ 
+public class Enchantment extends Entity implements Serializable{  
     
     EnchantmentTypes type;
     boolean  isStorable;

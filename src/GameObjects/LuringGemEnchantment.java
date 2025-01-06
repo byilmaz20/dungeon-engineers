@@ -1,8 +1,10 @@
 package src.GameObjects;
+import java.io.Serializable;
+
 import src.Mechanics.Direction;
 import src.Mechanics.PositionPoint;
 
-public class LuringGemEnchantment extends Enchantment {
+public class LuringGemEnchantment extends Enchantment implements Serializable{
     public LuringGemEnchantment(PositionPoint position, Hall hall) {
         super(position, hall);
     }//todo duration sacma oldu

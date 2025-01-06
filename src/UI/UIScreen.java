@@ -3,12 +3,14 @@ package src.UI;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.io.Serializable;
+
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 
-public abstract class UIScreen extends JFrame{
+public abstract class UIScreen extends JFrame implements Serializable{
 
     public JPanel backgroundPanel;
     private final int width;

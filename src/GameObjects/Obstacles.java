@@ -1,8 +1,10 @@
 package src.GameObjects;
 
+import java.io.Serializable;
+
 import src.Mechanics.PositionPoint;
 
-public class Obstacles extends Entity {
+public class Obstacles extends Entity implements Serializable{
     private ObstacleType type;
 
     public Obstacles(PositionPoint position, Hall hall, ObstacleType type) {

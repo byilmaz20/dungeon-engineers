@@ -12,8 +12,9 @@ import src.GameObjects.WizardMonster;
 import src.Mechanics.GridEnvironment;
 import src.Mechanics.PositionPoint;
 import src.Mechanics.Timer;
+import java.io.Serializable;
 
-public class FighterTimeController implements ITimeControllers {
+public class FighterTimeController implements ITimeControllers, Serializable {
     private Timer timer;
     private boolean isPaused;
     private double intitialTime;

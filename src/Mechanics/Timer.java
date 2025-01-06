@@ -1,8 +1,9 @@
 package src.Mechanics;
 
+import java.io.Serializable;
 import java.util.function.Consumer;
 
-public class Timer {
+public class Timer implements Serializable{
     private double remainingTime;
     private double elapsedTime;
     private boolean isPaused;

@@ -18,7 +18,7 @@ public class LoadGameScreen extends JFrame implements Serializable{
         setSize(400, 600);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout());
-
+        setVisible(true);
         // Header Label
         JLabel headerLabel = new JLabel("Select a saved game to load:", SwingConstants.CENTER);
         headerLabel.setFont(new Font("Arial", Font.BOLD, 16));
@@ -67,9 +67,9 @@ public class LoadGameScreen extends JFrame implements Serializable{
                 }
                 String filePath = SAVE_DIR + File.separator + selectedFile;
                 GameFlowController gameFlowController = LoadGame.loadGame(filePath);
-                gameFlowController.getPlayModeController().getPlayModeScreen().resumeGame();
+                
                 if (gameFlowController != null) {
-                    JOptionPane.showMessageDialog(LoadGameScreen.this, "Game Loaded! Player: " + gameFlowController.getCurrentHall().getHallTypes());
+                    JOptionPane.showMessageDialog(LoadGameScreen.this, "Game Loaded! Player: " + gameFlowController.getCurrentHall());
                     // Start the loaded game or transition to the game screen
                 } else {
                     JOptionPane.showMessageDialog(LoadGameScreen.this, "Failed to load the game file.", "Error", JOptionPane.ERROR_MESSAGE);

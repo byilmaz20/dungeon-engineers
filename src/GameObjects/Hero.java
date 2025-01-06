@@ -1,10 +1,12 @@
 // create a java class
 package src.GameObjects;
+import java.io.Serializable;
+
 import src.Mechanics.Direction;
 import src.Mechanics.PositionPoint;
 
 
-public class Hero extends Entity {
+public class Hero extends Entity implements Serializable{
     int lives; 
     Inventory inventory;  //(Bag containing Enchantments)
     boolean  ProtectionStatus;  //(Indicates if thecloak of protection is active)

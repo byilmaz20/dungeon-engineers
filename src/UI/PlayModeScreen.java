@@ -1,4 +1,5 @@
 package src.UI;
+import java.io.Serializable;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -14,7 +15,7 @@ import src.Mechanics.Direction.DirectionEnum;
 import src.Mechanics.GridEnvironment;
 import src.Mechanics.Timer;
 
-public class PlayModeScreen extends UIScreen implements KeyListener{
+public class PlayModeScreen extends UIScreen implements KeyListener, Serializable{
     private final int gridWidth = 25; // Number of columns
     private final int gridHeight = 25; // Number of rows
     private final int baseCellSize = 25; // Base size of each cell
@@ -75,6 +76,7 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
         setPauseGameButton();
         setHelpButton();
         setExitButton();
+        setSaveButton();
         setTimeDisplay();
         setLifeCountDisplay();
     }
@@ -99,7 +101,7 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
     
     private void setPauseGameButton() {
         pauseGameButton = new JButton();
-        pauseGameButton.setBounds(506, 30, 48, 45); // Butonun boyutlarını ve pozisyonunu ayarla
+        pauseGameButton.setBounds(506, 27, 48, 45); // Butonun boyutlarını ve pozisyonunu ayarla
         pauseGameButton.setOpaque(false);
         pauseGameButton.setContentAreaFilled(false);
         pauseGameButton.setBorderPainted(false);
@@ -151,7 +153,7 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
         
     private void setHelpButton() {
         helpButton = new JButton();
-        helpButton.setBounds(468, 33, 35, 35);
+        helpButton.setBounds(468, 30, 35, 35);
         helpButton.setOpaque(false);
         helpButton.setContentAreaFilled(false);
         helpButton.setBorderPainted(false);
@@ -167,9 +169,29 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
         });
         backgroundPanel.add(helpButton);
     }
+
+    private void setSaveButton() {
+        helpButton = new JButton();
+        helpButton.setBounds(340, 33, 35, 35);
+        helpButton.setOpaque(true);
+        helpButton.setContentAreaFilled(false);
+        helpButton.setBorderPainted(true);
+            helpButton.addActionListener(e -> {
+            this.setVisible(false);
+            //time pause olmalı 
+            for (ITimeControllers timeController : gridEnvironment.getTimeControllers()) {
+                timeController.pressPauseButton();
+            } 
+            //timeController.setIsPausedToHelp();
+            SaveGame.saveGame();
+            //TODO: IF CALLED FROM THE MAIN SCREEN, ARRANGE IT
+        });
+        backgroundPanel.add(helpButton);
+    }
+
     private void setExitButton() {
         exitButton = new JButton();
-        exitButton.setBounds(586, 35, 35, 35);
+        exitButton.setBounds(586, 36, 35, 35);
         exitButton.setOpaque(false);
         exitButton.setContentAreaFilled(false);
         exitButton.setBorderPainted(false);

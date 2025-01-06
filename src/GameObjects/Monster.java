@@ -1,10 +1,11 @@
 package src.GameObjects;
 
+import java.io.Serializable;
 import java.util.Random;
 import src.Mechanics.Direction.DirectionEnum;
 import src.Mechanics.PositionPoint;
 
-public class Monster extends Entity {
+public class Monster extends Entity implements Serializable{
     boolean isTriggered;
      MonsterTypes type;
 

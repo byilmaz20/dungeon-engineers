@@ -1,13 +1,14 @@
 package src.GameObjects;
 
 import java.util.Random;
+import java.io.Serializable;
 
 import src.GameController.WizardTimeController;
 import src.Mechanics.GridEnvironment;
 import src.Mechanics.PositionPoint;
 import src.Mechanics.Timer;
 
-public class WizardMonster extends Monster {
+public class WizardMonster extends Monster implements Serializable {
     private WizardTimeController wizardTimeController;
     private Timer wizardTimer;
     public WizardMonster(PositionPoint position, Hall hall, GridEnvironment grid) {

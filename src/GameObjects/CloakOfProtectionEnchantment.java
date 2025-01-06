@@ -1,8 +1,10 @@
 package src.GameObjects;
+import java.io.Serializable;
+
 import src.GameObjects.EnchantmentTypes;
 import src.Mechanics.PositionPoint;
 
-public class CloakOfProtectionEnchantment extends Enchantment {
+public class CloakOfProtectionEnchantment extends Enchantment implements Serializable{
     
     public CloakOfProtectionEnchantment(int duration, PositionPoint position, Hall hall) {
         super(position, hall);

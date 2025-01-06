@@ -18,13 +18,17 @@ public class GameFlowController implements Serializable{
 
     public GameFlowController() {
         currentHall = BuildModeController.Halls.get("Hall of " + hallSequence.get(currentHallIndex));
+
         playModeController = new PlayModeController(currentHall);
+ 
     }
 
     public Hall getCurrentHall(){
         return currentHall;
     }
-
+    public int getCurrentHallIndex(){
+        return currentHallIndex;
+    }
     public PlayModeController getPlayModeController(){
         return playModeController;
     }

@@ -1,13 +1,19 @@
 package src.UI;
 import javax.swing.*;
+
+import src.GameObjects.LoadGameScreen;
+import src.GameObjects.SaveGame;
+
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 
 
-public class MainMenuScreen extends UIScreen {
+public class MainMenuScreen extends UIScreen implements Serializable{
 
     private JButton startGameButton;
+    private JButton loadGameButton;
     private JButton helpButton;
     private JButton exitButton;
 
@@ -27,6 +33,7 @@ public class MainMenuScreen extends UIScreen {
         setStartGameButton();
         setHelpButton();
         setExitButton();
+        setLoadGameButton();
     }
 
     private void setStartGameButton() {
@@ -42,9 +49,24 @@ public class MainMenuScreen extends UIScreen {
         backgroundPanel.add(startGameButton);
     }
 
+    private void setLoadGameButton() {
+        loadGameButton = new JButton();
+        loadGameButton.setBounds(254, 285, 129, 33);
+        loadGameButton.setOpaque(false);
+        loadGameButton.setContentAreaFilled(false);
+        loadGameButton.setBorderPainted(false);
+        loadGameButton.addActionListener(e -> {
+            this.dispose();
+            new LoadGameScreen();
+        });
+        backgroundPanel.add(loadGameButton);
+    }
+
+
+
     private void setHelpButton() {
         helpButton = new JButton();
-        helpButton.setBounds(254, 285, 129, 33);
+        helpButton.setBounds(254, 320, 129, 33);
         helpButton.setOpaque(false);
         helpButton.setContentAreaFilled(false);
         helpButton.setBorderPainted(false);
@@ -58,7 +80,7 @@ public class MainMenuScreen extends UIScreen {
 
     private void setExitButton() {
         exitButton = new JButton();
-        exitButton.setBounds(254, 320, 129, 33);
+        exitButton.setBounds(254, 355, 129, 33);
         exitButton.setOpaque(false);
         exitButton.setContentAreaFilled(false);
         exitButton.setBorderPainted(false);
@@ -66,4 +88,5 @@ public class MainMenuScreen extends UIScreen {
         backgroundPanel.add(exitButton);
     }
 
+    
 }

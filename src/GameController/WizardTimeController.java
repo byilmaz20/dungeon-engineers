@@ -1,5 +1,7 @@
 package src.GameController;
 
+import java.io.Serializable;
+
 import src.GameObjects.Hall;
 import src.GameObjects.HallTypes;
 import src.GameObjects.Hero;
@@ -12,7 +14,7 @@ import src.Mechanics.GridEnvironment;
 import src.Mechanics.PositionPoint;
 import src.Mechanics.Timer;
 
-public class WizardTimeController implements ITimeControllers {
+public class WizardTimeController implements ITimeControllers, Serializable{
     private Timer timer;
     private boolean isPaused;
     private double intitialTime;

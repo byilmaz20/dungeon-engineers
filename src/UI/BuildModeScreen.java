@@ -2,6 +2,7 @@ package src.UI;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -13,8 +14,9 @@ import javax.swing.border.TitledBorder;
 import src.GameController.BuildModeController;
 import src.GameController.GameFlowController;
 import src.GameObjects.Hall;
+import src.GameObjects.SaveGame;
 
-public class BuildModeScreen extends JPanel {
+public class BuildModeScreen extends JPanel implements Serializable{
 
     private final Map<String, JPanel> hallPanels; // Store hall panels
     private final Map<String, String> objectImages; // Store object image paths
@@ -503,7 +505,9 @@ public class BuildModeScreen extends JPanel {
                 //System.out.println(hall);
             }
             
-            new GameFlowController();
+            GameFlowController gameflowcont = new GameFlowController();
+            SaveGame.setGameFlowController(gameflowcont);
+            
             frame.setVisible(false);
         } else {
             JOptionPane.showMessageDialog(this, "Cannot start the game:\n" + errorMessage);

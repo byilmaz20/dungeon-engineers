@@ -4,9 +4,10 @@ import src.GameObjects.Hall;
 import src.GameObjects.Hero;
 
 import java.util.List;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class GameSystem {
+public class GameSystem implements Serializable{
     boolean  isGameRunning;
     List<Monster> monsters;
     Hero hero;

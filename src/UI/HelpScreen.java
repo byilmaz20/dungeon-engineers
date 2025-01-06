@@ -29,10 +29,12 @@ public class HelpScreen extends UIScreen {
         scrollableLeftPanel.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
         scrollableLeftPanel.getVerticalScrollBar().setUnitIncrement(30);
+
         
         backgroundPanel.add(scrollableLeftPanel, BorderLayout.CENTER);
 
-        
+        SwingUtilities.invokeLater(() -> scrollableLeftPanel.getVerticalScrollBar().setValue(0));
+
         setBackButton();
     }
 

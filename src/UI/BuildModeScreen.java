@@ -26,7 +26,7 @@ public class BuildModeScreen extends JPanel {
     private JFrame frame;
     private static int[] indexes = new int[1000];
     
-    public BuildModeScreen() {
+    public BuildModeScreen(String mode) {
         hallPanels = new HashMap<>();
         objectImages = new HashMap<>();
         hallObjectCounts = new HashMap<>();

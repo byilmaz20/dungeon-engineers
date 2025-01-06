@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
+import static java.lang.Math.abs;
 import javax.swing.*;
 import src.GameController.ITimeControllers;
 import src.GameController.TimeController;
@@ -402,8 +403,25 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
     private void handleCellClick(int x, int y) {        
         if (gridEnvironment.map[x][y] instanceof Rune) {
             System.out.println("Rune has been clicked: " + x + ", " + y);
-            gridEnvironment.checkRuneFound();
+            checkRuneFound();
         } 
+    }
+    public boolean checkRuneFound() {
+        boolean isAdjacent = false;
+        if ((abs(gridEnvironment.hero.position.x - gridEnvironment.rune.position.x) == 1 && 
+                gridEnvironment.hero.position.y == gridEnvironment.rune.position.y) || 
+            (abs(gridEnvironment.hero.position.y - gridEnvironment.rune.position.y) == 1 && 
+                gridEnvironment.hero.position.x == gridEnvironment.rune.position.x)) {
+            
+            isAdjacent = true;
+        }
+   
+        if (isAdjacent && !isPaused){
+            gridEnvironment.rune.found();
+            
+            return true;
+        }
+        return false;
     }
     
     public TimeController getTimeController() {

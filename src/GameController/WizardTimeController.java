@@ -6,12 +6,12 @@ import src.GameObjects.Hero;
 import src.GameObjects.Monster;
 import src.GameObjects.Obstacles;
 import src.GameObjects.Obstacles.ObstacleType;
+import src.GameObjects.Rune;
+import src.GameObjects.WizardMonster;
 import src.GameObjects.WizardMonsterBehavior.DisappearAction;
 import src.GameObjects.WizardMonsterBehavior.IWizardBehavior;
 import src.GameObjects.WizardMonsterBehavior.TeleportHeroAction;
 import src.GameObjects.WizardMonsterBehavior.TeleportRuneAction;
-import src.GameObjects.Rune;
-import src.GameObjects.WizardMonster;
 import src.Mechanics.GridEnvironment;
 import src.Mechanics.PositionPoint;
 import src.Mechanics.Timer;
@@ -59,16 +59,16 @@ public class WizardTimeController implements ITimeControllers {
         //System.out.printf("Checking Mechanics - Elapsed Time until wizard spawn: %.0f\n", elapsedTime);
         if (mainRemainingTime > mainInitialTime * 0.7){
             setWizardBehavior(new TeleportRuneAction());
-            System.out.println("Behavior set to Teleport Rune");
+            //System.out.println("Behavior set to Teleport Rune");
         }
         if (mainRemainingTime <= mainInitialTime * 0.7 && mainRemainingTime >= mainInitialTime * 0.3){
             setWizardBehavior(new DisappearAction());
-            System.out.println("Behavior set to Disappear");
+            //System.out.println("Behavior set to Disappear");
         }
         if (mainRemainingTime < mainInitialTime * 0.3){
             setWizardBehavior(new TeleportHeroAction());
-            System.out.println("Behavior set to Teleport Hero, Remaining Time: " + mainRemainingTime + " Initial Time: " + mainInitialTime
-            + "elapsed time: " + grid.getMainTimeController().getTimer().getRemainingTime());
+            //System.out.println("Behavior set to Teleport Hero, Remaining Time: " + mainRemainingTime + " Initial Time: " + mainInitialTime
+            //+ "elapsed time: " + grid.getMainTimeController().getTimer().getRemainingTime());
         }
         wizardBehavior.takeAction(this);
     }

@@ -1,6 +1,5 @@
 package src.GameObjects;
 import src.GameController.FighterTimeController;
-import src.GameObjects.Obstacles.ObstacleType;
 import src.Mechanics.Direction;
 import src.Mechanics.GridEnvironment;
 import src.Mechanics.PositionPoint;
@@ -25,10 +24,10 @@ public class FighterMonster extends Monster {
         if (grid.checkMovement(this, new Direction(randomDirection))) {
             
                 grid.moveEntity(this, new Direction(randomDirection));
-                System.out.println("FighterMonster moved randomly to: " + this.position);
+                //System.out.println("FighterMonster moved randomly to: " + this.position);
         } 
         else {
-            System.out.println("FighterMonster's random move was blocked.");
+            //System.out.println("FighterMonster's random move was blocked.");
             moveRandomly(grid);
         }
     }

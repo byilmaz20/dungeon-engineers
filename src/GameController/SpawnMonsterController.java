@@ -43,11 +43,11 @@ public class SpawnMonsterController {
 
             // Place the monster on the grid
             if (grid.moveEntity(monster)) {
-                System.out.println("Spawned " + monster.getType() + " at position: " + randomLocation);
+                //System.out.println("Spawned " + monster.getType() + " at position: " + randomLocation);
                     return monster;
 
             } else {
-                System.out.println("Failed to place the monster at position: " + randomLocation);
+                //System.out.println("Failed to place the monster at position: " + randomLocation);
                 return null;
             }
         }

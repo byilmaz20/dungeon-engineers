@@ -33,7 +33,6 @@ public class BuildModeScreen extends JPanel {
         hallMinimumCounts = new HashMap<>();
 
         setupObjectImages();
-
         setupHallConstraints();
 
         setLayout(new BorderLayout());
@@ -50,7 +49,10 @@ public class BuildModeScreen extends JPanel {
         if (true) {
             frame = new JFrame("Build Mode");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setSize(1210, 1000);
+            //frame.setSize(1210, 1000);
+            frame.setSize(1090, 810);
+            frame.setResizable(false);
+            
             frame.setContentPane(this);
             frame.setVisible(true);
         }

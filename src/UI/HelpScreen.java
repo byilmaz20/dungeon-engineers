@@ -30,7 +30,7 @@ public class HelpScreen extends UIScreen {
         JScrollPane scrollableLeftPanel = new JScrollPane(leftPanel);
         scrollableLeftPanel.setOpaque(false);
         scrollableLeftPanel.getViewport().setOpaque(false);
-        scrollableLeftPanel.setBorder(BorderFactory.createEmptyBorder(50, 0, 50, 0));
+        scrollableLeftPanel.setBorder(BorderFactory.createEmptyBorder(80, 0, 80, 0));
         scrollableLeftPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollableLeftPanel.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
@@ -214,7 +214,7 @@ public class HelpScreen extends UIScreen {
         buttonPanel.add(BackGameButton);
         backgroundPanel.add(buttonPanel, BorderLayout.SOUTH);
 
-        buttonPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 33, 0)); 
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 50, 0)); 
         buttonPanel.add(BackGameButton, BorderLayout.CENTER);
     }
 

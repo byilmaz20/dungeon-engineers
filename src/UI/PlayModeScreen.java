@@ -150,7 +150,7 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
 
     private void setTimeDisplay() {
         timeLabel = new JLabel("" + remainingTime);
-        timeLabel.setBounds(900, 250, 150, 50); 
+        timeLabel.setBounds(1070, 185, 150, 50); 
         timeLabel.setFont(new Font("Arial", Font.BOLD, 50)); 
         //timeLabel.setForeground(Color.BLACK); 
         timeLabel.setForeground(Color.decode("#262b2d"));

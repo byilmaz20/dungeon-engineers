@@ -366,12 +366,14 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
     public boolean isFocusable() {
         return true;
     }
-        @Override
+    @Override
     public void keyPressed(KeyEvent e) {
-        //System.out.println("Key Pressed");
+        System.out.println("Key Pressed");
         int keyCode = e.getKeyCode();
+        boolean bPressed = false;
         switch (keyCode) {
             case KeyEvent.VK_LEFT:
+                System.out.println("Left key pressed");
                 gridEnvironment.moveEntity(gridEnvironment.hero, new Direction(DirectionEnum.LEFT));
                 break;
             case KeyEvent.VK_RIGHT:
@@ -382,6 +384,41 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
                 break;
             case KeyEvent.VK_DOWN:
                 gridEnvironment.moveEntity(gridEnvironment.hero, new Direction(DirectionEnum.DOWN));
+                break;
+            case KeyEvent.VK_P:
+                //if inventoryde cloak varsa
+                CloakOfProtectionEnchantment cloak = new CloakOfProtectionEnchantment(null, null, gridEnvironment);
+                cloak.applyEffect();
+                break;
+            case KeyEvent.VK_R:
+                //if inventoryde reveal varsa
+                //new RevealEnchantment(null, null, gridEnvironment)
+                //RevealEnchantment reveal = new RevealEnchantment(null, null, gridEnvironment);
+                //reveal.applyEffect();
+                break;
+            case KeyEvent.VK_B:
+                //if inventoryde lure varsa
+                bPressed = true;
+                break;
+            case KeyEvent.VK_W:
+                LuringGemEnchantment lureW = new LuringGemEnchantment(null, null, gridEnvironment);
+                lureW.applyEffect(new Direction(DirectionEnum.UP));
+                bPressed = false;
+                break;
+            case KeyEvent.VK_A:
+                LuringGemEnchantment lureA = new LuringGemEnchantment(null, null, gridEnvironment);
+                lureA.applyEffect(new Direction(DirectionEnum.LEFT));
+                bPressed = false;
+                break;
+            case KeyEvent.VK_S:
+                LuringGemEnchantment lureS = new LuringGemEnchantment(null, null, gridEnvironment);
+                lureS.applyEffect(new Direction(DirectionEnum.DOWN));
+                bPressed = false;
+                break;
+            case KeyEvent.VK_D:
+                LuringGemEnchantment lureD = new LuringGemEnchantment(null, null, gridEnvironment);
+                lureD.applyEffect(new Direction(DirectionEnum.RIGHT));
+                bPressed = false;
                 break;
             default:
                 System.out.println("Unhandled Key: " + keyCode);

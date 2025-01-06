@@ -29,7 +29,7 @@ public class MainMenuScreen extends UIScreen {
     private void setStartGameButton() {
         startGameButton = new JButton();
         //startGameButton.setBounds(254, 250, 129, 33);
-        startGameButton.setBounds(510, 577, 250, 75);
+        startGameButton.setBounds(510, 594, 250, 80);
 
         startGameButton.setOpaque(false);
         startGameButton.setContentAreaFilled(false);
@@ -43,7 +43,7 @@ public class MainMenuScreen extends UIScreen {
 
     private void setHelpButton() {
         helpButton = new JButton();
-        helpButton.setBounds(510, 664, 250, 75);
+        helpButton.setBounds(510, 686, 250, 80);
         helpButton.setOpaque(false);
         helpButton.setContentAreaFilled(false);
         helpButton.setBorderPainted(false);
@@ -57,7 +57,7 @@ public class MainMenuScreen extends UIScreen {
 
     private void setExitButton() {
         exitButton = new JButton();
-        exitButton.setBounds(510, 753, 250, 75);
+        exitButton.setBounds(510, 777, 250, 80);
         exitButton.setOpaque(false);
         exitButton.setContentAreaFilled(false);
         exitButton.setBorderPainted(false);

@@ -19,7 +19,7 @@ public class FighterTimeController implements ITimeControllers {
     private double intitialTime;
     private FighterMonster fighter;
 
-    private double lastFigterMoveTime;
+    private double lastFighterMoveTime;
 
     private final double FighterStartDelay = 1.0;
     GridEnvironment grid;
@@ -28,7 +28,7 @@ public class FighterTimeController implements ITimeControllers {
         this.fighter = fighter;
         this.timer = new Timer();
         this.isPaused = false;
-        this.lastFigterMoveTime = -FighterStartDelay;
+        this.lastFighterMoveTime = -FighterStartDelay;
         this.grid = grid;
         this.intitialTime = grid.getHall().getObstacles().size() * 5;
         grid.addTimeController(this);
@@ -47,10 +47,15 @@ public class FighterTimeController implements ITimeControllers {
         double elapsedTime = Math.floor(timer.getElapsedTime());
         //System.out.printf("Checking Mechanics - Elapsed Time until fighter spawn: %.0f\n", elapsedTime);
 
-        if (elapsedTime >= FighterStartDelay && elapsedTime - lastFigterMoveTime >= 1.0) {
+        if (elapsedTime >= FighterStartDelay && elapsedTime - lastFighterMoveTime >= 1.0 && grid.getHero().checkFooling()==false) {
             fighter.moveRandomly(grid);
-            lastFigterMoveTime = elapsedTime;
+            lastFighterMoveTime = elapsedTime;
             //System.out.println("Fighter has been moved randomly!");
+        }
+        else if (elapsedTime >= FighterStartDelay && elapsedTime - lastFighterMoveTime >= 1.0 && grid.getHero().checkFooling()) {
+            fighter.updatePosition(fighter.getLureDirection().getDirectionEnum());
+            lastFighterMoveTime = elapsedTime;
+
         }
         
     }

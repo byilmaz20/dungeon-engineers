@@ -79,7 +79,8 @@ public class TimeController implements ITimeControllers {
         double remainingTime = timer.getRemainingTime();
         if (remainingTime <= 0) {
             System.out.println("Time finished Game Over!");
-            System.exit(0);
+            gameFlowController.endGame("Time's up!", 0, remainingTime);
+            //System.exit(0);
         }
 
         if (elapsedTime >= enchantmentStartDelay && elapsedTime - lastEnchantmentTime >= 12.0) {

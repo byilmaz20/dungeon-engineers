@@ -12,6 +12,7 @@ import src.GameObjects.Obstacles.ObstacleType;
 import src.Mechanics.Direction;
 import src.Mechanics.Direction.DirectionEnum;
 import src.Mechanics.GridEnvironment;
+import src.Mechanics.PositionPoint;
 import src.Mechanics.Timer;
 
 public class PlayModeScreen extends UIScreen implements KeyListener{
@@ -47,6 +48,8 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
             
             // Set up grid listener to update UI on grid changes
             this.gridEnvironment.setGridChangeListener(this::updateGridFromEnvironment);
+            // setGridChangeListener is assigning updateGridFromEnvironment 
+            // as the implementation of the onGridChanged method in the GridChangeListener interface.
             this.timer.setTimeChangeListener(this::updateTime);
             this.gridEnvironment.getHero().setLifeCountListener(this::updateLifeCount);
 
@@ -54,6 +57,7 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
 
             initializeComponents();
             initializeGrid();
+            populateInitialEntities(this.gridEnvironment.map);
             updateGridFromEnvironment(gridEnvironment.getMap()); // Initialize grid with current map
             
 
@@ -239,7 +243,20 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
         revalidate();
         repaint();
     }
-    
+    private void populateInitialEntities(Entity[][] map) {
+        for (int y = 0; y < gridHeight; y++) {
+            for (int x = 0; x < gridWidth; x++) {
+                Entity entity = map[x][y];
+                if (entity != null) {
+                    JPanel cell = gridPanels[y][x];
+                    JLabel entityLabel = createEntityLabel(entity);
+                    cell.add(entityLabel, BorderLayout.CENTER);
+                    cell.revalidate();
+                    cell.repaint();
+                }
+            }
+        }
+    }
 
     private void updateTime(double remainingTime) { //TODO text eklenecek
         this.remainingTime = remainingTime;
@@ -251,37 +268,22 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
         lifeLabel.setText("Lives: " + lifeCount);
     }
 
-    private void updateGridFromEnvironment(Entity[][] map) {
-        // Clear all cells first
-        for (int y = 0; y < gridHeight; y++) {
-            for (int x = 0; x < gridWidth; x++) {
-                JPanel cell = gridPanels[y][x];
-                cell.removeAll(); // Clear any existing content
-            }
-        }
+    private void updateGridFromEnvironment(Entity[][] map, PositionPoint... changedPositions) {
+        for (PositionPoint pos : changedPositions) {
+            JPanel cell = gridPanels[pos.y][pos.x];
+            cell.removeAll(); // Clear only this cell
 
-        // Update cells based on the map from GridEnvironment
-        for (int y = 0; y < gridHeight; y++) {
-            for (int x = 0; x < gridWidth; x++) {
-                Entity entity = map[x][y]; // Get the entity at this position
-                if (entity != null) {
-                    JLabel entityLabel = createEntityLabel(entity);
-                    gridPanels[y][x].add(entityLabel, BorderLayout.CENTER);
-                }
-                if (entity instanceof Rune) {
-                    //System.out.println("Rune found at position: " + x + ", " + y);
-                }
+            Entity entity = map[pos.x][pos.y];
+            if (entity != null) {
+                JLabel entityLabel = createEntityLabel(entity);
+                cell.add(entityLabel, BorderLayout.CENTER);
             }
-        }
 
-        // Refresh the grid display
-        for (int y = 0; y < gridHeight; y++) {
-            for (int x = 0; x < gridWidth; x++) {
-                gridPanels[y][x].revalidate();
-                gridPanels[y][x].repaint();
-            }
+            cell.revalidate();
+            cell.repaint();
         }
     }
+
 
     private JLabel createEntityLabel(Entity entity) {
         String imagePath = getEntityImagePath(entity);
@@ -411,7 +413,6 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
     public void keyTyped(KeyEvent e) {
         // Do nothing
     }
-
     private void handleCellClick(int x, int y) {        
         if (gridEnvironment.map[x][y] instanceof Rune) {
             System.out.println("Rune has been clicked: " + x + ", " + y);
@@ -424,8 +425,6 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
         this.timeController.setInitializeTime(this.timeController.getTimer());
         new PlayModeScreen(this.gridEnvironment, this.timeController, this.timeController.getTimer().getRemainingTime());
     }
-
-
     public TimeController getTimeController() {
         // TODO Auto-generated method stub
         return this.timeController;

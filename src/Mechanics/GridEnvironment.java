@@ -25,8 +25,9 @@ public class GridEnvironment {
     private GridChangeListener gridChangeListener;
     private List<ITimeControllers> timeControllers;
     public Obstacles runeInObject;
+
     public interface GridChangeListener {
-        void onGridChanged(Entity[][] map);
+        void onGridChanged(Entity[][] map, PositionPoint... changedPositions);
     }
 
     public Obstacles getRuneInObject(){
@@ -86,71 +87,70 @@ public class GridEnvironment {
         return isPositionValid(newPosition);
     }
 
+
     public boolean moveEntity(Entity entity) {
         if (isPositionValid(entity.position)) {
-            map[entity.position.x][entity.position.y] = entity; // Set entity in its position
-            hall.placeEntity(entity); // Add to the hall's entity list
-            notifyGridChange();
-            //System.out.println("Entity placed at: " + entity.position);
+            map[entity.position.x][entity.position.y] = entity;
+            hall.placeEntity(entity);
+            notifyGridChange(entity.position);
             return true;
         } else {
-            //System.out.println("Invalid position for entity: " + entity.position);
             return false;
         }
     }
+    
 
     public void removeEntity(Entity entity) {
-        map[entity.position.x][entity.position.y] = null; // Clear entity from the grid
-        hall.removeEntity(entity); // Remove from the hall's entity list
-        notifyGridChange();
-        //System.out.println("Entity removed from: " + entity.position);
+        PositionPoint oldPosition = entity.position;
+        map[oldPosition.x][oldPosition.y] = null;
+        hall.removeEntity(entity);
+        notifyGridChange(oldPosition);
     }
-
+    
     public void moveEntityToNewPosition(Entity entity, PositionPoint newPosition) {
         if (isPositionValid(newPosition)) {
-            map[entity.position.x][entity.position.y] = null; // Clear current position
-            entity.position = newPosition; // Update entity position
-            map[newPosition.x][newPosition.y] = entity; // Set entity in new position
-            hall.removeEntity(entity); // Remove from the hall's entity list if exists
-            hall.placeEntity(entity); // Add to the hall's entity list
-            notifyGridChange();
-            //System.out.println("Entity moved to: " + newPosition);
+            PositionPoint oldPosition = entity.position;
+            map[oldPosition.x][oldPosition.y] = null;
+            entity.position = newPosition;
+            map[newPosition.x][newPosition.y] = entity;
+            hall.removeEntity(entity);
+            hall.placeEntity(entity);
+            notifyGridChange(oldPosition, newPosition);
         } else {
             System.out.println("Invalid movement. Position occupied or out of bounds.");
         }
     }
-
+    
     public boolean moveEntity(Entity entity, Direction direction) {
         if (checkMovement(entity, direction)) {
+            PositionPoint oldPosition = entity.position;
             PositionPoint newPosition = entity.position.move(direction.getDirectionEnum());
-
-            map[entity.position.x][entity.position.y] = null; // Clear current position
-            entity.position = newPosition; // Update entity position
-            map[newPosition.x][newPosition.y] = entity; // Set entity in new position
-            //TODO: alt satıra gerek var mı emin olamadım - Ceylin
+    
+            map[oldPosition.x][oldPosition.y] = null;
+            entity.position = newPosition;
+            map[newPosition.x][newPosition.y] = entity;
+    
             if (entity instanceof src.GameObjects.Hero) {
                 hero.position = newPosition;
             }
+    
             List<Monster> monsters = hall.getMonsters();
             for (Monster monster : monsters) {
                 if (monster.getType() == MonsterTypes.FighterMonster) {
                     if (((src.GameObjects.FighterMonster) monster).fighterAttack(this.hero)){
-                        System.out.println("Hero's remaining lifes = " +this.hero.getLives());
+                        System.out.println("Hero's remaining lifes = " + this.hero.getLives());
                     }
                 } 
                 else if ((monster.getType() == MonsterTypes.ArcherMonster)) {
                     if (((src.GameObjects.ArcherMonster) monster).shootArrow(this.hero)){
-                        System.out.println("Hero's remaining lifes = " +this.hero.getLives());
+                        System.out.println("Hero's remaining lifes = " + this.hero.getLives());
                     }
                 }
             }
-
-
-            notifyGridChange();
-            //System.out.println("Entity moved to: " + newPosition);
+    
+            notifyGridChange(oldPosition, newPosition);
             return true;
-        } 
-        else {
+        } else {
             System.out.println("Invalid movement. Position occupied or out of bounds.");
             return false;
         }
@@ -222,11 +222,10 @@ public class GridEnvironment {
         return this.map;
     }
 
-    private void notifyGridChange() {
+    private void notifyGridChange(PositionPoint... changedPositions) {
         if (gridChangeListener != null) {
-            gridChangeListener.onGridChanged(map);
+            gridChangeListener.onGridChanged(map, changedPositions);
         }
-        //System.out.println("Grid changed at: " + System.currentTimeMillis());
     }
 
     public Rune getRune() {

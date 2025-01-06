@@ -10,9 +10,11 @@ public class MainMenuScreen extends UIScreen {
     private JButton startGameButton;
     private JButton helpButton;
     private JButton exitButton;
+//1208x916
+//1090x810
 
     public MainMenuScreen() {
-        super(600, 600, "Main Menu", 
+        super(1090, 810, "Main Menu", 
         "src/Images/BackgroundImages/mainMenuBackground.png");        
         
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

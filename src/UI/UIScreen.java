@@ -30,8 +30,9 @@ public abstract class UIScreen extends JFrame{
         this.setResizable(false);
     	this.setTitle("Dungeon Engineers ROKUE-LIKE");
     	this.setSize(width, height);
-    	this.setLocation(0, 0);
-    	this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setLocation(0, 0);    	
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
     	this.getContentPane().setLayout(null);
         backgroundPanel.setBounds(0, 0, width, height);
         backgroundPanel.setLocation(0, 0);
@@ -45,9 +46,11 @@ public abstract class UIScreen extends JFrame{
     	
     	this.setResizable(false);
     	this.setTitle("Dungeon Engineers ROKUE-LIKE");
-    	this.setSize(width, height);
-    	this.setLocation(0, 0);
-    	this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    	this.setSize(1200, 900); //TODO
+
+        this.setLocation(0, 0);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
     	this.getContentPane().setLayout(null);
     	
     	backgroundPanel = new JPanel() {

@@ -7,10 +7,10 @@ import javax.imageio.ImageIO;
 public class ResizeImage {
     public static void main(String[] args) {
         // Input and output file paths
-        String inputImagePath = "/Users/begumyilmaz/Documents/okul/koç/4.1/comp302/project/projectrepo/src/Images/BackgroundImages/mainMenuBackground.png"; // Replace with your input file path
+        String inputImagePath = "/Users/begumyilmaz/Documents/okul/koç/4.1/comp302/project/projectrepo/a.png"; // Replace with your input file path
         String outputImagePath = "output.png"; // Replace with your output file path
-        int scaledWidth = 600; // Desired width
-        int scaledHeight = 600; // Desired height
+        int scaledWidth = 1200; // Desired width
+        int scaledHeight = 900; // Desired height
 
         try {
             // Read the original image

@@ -33,7 +33,6 @@ public class BuildModeScreen extends JPanel {
         hallMinimumCounts = new HashMap<>();
 
         setupObjectImages();
-
         setupHallConstraints();
 
         setLayout(new BorderLayout());
@@ -50,7 +49,10 @@ public class BuildModeScreen extends JPanel {
         if (true) {
             frame = new JFrame("Build Mode");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setSize(1210, 1000);
+            //frame.setSize(1210, 1000);
+            frame.setSize(1200, 900);
+            frame.setResizable(false);
+            
             frame.setContentPane(this);
             frame.setVisible(true);
         }
@@ -219,59 +221,16 @@ public class BuildModeScreen extends JPanel {
             //String[] randObj = randomObjectGenerator(hallMinimumCounts.get(hallName));
             //int objIndex = 0;
 
-            
+            ImageIcon icon = new ImageIcon("src/Images/BackgroundImages/cell.png");
+            Image scaledImage = icon.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+            ImageIcon last = new ImageIcon(scaledImage);
+            last.setDescription("cell");
 
             for (int i = 0; i < hallGridSize * hallGridSize; i++) {
-
-                /* if (indexOfArray < minObject){
-                    
-                    if (i == randomIntegersPosition[indexOfArray]){
-                        
-                        String obj = randObj[objIndex];
-                        JLabel cell = new JLabel();
-
-                        ImageIcon icon = new ImageIcon(objectImages.get(obj));
-                        Image scaledImage = icon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
-                        ImageIcon last = new ImageIcon(scaledImage);
-                        last.setDescription(obj);
-                        cell.setIcon(last);
-
-                        cell.addMouseListener(new MouseAdapter() {
-                            @Override
-                            public void mouseClicked(MouseEvent e) {
-                                placeSelectedObject(cell, hallName);
-                            }
-                        });
-            
-                        hall.add(cell);
-
-
-                        indexOfArray+=1;
-                        objIndex +=1;
-
-                        hallObjectCounts.put(hallName, hallObjectCounts.get(hallName) + 1);
-                 
-                        int row = i / hallGridSize;
-                        int col = i % hallGridSize;
-                        Point coordinates = new Point(row, col);
-                        
-                        hallObjectPlacements.get(hallName).put(coordinates, obj);
-
-                        continue;
-                    }
-
-                } */
+                
+                
                 JLabel cell = new JLabel();
-                ImageIcon icon = new ImageIcon("src/Images/BackgroundImages/cell.png");
-            
                 
-
-                Image scaledImage = icon.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
-                
-                ImageIcon last = new ImageIcon(scaledImage);
-                last.setDescription("cell");
-                //cell.setOpaque(false); 
-                //cell.setBorder(BorderFactory.createLineBorder(new Color(50, 50, 50), 1)); // Grid lines
                 cell.setIcon(last);
                 
                 cell.addMouseListener(new MouseAdapter() {
@@ -306,7 +265,6 @@ public class BuildModeScreen extends JPanel {
     }
 
     private void placeSelectedObject(JLabel cell, String hallName) {
-        //System.err.println(((ImageIcon) cell.getIcon()).getDescription());
         if (((ImageIcon) cell.getIcon()).getDescription()!="cell"){
             
             ImageIcon icon = new ImageIcon("src/Images/BackgroundImages/cell.png");

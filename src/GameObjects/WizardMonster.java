@@ -1,7 +1,6 @@
 package src.GameObjects;
 
 import java.util.Random;
-
 import src.GameController.WizardTimeController;
 import src.Mechanics.GridEnvironment;
 import src.Mechanics.PositionPoint;
@@ -18,16 +17,14 @@ public class WizardMonster extends Monster {
         wizardTimer = wizardTimeController.getTimer();
     }
     public void teleportRune(GridEnvironment grid) {
-    Random random = new Random();
+        Random random = new Random();
 
         PositionPoint runePosition = grid.rune.position;
         PositionPoint newrunePosition = grid.rune.position;
         while (runePosition == newrunePosition ) { 
-                            newrunePosition = grid.getHall().getObstacles().get(random.nextInt(grid.getHall().getObstacles().size())).position;
-
+            newrunePosition = grid.getHall().getObstacles().get(random.nextInt(grid.getHall().getObstacles().size())).position;
         }
         grid.rune.position  = newrunePosition;
-
-                // PositionPoint newrunePosition = grid.getHall().getObstacles().get(random.nextInt(hall.getObstacles().size())).position;
+        System.out.println("Rune has been spawned to " + newrunePosition.x + newrunePosition.y);
 }
 }

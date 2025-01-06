@@ -47,7 +47,7 @@ public class GridEnvironment {
         this.timeControllers = new ArrayList<>();
 
         for (Entity entity : hall.getEntitys()) { // Use the getter method
-            System.out.println(entity.getClass().getSimpleName() + " at: " + entity.position);
+            //System.out.println(entity.getClass().getSimpleName() + " at: " + entity.position);
             if (entity instanceof Rune) {
                 // TODO1: varolan obstacleı silmeden rune u üstüne yapıştır.
                 map[entity.position.x][entity.position.y] = entity; // Place the entity on the grid
@@ -167,22 +167,7 @@ public class GridEnvironment {
         notifyGridChange();
     }
 
-    public boolean checkRuneFound() {
-        boolean isAdjacent = false;
-        if ((hero.position.x == rune.position.x && hero.position.y == rune.position.y - 1) ||  // Above
-            (hero.position.x == rune.position.x && hero.position.y == rune.position.y + 1) ||  // Below
-            (hero.position.y == rune.position.y && hero.position.x == rune.position.x - 1) ||  // Left
-            (hero.position.y == rune.position.y && hero.position.x == rune.position.x + 1)) {  // Right
-            
-            isAdjacent = true;
-        }
-        if (isAdjacent) {
-            rune.found();
-            
-            return true;
-        }
-        return false;
-    }
+
 
 
     public PositionPoint selectRandomLocation() {

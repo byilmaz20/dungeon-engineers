@@ -1,16 +1,12 @@
 package src.GameController;
 
-import src.GameObjects.Hall;
-import src.GameObjects.HallTypes;
-import src.GameObjects.Hero;
-import src.GameObjects.LuringGemEnchantment;
-import src.GameObjects.RevealEnchantment;
 import src.GameObjects.CloakOfProtectionEnchantment;
 import src.GameObjects.Enchantment;
 import src.GameObjects.EnchantmentTypes;
 import src.GameObjects.ExtraLifeEnchantment;
 import src.GameObjects.ExtraTimeEnchantment;
-import src.GameObjects.Rune;
+import src.GameObjects.LuringGemEnchantment;
+import src.GameObjects.RevealEnchantment;
 import src.Mechanics.GridEnvironment;
 import src.Mechanics.PositionPoint;
 
@@ -52,10 +48,10 @@ public class SpawnEnchantmentController {
 
             // Place the enchantment on the grid
             if (grid.moveEntity(enchantment)) {
-                System.out.println("Spawned " + enchantment.getType() + " at position: " + randomLocation);
+                //System.out.println("Spawned " + enchantment.getType() + " at position: " + randomLocation);
                         return enchantment;
             } else {
-                System.out.println("Failed to place the enchantment at position: " + randomLocation);
+                //System.out.println("Failed to place the enchantment at position: " + randomLocation);
                 return null;
             }
         }

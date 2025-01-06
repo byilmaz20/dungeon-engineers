@@ -61,6 +61,10 @@ public class TimeController implements ITimeControllers {
         timer.startTimer(initialTime, this::checkMechanics, this::printStatus);
     }
 
+    public void setInitialTime(double initialTime) {
+        this.initialTime = initialTime;
+    }
+
     private void checkMechanics() {
         double elapsedTime = Math.floor(timer.getElapsedTime());
         //System.out.printf("Checking Mechanics - Elapsed Time: %.0f\n", elapsedTime);

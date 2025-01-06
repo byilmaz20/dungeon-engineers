@@ -8,6 +8,7 @@ import javax.swing.*;
 public class MainMenuScreen extends UIScreen {
 
     private JButton startGameButton;
+    private JButton loadGameButton;
     private JButton helpButton;
     private JButton exitButton;
     private TransparentButton easyModeButton;
@@ -29,6 +30,7 @@ public class MainMenuScreen extends UIScreen {
         setBackgroundImage();
         setGameModeButtons();
         setStartGameButton();
+        setLoadGameButton();
         setHelpButton();
         setExitButton();
     }
@@ -84,7 +86,7 @@ public class MainMenuScreen extends UIScreen {
     
     private void setStartGameButton() {
         startGameButton = new JButton();
-        startGameButton.setBounds(510, 594, 250, 80);
+        startGameButton.setBounds(510, 594, 250, 70);
         startGameButton.setOpaque(false);
         startGameButton.setContentAreaFilled(false);
         startGameButton.setBorderPainted(false);
@@ -95,12 +97,25 @@ public class MainMenuScreen extends UIScreen {
         });
         backgroundPanel.add(startGameButton);
     }
+    private void setLoadGameButton() {
+        loadGameButton = new JButton();
+        loadGameButton.setBounds(510, 670, 250, 60);
+        loadGameButton.setOpaque(false);
+        loadGameButton.setContentAreaFilled(false);
+        loadGameButton.setBorderPainted(false);
+    
+        loadGameButton.addActionListener(e -> {
+            this.dispose();
+            new BuildModeScreen(selectedMode); // Pass the selected mode
+        });
+        backgroundPanel.add(loadGameButton);
+    }
     
 
 
     private void setHelpButton() {
         helpButton = new JButton();
-        helpButton.setBounds(510, 686, 250, 80);
+        helpButton.setBounds(510, 740, 250, 60);
         helpButton.setOpaque(false);
         helpButton.setContentAreaFilled(false);
         helpButton.setBorderPainted(false);
@@ -114,7 +129,7 @@ public class MainMenuScreen extends UIScreen {
 
     private void setExitButton() {
         exitButton = new JButton();
-        exitButton.setBounds(510, 777, 250, 80);
+        exitButton.setBounds(510, 810, 250, 80);
         exitButton.setOpaque(false);
         exitButton.setContentAreaFilled(false);
         exitButton.setBorderPainted(false);

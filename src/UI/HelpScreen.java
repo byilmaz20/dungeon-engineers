@@ -11,7 +11,7 @@ public class HelpScreen extends UIScreen {
     private UIScreen previous_Screen;
 
     public HelpScreen(UIScreen previous_Screen) {
-        super(600, 600, "Help", "src/Images/BackgroundImages/helpbackground.png");
+        super(1200, 900, "Help", "src/Images/BackgroundImages/helpbackground.png");
         initializeComponents();
         setVisible(true);
        this.previous_Screen= previous_Screen;
@@ -48,7 +48,7 @@ public class HelpScreen extends UIScreen {
         leftPanel.setOpaque(false); 
     
         
-        leftPanel.setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50)); 
+        leftPanel.setBorder(BorderFactory.createEmptyBorder(60, 150, 60, 150)); 
     
         
         
@@ -61,13 +61,13 @@ public class HelpScreen extends UIScreen {
                         "For each hall, the player has a time limit to pass the dungeon."+
                         "If the timer expires, the game is over.");
 
-        addObjectToLeftPanel("src/Images/ObjectImages/exit.png", "Exit Button",
+        addObjectToLeftPanel("src/Images/ObjectImages/exit1.png", "Exit Button",
                         "This button closes the game windows and opens the main menu screen. ");
 
-        addObjectToLeftPanel("src/Images/ObjectImages/pause.png", "Pause Button",
+        addObjectToLeftPanel("src/Images/ObjectImages/pause1.png", "Pause Button",
                         "This button pauses the game.");
 
-        addObjectToLeftPanel("src/Images/ObjectImages/play.png", "Resume Button",
+        addObjectToLeftPanel("src/Images/ObjectImages/play1.png", "Resume Button",
                         "This button resumes the paused game.");
 
         addObjectToLeftPanel("src/Images/ObjectImages/heart.png", "Lives",
@@ -163,19 +163,21 @@ public class HelpScreen extends UIScreen {
     
         
         JLabel nameLabel = new JLabel(name);
-        nameLabel.setFont(new Font("Times New Roman", Font.BOLD, 25));
-        nameLabel.setForeground(Color.CYAN); 
+        nameLabel.setFont(new Font("Times New Roman", Font.BOLD, 35));
+        nameLabel.setForeground(Color.BLACK); 
         nameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        nameLabel.setFocusable(false);
         textPanel.add(nameLabel);
     
         
         JTextArea descriptionLabel = new JTextArea(description);
-        descriptionLabel.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+        descriptionLabel.setFont(new Font("Times New Roman", Font.PLAIN, 30));
         descriptionLabel.setForeground(Color.BLACK); 
         descriptionLabel.setLineWrap(true);
         descriptionLabel.setWrapStyleWord(true);
         descriptionLabel.setOpaque(false); 
         descriptionLabel.setEditable(false);
+        descriptionLabel.setFocusable(false);
     
         
         descriptionLabel.setMaximumSize(new Dimension(500, Integer.MAX_VALUE));
@@ -218,9 +220,10 @@ public class HelpScreen extends UIScreen {
 
     private void addTitleToLeftPanel(String title) {
         JLabel titleLabel = new JLabel(title);
-        titleLabel.setFont(new Font("Times New Roman", Font.BOLD, 30)); 
+        titleLabel.setFont(new Font("Times New Roman", Font.BOLD, 40)); 
         titleLabel.setForeground(Color.RED); 
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT); 
+        titleLabel.setFocusable(false);
     
         leftPanel.add(Box.createRigidArea(new Dimension(0, 20)));
         leftPanel.add(titleLabel);

@@ -1,8 +1,5 @@
 package src.UI;
 import javax.swing.*;
-import java.awt.*;
-import java.io.File;
-import java.io.IOException;
 
 
 public class MainMenuScreen extends UIScreen {

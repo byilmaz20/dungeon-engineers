@@ -106,17 +106,17 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
     
     private void setPauseGameButton() {
         pauseGameButton = new JButton();
-        pauseGameButton.setBounds(506, 30, 48, 45); // Butonun boyutlarını ve pozisyonunu ayarla
+        pauseGameButton.setBounds(937, 37, 77, 77); // Butonun boyutlarını ve pozisyonunu ayarla
         pauseGameButton.setOpaque(false);
         pauseGameButton.setContentAreaFilled(false);
         pauseGameButton.setBorderPainted(false);
     
         // Pause ve resume ikonlarını yükle
         Icon pauseIcon = new ImageIcon(new ImageIcon("src/Images/ObjectImages/pauseIcon.png")
-                .getImage().getScaledInstance(35, 35, Image.SCALE_SMOOTH)); // Pause ikonu
+                .getImage().getScaledInstance(77, 77, Image.SCALE_SMOOTH)); // Pause ikonu
                 
         Icon resumeIcon = new ImageIcon(new ImageIcon("src/Images/ObjectImages/ResumeIcon.png")
-                .getImage().getScaledInstance(35, 35, Image.SCALE_SMOOTH)); // Resume ikonu
+                .getImage().getScaledInstance(77, 77, Image.SCALE_SMOOTH)); // Resume ikonu
     
         pauseGameButton.setIcon(pauseIcon); // İlk başta pause ikonunu göster
     
@@ -158,7 +158,7 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
         
     private void setHelpButton() {
         helpButton = new JButton();
-        helpButton.setBounds(468, 33, 35, 35);
+        helpButton.setBounds(827, 37, 77, 77);
         helpButton.setOpaque(false);
         helpButton.setContentAreaFilled(false);
         helpButton.setBorderPainted(false);
@@ -176,7 +176,7 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
     }
     private void setExitButton() {
         exitButton = new JButton();
-        exitButton.setBounds(586, 35, 35, 35);
+        exitButton.setBounds(1045, 37, 77, 77);
         exitButton.setOpaque(false);
         exitButton.setContentAreaFilled(false);
         exitButton.setBorderPainted(false);

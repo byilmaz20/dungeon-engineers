@@ -19,14 +19,8 @@ public class HelpScreen extends UIScreen {
 
     private void initializeComponents() {
         setBackgroundImage();
-
-    
         backgroundPanel.setLayout(new BorderLayout());
-
-    
         setupLeftPanel();
-
-    
         JScrollPane scrollableLeftPanel = new JScrollPane(leftPanel);
         scrollableLeftPanel.setOpaque(false);
         scrollableLeftPanel.getViewport().setOpaque(false);
@@ -199,8 +193,6 @@ public class HelpScreen extends UIScreen {
             this.dispose();
             if (previous_Screen instanceof PlayModeScreen) {
                 ((PlayModeScreen) previous_Screen).resumeGame();
-                ((PlayModeScreen) previous_Screen).getTimeController().getIsPausedFalse();
-                
                 //((PlayModeScreen) previous_Screen).setVisible(true);
             }
             else{

@@ -21,6 +21,7 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
     private final int baseCellSize = 25; // Base size of each cell
     private final double scaleFactor = 0.558999993; // Scale factor for resizing the grid
     private JPanel[][] gridPanels; // Panels for each grid cell
+    private boolean isPaused = false;
 
     private JButton pauseGameButton;
     private JButton helpButton;
@@ -37,7 +38,7 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
     private GridEnvironment gridEnvironment; // Reference to the GridEnvironment
 
 
-    public PlayModeScreen(GridEnvironment gridEnvironment, TimeController timeController, double remainingTime) {
+    public PlayModeScreen(GridEnvironment gridEnvironment, TimeController timeController) {
 
         super(1200, 900, "Play Mode Screen", 
 
@@ -47,7 +48,7 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
         this.timer = this.timeController.getTimer();
         this.hallType = gridEnvironment.getHall().hallType;
         this.gridEnvironment = gridEnvironment;
-        
+        this.remainingTime = this.timer.getRemainingTime();
         // Set up grid listener to update UI on grid changes
         this.gridEnvironment.setGridChangeListener(this::updateGridFromEnvironment);
         // setGridChangeListener is assigning updateGridFromEnvironment 
@@ -72,6 +73,7 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
         setVisible(true);
         System.out.println("Play Mode Screen Initialized");
         timeController.startGame();
+
         updateTime(remainingTime);
     }
     
@@ -112,30 +114,48 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
         pauseGameButton.setBorderPainted(false);
     
         // Pause ve resume ikonlarını yükle
-        Icon pauseIcon = new ImageIcon(new ImageIcon("src/Images/ObjectImages/pauseIcon.png")
-                .getImage().getScaledInstance(77, 77, Image.SCALE_SMOOTH)); // Pause ikonu
                 
         Icon resumeIcon = new ImageIcon(new ImageIcon("src/Images/ObjectImages/ResumeIcon.png")
                 .getImage().getScaledInstance(77, 77, Image.SCALE_SMOOTH)); // Resume ikonu
-    
+        Icon pauseIcon = new ImageIcon(new ImageIcon("src/Images/ObjectImages/pauseIcon.png")
+        .getImage().getScaledInstance(77, 77, Image.SCALE_SMOOTH)); // Pause ikonu
         pauseGameButton.setIcon(pauseIcon); // İlk başta pause ikonunu göster
     
         pauseGameButton.addActionListener(e -> {
-            if (pauseGameButton.getIcon().equals(pauseIcon)) {
-                pauseGameButton.setIcon(resumeIcon); // Resume ikonuna geçiş yap
+            if (!isPaused) {
+                pauseGame();
                 System.out.println("Game Paused!");
             } else {
                 // Resume butonuna tıklandığında
-                pauseGameButton.setIcon(pauseIcon); // Pause ikonuna geri dön
                 System.out.println("Game Resumed!"); 
                 resumeGame();
-            }
-            for (ITimeControllers timeController : gridEnvironment.getTimeControllers()) {
-                timeController.pressPauseButton();
             }
         });
     
         backgroundPanel.add(pauseGameButton); // Butonu arayüze ekle
+    }
+
+    private void pauseGame(){
+        Icon resumeIcon = new ImageIcon(new ImageIcon("src/Images/ObjectImages/ResumeIcon.png")
+                .getImage().getScaledInstance(77, 77, Image.SCALE_SMOOTH)); // Resume ikonu
+        for (ITimeControllers timeController : gridEnvironment.getTimeControllers()) {
+            timeController.pressPauseButton();
+        }
+        pauseGameButton.setIcon(resumeIcon);
+        isPaused = true;
+    }
+    public void resumeGame(){ //TODO
+        Icon pauseIcon = new ImageIcon(new ImageIcon("src/Images/ObjectImages/pauseIcon.png")
+                .getImage().getScaledInstance(77, 77, Image.SCALE_SMOOTH)); // Pause ikonu
+        pauseGameButton.setIcon(pauseIcon); // Pause ikonuna geri dön
+        this.dispose();
+        System.out.println(this.timeController.getTimer().getRemainingTime() + " is left!");
+        //this.timeController.setInitializeTime(this.timeController.getTimer());
+        new PlayModeScreen(this.gridEnvironment, this.timeController);
+        for (ITimeControllers timeController : gridEnvironment.getTimeControllers()) {
+            timeController.pressPauseButton();
+        }
+        isPaused = false;
     }
     
     private void setLifeCountDisplay() {
@@ -150,7 +170,7 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
 
     private void setTimeDisplay() {
         timeLabel = new JLabel("" + remainingTime);
-        timeLabel.setBounds(900, 250, 150, 50); 
+        timeLabel.setBounds(1070, 185, 150, 50); 
         timeLabel.setFont(new Font("Arial", Font.BOLD, 50)); 
         //timeLabel.setForeground(Color.BLACK); 
         timeLabel.setForeground(Color.decode("#262b2d"));
@@ -166,11 +186,8 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
         helpButton.setBorderPainted(false);
             helpButton.addActionListener(e -> {
             this.setVisible(false);
-            //time pause olmalı 
-            for (ITimeControllers timeController : gridEnvironment.getTimeControllers()) {
-                timeController.pressPauseButton();
-            }
-            timeController.setIsPausedToHelp();
+            //time pause olmalı
+            if (!isPaused) pauseGame();
             new HelpScreen(this);
             //TODO: IF CALLED FROM THE MAIN SCREEN, ARRANGE IT
         });
@@ -385,12 +402,7 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
             gridEnvironment.checkRuneFound();
         } 
     }
-    public void resumeGame(){ //TODO
-        this.dispose();
-        System.out.println(this.timeController.getTimer().getRemainingTime() + " is left!");
-        this.timeController.setInitializeTime(this.timeController.getTimer());
-        new PlayModeScreen(this.gridEnvironment, this.timeController, this.timeController.getTimer().getRemainingTime());
-    }
+    
     public TimeController getTimeController() {
         // TODO Auto-generated method stub
         return this.timeController;

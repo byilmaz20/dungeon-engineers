@@ -23,7 +23,7 @@ ornek kullanım bunun maininde
 public class TimeController implements ITimeControllers {
     private Timer timer;
     private boolean isPaused;
-    private double intitialTime;
+    private double initialTime;
 
     private double lastMonsterSpawnTime;
     private double lastEnchantmentTime;
@@ -42,7 +42,7 @@ public class TimeController implements ITimeControllers {
         this.lastMonsterSpawnTime = -monsterStartDelay;
         this.lastEnchantmentTime = -enchantmentStartDelay;
         this.grid = grid;
-        this.intitialTime = grid.getHall().getObstacles().size() * 5;
+        this.initialTime = grid.getHall().getObstacles().size() * 5;
         //todo monster için ayrıca girdi verebilsin
         
         spawner = new SpawnMonsterController(grid);
@@ -50,25 +50,15 @@ public class TimeController implements ITimeControllers {
     }
 
     public double getInitialTime() {
-        return intitialTime;
+        return initialTime;
     }
 
     public Timer getTimer() {
         return timer;
     }
-    public void getIsPausedFalse() {
-        isPaused = false;
-    }
-    public void setIsPausedToHelp(){
-       
-        this.isPaused = true;
-        timer.pauseTimer();
-        
-    }
 
     public void startGame() {
-        timer.startTimer(intitialTime, this::checkMechanics, this::printStatus);
-
+        timer.startTimer(initialTime, this::checkMechanics, this::printStatus);
     }
 
     private void checkMechanics() {
@@ -159,7 +149,7 @@ public class TimeController implements ITimeControllers {
     }
 
     public void setInitializeTime(Timer remainingTime){
-        this.intitialTime = remainingTime.getRemainingTime();
+        this.initialTime = remainingTime.getRemainingTime();
     }
     public synchronized double getElapsedTime() {
         return timer.getElapsedTime();

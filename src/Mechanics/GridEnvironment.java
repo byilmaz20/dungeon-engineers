@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 import src.GameController.ITimeControllers;
 import src.GameController.TimeController;
+import src.GameObjects.Enchantment;
 import src.GameObjects.Entity;
 import src.GameObjects.Hall;
 import src.GameObjects.Hero;
@@ -133,6 +134,19 @@ public class GridEnvironment {
             return false;
         }
     }
+
+    public void removeEnchantmentFromGrid(Enchantment enchantment) {
+    // Remove from the grid
+    PositionPoint position = enchantment.position;
+    if (map[position.x][position.y] == enchantment) {
+        map[position.x][position.y] = null;
+    }
+
+    System.out.println("Enchantment removed from grid and hall: " + enchantment.getType());
+    notifyGridChange();
+}
+
+
     public boolean checkRuneFound() {
         boolean isAdjacent = false;
         if ((hero.position.x == rune.position.x && hero.position.y == rune.position.y - 1) ||  // Above

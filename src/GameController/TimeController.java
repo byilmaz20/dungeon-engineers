@@ -84,12 +84,12 @@ public class TimeController implements ITimeControllers {
             System.exit(0);
         }
 
-        // if (elapsedTime >= enchantmentStartDelay && elapsedTime - lastEnchantmentTime >= 12.0) {
-        //     lastEnchantmentTime = elapsedTime;
-        //     System.out.println("An enchantment appeared!");
-        //     timer.addTime(5.0);
-        //     System.out.printf("Remaining Time After Enchantment: %d seconds\n", (int) Math.ceil(timer.getRemainingTime()));
-        // }
+        if (elapsedTime >= enchantmentStartDelay && elapsedTime - lastEnchantmentTime >= 3.0) {
+            lastEnchantmentTime = elapsedTime;
+            SpawnEnchantmentController enchantmentSpawn = new SpawnEnchantmentController(grid);
+            enchantmentSpawn.spawnEnchantment();
+            System.out.printf("Remaining Time After Enchantment: %d seconds\n", (int) Math.ceil(timer.getRemainingTime()));
+        }
     }
 
     private void printStatus(int remainingTime) { //todo bunu UI guncellemesi icin tickcallback olarak degistircez

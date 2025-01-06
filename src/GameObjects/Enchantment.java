@@ -14,10 +14,10 @@ public class Enchantment extends Entity{
         super(position, hall);
         this.type = selectRandomEnchantment();
         this.isStorable = false;
-        this.duration = 10;
+        this.duration = 6;
     }
 
-    public EnchantmentTypes selectRandomEnchantment() {
+    public static EnchantmentTypes selectRandomEnchantment() {
         EnchantmentTypes[] enchantmentTypes = EnchantmentTypes.values(); // Get all enchantment types
         Random random = new Random();
         return enchantmentTypes[random.nextInt(enchantmentTypes.length)];
@@ -35,6 +35,9 @@ public class Enchantment extends Entity{
         // Apply the effect of the enchantment
     }
     public void removeEnchantment(){
+        // Remove the enchantment
+    }
+    public void removeEnchantmentFromGrid(){
         // Remove the enchantment
     }
     public void addItem(Enchantment enchantment){

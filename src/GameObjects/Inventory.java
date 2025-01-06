@@ -42,6 +42,7 @@ public class Inventory {
         EnchantmentTypes type = enchantment.getType(); 
         if (enchantmentQuantities.containsKey(type)) {
             enchantmentQuantities.put(type, enchantmentQuantities.get(type) + 1);
+            System.out.println("Added " + type);
         }
                 notifyChangeListener();
 
@@ -49,6 +50,7 @@ public class Inventory {
     public void add(EnchantmentTypes type) {
         if (enchantmentQuantities.containsKey(type)) {
             enchantmentQuantities.put(type, enchantmentQuantities.get(type) + 1);
+            System.out.println("Added " + type);
         }
                 notifyChangeListener();
 

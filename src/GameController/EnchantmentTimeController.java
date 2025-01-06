@@ -38,7 +38,7 @@ public class EnchantmentTimeController implements ITimeControllers {
     private void checkMechanics() {
         double elapsedTime = Math.floor(timer.getElapsedTime());
 
-        if (elapsedTime >= EnchantmentRemoveDelay ) {
+        if (elapsedTime >= EnchantmentRemoveDelay && enchantment.position != null) {
             grid.removeEntity(enchantment);
 
 

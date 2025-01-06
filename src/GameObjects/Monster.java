@@ -33,8 +33,8 @@ public class Monster extends Entity {
     public static MonsterTypes selectRandomMonster() {
         MonsterTypes[] monsterTypes = MonsterTypes.values(); // Get all monster types
         Random random = new Random();
-        //return monsterTypes[random.nextInt(monsterTypes.length)];
-        return monsterTypes[2]; // wizard testi icin
+        return monsterTypes[random.nextInt(monsterTypes.length)];
+        //return monsterTypes[2]; // wizard testi icin
     }
 
     // Placeholder for attackPlayer logic

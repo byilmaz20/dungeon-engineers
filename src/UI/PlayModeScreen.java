@@ -23,6 +23,7 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
     private final double scaleFactor = 0.558999993; // Scale factor for resizing the grid
     private JPanel[][] gridPanels; // Panels for each grid cell
     private boolean isPaused = false;
+    private boolean bPressed = false;
 
     private JButton pauseGameButton;
     private JButton helpButton;
@@ -383,12 +384,14 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
     public boolean isFocusable() {
         return true;
     }
-        @Override
+    @Override
     public void keyPressed(KeyEvent e) {
-        //System.out.println("Key Pressed");
+        System.out.println("Key Pressed");
         int keyCode = e.getKeyCode();
+
         switch (keyCode) {
             case KeyEvent.VK_LEFT:
+                System.out.println("Left key pressed");
                 gridEnvironment.moveEntity(gridEnvironment.hero, new Direction(DirectionEnum.LEFT));
                 break;
             case KeyEvent.VK_RIGHT:
@@ -399,6 +402,56 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
                 break;
             case KeyEvent.VK_DOWN:
                 gridEnvironment.moveEntity(gridEnvironment.hero, new Direction(DirectionEnum.DOWN));
+                break;
+            case KeyEvent.VK_P:
+                if (gridEnvironment.getHero().getInventory().checkAvailability(EnchantmentTypes.CLOAK_OF_PROTECTION_ENCHANTMENT)){
+                    CloakOfProtectionEnchantment cloak = new CloakOfProtectionEnchantment(null, null, gridEnvironment);
+                    cloak.applyEffect();
+                    gridEnvironment.getHero().getInventory().remove(EnchantmentTypes.CLOAK_OF_PROTECTION_ENCHANTMENT);
+                }
+                
+                break;
+            case KeyEvent.VK_R:
+                //if inventoryde reveal varsa
+                //new RevealEnchantment(null, null, gridEnvironment)
+                //RevealEnchantment reveal = new RevealEnchantment(null, null, gridEnvironment);
+                //reveal.applyEffect();
+                //gridEnvironment.getHero().getInventory().remove(EnchantmentTypes.REVEAL_ENCHANTMENT);
+                break;
+            case KeyEvent.VK_B:
+                if (gridEnvironment.getHero().getInventory().checkAvailability(EnchantmentTypes.LURING_GEM_ENCHANTMENT)){
+                    bPressed = true;
+                    gridEnvironment.getHero().getInventory().remove(EnchantmentTypes.LURING_GEM_ENCHANTMENT);
+                }
+                
+                break;
+            case KeyEvent.VK_W:
+                if (bPressed){
+                    LuringGemEnchantment lureW = new LuringGemEnchantment(null, null, gridEnvironment);
+                    lureW.applyEffect(new Direction(DirectionEnum.UP));
+                    bPressed = false;
+                }
+                break;
+            case KeyEvent.VK_A:
+                if (bPressed){
+                    LuringGemEnchantment lureA = new LuringGemEnchantment(null, null, gridEnvironment);
+                    lureA.applyEffect(new Direction(DirectionEnum.LEFT));
+                    bPressed = false;
+                }
+                break;
+            case KeyEvent.VK_S:
+                if (bPressed){
+                    LuringGemEnchantment lureS = new LuringGemEnchantment(null, null, gridEnvironment);
+                    lureS.applyEffect(new Direction(DirectionEnum.DOWN));
+                    bPressed = false;
+                }
+                break;
+            case KeyEvent.VK_D:
+                if (bPressed){
+                    LuringGemEnchantment lureD = new LuringGemEnchantment(null, null, gridEnvironment);
+                    lureD.applyEffect(new Direction(DirectionEnum.RIGHT));
+                    bPressed = false;
+                }
                 break;
             default:
                 System.out.println("Unhandled Key: " + keyCode);
@@ -417,7 +470,26 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
         if (gridEnvironment.map[x][y] instanceof Rune) {
             System.out.println("Rune has been clicked: " + x + ", " + y);
             checkRuneFound();
-        } 
+        }
+        if (gridEnvironment.map[x][y] instanceof Enchantment) {
+            Enchantment enchantment = (Enchantment) gridEnvironment.map[x][y];
+            if (enchantment.getType() == EnchantmentTypes.EXTRA_LIFE_ENCHANTMENT && gridEnvironment.getHero().getLives() < 3) {
+                enchantment.applyEffect();
+                System.out.println("Extra Life Enchantment has been clicked: " + x + ", " + y);
+            }
+            
+            if (enchantment.getType() == EnchantmentTypes.EXTRA_TIME_ENCHANTMENT) {
+                enchantment.applyEffect();
+                System.out.println("Extra Time Enchantment has been clicked: " + x + ", " + y);
+            }
+            else {
+                System.out.println("Enchantment has been clicked: " + x + ", " + y);
+                gridEnvironment.getHero().getInventory().add(enchantment);
+            }
+            gridEnvironment.removeEntity(enchantment);
+
+        }
+
     }
     public boolean checkRuneFound() {
         boolean isAdjacent = false;

@@ -93,7 +93,7 @@ public class TimeController implements ITimeControllers {
             SpawnMonsterController spawn = new SpawnMonsterController(grid);
             spawn.spawnMonster();
             lastMonsterSpawnTime = elapsedTime;
-            System.out.printf("Remaining Time After Monster Spawned: %d seconds\n", (int) Math.ceil(timer.getRemainingTime()));
+            //System.out.printf("Remaining Time After Monster Spawned: %d seconds\n", (int) Math.ceil(timer.getRemainingTime()));
             //System.out.println("A new monster has been spawned!");
         }
         double remainingTime = timer.getRemainingTime();
@@ -107,7 +107,7 @@ public class TimeController implements ITimeControllers {
             lastEnchantmentTime = elapsedTime;
             SpawnEnchantmentController enchantmentSpawn = new SpawnEnchantmentController(grid);
             enchantmentSpawn.spawnEnchantment();
-            System.out.printf("Remaining Time After Enchantment: %d seconds\n", (int) Math.ceil(timer.getRemainingTime()));
+            //System.out.printf("Remaining Time After Enchantment: %d seconds\n", (int) Math.ceil(timer.getRemainingTime()));
         }
     }
 

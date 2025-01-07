@@ -67,6 +67,13 @@ public class LuringGemController implements ITimeControllers {
 
     @Override
     public void applyTimeEchantment() {
-        // TODO Auto-generated method stub
+        String mode = GameModeController.getInstance().getGameMode();
+        if (mode.equals("easy")){
+            timer.addTime(10.0);
+        } else if (mode.equals("hard")){
+            timer.addTime(5.0);
+        } else {
+            assert false : "Invalid mode";
+        }
     }
 }

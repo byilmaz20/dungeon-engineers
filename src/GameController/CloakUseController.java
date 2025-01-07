@@ -66,7 +66,15 @@ public class CloakUseController implements ITimeControllers {
 
     @Override
     public void applyTimeEchantment() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'applyTimeEchantment'");
+        String mode = GameModeController.getInstance().getGameMode();
+        if (mode.equals("easy")){
+            timer.addTime(10.0);
+            System.out.printf("easy mode in enchantment controller: Remaining Time Increased by 10 seconds\n");
+        } else if (mode.equals("hard")){
+            timer.addTime(5.0);
+            System.out.printf("hard mode in enchantment controller: Remaining Time Increased by 5 seconds\n");
+        } else {
+            assert false : "Invalid mode";
+        }
     }
 }

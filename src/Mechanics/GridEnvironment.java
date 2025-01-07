@@ -96,6 +96,35 @@ public class GridEnvironment {
         if (isPositionValid(entity.position)) {
             map[entity.position.x][entity.position.y] = entity;
             hall.placeEntity(entity);
+
+            if (entity instanceof src.GameObjects.Monster) {
+                if (((Monster) entity).getType() == MonsterTypes.FighterMonster) {
+                    if (((src.GameObjects.FighterMonster) entity).fighterAttack(this.hero)){
+                        System.out.println("Hero's remaining lifes = " + this.hero.getLives());
+                    }
+                } 
+                else if ((((Monster) entity).getType() == MonsterTypes.ArcherMonster)) {
+                    if (((src.GameObjects.ArcherMonster) entity).shootArrow(this.hero)){
+                        System.out.println("Hero's remaining lifes = " + this.hero.getLives());
+                    }
+                }
+            }
+            if (entity instanceof src.GameObjects.Hero){
+                List<Monster> monsters = hall.getMonsters();
+                for (Monster monster : monsters) {
+                    if (monster.getType() == MonsterTypes.FighterMonster) {
+                        if (((src.GameObjects.FighterMonster) monster).fighterAttack(this.hero)){
+                            System.out.println("Hero's remaining lifes = " + this.hero.getLives());
+                        }
+                    } 
+                    else if ((monster.getType() == MonsterTypes.ArcherMonster)) {
+                        if (((src.GameObjects.ArcherMonster) monster).shootArrow(this.hero)){
+                            System.out.println("Hero's remaining lifes = " + this.hero.getLives());
+                        }
+                    }
+                }
+            }
+
             notifyGridChange(entity.position);
             return true;
         } else {
@@ -137,20 +166,48 @@ public class GridEnvironment {
             if (entity instanceof src.GameObjects.Hero) {
                 hero.position = newPosition;
             }
-    
-            List<Monster> monsters = hall.getMonsters();
-            for (Monster monster : monsters) {
-                if (monster.getType() == MonsterTypes.FighterMonster) {
-                    if (((src.GameObjects.FighterMonster) monster).fighterAttack(this.hero)){
+            
+            if (entity instanceof src.GameObjects.Monster) {
+                if (((Monster) entity).getType() == MonsterTypes.FighterMonster) {
+                    if (((src.GameObjects.FighterMonster) entity).fighterAttack(this.hero)){
                         System.out.println("Hero's remaining lifes = " + this.hero.getLives());
                     }
                 } 
-                else if ((monster.getType() == MonsterTypes.ArcherMonster)) {
-                    if (((src.GameObjects.ArcherMonster) monster).shootArrow(this.hero)){
+                else if ((((Monster) entity).getType() == MonsterTypes.ArcherMonster)) {
+                    if (((src.GameObjects.ArcherMonster) entity).shootArrow(this.hero)){
                         System.out.println("Hero's remaining lifes = " + this.hero.getLives());
                     }
                 }
             }
+            if (entity instanceof src.GameObjects.Hero){
+                List<Monster> monsters = hall.getMonsters();
+                for (Monster monster : monsters) {
+                    if (monster.getType() == MonsterTypes.FighterMonster) {
+                        if (((src.GameObjects.FighterMonster) monster).fighterAttack(this.hero)){
+                            System.out.println("Hero's remaining lifes = " + this.hero.getLives());
+                        }
+                    } 
+                    else if ((monster.getType() == MonsterTypes.ArcherMonster)) {
+                        if (((src.GameObjects.ArcherMonster) monster).shootArrow(this.hero)){
+                            System.out.println("Hero's remaining lifes = " + this.hero.getLives());
+                        }
+                    }
+                }
+            }
+
+            // List<Monster> monsters = hall.getMonsters();
+            // for (Monster monster : monsters) {
+            //     if (monster.getType() == MonsterTypes.FighterMonster) {
+            //         if (((src.GameObjects.FighterMonster) monster).fighterAttack(this.hero)){
+            //             System.out.println("Hero's remaining lifes = " + this.hero.getLives());
+            //         }
+            //     } 
+            //     else if ((monster.getType() == MonsterTypes.ArcherMonster)) {
+            //         if (((src.GameObjects.ArcherMonster) monster).shootArrow(this.hero)){
+            //             System.out.println("Hero's remaining lifes = " + this.hero.getLives());
+            //         }
+            //     }
+            // }
     
             notifyGridChange(oldPosition, newPosition);
             return true;

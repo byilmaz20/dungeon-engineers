@@ -26,12 +26,7 @@ public class LuringGemEnchantment extends Enchantment {
     }    
     
     public void applyEffect(Direction direction) {
-        
-        for (Monster monster : grid.getHall().getMonsters()) {
-            if (monster instanceof FighterMonster) {
-                ((FighterMonster)monster).setLureDirection(direction);
-            }
-        }
+        grid.getHero().setLureDirection(direction);
 
         grid.getHero().activateFooling();
         luringGemController.startTimeController();

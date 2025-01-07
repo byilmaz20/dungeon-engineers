@@ -8,21 +8,19 @@ import src.Mechanics.Timer;
 public class FighterMonster extends Monster {
     private FighterTimeController fighterTimeController;
     private Timer fighterTimer;
-    private Direction lureDirection;
+    
     public FighterMonster(PositionPoint position, Hall hall, GridEnvironment grid) {
         super(position, hall);
         this.type = MonsterTypes.FighterMonster;
         this.fighterTimeController = new FighterTimeController(grid, this);
         fighterTimeController.startTimeController();
         fighterTimer = fighterTimeController.getTimer();
-        Direction lureDirection;
     }
     public void moveRandomly(GridEnvironment grid) {
         // Select a random direction
         Direction.DirectionEnum randomDirection = PositionPoint.getRandomDirection();
         // Check if movement is valid and attempt to move
         if (grid.checkMovement(this, new Direction(randomDirection))) {
-            
                 grid.moveEntity(this, new Direction(randomDirection));
                 //System.out.println("FighterMonster moved randomly to: " + this.position);
         } 
@@ -57,13 +55,7 @@ public class FighterMonster extends Monster {
 
 
 
-    public Direction getLureDirection() {
-        return lureDirection;
-    }
-
-    public void setLureDirection(Direction lureDirection) {
-        this.lureDirection = lureDirection;
-    }
+    
     
     // private void stabHero(Hero hero) {
     //     int damage = calculateDaggerDamage(); // Define how much damage the dagger deals

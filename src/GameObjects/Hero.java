@@ -10,6 +10,7 @@ public class Hero extends Entity {
     Inventory inventory;  //(Bag containing Enchantments)
     boolean  ProtectionStatus;  //(Indicates if thecloak of protection is active)
     boolean FoolingStatus;
+    private Direction lureDirection;
     private LifeCountListener listener;
 
     public Hero(PositionPoint heroPosition, Hall hall) {
@@ -23,6 +24,15 @@ public class Hero extends Entity {
         this.inventory = new Inventory();
         this.ProtectionStatus = false;
         this.FoolingStatus = false;
+        lureDirection = null;
+    }
+
+    public Direction getLureDirection() {
+        return lureDirection;
+    }
+
+    public void setLureDirection(Direction lureDirection) {
+        this.lureDirection = lureDirection;
     }
 
     public boolean checkProtection(){

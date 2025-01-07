@@ -496,7 +496,34 @@ public class BuildModeScreen extends JPanel {
             new GameFlowController();
             frame.setVisible(false);
         } else {
-            JOptionPane.showMessageDialog(this, "Cannot start the game:\n" + errorMessage);
+            UIManager.put("OptionPane.background", new Color(168, 160, 136)); 
+            UIManager.put("Panel.background", new Color(168, 160, 136)); 
+            UIManager.put("OptionPane.messageForeground", Color.BLACK); 
+            UIManager.put("OptionPane.messageFont", new Font("Monospaced", Font.BOLD, 14)); 
+            UIManager.put("Button.background", new Color(190, 180, 160)); 
+            UIManager.put("Button.foreground", Color.BLACK); 
+            UIManager.put("Button.border", BorderFactory.createLineBorder(Color.BLACK, 2)); 
+            UIManager.put("Button.focus", Color.BLACK); 
+
+            JOptionPane.showMessageDialog(
+                this, 
+                "<html><body style='text-align:left;'>"
+                + "Cannot start the game:<br>"
+                + errorMessage.toString().replace("\n", "<br>")
+                + "</body></html>", 
+                "Message", 
+                JOptionPane.PLAIN_MESSAGE
+            );
+
+            // Reset UIManager changes to avoid affecting other dialogs
+            UIManager.put("OptionPane.background", null);
+            UIManager.put("Panel.background", null);
+            UIManager.put("OptionPane.messageForeground", null);
+            UIManager.put("OptionPane.messageFont", null);
+            UIManager.put("Button.background", null);
+            UIManager.put("Button.foreground", null);
+            UIManager.put("Button.border", null);
+            UIManager.put("Button.focus", null);
         }
     }
 

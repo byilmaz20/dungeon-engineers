@@ -207,8 +207,6 @@ private void clearAllTints() {
         if (getKeyListeners().length == 0) {
             this.addKeyListener(this); // Reattach KeyListener if missing
         }
-        
-    
         //System.out.println(timeController.getTimer().getRemainingTime() + " is left!");
         timeController.setInitialTime(timeController.getTimer().getRemainingTime());
     }
@@ -248,7 +246,6 @@ private void clearAllTints() {
             //time pause olmalı
             if (!isPaused) pauseGame();
             new HelpScreen(this);
-            //TODO: IF CALLED FROM THE MAIN SCREEN, ARRANGE IT
         });
         backgroundPanel.add(helpButton);
     }

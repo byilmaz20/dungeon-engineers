@@ -7,6 +7,7 @@ import java.awt.event.MouseEvent;
 import static java.lang.Math.abs;
 import javax.swing.*;
 import src.GameController.GameFlowController;
+import src.GameController.GameModeController;
 import src.GameController.ITimeControllers;
 import src.GameController.TimeController;
 import src.GameObjects.*;
@@ -217,7 +218,7 @@ private void clearAllTints() {
     private void setLifeCountDisplay() {
         lifePanel = new JPanel();
         //lifePanel.setBounds(970, 250, 150, 50); 
-        lifePanel.setBounds(900, 250, 150, 50); 
+        lifePanel.setBounds(830, 250, 250, 50); 
         lifePanel.setOpaque(false); 
         lifePanel.setLayout(new FlowLayout(FlowLayout.LEFT)); // Kalpler yatay sıralanır
         backgroundPanel.add(lifePanel);
@@ -407,7 +408,7 @@ private void initializeInventoryChangeListener() {
     private void updateLifeCount(int lifeCount) {
         lifePanel.removeAll(); 
         ImageIcon heartIcon = new ImageIcon(new ImageIcon("src/Images/ObjectImages/heart.png")
-                .getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH)); 
+                .getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH)); 
 
         for (int i = 0; i < lifeCount; i++) {
             JLabel heartLabel = new JLabel(heartIcon);
@@ -595,9 +596,18 @@ private void initializeInventoryChangeListener() {
         }
         if (gridEnvironment.map[x][y] instanceof Enchantment) {
             Enchantment enchantment = (Enchantment) gridEnvironment.map[x][y];
-            if (enchantment.getType() == EnchantmentTypes.EXTRA_LIFE_ENCHANTMENT && gridEnvironment.getHero().getLives() < 3) {
-                enchantment.applyEffect();
-                System.out.println("Extra Life Enchantment has been clicked: " + x + ", " + y);
+            String mode = GameModeController.getInstance().getGameMode();
+            if (mode.equals("easy")) {
+                if (enchantment.getType() == EnchantmentTypes.EXTRA_LIFE_ENCHANTMENT && gridEnvironment.getHero().getLives() < 5) {
+                    enchantment.applyEffect();
+                    System.out.println("Extra Life Enchantment has been clicked: " + x + ", " + y);
+                }
+            }
+            else if (mode.equals("hard")) {
+                if (enchantment.getType() == EnchantmentTypes.EXTRA_LIFE_ENCHANTMENT && gridEnvironment.getHero().getLives() < 3) {
+                    enchantment.applyEffect();
+                    System.out.println("Extra Life Enchantment has been clicked: " + x + ", " + y);
+                }
             }
             
             if (enchantment.getType() == EnchantmentTypes.EXTRA_TIME_ENCHANTMENT) {

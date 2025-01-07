@@ -73,10 +73,7 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
         // Ensure the component is focusable and has focus
         setFocusable(true);
         requestFocusInWindow();
-
         addKeyListener(this);
-
-        
         System.out.println("Play Mode Screen Initialized");
         timeController.startGame();
         this.remainingTime = this.timer.getRemainingTime();
@@ -204,6 +201,13 @@ private void clearAllTints() {
     
         pauseGameButton.setIcon(pauseIcon); // Update button icon
         isPaused = false; // Update state
+        this.requestFocusInWindow();
+        this.setFocusable(true);
+        this.requestFocus();
+        if (getKeyListeners().length == 0) {
+            this.addKeyListener(this); // Reattach KeyListener if missing
+        }
+        
     
         //System.out.println(timeController.getTimer().getRemainingTime() + " is left!");
         timeController.setInitialTime(timeController.getTimer().getRemainingTime());

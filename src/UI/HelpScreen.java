@@ -194,6 +194,13 @@ public class HelpScreen extends UIScreen {
             if (previous_Screen instanceof PlayModeScreen) {
                 ((PlayModeScreen) previous_Screen).resumeGame();
                 ((PlayModeScreen) previous_Screen).setVisible(true);
+                ((PlayModeScreen) previous_Screen).setFocusable(true);
+                ((PlayModeScreen) previous_Screen).requestFocusInWindow();
+                ((PlayModeScreen) previous_Screen).requestFocus();
+
+                if (((PlayModeScreen) previous_Screen).getKeyListeners().length == 0) {
+                    ((PlayModeScreen) previous_Screen).addKeyListener((PlayModeScreen) previous_Screen);
+                }
             }
             else{
                 this.previous_Screen.setVisible(true);

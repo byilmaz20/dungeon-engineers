@@ -3,6 +3,7 @@ package src.GameController;
 import java.util.List;
 import src.GameObjects.Hall;
 import src.GameObjects.HallTypes;
+import src.UI.GameOverScreen;
 
 public class GameFlowController {
     private static final List<HallTypes> hallSequence = List.of(
@@ -43,14 +44,19 @@ public class GameFlowController {
         playModeController = new PlayModeController(currentHall);
     }
 
+    public static void endGame(String reason) {
+        gameFinished = true;
+        new GameOverScreen(reason);
+        System.out.println("\n!Game Over! ");
+        
+    }
+    
     private static void finishGame() {
         gameFinished = true;
         System.out.println("\n All halls completed! Congratulations, you've finished the game! ");
         System.exit(0); 
     }
-    private static void endGame() {
-        gameFinished = true;
-        System.out.println("\n Game Over! ");
-        System.exit(0); 
-    }
+
 }
+
+

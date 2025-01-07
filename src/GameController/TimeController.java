@@ -10,6 +10,7 @@ import src.GameObjects.Rune;
 import src.Mechanics.GridEnvironment;
 import src.Mechanics.PositionPoint;
 import src.Mechanics.Timer;
+import src.GameController.GameFlowController;
 
 /*
 yeni hall olusunca grid gridini kullanarak 
@@ -79,7 +80,8 @@ public class TimeController implements ITimeControllers {
         double remainingTime = timer.getRemainingTime();
         if (remainingTime <= 0) {
             System.out.println("Time finished Game Over!");
-            System.exit(0);
+            GameFlowController.endGame("Time's up!");
+            //System.exit(0);
         }
 
         if (elapsedTime >= enchantmentStartDelay && elapsedTime - lastEnchantmentTime >= 12.0) {

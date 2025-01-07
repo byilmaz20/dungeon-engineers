@@ -75,7 +75,6 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
         setFocusable(true);
         requestFocusInWindow();
         addKeyListener(this);
-        System.out.println("Play Mode Screen Initialized");
         timeController.startGame();
         this.remainingTime = this.timer.getRemainingTime();
 

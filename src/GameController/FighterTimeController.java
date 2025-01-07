@@ -58,10 +58,9 @@ public class FighterTimeController implements ITimeControllers {
             lastFighterMoveTime = elapsedTime;
             //System.out.println("Fighter has been moved randomly!");
         }
-        else if (elapsedTime >= FighterStartDelay && elapsedTime - lastFighterMoveTime >= 1.0 && grid.getHero().checkFooling() && fighter.getLureDirection()!=null) {
-            grid.moveEntity(fighter, fighter.getLureDirection());
+        else if (elapsedTime >= FighterStartDelay && elapsedTime - lastFighterMoveTime >= 1.0 && grid.getHero().checkFooling() && grid.getHero().getLureDirection()!=null) {
+            grid.moveEntity(fighter, grid.getHero().getLureDirection());
             lastFighterMoveTime = elapsedTime;
-
         }
         
     }

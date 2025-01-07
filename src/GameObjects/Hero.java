@@ -1,5 +1,6 @@
 // create a java class
 package src.GameObjects;
+import src.GameController.GameModeController;
 import src.Mechanics.Direction;
 import src.Mechanics.PositionPoint;
 
@@ -13,7 +14,12 @@ public class Hero extends Entity {
 
     public Hero(PositionPoint heroPosition, Hall hall) {
         super(heroPosition, hall);
-        this.lives = 3;
+        String mode = GameModeController.getInstance().getGameMode();
+        if (mode.equals("easy")) {
+            this.lives = 5;
+        } else if (mode.equals("hard")) {
+            this.lives = 3;
+        }
         this.inventory = new Inventory();
         this.ProtectionStatus = false;
         this.FoolingStatus = false;

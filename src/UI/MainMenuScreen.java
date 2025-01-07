@@ -47,13 +47,11 @@ public class MainMenuScreen extends UIScreen {
         easyModeButton.addActionListener(e -> {
             selectedMode = "easy";
             updateButtonStyles();
-            System.out.println("Set to Easy Mode");
         });
     
         hardModeButton.addActionListener(e -> {
             selectedMode = "hard";
             updateButtonStyles();
-            System.out.println("Set to Hard Mode");
         });
     
         backgroundPanel.add(easyModeButton);
@@ -63,12 +61,12 @@ public class MainMenuScreen extends UIScreen {
     }
     
     private void updateButtonStyles() {
-        setButtonStyle(easyModeButton, "easy".equals(selectedMode));
-        setButtonStyle(hardModeButton, "hard".equals(selectedMode));
+        setModeButtonStyle(easyModeButton, "easy".equals(selectedMode));
+        setModeButtonStyle(hardModeButton, "hard".equals(selectedMode));
     }
     
     // Apply styles to the buttons
-    private void setButtonStyle(TransparentButton button, boolean isSelected) {
+    private void setModeButtonStyle(TransparentButton button, boolean isSelected) {
         if (isSelected) {
             button.setForeground(Color.WHITE); // White text for selected
             button.setFont(new Font("Arial", Font.BOLD, 18)); // Bold text
@@ -86,6 +84,7 @@ public class MainMenuScreen extends UIScreen {
     
     private void setStartGameButton() {
         startGameButton = new JButton();
+        startGameButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         startGameButton.setBounds(510, 594, 250, 70);
         startGameButton.setOpaque(false);
         startGameButton.setContentAreaFilled(false);
@@ -99,6 +98,7 @@ public class MainMenuScreen extends UIScreen {
     }
     private void setLoadGameButton() {
         loadGameButton = new JButton();
+        loadGameButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         loadGameButton.setBounds(510, 670, 250, 60);
         loadGameButton.setOpaque(false);
         loadGameButton.setContentAreaFilled(false);
@@ -115,6 +115,7 @@ public class MainMenuScreen extends UIScreen {
 
     private void setHelpButton() {
         helpButton = new JButton();
+        helpButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         helpButton.setBounds(510, 740, 250, 60);
         helpButton.setOpaque(false);
         helpButton.setContentAreaFilled(false);
@@ -129,6 +130,7 @@ public class MainMenuScreen extends UIScreen {
 
     private void setExitButton() {
         exitButton = new JButton();
+        exitButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         exitButton.setBounds(510, 810, 250, 80);
         exitButton.setOpaque(false);
         exitButton.setContentAreaFilled(false);
@@ -136,5 +138,6 @@ public class MainMenuScreen extends UIScreen {
         exitButton.addActionListener(e -> System.exit(0));
         backgroundPanel.add(exitButton);
     }
+
 
 }

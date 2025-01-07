@@ -4,7 +4,6 @@ import src.GameObjects.FighterMonster;
 import src.GameObjects.Hall;
 import src.GameObjects.HallTypes;
 import src.GameObjects.Hero;
-import src.GameObjects.Monster;
 import src.GameObjects.Obstacles;
 import src.GameObjects.Obstacles.ObstacleType;
 import src.GameObjects.Rune;
@@ -74,7 +73,7 @@ public class FighterTimeController implements ITimeControllers {
         isPaused = !isPaused;
     }
     
-    public void applyTimeEchantment() {
+    public void applyTimeEchantment(String mode) {
         timer.addTime(5.0);
         System.out.printf("Remaining Time Increased by 5 seconds\n");
     }

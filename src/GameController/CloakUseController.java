@@ -1,15 +1,6 @@
 package src.GameController;
 
-import src.GameObjects.Hall;
-import src.GameObjects.HallTypes;
-import src.GameObjects.Hero;
-import src.GameObjects.Monster;
-import src.GameObjects.Obstacles;
-import src.GameObjects.Obstacles.ObstacleType;
-import src.GameObjects.Rune;
-import src.GameObjects.WizardMonster;
 import src.Mechanics.GridEnvironment;
-import src.Mechanics.PositionPoint;
 import src.Mechanics.Timer;
 
 public class CloakUseController implements ITimeControllers {
@@ -67,7 +58,7 @@ public class CloakUseController implements ITimeControllers {
     }
 
     @Override
-    public void applyTimeEchantment() {
+    public void applyTimeEchantment(String mode) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'applyTimeEchantment'");
     }

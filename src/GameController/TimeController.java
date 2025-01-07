@@ -10,7 +10,6 @@ import src.GameObjects.Rune;
 import src.Mechanics.GridEnvironment;
 import src.Mechanics.PositionPoint;
 import src.Mechanics.Timer;
-import src.GameController.GameFlowController;
 
 /*
 yeni hall olusunca grid gridini kullanarak 
@@ -111,7 +110,7 @@ public class TimeController implements ITimeControllers {
         
     }
 
-    public void applyTimeEchantment() {
+    public void applyTimeEchantment(String mode) {
         timer.addTime(5.0);
         System.out.printf("Remaining Time Increased by 5 seconds\n");
     }

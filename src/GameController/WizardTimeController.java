@@ -89,7 +89,7 @@ public class WizardTimeController implements ITimeControllers {
         }
         isPaused = !isPaused;
     }
-    public void applyTimeEchantment() {
+    public void applyTimeEchantment(String mode) {
         timer.addTime(5.0);
         System.out.printf("Remaining Time Increased by 5 seconds\n");
     }

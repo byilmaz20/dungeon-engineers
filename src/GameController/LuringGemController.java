@@ -1,16 +1,6 @@
 package src.GameController;
 
-import src.GameObjects.Hall;
-import src.GameObjects.HallTypes;
-import src.GameObjects.Hero;
-import src.GameObjects.Monster;
-import src.GameObjects.Obstacles;
-import src.GameObjects.Obstacles.ObstacleType;
-import src.GameObjects.Rune;
-import src.GameObjects.WizardMonster;
-import src.Mechanics.Direction;
 import src.Mechanics.GridEnvironment;
-import src.Mechanics.PositionPoint;
 import src.Mechanics.Timer;
 
 public class LuringGemController implements ITimeControllers {
@@ -69,7 +59,7 @@ public class LuringGemController implements ITimeControllers {
     }
 
     @Override
-    public void applyTimeEchantment() {
+    public void applyTimeEchantment(String mode) {
         // TODO Auto-generated method stub
     }
 }

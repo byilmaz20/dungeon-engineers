@@ -534,11 +534,11 @@ private void initializeInventoryChangeListener() {
                 
                 break;
             case KeyEvent.VK_R:
-                //if inventoryde reveal varsa
-                //new RevealEnchantment(null, null, gridEnvironment)
-                //RevealEnchantment reveal = new RevealEnchantment(null, null, gridEnvironment);
-                //reveal.applyEffect();
-                //gridEnvironment.getHero().getInventory().remove(EnchantmentTypes.REVEAL_ENCHANTMENT);
+                if (gridEnvironment.getHero().getInventory().checkAvailability(EnchantmentTypes.REVEAL_ENCHANTMENT)){
+                    RevealEnchantment reveal = new RevealEnchantment(gridEnvironment.getHero().getPosition(),gridEnvironment.getHall(), gridEnvironment);
+                    reveal.applyEffect(this);
+                    gridEnvironment.getHero().getInventory().remove(EnchantmentTypes.REVEAL_ENCHANTMENT);
+                }
                 break;
             case KeyEvent.VK_B:
                 if (gridEnvironment.getHero().getInventory().checkAvailability(EnchantmentTypes.LURING_GEM_ENCHANTMENT)){

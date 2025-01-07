@@ -7,7 +7,7 @@ import src.Mechanics.Timer;
 public class EnchantmentTimeController implements ITimeControllers {
     private Timer timer;
     private boolean isPaused;
-    private double intitialTime;
+    private double initialTime;
     private Enchantment enchantment;
 
 
@@ -20,7 +20,7 @@ public class EnchantmentTimeController implements ITimeControllers {
         this.timer = new Timer();
         this.isPaused = false;
         this.grid = grid;
-        this.intitialTime = 10.0;
+        this.initialTime = 10.0;
         grid.addTimeController(this);
 
     }
@@ -30,7 +30,7 @@ public class EnchantmentTimeController implements ITimeControllers {
     }
 
     public void startTimeController() {
-        timer.startTimer(intitialTime, this::checkMechanics, this::printStatus);
+        timer.startTimer(initialTime, this::checkMechanics, this::printStatus);
     }
 
 

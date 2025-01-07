@@ -6,7 +6,7 @@ import src.Mechanics.Timer;
 public class LuringGemController implements ITimeControllers {
     private Timer timer;
     private boolean isPaused;
-    private double intitialTime;
+    private double initialTime;
     private boolean isGemActive;
 
 
@@ -19,7 +19,14 @@ public class LuringGemController implements ITimeControllers {
         this.isPaused = false;
         this.isGemActive = true;
         this.grid = grid;
-        this.intitialTime = grid.getHall().getObstacles().size() * 5;
+        String mode = GameModeController.getInstance().getGameMode();
+        if (mode.equals("easy")) {
+            this.initialTime = grid.getHall().getObstacles().size() * 5 * 1.2;
+        } else if (mode.equals("hard")) {
+            this.initialTime = grid.getHall().getObstacles().size() * 5;
+        } else {
+            assert false : "Invalid mode";
+        }
         grid.addTimeController(this);
     }
 
@@ -28,7 +35,7 @@ public class LuringGemController implements ITimeControllers {
     }
 
     public void startTimeController() {
-        timer.startTimer(intitialTime, this::checkMechanics, this::printStatus);
+        timer.startTimer(initialTime, this::checkMechanics, this::printStatus);
     }
 
     private void checkMechanics() {

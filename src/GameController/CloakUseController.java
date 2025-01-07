@@ -6,19 +6,26 @@ import src.Mechanics.Timer;
 public class CloakUseController implements ITimeControllers {
     private Timer timer;
     private boolean isPaused;
-    private double intitialTime;
+    private double initialTime;
     private boolean isProtectionActive;
 
     private final double CloakTime = 20.0;
     GridEnvironment grid;
 
     public CloakUseController(GridEnvironment grid) {
-
+        String mode = GameModeController.getInstance().getGameMode();
         this.timer = new Timer();
         this.isPaused = false;
         this.isProtectionActive = true;
         this.grid = grid;
-        this.intitialTime = grid.getHall().getObstacles().size() * 5;
+        if (mode.equals("easy")) {
+            this.initialTime = grid.getHall().getObstacles().size() * 5 * 1.2;
+        } else if (mode.equals("hard")) {
+            this.initialTime = grid.getHall().getObstacles().size() * 5;
+        } else {
+            throw new IllegalArgumentException("Invalid game mode");
+        }
+        
         grid.addTimeController(this);
     }
 
@@ -27,7 +34,7 @@ public class CloakUseController implements ITimeControllers {
     }
 
     public void startTimeController() {
-        timer.startTimer(intitialTime, this::checkMechanics, this::printStatus);
+        timer.startTimer(initialTime, this::checkMechanics, this::printStatus);
     }
 
     private void checkMechanics() {

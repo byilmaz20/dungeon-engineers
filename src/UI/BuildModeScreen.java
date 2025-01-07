@@ -164,26 +164,58 @@ public class BuildModeScreen extends JPanel {
             gbc.insets = new Insets(10, 0, 10, 0);
             objectPanel.add(objectLabel, gbc);
         }
-        // Adding "Random Init" button 
-        JButton randomInitButton = new JButton("Random Place");
+
         
-        randomInitButton.setForeground(Color.BLACK); // Text color
+        JButton randomInitButton = new JButton("Random Place");
+
+        randomInitButton.setFont(new Font("DialogInput", Font.BOLD, 24));
+        randomInitButton.setForeground(Color.BLACK);
+        randomInitButton.setBackground(new Color(168, 160, 136));
+        randomInitButton.setFocusPainted(false);
+        randomInitButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 4));
+        randomInitButton.setOpaque(true);
+        
+        randomInitButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                randomInitButton.setBackground(new Color(190, 180, 160));
+            }
+        
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                randomInitButton.setBackground(new Color(168, 160, 136));
+            }
+        });
+        
         randomInitButton.addActionListener(e -> startRandomInit());
-    
+        
         gbc.gridy = objects.length + 1;
         gbc.insets = new Insets(20, 0, 10, 0);
         objectPanel.add(randomInitButton, gbc);
-
-
-        // Adding "Start Game" button 
+        
         JButton startGameButton = new JButton("Start Game");
         
-        startGameButton.setForeground(Color.BLACK); // Text color
+        startGameButton.setFont(new Font("Monospaced", Font.BOLD, 24));
+        startGameButton.setForeground(Color.BLACK);
+        startGameButton.setBackground(new Color(168, 160, 136));
+        startGameButton.setFocusPainted(false);
+        startGameButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 4));
+        startGameButton.setOpaque(true);
+        
+        startGameButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                startGameButton.setBackground(new Color(190, 180, 160));
+            }
+        
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                startGameButton.setBackground(new Color(168, 160, 136));
+            }
+        });
+        
         startGameButton.addActionListener(e -> checkRequirementsAndStartGame());
-    
+        
         gbc.gridy = objects.length + 1;
         gbc.insets = new Insets(120, 0, 10, 0);
         objectPanel.add(startGameButton, gbc);
+        
     
         return objectPanel;
     }

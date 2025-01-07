@@ -1,6 +1,5 @@
 package src.GameObjects;
 import src.GameController.EnchantmentTimeController;
-import src.GameController.FighterTimeController;
 import src.GameController.ITimeControllers;
 import src.Mechanics.GridEnvironment;
 import src.Mechanics.PositionPoint;

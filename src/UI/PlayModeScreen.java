@@ -504,12 +504,12 @@ private void initializeInventoryChangeListener() {
     }
     @Override
     public void keyPressed(KeyEvent e) {
-        System.out.println("Key Pressed");
+        //System.out.println("Key Pressed");
         int keyCode = e.getKeyCode();
 
         switch (keyCode) {
             case KeyEvent.VK_LEFT:
-                System.out.println("Left key pressed");
+                //System.out.println("Left key pressed");
                 gridEnvironment.moveEntity(gridEnvironment.hero, new Direction(DirectionEnum.LEFT));
                 break;
             case KeyEvent.VK_RIGHT:

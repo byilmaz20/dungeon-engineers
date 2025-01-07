@@ -58,7 +58,7 @@ public class CloakUseController implements ITimeControllers {
     }
 
     @Override
-    public void applyTimeEchantment(String mode) {
+    public void applyTimeEchantment() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'applyTimeEchantment'");
     }

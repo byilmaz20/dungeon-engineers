@@ -59,7 +59,7 @@ public class LuringGemController implements ITimeControllers {
     }
 
     @Override
-    public void applyTimeEchantment(String mode) {
+    public void applyTimeEchantment() {
         // TODO Auto-generated method stub
     }
 }

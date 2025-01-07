@@ -89,9 +89,17 @@ public class WizardTimeController implements ITimeControllers {
         }
         isPaused = !isPaused;
     }
-    public void applyTimeEchantment(String mode) {
-        timer.addTime(5.0);
-        System.out.printf("Remaining Time Increased by 5 seconds\n");
+    public void applyTimeEchantment() {
+        String mode = GameModeController.getInstance().getGameMode();
+        if (mode.equals("easy")){
+            timer.addTime(10.0);
+            System.out.printf("easy mode in wizard time controller: Remaining Time Increased by 10 seconds\n");
+        } else if (mode.equals("hard")){
+            timer.addTime(5.0);
+            System.out.printf("hard mode in wizard time controller: Remaining Time Increased by 5 seconds\n");
+        } else {
+            assert false : "Invalid mode";
+        }
     }
 
     public static void main(String[] args) {

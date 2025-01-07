@@ -3,6 +3,7 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
 import javax.swing.*;
+import src.GameController.GameModeController;
 
 
 public class MainMenuScreen extends UIScreen {
@@ -35,6 +36,7 @@ public class MainMenuScreen extends UIScreen {
         setExitButton();
     }
     private void setGameModeButtons() {
+        
         easyModeButton = new TransparentButton();
         hardModeButton = new TransparentButton();
     
@@ -43,14 +45,17 @@ public class MainMenuScreen extends UIScreen {
     
         hardModeButton.setBounds(620, 95, 230, 80);
         hardModeButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        GameModeController.getInstance().setGameMode("hard");
     
         easyModeButton.addActionListener(e -> {
             selectedMode = "easy";
+            GameModeController.getInstance().setGameMode("easy");
             updateButtonStyles();
         });
     
         hardModeButton.addActionListener(e -> {
             selectedMode = "hard";
+            GameModeController.getInstance().setGameMode("hard");
             updateButtonStyles();
         });
     
@@ -92,7 +97,7 @@ public class MainMenuScreen extends UIScreen {
     
         startGameButton.addActionListener(e -> {
             this.dispose();
-            new BuildModeScreen(selectedMode); // Pass the selected mode
+            new BuildModeScreen(); // Pass the selected mode
         });
         backgroundPanel.add(startGameButton);
     }
@@ -106,7 +111,7 @@ public class MainMenuScreen extends UIScreen {
     
         loadGameButton.addActionListener(e -> {
             this.dispose();
-            new BuildModeScreen(selectedMode); // Pass the selected mode
+            new BuildModeScreen(); // Pass the selected mode
         });
         backgroundPanel.add(loadGameButton);
     }

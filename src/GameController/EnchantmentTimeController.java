@@ -1,7 +1,6 @@
 package src.GameController;
 
 import src.GameObjects.Enchantment;
-import src.GameObjects.FighterMonster;
 import src.Mechanics.GridEnvironment;
 import src.Mechanics.Timer;
 
@@ -59,13 +58,14 @@ public class EnchantmentTimeController implements ITimeControllers {
         isPaused = !isPaused;
     }
 
-    public void applyTimeEchantment(String mode) {
+    public void applyTimeEchantment() {
+        String mode = GameModeController.getInstance().getGameMode();
         if (mode.equals("easy")){
             timer.addTime(10.0);
-            System.out.printf("Remaining Time Increased by 10 seconds\n");
+            System.out.printf("easy mode in enchantment controller: Remaining Time Increased by 10 seconds\n");
         } else if (mode.equals("hard")){
             timer.addTime(5.0);
-            System.out.printf("Remaining Time Increased by 5 seconds\n");
+            System.out.printf("hard mode in enchantment controller: Remaining Time Increased by 5 seconds\n");
         } else {
             assert false : "Invalid mode";
         }

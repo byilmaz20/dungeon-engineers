@@ -166,9 +166,9 @@ public class BuildModeScreen extends JPanel {
         }
 
         
-        JButton randomInitButton = new JButton("Random Place");
+        JButton randomInitButton = new JButton("<html><center>Random<br>Place</center></html>");
 
-        randomInitButton.setFont(new Font("DialogInput", Font.BOLD, 24));
+        randomInitButton.setFont(new Font("DialogInput", Font.BOLD, 20));
         randomInitButton.setForeground(Color.BLACK);
         randomInitButton.setBackground(new Color(168, 160, 136));
         randomInitButton.setFocusPainted(false);
@@ -191,9 +191,9 @@ public class BuildModeScreen extends JPanel {
         gbc.insets = new Insets(20, 0, 10, 0);
         objectPanel.add(randomInitButton, gbc);
         
-        JButton startGameButton = new JButton("Start Game");
+        JButton startGameButton = new JButton("<html><center>Start<br>Game</center></html>");
         
-        startGameButton.setFont(new Font("Monospaced", Font.BOLD, 24));
+        startGameButton.setFont(new Font("Monospaced", Font.BOLD, 20));
         startGameButton.setForeground(Color.BLACK);
         startGameButton.setBackground(new Color(168, 160, 136));
         startGameButton.setFocusPainted(false);
@@ -215,6 +215,7 @@ public class BuildModeScreen extends JPanel {
         gbc.gridy = objects.length + 1;
         gbc.insets = new Insets(120, 0, 10, 0);
         objectPanel.add(startGameButton, gbc);
+        
         
     
         return objectPanel;
@@ -461,11 +462,6 @@ public class BuildModeScreen extends JPanel {
         }
         
     }
-
-
-
-
-
 
     private void checkRequirementsAndStartGame() {
         StringBuilder errorMessage = new StringBuilder();

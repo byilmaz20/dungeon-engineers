@@ -13,6 +13,7 @@ import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import src.GameController.BuildModeController;
 import src.GameController.GameFlowController;
+import src.GameController.SaveGameController;
 import src.GameObjects.Hall;
 import src.GameObjects.SaveGame;
 
@@ -506,7 +507,7 @@ public class BuildModeScreen extends JPanel implements Serializable{
             }
             
             GameFlowController gameflowcont = new GameFlowController();
-            SaveGame.setGameFlowController(gameflowcont);
+            SaveGameController.setGameFlowController(gameflowcont);
             
             frame.setVisible(false);
         } else {

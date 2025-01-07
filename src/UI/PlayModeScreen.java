@@ -175,6 +175,7 @@ public class PlayModeScreen extends UIScreen implements KeyListener, Serializabl
         helpButton.setBounds(340, 33, 35, 35);
         helpButton.setOpaque(true);
         helpButton.setContentAreaFilled(false);
+        backgroundPanel.add(helpButton);
         helpButton.setBorderPainted(true);
             helpButton.addActionListener(e -> {
             this.setVisible(false);
@@ -183,10 +184,11 @@ public class PlayModeScreen extends UIScreen implements KeyListener, Serializabl
                 timeController.pressPauseButton();
             } 
             //timeController.setIsPausedToHelp();
-            SaveGame.saveGame();
+            new SaveGame();
+            
             //TODO: IF CALLED FROM THE MAIN SCREEN, ARRANGE IT
         });
-        backgroundPanel.add(helpButton);
+        
     }
 
     private void setExitButton() {

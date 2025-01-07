@@ -17,13 +17,12 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import src.GameController.GameFlowController;
+import src.GameController.SaveGameController;
 
 import java.io.IOException;
 
-public class SaveGame implements Serializable{
-    public static GameFlowController gameState;
-    public Hall hall;
-        public void saveGame() {
+public class SaveGame implements Serializable{   
+        public SaveGame() {
             // Create a new JFrame for the save dialog
             JFrame saveFrame = new JFrame("Save Game");
             saveFrame.setSize(400, 150);
@@ -37,7 +36,6 @@ public class SaveGame implements Serializable{
             // Input field for the save name
             JTextField saveNameField = new JTextField();
             saveFrame.add(saveNameField, BorderLayout.CENTER);
-            this.hall = gameState.getCurrentHall();
             // Panel for buttons
             JPanel buttonPanel = new JPanel();
             JButton saveButton = new JButton("Save");
@@ -68,11 +66,15 @@ public class SaveGame implements Serializable{
                     String filePath = saveDir + File.separator + saveName + ".dat";
     
                     try (FileOutputStream fileOut = new FileOutputStream(filePath);
-                         ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
+                        ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
                         // Serialize the game state and save to file
-                        System.out.println(gameState.getCurrentHall().getHallTypes());
-                        out.writeObject(hall);
-                       
+                        SaveGameController sgc = new SaveGameController();
+                        out.writeObject(sgc.getCurrentHall());
+                        out.writeObject(sgc.getCurrentHallIndex());
+                        //out.writeObject(sgc.getGridEnvironment());
+                        //out.writeObject(sgc.getPlayModeScreen());
+                        //out.writeObject(sgc.getTimeController());
+
                     JOptionPane.showMessageDialog(saveFrame, 
                                                   "Game saved successfully as \"" + saveName + "\".",
                                                   "Save Successful", JOptionPane.INFORMATION_MESSAGE);
@@ -96,9 +98,7 @@ public class SaveGame implements Serializable{
         saveFrame.setVisible(true); // Show the save dialog
     }
 
-    public static void setGameFlowController(GameFlowController gmf){
-        gameState = gmf;
-    }
+   
 
     
     

@@ -25,6 +25,6 @@ public class WizardMonster extends Monster {
             newrunePosition = grid.getHall().getObstacles().get(random.nextInt(grid.getHall().getObstacles().size())).position;
         }
         grid.rune.position  = newrunePosition;
-        System.out.println("Rune has been spawned to " + newrunePosition.x + newrunePosition.y);
+        System.out.println("Rune has been spawned to " + newrunePosition.x +", "+ newrunePosition.y);
 }
 }

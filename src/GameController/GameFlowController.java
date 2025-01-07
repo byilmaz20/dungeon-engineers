@@ -31,7 +31,8 @@ public class GameFlowController {
 
         // Check if all halls are completed
         if (currentHallIndex == hallSequence.size() - 1) {
-            finishGame();
+            
+            endGame("src/Images/BackgroundImages/gameoverwin.png"," ");
             return;
         }
 
@@ -44,18 +45,13 @@ public class GameFlowController {
         playModeController = new PlayModeController(currentHall);
     }
 
-    public static void endGame(String reason) {
+    public static void endGame(String backgroundPath,String reason) {
         gameFinished = true;
-        new GameOverScreen(reason);
+        new GameOverScreen(backgroundPath, reason);
         System.out.println("\n!Game Over! ");
         
     }
     
-    private static void finishGame() {
-        gameFinished = true;
-        System.out.println("\n All halls completed! Congratulations, you've finished the game! ");
-        System.exit(0); 
-    }
 
 }
 

@@ -20,7 +20,7 @@ public class SpawnMonsterController {
     }
 
     // Spawn a monster at a random empty position
-    public Monster spawnMonster() {
+    public Monster oldspawnMonster() {
         PositionPoint randomLocation = grid.selectRandomLocation(); // Get a random empty position
         if (randomLocation != null) {
             MonsterTypes type = Monster.selectRandomMonster();
@@ -81,6 +81,12 @@ public class SpawnMonsterController {
         }
         return null;
     }
+    
+    public Monster spawnMonster(){
+        PositionPoint randomLocation = grid.selectRandomLocation(); // Get a random empty position
+        return new FighterMonster(randomLocation, grid.getHall(), grid);
+    }
+    
     public static void main(String[] args) {
         // Step 1: Create a Hall instance (e.g., EARTH hall)
         Hall hall = new Hall(HallTypes.EARTH);

@@ -99,7 +99,7 @@ public class TimeController implements ITimeControllers {
         double remainingTime = timer.getRemainingTime();
         if (remainingTime <= 0) {
             System.out.println("Time finished Game Over!");
-            GameFlowController.endGame("Time's up!");
+            GameFlowController.endGame("src/Images/BackgroundImages/gameover.png", "Time's up!");
             //System.exit(0);
         }
 

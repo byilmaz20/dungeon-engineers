@@ -24,7 +24,9 @@ public class GameFlowController {
     public static void proceedNextHall() {
         if (playModeController != null) {
             playModeController.disposeScreen();
-            playModeController.getTimeController().getTimer().pauseTimer();
+            for (ITimeControllers timeController : playModeController.getGrid().getTimeControllers()) {
+                timeController.getTimer().pauseTimer();
+            }
         }
 
         System.out.println(currentHall.hallType + " hall completed!");
@@ -42,6 +44,7 @@ public class GameFlowController {
         
         currentHall = BuildModeController.Halls.get("Hall of " + nextHallType);
         playModeController = new PlayModeController(currentHall);
+
     }
 
     public static void endGame(String reason) {

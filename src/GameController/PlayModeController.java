@@ -28,6 +28,9 @@ public class PlayModeController{
         this.playModeScreen = new PlayModeScreen(grid, timeController);
 
     }
+    public GridEnvironment getGrid() {
+        return grid;
+    }
     public void disposeScreen() {
         playModeScreen.dispose();
     }

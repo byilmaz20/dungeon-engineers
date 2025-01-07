@@ -25,11 +25,15 @@ public class TimeController implements ITimeControllers {
     private boolean isPaused;
     private double initialTime;
 
+    private double monsterSpawnInterval;
+    private double enchantmentSpawnInterval;
+
     private double lastMonsterSpawnTime;
     private double lastEnchantmentTime;
 
-    private final double monsterStartDelay = 6.0;
-    private final double enchantmentStartDelay = 12.0;
+    private double monsterStartDelay;
+    private double enchantmentStartDelay;
+    
     GridEnvironment grid;
     SpawnMonsterController spawner;
 
@@ -45,11 +49,20 @@ public class TimeController implements ITimeControllers {
         String mode = GameModeController.getInstance().getGameMode();
         if (mode.equals("easy")) {
             this.initialTime = grid.getHall().getObstacles().size() * 5 * 1.2;
+            this.monsterSpawnInterval = 8.0;
+            this.enchantmentSpawnInterval = 5.0;
+            this.monsterStartDelay = 8.0;
+            this.enchantmentStartDelay = 5.0;
         } else if (mode.equals("hard")) {
             this.initialTime = grid.getHall().getObstacles().size() * 5;
+            this.monsterSpawnInterval = 6.0;
+            this.enchantmentSpawnInterval = 12.0;
+            this.monsterStartDelay = 6.0;
+            this.enchantmentStartDelay = 12.0;
         } else {
             assert false : "Invalid mode";
         }
+        System.out.println("Initial Time: " + initialTime);
         
         //todo monster için ayrıca girdi verebilsin
         
@@ -77,11 +90,11 @@ public class TimeController implements ITimeControllers {
         double elapsedTime = Math.floor(timer.getElapsedTime());
         //System.out.printf("Checking Mechanics - Elapsed Time: %.0f\n", elapsedTime);
 
-        if (elapsedTime >= monsterStartDelay && elapsedTime - lastMonsterSpawnTime >= 6.0) {
+        if (elapsedTime >= monsterStartDelay && elapsedTime - lastMonsterSpawnTime >= monsterSpawnInterval) {
             SpawnMonsterController spawn = new SpawnMonsterController(grid);
             spawn.spawnMonster();
             lastMonsterSpawnTime = elapsedTime;
-            
+            System.out.printf("Remaining Time After Monster Spawned: %d seconds\n", (int) Math.ceil(timer.getRemainingTime()));
             //System.out.println("A new monster has been spawned!");
         }
         double remainingTime = timer.getRemainingTime();
@@ -91,7 +104,7 @@ public class TimeController implements ITimeControllers {
             //System.exit(0);
         }
 
-        if (elapsedTime >= enchantmentStartDelay && elapsedTime - lastEnchantmentTime >= 12.0) {
+        if (elapsedTime >= enchantmentStartDelay && elapsedTime - lastEnchantmentTime >= enchantmentSpawnInterval) {
             lastEnchantmentTime = elapsedTime;
             SpawnEnchantmentController enchantmentSpawn = new SpawnEnchantmentController(grid);
             enchantmentSpawn.spawnEnchantment();
@@ -107,12 +120,8 @@ public class TimeController implements ITimeControllers {
     public void pressPauseButton() {
         if (isPaused) {
             timer.resumeTimer();
-            //System.out.println("Game Resumed!");
-            
         } else {
             timer.pauseTimer();
-            //System.out.println("Game Paused!");
-            
         }
         isPaused = !isPaused;
         

@@ -66,7 +66,7 @@ public class Timer {
                 }
                 notifyTimeChange();
             }
-            System.out.println("Timer Finished!");
+            //System.out.println("Timer Finished!");
             //TODO burada aksiyon alınacak UI baglantısı icin
         });
         timerThread.start();

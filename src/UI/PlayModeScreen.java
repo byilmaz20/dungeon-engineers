@@ -6,6 +6,8 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import static java.lang.Math.abs;
 import javax.swing.*;
+
+import src.GameController.GameFlowController;
 import src.GameController.ITimeControllers;
 import src.GameController.TimeController;
 import src.GameObjects.*;
@@ -36,6 +38,7 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
     private JLabel timeLabel;
     private JPanel lifePanel;
     private GridEnvironment gridEnvironment; // Reference to the GridEnvironment
+
 
 
     public PlayModeScreen(GridEnvironment gridEnvironment, TimeController timeController) {
@@ -284,8 +287,15 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
     private void updateTime(double remainingTime) { //TODO text eklenecek
         this.remainingTime = remainingTime;
         //System.out.println("Time updated: " + remainingTime);
-        if (!isPaused)
+        if (!isPaused){
             timeLabel.setText("" + (int) remainingTime);
+            
+        }
+        if (remainingTime <= 0) {
+            this.dispose();
+            pauseGame();
+           
+        }
     }
 
     private void updateLifeCount(int lifeCount) {
@@ -299,6 +309,12 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
         }
         lifePanel.revalidate(); 
         lifePanel.repaint(); 
+        if (gridEnvironment.getHero().getLives() <= 0) {
+            GameFlowController.endGame("No lives remaining!");
+            this.dispose();
+            pauseGame();
+            
+}
     } 
 
 

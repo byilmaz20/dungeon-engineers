@@ -44,14 +44,13 @@ public class GameFlowController {
         playModeController = new PlayModeController(currentHall);
     }
 
-    public static void endGame(String reason, int livesRemaining, double remainingTime) {
+    public static void endGame(String reason) {
         gameFinished = true;
-        new GameOverScreen(reason, livesRemaining, remainingTime);
+        new GameOverScreen(reason);
         System.out.println("\n!Game Over! ");
-
         
-    }    
-
+    }
+    
     private static void finishGame() {
         gameFinished = true;
         System.out.println("\n All halls completed! Congratulations, you've finished the game! ");

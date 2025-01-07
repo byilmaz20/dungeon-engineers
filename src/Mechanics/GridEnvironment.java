@@ -96,6 +96,21 @@ public class GridEnvironment {
         if (isPositionValid(entity.position)) {
             map[entity.position.x][entity.position.y] = entity;
             hall.placeEntity(entity);
+
+            List<Monster> monsters = hall.getMonsters();
+            for (Monster monster : monsters) {
+                if (monster.getType() == MonsterTypes.FighterMonster) {
+                    if (((src.GameObjects.FighterMonster) monster).fighterAttack(this.hero)){
+                        System.out.println("Hero's remaining lifes = " + this.hero.getLives());
+                    }
+                } 
+                else if ((monster.getType() == MonsterTypes.ArcherMonster)) {
+                    if (((src.GameObjects.ArcherMonster) monster).shootArrow(this.hero)){
+                        System.out.println("Hero's remaining lifes = " + this.hero.getLives());
+                    }
+                }
+            }
+
             notifyGridChange(entity.position);
             return true;
         } else {

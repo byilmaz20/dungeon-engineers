@@ -4,7 +4,6 @@ import src.GameObjects.FighterMonster;
 import src.GameObjects.Hall;
 import src.GameObjects.HallTypes;
 import src.GameObjects.Hero;
-import src.GameObjects.Monster;
 import src.GameObjects.Obstacles;
 import src.GameObjects.Obstacles.ObstacleType;
 import src.GameObjects.Rune;
@@ -75,8 +74,16 @@ public class FighterTimeController implements ITimeControllers {
     }
     
     public void applyTimeEchantment() {
-        timer.addTime(5.0);
-        System.out.printf("Remaining Time Increased by 5 seconds\n");
+        String mode = GameModeController.getInstance().getGameMode();
+        if (mode.equals("easy")){
+            timer.addTime(10.0);
+            System.out.printf("fighter time controller: Remaining Time Increased by 10 seconds\n");
+        } else if (mode.equals("hard")){
+            timer.addTime(5.0);
+            System.out.printf("fighter time controller: Remaining Time Increased by 5 seconds\n");
+        } else {
+            assert false : "Invalid mode";
+        }
     }
 
     public static void main(String[] args) {

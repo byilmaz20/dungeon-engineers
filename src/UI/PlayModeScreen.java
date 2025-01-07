@@ -6,7 +6,6 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import static java.lang.Math.abs;
 import javax.swing.*;
-
 import src.GameController.GameFlowController;
 import src.GameController.ITimeControllers;
 import src.GameController.TimeController;
@@ -177,10 +176,7 @@ private void clearAllTints() {
         pauseGameButton.addActionListener(e -> {
             if (!isPaused) {
                 pauseGame();
-                System.out.println("Game Paused!");
             } else {
-                // Resume butonuna tıklandığında
-                System.out.println("Game Resumed!"); 
                 resumeGame();
             }
         });
@@ -197,21 +193,22 @@ private void clearAllTints() {
         pauseGameButton.setIcon(resumeIcon);
         isPaused = true;
     }
-    public void resumeGame(){ //TODO
+    
+    public void resumeGame() {
         Icon pauseIcon = new ImageIcon(new ImageIcon("src/Images/ObjectImages/pauseIcon.png")
-                .getImage().getScaledInstance(77, 77, Image.SCALE_SMOOTH)); // Pause ikonu
-        pauseGameButton.setIcon(pauseIcon); // Pause ikonuna geri dön
-        this.dispose();
-        System.out.println(this.timeController.getTimer().getRemainingTime() + " is left!");
-        //this.timeController.setInitializeTime(this.timeController.getTimer());
-        
+                .getImage().getScaledInstance(77, 77, Image.SCALE_SMOOTH)); // Pause icon
+    
         for (ITimeControllers timeController : gridEnvironment.getTimeControllers()) {
-            timeController.pressPauseButton();
+            timeController.pressPauseButton(); // Resume timers
         }
-        isPaused = false;
+    
+        pauseGameButton.setIcon(pauseIcon); // Update button icon
+        isPaused = false; // Update state
+    
+        //System.out.println(timeController.getTimer().getRemainingTime() + " is left!");
         timeController.setInitialTime(timeController.getTimer().getRemainingTime());
-        new PlayModeScreen(this.gridEnvironment, this.timeController);
     }
+    
     
     private void setLifeCountDisplay() {
         lifePanel = new JPanel();
@@ -507,12 +504,12 @@ private void initializeInventoryChangeListener() {
     }
     @Override
     public void keyPressed(KeyEvent e) {
-        System.out.println("Key Pressed");
+        //System.out.println("Key Pressed");
         int keyCode = e.getKeyCode();
 
         switch (keyCode) {
             case KeyEvent.VK_LEFT:
-                System.out.println("Left key pressed");
+                //System.out.println("Left key pressed");
                 gridEnvironment.moveEntity(gridEnvironment.hero, new Direction(DirectionEnum.LEFT));
                 break;
             case KeyEvent.VK_RIGHT:

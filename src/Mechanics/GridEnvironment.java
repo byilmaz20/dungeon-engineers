@@ -117,7 +117,7 @@ public class GridEnvironment {
             hall.placeEntity(entity);
             notifyGridChange(oldPosition, newPosition);
         } else {
-            System.out.println("Invalid movement. Position occupied or out of bounds.");
+            //System.out.println("Invalid movement. Position occupied or out of bounds.");
         }
     }
     
@@ -151,7 +151,7 @@ public class GridEnvironment {
             notifyGridChange(oldPosition, newPosition);
             return true;
         } else {
-            System.out.println("Invalid movement. Position occupied or out of bounds.");
+            //System.out.println("Invalid movement. Position occupied or out of bounds.");
             return false;
         }
     }

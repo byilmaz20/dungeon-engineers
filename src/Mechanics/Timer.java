@@ -75,7 +75,7 @@ public class Timer {
     public synchronized void pauseTimer() {
         if (!isPaused) {
             isPaused = true;
-            System.out.printf("Timer Paused! Elapsed Time: %.3f\n", elapsedTime);
+            //System.out.printf("Timer Paused! Elapsed Time: %.3f\n", elapsedTime);
         }
     }
 
@@ -83,7 +83,7 @@ public class Timer {
         if (isPaused) {
             isPaused = false;
             lastUpdateTime = System.currentTimeMillis();
-            System.out.printf("Timer Resumed! Elapsed Time: %.3f\n", elapsedTime);
+            //System.out.printf("Timer Resumed! Elapsed Time: %.3f\n", elapsedTime);
         }
     }
 

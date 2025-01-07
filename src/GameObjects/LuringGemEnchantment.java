@@ -1,5 +1,4 @@
 package src.GameObjects;
-import src.GameController.CloakUseController;
 import src.GameController.EnchantmentTimeController;
 import src.GameController.LuringGemController;
 import src.Mechanics.Direction;
@@ -25,7 +24,7 @@ public class LuringGemEnchantment extends Enchantment {
         this.luringGemController = new LuringGemController(grid);
 
     }    
-
+    
     public void applyEffect(Direction direction) {
         
         for (Monster monster : grid.getHall().getMonsters()) {

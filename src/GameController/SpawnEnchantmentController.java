@@ -20,8 +20,9 @@ public class SpawnEnchantmentController {
     public Enchantment spawnEnchantment() {
         PositionPoint randomLocation = grid.selectRandomLocation(); // Get a random empty position
         if (randomLocation != null) {
-            // Create a random enchantment
-            EnchantmentTypes type = Enchantment.selectRandomEnchantment();
+            // Create a random enchantment ceylin
+            // EnchantmentTypes type = Enchantment.selectRandomEnchantment();
+            EnchantmentTypes type = EnchantmentTypes.EXTRA_TIME_ENCHANTMENT;
             Enchantment enchantment;
 
             switch (type) {

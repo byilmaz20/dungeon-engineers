@@ -10,7 +10,6 @@ import src.GameObjects.Rune;
 import src.Mechanics.GridEnvironment;
 import src.Mechanics.PositionPoint;
 import src.Mechanics.Timer;
-import src.GameController.GameFlowController;
 
 /*
 yeni hall olusunca grid gridini kullanarak 
@@ -100,11 +99,11 @@ public class TimeController implements ITimeControllers {
     public void pressPauseButton() {
         if (isPaused) {
             timer.resumeTimer();
-            System.out.println("Game Resumed!");
+            //System.out.println("Game Resumed!");
             
         } else {
             timer.pauseTimer();
-            System.out.println("Game Paused!");
+            //System.out.println("Game Paused!");
             
         }
         isPaused = !isPaused;
@@ -112,8 +111,16 @@ public class TimeController implements ITimeControllers {
     }
 
     public void applyTimeEchantment() {
-        timer.addTime(5.0);
-        System.out.printf("Remaining Time Increased by 5 seconds\n");
+        String mode = GameModeController.getInstance().getGameMode();
+        if (mode.equals("easy")){
+            timer.addTime(10.0);
+            System.out.printf("timercontroller: Remaining Time Increased by 10 seconds\n");
+        } else if (mode.equals("hard")){
+            timer.addTime(5.0);
+            System.out.printf("timercontroller: Remaining Time Increased by 5 seconds\n");
+        } else {
+            assert false : "Invalid mode";
+        }
     }
 
     public static void main(String[] args) {

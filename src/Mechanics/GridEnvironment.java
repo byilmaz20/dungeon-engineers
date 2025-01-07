@@ -166,10 +166,11 @@ public class GridEnvironment {
             if (entity instanceof src.GameObjects.Hero) {
                 hero.position = newPosition;
             }
-            
+            boolean hasbeenAttacked = false;
             if (entity instanceof src.GameObjects.Monster) {
                 if (((Monster) entity).getType() == MonsterTypes.FighterMonster) {
                     if (((src.GameObjects.FighterMonster) entity).fighterAttack(this.hero)){
+                        hasbeenAttacked = true;
                         //System.out.println("Hero's remaining lifes = " + this.hero.getLives());
                     }
                 } 
@@ -179,7 +180,7 @@ public class GridEnvironment {
                     }
                 }
             }
-            if (entity instanceof src.GameObjects.Hero){
+            if (entity instanceof src.GameObjects.Hero && hasbeenAttacked == false){
                 List<Monster> monsters = hall.getMonsters();
                 for (Monster monster : monsters) {
                     if (monster.getType() == MonsterTypes.FighterMonster) {

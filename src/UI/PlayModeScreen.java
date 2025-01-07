@@ -205,7 +205,7 @@ private void clearAllTints() {
         pauseGameButton.setIcon(pauseIcon); // Update button icon
         isPaused = false; // Update state
     
-        System.out.println(timeController.getTimer().getRemainingTime() + " is left!");
+        //System.out.println(timeController.getTimer().getRemainingTime() + " is left!");
         timeController.setInitialTime(timeController.getTimer().getRemainingTime());
     }
     

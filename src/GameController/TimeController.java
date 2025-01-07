@@ -99,11 +99,11 @@ public class TimeController implements ITimeControllers {
     public void pressPauseButton() {
         if (isPaused) {
             timer.resumeTimer();
-            System.out.println("Game Resumed!");
+            //System.out.println("Game Resumed!");
             
         } else {
             timer.pauseTimer();
-            System.out.println("Game Paused!");
+            //System.out.println("Game Paused!");
             
         }
         isPaused = !isPaused;

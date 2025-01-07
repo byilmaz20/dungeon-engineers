@@ -15,7 +15,7 @@ import src.Mechanics.Timer;
 public class FighterTimeController implements ITimeControllers {
     private Timer timer;
     private boolean isPaused;
-    private double intitialTime;
+    private double initialTime;
     private FighterMonster fighter;
 
     private double lastFighterMoveTime;
@@ -29,7 +29,14 @@ public class FighterTimeController implements ITimeControllers {
         this.isPaused = false;
         this.lastFighterMoveTime = -FighterStartDelay;
         this.grid = grid;
-        this.intitialTime = grid.getHall().getObstacles().size() * 5;
+        String mode = GameModeController.getInstance().getGameMode();
+        if (mode.equals("easy")) {
+            this.initialTime = grid.getHall().getObstacles().size() * 5 * 1.2;
+        } else if (mode.equals("hard")) {
+            this.initialTime = grid.getHall().getObstacles().size() * 5;
+        } else {
+            assert false : "Invalid mode";
+        }
         grid.addTimeController(this);
 
     }
@@ -39,7 +46,7 @@ public class FighterTimeController implements ITimeControllers {
     }
 
     public void startTimeController() {
-        timer.startTimer(intitialTime, this::checkMechanics, this::printStatus);
+        timer.startTimer(initialTime, this::checkMechanics, this::printStatus);
     }
 
     private void checkMechanics() {
@@ -77,10 +84,8 @@ public class FighterTimeController implements ITimeControllers {
         String mode = GameModeController.getInstance().getGameMode();
         if (mode.equals("easy")){
             timer.addTime(10.0);
-            System.out.printf("fighter time controller: Remaining Time Increased by 10 seconds\n");
         } else if (mode.equals("hard")){
             timer.addTime(5.0);
-            System.out.printf("fighter time controller: Remaining Time Increased by 5 seconds\n");
         } else {
             assert false : "Invalid mode";
         }

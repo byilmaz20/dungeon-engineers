@@ -19,7 +19,7 @@ import src.Mechanics.Timer;
 public class WizardTimeController implements ITimeControllers {
     private Timer timer;
     private boolean isPaused;
-    private double intitialTime;
+    private double initialTime;
     private Rune rune;
     private WizardMonster wizard;
     private IWizardBehavior wizardBehavior;
@@ -35,7 +35,14 @@ public class WizardTimeController implements ITimeControllers {
         this.isPaused = false;
         this.lastRuneSpawnTime = -RuneStartDelay;
         this.grid = grid;
-        this.intitialTime = grid.getHall().getObstacles().size() * 5;
+        String mode = GameModeController.getInstance().getGameMode();
+        if (mode.equals("easy")) {
+            this.initialTime = grid.getHall().getObstacles().size() * 5 * 1.2;
+        } else if (mode.equals("hard")) {
+            this.initialTime = grid.getHall().getObstacles().size() * 5;
+        } else {
+            assert false : "Invalid mode";
+        }
         this.rune = grid.getRune();
         grid.addTimeController(this);
     }
@@ -45,7 +52,7 @@ public class WizardTimeController implements ITimeControllers {
     }
 
     public void startTimeController() {
-        timer.startTimer(intitialTime, this::checkMechanics, this::printStatus);
+        timer.startTimer(initialTime, this::checkMechanics, this::printStatus);
     }
     public void setWizardBehavior(IWizardBehavior wizardBehavior) {
         this.wizardBehavior = wizardBehavior;
@@ -93,10 +100,8 @@ public class WizardTimeController implements ITimeControllers {
         String mode = GameModeController.getInstance().getGameMode();
         if (mode.equals("easy")){
             timer.addTime(10.0);
-            System.out.printf("easy mode in wizard time controller: Remaining Time Increased by 10 seconds\n");
         } else if (mode.equals("hard")){
             timer.addTime(5.0);
-            System.out.printf("hard mode in wizard time controller: Remaining Time Increased by 5 seconds\n");
         } else {
             assert false : "Invalid mode";
         }

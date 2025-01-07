@@ -4,7 +4,6 @@ public class GameModeController {
     private String gameMode; // "easy" or "hard"
 
     private GameModeController() {
-        // Private constructor prevents external instantiation
     }
 
     public static GameModeController getInstance() {

@@ -42,7 +42,15 @@ public class TimeController implements ITimeControllers {
         this.lastMonsterSpawnTime = -monsterStartDelay;
         this.lastEnchantmentTime = -enchantmentStartDelay;
         this.grid = grid;
-        this.initialTime = grid.getHall().getObstacles().size() * 5;
+        String mode = GameModeController.getInstance().getGameMode();
+        if (mode.equals("easy")) {
+            this.initialTime = grid.getHall().getObstacles().size() * 5 * 1.2;
+        } else if (mode.equals("hard")) {
+            this.initialTime = grid.getHall().getObstacles().size() * 5;
+        } else {
+            assert false : "Invalid mode";
+        }
+        
         //todo monster için ayrıca girdi verebilsin
         
         spawner = new SpawnMonsterController(grid);
@@ -114,10 +122,8 @@ public class TimeController implements ITimeControllers {
         String mode = GameModeController.getInstance().getGameMode();
         if (mode.equals("easy")){
             timer.addTime(10.0);
-            System.out.printf("timercontroller: Remaining Time Increased by 10 seconds\n");
         } else if (mode.equals("hard")){
             timer.addTime(5.0);
-            System.out.printf("timercontroller: Remaining Time Increased by 5 seconds\n");
         } else {
             assert false : "Invalid mode";
         }

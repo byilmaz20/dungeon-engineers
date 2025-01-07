@@ -1,7 +1,7 @@
 package src.UI;
 
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
 
 public class GameOverScreen extends UIScreen {
 
@@ -25,7 +25,7 @@ public class GameOverScreen extends UIScreen {
         setContentPane(customBackgroundPanel);
 
         // "GAME OVER" başlığı
-        JLabel titleLabel = new JLabel("GAME OVER", SwingConstants.CENTER);
+        JLabel titleLabel = new JLabel();
         titleLabel.setFont(new Font("Arial", Font.BOLD, 50));
         titleLabel.setForeground(Color.RED);
         titleLabel.setBorder(BorderFactory.createEmptyBorder(50, 0, 20, 0)); // Üst boşluk
@@ -37,10 +37,17 @@ public class GameOverScreen extends UIScreen {
         messagePanel.setOpaque(false);
 
         JLabel messageLabel = new JLabel(reason, SwingConstants.CENTER);
-        messageLabel.setFont(new Font("Arial", Font.BOLD, 30));
-        messageLabel.setForeground(Color.RED);
-        messageLabel.setAlignmentX(Component.CENTER_ALIGNMENT); // Ortalı hizalama
+        messageLabel.setFont(new Font("Monospaced", Font.BOLD, 36)); 
+        messageLabel.setForeground(Color.white);
+        messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        messageLabel.setVerticalAlignment(SwingConstants.CENTER);
+        messageLabel.setBorder(BorderFactory.createEmptyBorder(40, 0, 20, 0)); 
+        messageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        messageLabel.setOpaque(false);
+        messageLabel.setBackground(new Color(0, 0, 0)); // Set background to black for contrast
+
         messagePanel.add(messageLabel);
+
 
         customBackgroundPanel.add(messagePanel, BorderLayout.CENTER);
 

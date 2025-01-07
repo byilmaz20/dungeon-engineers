@@ -6,6 +6,8 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import static java.lang.Math.abs;
 import javax.swing.*;
+
+import src.GameController.GameFlowController;
 import src.GameController.ITimeControllers;
 import src.GameController.TimeController;
 import src.GameObjects.*;
@@ -23,6 +25,7 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
     private final double scaleFactor = 0.558999993; // Scale factor for resizing the grid
     private JPanel[][] gridPanels; // Panels for each grid cell
     private boolean isPaused = false;
+    private boolean bPressed = false;
 
     private JButton pauseGameButton;
     private JButton helpButton;
@@ -33,11 +36,13 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
     private double remainingTime;
     private TimeController timeController;
     private JLabel timeLabel;
-   
     private JPanel lifePanel;
+    private JPanel inventoryPanel;
+    private JPanel[][] tintPanels = new JPanel[gridHeight][gridWidth]; // Array to hold tints for each cell
 
 
     private GridEnvironment gridEnvironment; // Reference to the GridEnvironment
+
 
 
     public PlayModeScreen(GridEnvironment gridEnvironment, TimeController timeController) {
@@ -50,7 +55,7 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
         this.timer = this.timeController.getTimer();
         this.hallType = gridEnvironment.getHall().hallType;
         this.gridEnvironment = gridEnvironment;
-        this.remainingTime = this.timer.getRemainingTime();
+        
         // Set up grid listener to update UI on grid changes
         this.gridEnvironment.setGridChangeListener(this::updateGridFromEnvironment);
         // setGridChangeListener is assigning updateGridFromEnvironment 
@@ -72,12 +77,55 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
 
         addKeyListener(this);
 
-        setVisible(true);
+        
         System.out.println("Play Mode Screen Initialized");
         timeController.startGame();
+        this.remainingTime = this.timer.getRemainingTime();
 
         updateTime(remainingTime);
+        setVisible(true);
     }
+    public void applyRedTint(PositionPoint topLeft, boolean highlightActive) {
+    // Clear all previous tints
+    clearAllTints();
+
+    if (highlightActive) {
+        // Highlight the 4x4 square
+        for (int y = topLeft.y; y < topLeft.y + 4; y++) {
+            for (int x = topLeft.x; x < topLeft.x + 4; x++) {
+                // Ensure the cell is within bounds
+                if (x >= 0 && x < gridWidth && y >= 0 && y < gridHeight) {
+                    // Create a red transparent panel if it doesn't exist
+                    if (tintPanels[y][x] == null) {
+                        JPanel tintPanel = new JPanel();
+                        tintPanel.setOpaque(true);
+                        tintPanel.setBackground(new Color(255, 0, 0, 100)); // Semi-transparent red
+                        tintPanel.setBounds(gridPanels[y][x].getBounds()); // Match the position and size of the cell
+                        tintPanels[y][x] = tintPanel;
+
+                        // Add the tint panel on top of the cell
+                        gridPanels[y][x].add(tintPanel, BorderLayout.CENTER);
+                        gridPanels[y][x].revalidate();
+                        gridPanels[y][x].repaint();
+                    }
+                }
+            }
+        }
+    }
+}
+private void clearAllTints() {
+    for (int y = 0; y < gridHeight; y++) {
+        for (int x = 0; x < gridWidth; x++) {
+            if (tintPanels[y][x] != null) {
+                gridPanels[y][x].remove(tintPanels[y][x]); // Remove the tint panel
+                tintPanels[y][x] = null;
+                gridPanels[y][x].revalidate();
+                gridPanels[y][x].repaint();
+            }
+        }
+    }
+}
+
     
     
     private void initializeComponents() {
@@ -88,6 +136,9 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
         setExitButton();
         setTimeDisplay();
         setLifeCountDisplay();
+        setInventoryDisplay();
+        initializeInventoryChangeListener();
+
     }
     private void setHallTypeImage() {
         //add hall type image to the screen
@@ -181,6 +232,7 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
         //timeLabel.setForeground(Color.BLACK); 
         timeLabel.setForeground(Color.decode("#262b2d"));
         timeLabel.setOpaque(false); 
+        timeLabel.setText("" + (int) remainingTime);
         backgroundPanel.add(timeLabel);
     }
         
@@ -208,6 +260,63 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
         exitButton.addActionListener(e -> System.exit(0));
         backgroundPanel.add(exitButton);
     }
+    private void setInventoryDisplay() {
+    inventoryPanel = new JPanel();
+    inventoryPanel.setBounds(868, 480, 220, 100); // Shifted panel slightly downwards
+    inventoryPanel.setOpaque(false); 
+    inventoryPanel.setLayout(new GridLayout(1, 3, -56, 50)); // Further increased vertical gap
+
+    updateInventoryDisplay(); // Populate inventory items initially
+
+    backgroundPanel.add(inventoryPanel); // Add inventory panel to the background
+}
+
+private void updateInventoryDisplay() {
+    inventoryPanel.removeAll(); // Clear the inventory panel for updates
+
+    // Icon paths for enchantments
+    String cloakIconPath = "src/Images/ObjectImages/cloak.png";
+    String revealIconPath = "src/Images/ObjectImages/reveal.png";
+    String lureIconPath = "src/Images/ObjectImages/lure.png";
+
+    // Display cloak enchantment with quantity
+    addEnchantmentToInventoryDisplay(cloakIconPath, gridEnvironment.getHero().getInventory().getQuantity(EnchantmentTypes.CLOAK_OF_PROTECTION_ENCHANTMENT));
+
+    // Display reveal enchantment with quantity
+    addEnchantmentToInventoryDisplay(revealIconPath, gridEnvironment.getHero().getInventory().getQuantity(EnchantmentTypes.REVEAL_ENCHANTMENT));
+
+    // Display lure enchantment with quantity
+    addEnchantmentToInventoryDisplay(lureIconPath, gridEnvironment.getHero().getInventory().getQuantity(EnchantmentTypes.LURING_GEM_ENCHANTMENT));
+
+    inventoryPanel.revalidate(); // Refresh the panel
+    inventoryPanel.repaint();    // Update the UI
+}
+
+private void addEnchantmentToInventoryDisplay(String iconPath, int quantity) {
+    JPanel enchantmentPanel = new JPanel();
+    enchantmentPanel.setLayout(new BorderLayout()); // Arrange icon and quantity vertically
+    enchantmentPanel.setOpaque(false); // Transparent background
+    enchantmentPanel.setBorder(BorderFactory.createEmptyBorder(-10, 5, 20, 5)); // Slightly adjusted bottom padding
+
+    ImageIcon icon = new ImageIcon(new ImageIcon(iconPath).getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH));
+    JLabel iconLabel = new JLabel(icon); // Icon for enchantment
+    JLabel quantityLabel = new JLabel("x" + quantity); // Quantity label
+    quantityLabel.setFont(new Font("Arial", Font.BOLD, 18)); // Styling the quantity text
+    quantityLabel.setForeground(Color.BLACK); // Text color
+    quantityLabel.setHorizontalAlignment(SwingConstants.CENTER); // Center align quantity
+
+    enchantmentPanel.add(iconLabel, BorderLayout.CENTER); // Add icon to the center
+    enchantmentPanel.add(quantityLabel, BorderLayout.SOUTH); // Add quantity below the icon
+
+    inventoryPanel.add(enchantmentPanel); // Add the enchantment panel to the inventory panel
+}
+// Ensure inventory updates dynamically
+private void initializeInventoryChangeListener() {
+    gridEnvironment.getHero().getInventory().setInventoryChangeListener(() -> {
+        SwingUtilities.invokeLater(this::updateInventoryDisplay); // Safely update the UI on the Event Dispatch Thread
+    });
+}
+
 
 
     private void initializeGrid() {
@@ -283,8 +392,15 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
     private void updateTime(double remainingTime) { //TODO text eklenecek
         this.remainingTime = remainingTime;
         //System.out.println("Time updated: " + remainingTime);
-        if (!isPaused)
+        if (!isPaused){
             timeLabel.setText("" + (int) remainingTime);
+            
+        }
+        if (remainingTime <= 0) {
+            this.dispose();
+            pauseGame();
+           
+        }
     }
 
     private void updateLifeCount(int lifeCount) {
@@ -298,6 +414,12 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
         }
         lifePanel.revalidate(); 
         lifePanel.repaint(); 
+        if (gridEnvironment.getHero().getLives() <= 0) {
+            GameFlowController.endGame("No lives remaining!");
+            this.dispose();
+            pauseGame();
+            
+}
     } 
 
 
@@ -383,12 +505,14 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
     public boolean isFocusable() {
         return true;
     }
-        @Override
+    @Override
     public void keyPressed(KeyEvent e) {
-        //System.out.println("Key Pressed");
+        System.out.println("Key Pressed");
         int keyCode = e.getKeyCode();
+
         switch (keyCode) {
             case KeyEvent.VK_LEFT:
+                System.out.println("Left key pressed");
                 gridEnvironment.moveEntity(gridEnvironment.hero, new Direction(DirectionEnum.LEFT));
                 break;
             case KeyEvent.VK_RIGHT:
@@ -399,6 +523,56 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
                 break;
             case KeyEvent.VK_DOWN:
                 gridEnvironment.moveEntity(gridEnvironment.hero, new Direction(DirectionEnum.DOWN));
+                break;
+            case KeyEvent.VK_P:
+                if (gridEnvironment.getHero().getInventory().checkAvailability(EnchantmentTypes.CLOAK_OF_PROTECTION_ENCHANTMENT)){
+                    CloakOfProtectionEnchantment cloak = new CloakOfProtectionEnchantment(null, null, gridEnvironment);
+                    cloak.applyEffect();
+                    gridEnvironment.getHero().getInventory().remove(EnchantmentTypes.CLOAK_OF_PROTECTION_ENCHANTMENT);
+                }
+                
+                break;
+            case KeyEvent.VK_R:
+                //if inventoryde reveal varsa
+                //new RevealEnchantment(null, null, gridEnvironment)
+                //RevealEnchantment reveal = new RevealEnchantment(null, null, gridEnvironment);
+                //reveal.applyEffect();
+                //gridEnvironment.getHero().getInventory().remove(EnchantmentTypes.REVEAL_ENCHANTMENT);
+                break;
+            case KeyEvent.VK_B:
+                if (gridEnvironment.getHero().getInventory().checkAvailability(EnchantmentTypes.LURING_GEM_ENCHANTMENT)){
+                    bPressed = true;
+                    gridEnvironment.getHero().getInventory().remove(EnchantmentTypes.LURING_GEM_ENCHANTMENT);
+                }
+                
+                break;
+            case KeyEvent.VK_W:
+                if (bPressed){
+                    LuringGemEnchantment lureW = new LuringGemEnchantment(null, null, gridEnvironment);
+                    lureW.applyEffect(new Direction(DirectionEnum.UP));
+                    bPressed = false;
+                }
+                break;
+            case KeyEvent.VK_A:
+                if (bPressed){
+                    LuringGemEnchantment lureA = new LuringGemEnchantment(null, null, gridEnvironment);
+                    lureA.applyEffect(new Direction(DirectionEnum.LEFT));
+                    bPressed = false;
+                }
+                break;
+            case KeyEvent.VK_S:
+                if (bPressed){
+                    LuringGemEnchantment lureS = new LuringGemEnchantment(null, null, gridEnvironment);
+                    lureS.applyEffect(new Direction(DirectionEnum.DOWN));
+                    bPressed = false;
+                }
+                break;
+            case KeyEvent.VK_D:
+                if (bPressed){
+                    LuringGemEnchantment lureD = new LuringGemEnchantment(null, null, gridEnvironment);
+                    lureD.applyEffect(new Direction(DirectionEnum.RIGHT));
+                    bPressed = false;
+                }
                 break;
             default:
                 System.out.println("Unhandled Key: " + keyCode);
@@ -417,7 +591,26 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
         if (gridEnvironment.map[x][y] instanceof Rune) {
             System.out.println("Rune has been clicked: " + x + ", " + y);
             checkRuneFound();
-        } 
+        }
+        if (gridEnvironment.map[x][y] instanceof Enchantment) {
+            Enchantment enchantment = (Enchantment) gridEnvironment.map[x][y];
+            if (enchantment.getType() == EnchantmentTypes.EXTRA_LIFE_ENCHANTMENT && gridEnvironment.getHero().getLives() < 3) {
+                enchantment.applyEffect();
+                System.out.println("Extra Life Enchantment has been clicked: " + x + ", " + y);
+            }
+            
+            if (enchantment.getType() == EnchantmentTypes.EXTRA_TIME_ENCHANTMENT) {
+                enchantment.applyEffect();
+                System.out.println("Extra Time Enchantment has been clicked: " + x + ", " + y);
+            }
+            else {
+                System.out.println("Enchantment has been clicked: " + x + ", " + y);
+                gridEnvironment.getHero().getInventory().add(enchantment);
+            }
+            gridEnvironment.removeEntity(enchantment);
+
+        }
+
     }
     public boolean checkRuneFound() {
         boolean isAdjacent = false;

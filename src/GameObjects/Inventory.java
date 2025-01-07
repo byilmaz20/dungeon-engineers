@@ -9,6 +9,8 @@ public class Inventory {
         private final List<Enchantment> items;
 
     private final Map<EnchantmentTypes, Integer> enchantmentQuantities;
+        private Runnable inventoryChangeListener; // Listener for inventory changes
+
     public Inventory() {
         this(0, 0, 0); 
     }
@@ -40,12 +42,18 @@ public class Inventory {
         EnchantmentTypes type = enchantment.getType(); 
         if (enchantmentQuantities.containsKey(type)) {
             enchantmentQuantities.put(type, enchantmentQuantities.get(type) + 1);
+            System.out.println("Added " + type);
         }
+                notifyChangeListener();
+
     }
     public void add(EnchantmentTypes type) {
         if (enchantmentQuantities.containsKey(type)) {
             enchantmentQuantities.put(type, enchantmentQuantities.get(type) + 1);
+            System.out.println("Added " + type);
         }
+                notifyChangeListener();
+
     }
 
     public void remove(Enchantment enchantment) {
@@ -54,11 +62,15 @@ public class Inventory {
         if (enchantmentQuantities.containsKey(type)) {
             enchantmentQuantities.put(type, Math.max(0, enchantmentQuantities.get(type) - 1));
         }
+                notifyChangeListener();
+
     }
     public void remove(EnchantmentTypes type) {
         if (enchantmentQuantities.containsKey(type)) {
             enchantmentQuantities.put(type, Math.max(0, enchantmentQuantities.get(type) - 1));
         }
+                notifyChangeListener();
+
     }
     public boolean checkAvailability(EnchantmentTypes type) {
         return enchantmentQuantities.getOrDefault(type, 0) > 0;
@@ -80,6 +92,15 @@ public class Inventory {
     @Override
     public String toString() {
         return "Inventory: " + enchantmentQuantities;
+    }
+    public void setInventoryChangeListener(Runnable listener) {
+        this.inventoryChangeListener = listener;
+    }
+
+    private void notifyChangeListener() {
+        if (inventoryChangeListener != null) {
+            inventoryChangeListener.run();
+        }
     }
     
 

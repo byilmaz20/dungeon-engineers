@@ -71,6 +71,5 @@ public class LuringGemController implements ITimeControllers {
     @Override
     public void applyTimeEchantment() {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'applyTimeEchantment'");
     }
 }

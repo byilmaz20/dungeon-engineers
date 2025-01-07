@@ -5,11 +5,11 @@ import javax.swing.*;
 
 public class GameOverScreen extends UIScreen {
 
-    public GameOverScreen(String reason) {
+    public GameOverScreen(String backgroundPath, String reason) {
         super(1200, 900, "Game Over");
 
         JPanel customBackgroundPanel = new JPanel() {
-            private final Image backgroundImage = new ImageIcon("src/Images/BackgroundImages/gameover.png").getImage();
+            private final Image backgroundImage = new ImageIcon(backgroundPath).getImage();
 
             @Override
             protected void paintComponent(Graphics g) {

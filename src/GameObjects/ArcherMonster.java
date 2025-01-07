@@ -1,6 +1,4 @@
 package src.GameObjects;
-import src.GameObjects.Obstacles.ObstacleType;
-import src.Mechanics.GridEnvironment;
 import src.Mechanics.PositionPoint;
 
 
@@ -23,7 +21,7 @@ public class ArcherMonster extends Monster {
         // Check if the hero is within 4 squares and protection status
         if (distance < 4 && hero.checkProtection()==false && hasAttacked == false) {
             hero.decreaseLifeCount();
-            System.out.printf("Archer Monster shot an arrow at the hero! Hero's life count: %d\n", hero.getLives());
+            //System.out.printf("Archer Monster shot an arrow at the hero! Hero's life count: %d\n", hero.getLives());
             hasAttacked = true;
             return true;
         

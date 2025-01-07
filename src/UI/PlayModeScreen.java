@@ -413,7 +413,7 @@ private void initializeInventoryChangeListener() {
         lifePanel.revalidate(); 
         lifePanel.repaint(); 
         if (gridEnvironment.getHero().getLives() <= 0) {
-            GameFlowController.endGame("No lives remaining!");
+            GameFlowController.endGame("src/Images/BackgroundImages/gameover.png","No lives remaining!");
             this.dispose();
             pauseGame();
             
@@ -586,8 +586,9 @@ private void initializeInventoryChangeListener() {
         // Do nothing
     }
     private void handleCellClick(int x, int y) {        
-        if (gridEnvironment.map[x][y] instanceof Rune) {
-            System.out.println("Rune has been clicked: " + x + ", " + y);
+        
+        if (x == gridEnvironment.rune.getPosition().x && y == gridEnvironment.rune.getPosition().y) {
+            //System.out.println("Rune has been clicked: " + x + ", " + y);
             checkRuneFound();
         }
         if (gridEnvironment.map[x][y] instanceof Enchantment) {

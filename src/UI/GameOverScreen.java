@@ -6,46 +6,62 @@ import java.awt.*;
 public class GameOverScreen extends UIScreen {
 
     public GameOverScreen(String reason) {
-        super(800, 630, "Game Over", "src/Images/BackgroundImages/gameover.png"); // Daha kompakt yükseklik
+        super(1200, 900, "Game Over");
 
-        // Ana düzen
-        setSize(800, 630); // Ekranın yüksekliği biraz azaltıldı
-        setLayout(null); // Null layout ile manuel yerleşim sağlanır.
+        JPanel customBackgroundPanel = new JPanel() {
+            private final Image backgroundImage = new ImageIcon("src/Images/BackgroundImages/gameover.png").getImage();
+
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                if (backgroundImage != null) {
+                    g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+                }
+            }
+        };
+
+        customBackgroundPanel.setLayout(new BorderLayout());
+        customBackgroundPanel.setBounds(0, 0, 1200, 900);
+        setContentPane(customBackgroundPanel);
 
         // "GAME OVER" başlığı
         JLabel titleLabel = new JLabel("GAME OVER", SwingConstants.CENTER);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 50)); // Daha büyük font
-        titleLabel.setForeground(Color.RED); // Kırmızı renk
-        titleLabel.setBounds(0, 10, 800, 60); // Üstte ortalanmış
-        add(titleLabel);
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 50));
+        titleLabel.setForeground(Color.RED);
+        titleLabel.setBorder(BorderFactory.createEmptyBorder(50, 0, 20, 0)); // Üst boşluk
+        customBackgroundPanel.add(titleLabel, BorderLayout.NORTH);
 
-        // "Reason" mesajı
+
+        JPanel messagePanel = new JPanel();
+        messagePanel.setLayout(new BoxLayout(messagePanel, BoxLayout.Y_AXIS));
+        messagePanel.setOpaque(false);
+
         JLabel messageLabel = new JLabel(reason, SwingConstants.CENTER);
-        messageLabel.setFont(new Font("Arial", Font.BOLD, 25)); // Daha küçük font
-        messageLabel.setForeground(Color.RED); // Kırmızı renk
-        messageLabel.setBounds(0, 70, 800, 40); // Başlığın hemen altında
-        add(messageLabel);
+        messageLabel.setFont(new Font("Arial", Font.BOLD, 30));
+        messageLabel.setForeground(Color.RED);
+        messageLabel.setAlignmentX(Component.CENTER_ALIGNMENT); // Ortalı hizalama
+        messagePanel.add(messageLabel);
 
-        // Arka plan görseli
-        JLabel background = new JLabel(new ImageIcon(
-                new ImageIcon("src/Images/BackgroundImages/gameover.png")
-                        .getImage()
-                        .getScaledInstance(800, 500, Image.SCALE_SMOOTH))); // Görselin yüksekliği küçültüldü
-        background.setBounds(0, 110, 800, 500); // Görsel, yazıların altına hizalandı
-        add(background); // Görseli ekledik
+        customBackgroundPanel.add(messagePanel, BorderLayout.CENTER);
 
         // "Exit Game" butonu
         JButton exitButton = new JButton("Exit Game");
-        exitButton.setFont(new Font("Arial", Font.BOLD, 20));
-        exitButton.setForeground(Color.WHITE); // Beyaz yazı
-        exitButton.setBackground(new Color(139, 0, 0)); // Koyu kırmızı arka plan
-        exitButton.setFocusPainted(false); // Buton odak efekti kaldırıldı
-        exitButton.setBounds(250, 540, 300, 40); // Buton birkaç cm yukarı kaldırıldı
+        exitButton.setFont(new Font("Arial", Font.BOLD, 25));
+        exitButton.setForeground(Color.WHITE);
+        exitButton.setBackground(new Color(139, 0, 0)); // Koyu kırmızı
+        exitButton.setFocusPainted(false);
         exitButton.addActionListener(e -> {
             System.out.println("Exit button clicked. Exiting game...");
-            System.exit(0); // Butona basıldığında oyun kapanır
+            System.exit(0); // Oyunu kapatır
         });
-        add(exitButton); // Butonu ekledik
+
+        // Buton için alt panel
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setOpaque(false); // Şeffaf arka plan
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(20, 0, 50, 0)); // Alt boşluk
+        buttonPanel.add(exitButton);
+
+        customBackgroundPanel.add(buttonPanel, BorderLayout.SOUTH);
 
         setVisible(true);
     }

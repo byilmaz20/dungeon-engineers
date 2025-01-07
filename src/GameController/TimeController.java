@@ -62,7 +62,6 @@ public class TimeController implements ITimeControllers {
         } else {
             assert false : "Invalid mode";
         }
-        System.out.println("Initial Time: " + initialTime);
         
         //todo monster için ayrıca girdi verebilsin
         

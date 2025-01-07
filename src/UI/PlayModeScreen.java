@@ -38,6 +38,8 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
     private JLabel timeLabel;
     private JPanel lifePanel;
     private JPanel inventoryPanel;
+    private JPanel[][] tintPanels = new JPanel[gridHeight][gridWidth]; // Array to hold tints for each cell
+
 
     private GridEnvironment gridEnvironment; // Reference to the GridEnvironment
 
@@ -83,6 +85,47 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
         updateTime(remainingTime);
         setVisible(true);
     }
+    public void applyRedTint(PositionPoint topLeft, boolean highlightActive) {
+    // Clear all previous tints
+    clearAllTints();
+
+    if (highlightActive) {
+        // Highlight the 4x4 square
+        for (int y = topLeft.y; y < topLeft.y + 4; y++) {
+            for (int x = topLeft.x; x < topLeft.x + 4; x++) {
+                // Ensure the cell is within bounds
+                if (x >= 0 && x < gridWidth && y >= 0 && y < gridHeight) {
+                    // Create a red transparent panel if it doesn't exist
+                    if (tintPanels[y][x] == null) {
+                        JPanel tintPanel = new JPanel();
+                        tintPanel.setOpaque(true);
+                        tintPanel.setBackground(new Color(255, 0, 0, 100)); // Semi-transparent red
+                        tintPanel.setBounds(gridPanels[y][x].getBounds()); // Match the position and size of the cell
+                        tintPanels[y][x] = tintPanel;
+
+                        // Add the tint panel on top of the cell
+                        gridPanels[y][x].add(tintPanel, BorderLayout.CENTER);
+                        gridPanels[y][x].revalidate();
+                        gridPanels[y][x].repaint();
+                    }
+                }
+            }
+        }
+    }
+}
+private void clearAllTints() {
+    for (int y = 0; y < gridHeight; y++) {
+        for (int x = 0; x < gridWidth; x++) {
+            if (tintPanels[y][x] != null) {
+                gridPanels[y][x].remove(tintPanels[y][x]); // Remove the tint panel
+                tintPanels[y][x] = null;
+                gridPanels[y][x].revalidate();
+                gridPanels[y][x].repaint();
+            }
+        }
+    }
+}
+
     
     
     private void initializeComponents() {

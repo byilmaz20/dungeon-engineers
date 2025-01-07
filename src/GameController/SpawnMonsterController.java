@@ -24,6 +24,34 @@ public class SpawnMonsterController {
         PositionPoint randomLocation = grid.selectRandomLocation(); // Get a random empty position
         if (randomLocation != null) {
             MonsterTypes type = Monster.selectRandomMonster();
+            String mode = GameModeController.getInstance().getGameMode();
+            if (mode.equals("easy")) {
+                do {
+                    if (type == MonsterTypes.WizardMonster && grid.isWizardMonsterSpawned) {
+                        type = Monster.selectRandomMonster();
+                        //System.out.println("Wizard Monster is already spawned!" + "for Hall: "+ grid.getHall().hallType+" now trying to spawn " + type);
+                    }
+                    if (type == MonsterTypes.ArcherMonster && grid.isArcherMonsterSpawned) {
+                        type = Monster.selectRandomMonster(); 
+                        //System.out.println("Archer Monster is already spawned!" + "for Hall: "+ grid.getHall().hallType+" now trying to spawn " + type);
+                    }
+                    if ((type != MonsterTypes.WizardMonster || !grid.isWizardMonsterSpawned) &&
+                        (type != MonsterTypes.ArcherMonster || !grid.isArcherMonsterSpawned)) {
+                        //System.out.println("Exit loop");
+                        break;
+                    }
+                } while (true);
+                if (type == MonsterTypes.WizardMonster) {
+                    //System.out.println("Wizard Monster is spawned for the first time" + "for Hall: "+ grid.getHall().hallType);
+                    grid.isWizardMonsterSpawned = true;
+                } else if (type == MonsterTypes.ArcherMonster) {
+                    //System.out.println("Archer Monster is spawned for the first time" + "for Hall: "+ grid.getHall().hallType);
+                    grid.isArcherMonsterSpawned = true;
+                } else {
+                    //System.out.println("Fighter Monster is spawned" + "for Hall: "+ grid.getHall().hallType);
+                }
+            }
+
             // Create a random monster
             Monster monster;
             switch (type) {

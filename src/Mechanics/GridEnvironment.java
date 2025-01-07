@@ -26,6 +26,10 @@ public class GridEnvironment {
     private List<ITimeControllers> timeControllers;
     public Obstacles runeInObject;
 
+    // flags for easy mode monster spawning limitations
+    public boolean isWizardMonsterSpawned = false;
+    public boolean isArcherMonsterSpawned = false;
+
     public interface GridChangeListener {
         void onGridChanged(Entity[][] map, PositionPoint... changedPositions);
     }

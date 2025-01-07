@@ -1,6 +1,7 @@
 package src.GameObjects;
 import java.util.Random;
 import src.GameController.EnchantmentTimeController;
+import src.GameController.RevealTimeController;
 import src.Mechanics.GridEnvironment;
 import src.Mechanics.PositionPoint;
 import src.Mechanics.Timer;
@@ -8,6 +9,8 @@ import src.UI.PlayModeScreen;
 
 public class RevealEnchantment extends Enchantment {
     private EnchantmentTimeController enchantmentTimeController;
+    private RevealTimeController revealTimeController;
+    private Timer revealUseTimer;
     private Timer enchantmentTimer;
     private GridEnvironment grid;
 
@@ -19,6 +22,7 @@ public class RevealEnchantment extends Enchantment {
         this.enchantmentTimeController = new EnchantmentTimeController(grid, this);
         this.grid = grid;
         enchantmentTimeController.startTimeController();
+        this.revealTimeController = new RevealTimeController(grid, null, null);
         enchantmentTimer = enchantmentTimeController.getTimer();
     } 
 
@@ -29,19 +33,22 @@ public class RevealEnchantment extends Enchantment {
 
         // Call PlayModeScreen to apply the red tint
         playModeScreen.applyRedTint(topLeft, true);
+        this.revealTimeController = new RevealTimeController(grid, playModeScreen, topLeft);
+        revealTimeController.startTimeController();
+        revealUseTimer = revealTimeController.getTimer();
 
         // Optionally, you can log this action for debugging
         System.out.println("Applied red tint to square starting at: (" + topLeft.x + ", " + topLeft.y + ")");
     }
 
-    public PositionPoint getRandomIndex() {
+    public static PositionPoint getRandomIndex() {
         Random random = new Random();
         int row = random.nextInt(4); // Generate a random number between 0 and 3 for the row
         int col = random.nextInt(4); // Generate a random number between 0 and 3 for the column
 
         return new PositionPoint(row, col); // Return as a PositionPoint object
     }
-    public PositionPoint getSquareTopLeft(GridEnvironment grid) {
+    public static PositionPoint getSquareTopLeft(GridEnvironment grid) {
     // Get the rune's position
     PositionPoint runePosition = grid.getRune().getPosition();
 

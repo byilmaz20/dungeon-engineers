@@ -62,6 +62,7 @@ public class Hero extends Entity {
     public void decreaseLifeCount(){
         this.lives -= 1;
         notifyLifeChange();
+        System.out.println("Life count decreased t "+this.lives);
     }
 
     public void setLifeCount(int life){

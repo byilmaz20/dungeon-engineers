@@ -19,7 +19,7 @@ public class ArcherMonster extends Monster {
         double distance = archerPosition.distanceTo(heroPosition);
 
         // Check if the hero is within 4 squares and protection status
-        if (distance < 4 && hero.checkProtection()==false && hasAttacked == false) {
+        if (distance < 4 && hero.checkProtection()==false ) { //TODO && hasAttacked == false
             hero.decreaseLifeCount();
             //System.out.printf("Archer Monster shot an arrow at the hero! Hero's life count: %d\n", hero.getLives());
             hasAttacked = true;

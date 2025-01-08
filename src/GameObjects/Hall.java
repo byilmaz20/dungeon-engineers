@@ -65,7 +65,9 @@ public class Hall {
     public List<Monster> getMonsters() {
         return monsters;
     }
-
+    public HallTypes getHallTypes() {
+        return hallType;
+    }
     public List<Obstacles> getObstacles() {
         return obstacles;
     }

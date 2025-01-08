@@ -1,10 +1,12 @@
 package src.GameController;
 
+import java.io.Serializable;
+
 import src.GameObjects.Enchantment;
 import src.Mechanics.GridEnvironment;
 import src.Mechanics.Timer;
 
-public class EnchantmentTimeController implements ITimeControllers {
+public class EnchantmentTimeController implements ITimeControllers,Serializable {
     private Timer timer;
     private boolean isPaused;
     private double initialTime;

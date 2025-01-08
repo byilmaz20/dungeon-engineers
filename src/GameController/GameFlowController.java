@@ -55,6 +55,12 @@ public class GameFlowController {
         
     }
     
+    public int getCurrentHallIndex(){
+        return currentHallIndex;
+    }
+    public Hall getCurrentHall(){
+        return currentHall;
+    }
 
 }
 

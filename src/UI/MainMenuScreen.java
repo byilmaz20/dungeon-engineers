@@ -111,7 +111,7 @@ public class MainMenuScreen extends UIScreen {
     
         loadGameButton.addActionListener(e -> {
             this.dispose();
-            new BuildModeScreen(); // Pass the selected mode
+            new LoadGameScreen(); // Pass the selected mode
         });
         backgroundPanel.add(loadGameButton);
     }

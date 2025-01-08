@@ -1,11 +1,14 @@
 package src.GameController;
+import java.io.Serializable;
+
 import src.GameObjects.Enchantment;
 import src.GameObjects.RevealEnchantment;
 import src.Mechanics.GridEnvironment;
 import src.Mechanics.PositionPoint;
 import src.Mechanics.Timer;
 import src.UI.PlayModeScreen;
-public class RevealTimeController implements ITimeControllers {
+
+public class RevealTimeController implements ITimeControllers,Serializable {
     private Timer timer;
     private boolean isPaused;
     private double intitialTime;

@@ -1,9 +1,10 @@
 package src.GameObjects;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Hall {
+public class Hall implements Serializable{
     public HallTypes hallType;
     public List<Entity> entities;          // Main list of all entities
     List<Enchantment> enchantments; // Sublist for Enchantments

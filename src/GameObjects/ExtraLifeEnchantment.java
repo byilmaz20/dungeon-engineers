@@ -1,10 +1,12 @@
 package src.GameObjects;
+import java.io.Serializable;
+
 import src.GameController.EnchantmentTimeController;
 import src.Mechanics.GridEnvironment;
 import src.Mechanics.PositionPoint;
 import src.Mechanics.Timer;
 
-public class ExtraLifeEnchantment extends Enchantment {
+public class ExtraLifeEnchantment extends Enchantment implements Serializable{
     private EnchantmentTimeController enchantmentTimeController;
     private Timer enchantmentTimer;
     private GridEnvironment grid;

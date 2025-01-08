@@ -266,6 +266,7 @@ private void clearAllTints() {
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (!isPaused) pauseGame();
                 int response = JOptionPane.showConfirmDialog(null, "Do you want to save the game before exiting?", "Confirm Exit",
                         JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
                 if (response == JOptionPane.NO_OPTION) {
@@ -281,7 +282,7 @@ private void clearAllTints() {
                             ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
                             SaveGameController sgc = new SaveGameController();
                             out.writeObject(sgc.getCurrentHall());
-                            out.writeObject(sgc.getCurrentHall());
+                            out.writeObject(sgc.getCurrentHallIndex());
                             // Ensure other objects are serializable before uncommenting
                             // out.writeObject(sgc.getGridEnvironment());
                             // out.writeObject(sgc.getPlayModeScreen());

@@ -1,9 +1,11 @@
 package src.GameController;
 
+import java.io.Serializable;
+
 import src.Mechanics.GridEnvironment;
 import src.Mechanics.Timer;
 
-public class LuringGemController implements ITimeControllers {
+public class LuringGemController implements ITimeControllers,Serializable {
     private Timer timer;
     private boolean isPaused;
     private double initialTime;

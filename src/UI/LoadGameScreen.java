@@ -68,15 +68,9 @@ public class LoadGameScreen extends JFrame implements Serializable{
                     return;
                 }
                 String filePath = SAVE_DIR + File.separator + selectedFile;
-                Hall hall = LoadGameController.loadGame(filePath);
+                LoadGameController.loadGame(filePath);
                 
-                if (hall != null) {
-                    JOptionPane.showMessageDialog(LoadGameScreen.this, "Game Loaded! Player: " + hall.getHallTypes());
-                    // Start the loaded game or transition to the game screen
-                    new PlayModeController(hall);
-                } else {
-                    JOptionPane.showMessageDialog(LoadGameScreen.this, "Failed to load the game file.", "Error", JOptionPane.ERROR_MESSAGE);
-                }
+                
             }
         });
 

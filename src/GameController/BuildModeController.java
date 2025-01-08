@@ -1,6 +1,7 @@
 package src.GameController;
 
 import java.awt.Point;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -11,7 +12,7 @@ import src.GameObjects.Obstacles.ObstacleType;
 import src.Mechanics.PositionPoint;
 import src.UI.BuildModeScreen;
 
-public class BuildModeController {
+public class BuildModeController implements Serializable{
     public static final Map<String, Hall> Halls = new HashMap<>();
 
     public BuildModeController(){

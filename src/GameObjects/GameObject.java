@@ -1,6 +1,8 @@
 package src.GameObjects;
 
-public class GameObject{
+import java.io.Serializable;
+
+public class GameObject implements Serializable{
     Hall currentHall;
     boolean isPaused; 
     int timeRemaining;

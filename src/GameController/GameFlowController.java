@@ -1,11 +1,12 @@
 package src.GameController;
 
+import java.io.Serializable;
 import java.util.List;
 import src.GameObjects.Hall;
 import src.GameObjects.HallTypes;
 import src.UI.GameOverScreen;
 
-public class GameFlowController {
+public class GameFlowController implements Serializable{
     private static final List<HallTypes> hallSequence = List.of(
         HallTypes.AIR, HallTypes.EARTH, HallTypes.FIRE, HallTypes.WATER
     );
@@ -21,6 +22,14 @@ public class GameFlowController {
         playModeController = new PlayModeController(currentHall);
     }
 
+    public GameFlowController(int currentHallIndex, Hall savedCurrentHall) {
+        GameFlowController.currentHall = savedCurrentHall;
+        GameFlowController.currentHallIndex = currentHallIndex;
+
+        playModeController = new PlayModeController(GameFlowController.currentHall);
+
+    }
+    
     public static void proceedNextHall() {
         if (playModeController != null) {
             playModeController.disposeScreen();

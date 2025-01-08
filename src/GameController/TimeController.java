@@ -1,5 +1,7 @@
 package src.GameController;
 
+import java.io.Serializable;
+
 import src.GameObjects.Hall;
 import src.GameObjects.HallTypes;
 import src.GameObjects.Hero;
@@ -20,7 +22,7 @@ ekranda time gostermek icin de sonradan ekleyecez
 ornek kullanım bunun maininde
  */
 
-public class TimeController implements ITimeControllers {
+public class TimeController implements ITimeControllers, Serializable {
     private Timer timer;
     private boolean isPaused;
     private double initialTime;

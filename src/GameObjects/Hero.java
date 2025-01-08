@@ -7,11 +7,11 @@ import src.Mechanics.PositionPoint;
 
 public class Hero extends Entity {
     int lives; 
-    Inventory inventory;  //(Bag containing Enchantments)
+    transient Inventory inventory;  //(Bag containing Enchantments)
     boolean  ProtectionStatus;  //(Indicates if thecloak of protection is active)
     boolean FoolingStatus;
     private Direction lureDirection;
-    private LifeCountListener listener;
+    transient private LifeCountListener listener;
 
     public Hero(PositionPoint heroPosition, Hall hall) {
         super(heroPosition, hall);

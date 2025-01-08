@@ -1,11 +1,12 @@
 package src.GameObjects;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 
-public class Inventory {
+public class Inventory implements Serializable{
         private final List<Enchantment> items;
 
     private final Map<EnchantmentTypes, Integer> enchantmentQuantities;

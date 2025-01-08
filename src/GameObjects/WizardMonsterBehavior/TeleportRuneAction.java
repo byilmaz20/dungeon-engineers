@@ -1,10 +1,12 @@
 package src.GameObjects.WizardMonsterBehavior;
 
+import java.io.Serializable;
+
 import src.GameController.WizardTimeController;
 import src.GameObjects.WizardMonster;
 import src.Mechanics.GridEnvironment;
 
-public class TeleportRuneAction implements IWizardBehavior {
+public class TeleportRuneAction implements IWizardBehavior, Serializable {
     
     public void takeAction(WizardTimeController wizardTimeController) {
         double elapsedTime = wizardTimeController.getElapsedTime();

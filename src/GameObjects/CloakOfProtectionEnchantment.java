@@ -1,4 +1,6 @@
 package src.GameObjects;
+import java.io.Serializable;
+
 import src.GameController.CloakUseController;
 import src.GameController.EnchantmentTimeController;
 import src.GameObjects.EnchantmentTypes;
@@ -6,7 +8,7 @@ import src.Mechanics.GridEnvironment;
 import src.Mechanics.PositionPoint;
 import src.Mechanics.Timer;
 
-public class CloakOfProtectionEnchantment extends Enchantment {
+public class CloakOfProtectionEnchantment extends Enchantment implements Serializable{
     private EnchantmentTimeController enchantmentTimeController;
     private CloakUseController cloakUseController;
     private Timer cloakUseTimer;

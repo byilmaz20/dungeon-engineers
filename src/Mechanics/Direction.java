@@ -1,8 +1,10 @@
 package src.Mechanics;
 
+import java.io.Serializable;
+
 public class Direction {
     //UP, DOWN, LEFT, RIGHT
-    public enum DirectionEnum {
+    public enum DirectionEnum implements Serializable{
         UP,
         DOWN,
         LEFT,

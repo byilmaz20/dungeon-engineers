@@ -165,7 +165,33 @@ public class BuildModeScreen extends JPanel {
             objectPanel.add(objectLabel, gbc);
         }
 
+        JButton easyInitButton = new JButton("<html><center>Easy<br>Place</center></html>");
+
+        easyInitButton.setFont(new Font("DialogInput", Font.BOLD, 20));
+        easyInitButton.setForeground(Color.BLACK);
+        easyInitButton.setBackground(new Color(168, 160, 136));
+        easyInitButton.setFocusPainted(false);
+        easyInitButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 4));
+        easyInitButton.setOpaque(true);
         
+        easyInitButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                easyInitButton.setBackground(new Color(190, 180, 160));
+            }
+        
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                easyInitButton.setBackground(new Color(168, 160, 136));
+            }
+        });
+        
+        easyInitButton.addActionListener(e -> startEasyInit());
+        
+        gbc.gridy = objects.length + 1;
+        gbc.insets = new Insets(0, 0, 10, 0);
+        objectPanel.add(easyInitButton, gbc);
+
+
+
         JButton randomInitButton = new JButton("<html><center>Random<br>Place</center></html>");
 
         randomInitButton.setFont(new Font("DialogInput", Font.BOLD, 20));
@@ -188,7 +214,7 @@ public class BuildModeScreen extends JPanel {
         randomInitButton.addActionListener(e -> startRandomInit());
         
         gbc.gridy = objects.length + 1;
-        gbc.insets = new Insets(20, 0, 10, 0);
+        gbc.insets = new Insets(100, 0, 10, 0);
         objectPanel.add(randomInitButton, gbc);
         
         JButton startGameButton = new JButton("<html><center>Start<br>Game</center></html>");
@@ -213,7 +239,7 @@ public class BuildModeScreen extends JPanel {
         startGameButton.addActionListener(e -> checkRequirementsAndStartGame());
         
         gbc.gridy = objects.length + 1;
-        gbc.insets = new Insets(120, 0, 10, 0);
+        gbc.insets = new Insets(200, 0, 10, 0);
         objectPanel.add(startGameButton, gbc);
         
         
@@ -462,6 +488,119 @@ public class BuildModeScreen extends JPanel {
         }
         
     }
+
+
+
+
+
+    private void startEasyInit() {
+        int[] water = { 256, 282, 308, 334, 310, 286, 262, 288, 314, 340, 316, 292,268};
+        int[] earth = {262, 287, 312, 337, 362, 387};
+        int[] air = {260, 286, 312, 338, 364, 288, 264, 336, 360};
+        int[] fire = {210, 235, 260, 285, 310, 335, 360, 385, 410, 211, 212, 213, 214, 286, 287, 288, 289};
+
+        int[] randomIntegersPosition = new int[water.length + earth.length + air.length + fire.length];
+        System.arraycopy(water, 0, randomIntegersPosition, 0, water.length);
+        System.arraycopy(earth, 0, randomIntegersPosition, water.length, earth.length);
+        System.arraycopy(air, 0, randomIntegersPosition, water.length+earth.length, air.length);
+        System.arraycopy(fire, 0, randomIntegersPosition, water.length+earth.length+air.length, fire.length);
+        
+        Arrays.sort(randomIntegersPosition, 0, 13);
+        Arrays.sort(randomIntegersPosition, 13, 19);
+        Arrays.sort(randomIntegersPosition, 19, 28);
+        Arrays.sort(randomIntegersPosition, 28, 45);
+        
+        int indexOfArray = 0;
+        for (String hallName : hallPanels.keySet()) {
+            JPanel hall = hallPanels.get(hallName);
+    
+            int minObject;
+            if (hallObjectCounts.get(hallName)<hallMinimumCounts.get(hallName)){
+                minObject = indexOfArray+hallMinimumCounts.get(hallName)-hallObjectCounts.get(hallName);
+            }
+            else{
+                minObject = indexOfArray+hallMinimumCounts.get(hallName);
+                indexOfArray = minObject;
+            }
+
+
+            String[] randObj;
+            if (hallObjectCounts.get(hallName)<hallMinimumCounts.get(hallName)){
+                randObj = randomObjectGenerator(hallMinimumCounts.get(hallName)-hallObjectCounts.get(hallName));
+                }
+            else{
+                randObj = randomObjectGenerator(hallMinimumCounts.get(hallName));
+                }
+            
+
+            int objIndex = 0;
+
+            
+            for (int i = 0; i < hallGridSize * hallGridSize; i++) {
+
+                if (indexOfArray < minObject){
+                    
+                    if (i == randomIntegersPosition[indexOfArray]){
+                        
+                        String obj = randObj[objIndex];
+                        
+                        JLabel cell = (JLabel) hall.getComponent(i);
+
+                        ImageIcon icon = new ImageIcon(objectImages.get(obj));
+                        Image scaledImage = icon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+                        ImageIcon last = new ImageIcon(scaledImage);
+                        last.setDescription(obj);
+                        cell.setIcon(last);
+            
+                        //hall.add(cell);
+
+
+                        indexOfArray+=1;
+                        objIndex +=1;
+
+                        hallObjectCounts.put(hallName, hallObjectCounts.get(hallName) + 1);
+                 
+                        int row = i / hallGridSize;
+                        int col = i % hallGridSize;
+                        Point coordinates = new Point(row, col);
+                        //System.out.println(((ImageIcon) cell.getIcon()).getDescription());
+                        hallObjectPlacements.get(hallName).put(coordinates, obj);
+
+                        continue;
+                    }
+
+                }
+                /* JLabel cell = new JLabel();
+                ImageIcon icon = new ImageIcon("src/Images/BackgroundImages/cell.png");
+            
+                
+
+                Image scaledImage = icon.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+                
+                ImageIcon last = new ImageIcon(scaledImage);
+                last.setDescription("cell");
+                //cell.setOpaque(false); 
+                //cell.setBorder(BorderFactory.createLineBorder(new Color(50, 50, 50), 1)); // Grid lines
+                cell.setIcon(last);
+                
+                cell.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        placeSelectedObject(cell, hallName);
+                    }
+                });
+    
+                hall.add(cell); */
+                
+            }
+            
+            
+        }
+        
+    }
+
+
+
 
     private void checkRequirementsAndStartGame() {
         StringBuilder errorMessage = new StringBuilder();

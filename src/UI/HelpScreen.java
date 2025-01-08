@@ -53,7 +53,8 @@ public class HelpScreen extends UIScreen {
 
         addObjectToLeftPanel("", "Time",
                         "For each hall, the player has a time limit to pass the dungeon."+
-                        "If the timer expires, the game is over.");
+                        " If the timer expires, the game is over. "+
+                        "The time limit in each hall is 5 seconds for each object present in the hall.");
 
         addObjectToLeftPanel("src/Images/ObjectImages/exit1.png", "Exit Button",
                         "This button closes the game windows and opens the main menu screen. ");
@@ -83,7 +84,15 @@ public class HelpScreen extends UIScreen {
                 "Type of an enemy that can shoot arrows within the range of 4 grids. It cannot detect " +
                         "the player if the player uses a cloak of protection.");
         addObjectToLeftPanel("src/Images/ObjectImages/wizard.png", "Wizard Monster",
-                "Type of an enemy that can teleport the rune to a random location every 5 seconds.");
+                "This monster type has different behaviors according to the remaining time:\n" + //
+
+                "-If when this monster appears less than 30% of the total time remains, it " + //
+                                        "will change the location of the player to a random empty location once and disappear.\n" + //
+                "-If more than 70% of the total time remains, it will change the location of the rune " + //
+                                        "every 3 seconds. \n" + //
+                "-If the remaining time is between 30% - 70%, it will stay in the " + //
+                                        "place in which it appears, then disappear after 2 seconds without doing anything."
+                );
         addObjectToLeftPanel("src/Images/ObjectImages/fighter.png", "Fighter Monster",
                 "Type of an enemy that can only attack the player if the player is next to the monster. " +
                         "It can be distracted by luring gems.");
@@ -106,12 +115,14 @@ public class HelpScreen extends UIScreen {
                 "To use this enchantment, the player needs to press the “B” button and then one of the " +
                         "following buttons “W”, “A”, “S” or “D” to select which direction to throw the lure after " +
                         "collecting it. The “Luring gem” enchantment is used to fool the fighter monster. The fighter " +
-                        "monster follows the gem.");
+                        "monster starts to move to the same direction of the throwed gem.");
+        addObjectToLeftPanel("src/Images/ObjectImages/extra_time.png", "Extra Time",
+                "When the user collects an 'extra time' enchantment, the remaining time gets increased by 5."+
+                " The addition of the extra time happens the moment it is collected.");
         addObjectToLeftPanel("src/Images/ObjectImages/extra_life.png", "Extra Life",
                 "This enchantment increases the hero’s lives by one. Like the extra time enchantment, the addition " +
                         "of the extra life happens the moment it is collected.");
-        addObjectToLeftPanel("src/Images/ObjectImages/extra_time.png", "Extra Time",
-                "When the user collects an 'extra life' enchantment, the hero’s lives are increased by 1.");
+        
 
         addTitleToLeftPanel("BUILD MODE");
 
@@ -128,9 +139,41 @@ public class HelpScreen extends UIScreen {
 
         addObjectToLeftPanel("", "",
             "The hero starts the game in the first hall of the dungeon. The hero’s main goal is to "+
-                "escape from the dungeon by passing through 4 halls. The hero passes through the halls in the given order: Hall of "+
+                "escape from the dungeon by passing through 4 halls. To pass through the halls, the hero has to find a rune which "+ 
+                "is hidden below an obstacle. To collect rune, the player should left click on obstacles with standing next to obstacles."+ 
+                " The hero passes through the halls in the given order: Hall of "+
                     "Earth, Hall of Air, Hall of Water, and Hall of Fire. When the hero passes through the Hall of " +
                         "Fire the player wins the game.");
+
+
+        addTitleToLeftPanel("HARD MODE");
+
+        addObjectToLeftPanel("", "",
+            "The features that are already given above (about monsters and enchantments) are related to 'HARD MODE'. ");
+
+
+        addTitleToLeftPanel("EASY MODE");
+
+        addObjectToLeftPanel("", "",
+            "-This mode is easier than the 'HARD MODE'. You can see the differences below:\n"+
+                "-Longer rune search time (20% increase per hall). \n"+
+                    "-Extra Time enchantment adds 10 seconds instead of 5. \n" +
+                        "-Monsters appear every 8 seconds instead of 6.\n" +
+                            "-The player has 5 lives instead of 3. \n" +
+                                "-Enchantments appear every 5 seconds."+
+                                "-Wizard Monster and Archer Monster spawn maximum once per hall.");
+
+
+        addTitleToLeftPanel("SAVE GAME");
+
+        addObjectToLeftPanel("", "",
+            "The save option occurs when the player tries to close the game via 'Exit Button'. The player can name their saves.");
+
+
+        addTitleToLeftPanel("LOAD GAME");
+
+        addObjectToLeftPanel("", "",
+            "The player can load the already saved game by clicking 'Load Game' in main menu screen.");
     }
     
 

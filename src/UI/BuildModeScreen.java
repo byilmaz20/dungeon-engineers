@@ -130,7 +130,7 @@ public class BuildModeScreen extends JPanel {
             new MainMenuScreen(); 
         });
         gbc.gridy = 0;
-        gbc.insets = new Insets(10, 0, 20, 0);  
+        gbc.insets = new Insets(0, 0, 20, 0);  
 
 
 
@@ -186,8 +186,8 @@ public class BuildModeScreen extends JPanel {
         
         easyInitButton.addActionListener(e -> startEasyInit());
         
-        gbc.gridy = objects.length + 1;
-        gbc.insets = new Insets(0, 0, 10, 0);
+        gbc.gridy = objects.length+1;
+        gbc.insets = new Insets(-70, 0, 10, 0);
         objectPanel.add(easyInitButton, gbc);
 
 
@@ -214,7 +214,7 @@ public class BuildModeScreen extends JPanel {
         randomInitButton.addActionListener(e -> startRandomInit());
         
         gbc.gridy = objects.length + 1;
-        gbc.insets = new Insets(100, 0, 10, 0);
+        gbc.insets = new Insets(30, 0, 10, 0);
         objectPanel.add(randomInitButton, gbc);
         
         JButton startGameButton = new JButton("<html><center>Start<br>Game</center></html>");
@@ -239,7 +239,7 @@ public class BuildModeScreen extends JPanel {
         startGameButton.addActionListener(e -> checkRequirementsAndStartGame());
         
         gbc.gridy = objects.length + 1;
-        gbc.insets = new Insets(200, 0, 10, 0);
+        gbc.insets = new Insets(130, 0, 10, 0);
         objectPanel.add(startGameButton, gbc);
         
         

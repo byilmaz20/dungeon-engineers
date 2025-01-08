@@ -12,7 +12,7 @@ public class GameFlowController implements Serializable{
 
     private static int currentHallIndex = 0; // Tracks the current hall in the sequence
     public static Hall currentHall;
-    private static PlayModeController playModeController;
+    transient private static PlayModeController playModeController;
 
     private static boolean gameFinished = false; // Track if the game is finished
 

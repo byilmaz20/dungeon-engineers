@@ -5,9 +5,9 @@ import java.util.Random;
 import src.Mechanics.Direction.DirectionEnum;
 import src.Mechanics.PositionPoint;
 
-public class Monster extends Entity implements Serializable{
+public class Monster extends Entity{
     boolean isTriggered;
-     MonsterTypes type;
+    MonsterTypes type;
 
     // Constructor with a random monster type
     public Monster(PositionPoint position, Hall hall) {

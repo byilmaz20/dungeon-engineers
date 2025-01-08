@@ -2,6 +2,7 @@ package src.GameObjects;
 import javax.swing.*;
 
 import src.GameController.GameFlowController;
+import src.GameController.PlayModeController;
 import src.UI.MainMenuScreen;
 
 import java.awt.*;
@@ -66,11 +67,12 @@ public class LoadGameScreen extends JFrame implements Serializable{
                     return;
                 }
                 String filePath = SAVE_DIR + File.separator + selectedFile;
-                GameFlowController gameFlowController = LoadGame.loadGame(filePath);
+                Hall hall = LoadGame.loadGame(filePath);
                 
-                if (gameFlowController != null) {
-                    JOptionPane.showMessageDialog(LoadGameScreen.this, "Game Loaded! Player: " + gameFlowController.getCurrentHall());
+                if (hall != null) {
+                    JOptionPane.showMessageDialog(LoadGameScreen.this, "Game Loaded! Player: " + hall.getHallTypes());
                     // Start the loaded game or transition to the game screen
+                    new PlayModeController(hall);
                 } else {
                     JOptionPane.showMessageDialog(LoadGameScreen.this, "Failed to load the game file.", "Error", JOptionPane.ERROR_MESSAGE);
                 }

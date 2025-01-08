@@ -9,7 +9,7 @@ import java.io.Serializable;
 import src.GameController.GameFlowController;
 
 public class LoadGame implements Serializable{
-    public static GameFlowController loadGame(String saveName) {
+    public static Hall loadGame(String saveName) {
         System.out.println(saveName);
         try {
             // Define the save directory and file path
@@ -20,16 +20,16 @@ public class LoadGame implements Serializable{
             // Deserialize the object from the file
             try (FileInputStream fileIn = new FileInputStream(filePath);
                  ObjectInputStream in = new ObjectInputStream(fileIn)) {
-                    GameFlowController gameState = (GameFlowController) in.readObject();
+                    
                     Hall Hal = (Hall) in.readObject();
+                    int currentHallIndex = (int) in.readObject();
 
                 System.out.println("Game loaded successfully from: " + filePath);
-                System.out.println(gameState.getCurrentHallIndex());
-                System.out.println(gameState.getCurrentHallIndex());
-                System.out.println(gameState.getCurrentHallIndex());
+                
                 System.out.println(Hal.getHallTypes());
+                System.out.println(currentHallIndex);
 
-                return gameState;
+                return Hal;
             }
         } catch (Exception e) {
             System.err.println("Error loading game: " + e.getMessage());

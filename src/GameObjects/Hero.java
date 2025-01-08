@@ -6,16 +6,16 @@ import src.Mechanics.Direction;
 import src.Mechanics.PositionPoint;
 
 
-public class Hero extends Entity implements Serializable{
+public class Hero extends Entity {
     int lives; 
-    Inventory inventory;  //(Bag containing Enchantments)
+    transient Inventory inventory;  //(Bag containing Enchantments)
     boolean  ProtectionStatus;  //(Indicates if thecloak of protection is active)
-    private LifeCountListener listener;
+    transient private LifeCountListener listener;
 
     public Hero(PositionPoint heroPosition, Hall hall) {
         super(heroPosition, hall);
         this.lives = 3;
-        this.inventory = new Inventory();
+        //this.inventory = new Inventory();
         this.ProtectionStatus = false;
     }
 
@@ -30,11 +30,11 @@ public class Hero extends Entity implements Serializable{
     }
     public void increaseLifeCount(){
         this.lives += 1;
-        notifyLifeChange();
+        //notifyLifeChange();
     }
     public void decreaseLifeCount(){
         this.lives -= 1;
-        notifyLifeChange();
+        //notifyLifeChange();
     }
 
     public void setLifeCount(int life){
@@ -78,12 +78,12 @@ public class Hero extends Entity implements Serializable{
     }
     
     public synchronized void setLifeCountListener(LifeCountListener listener) {
-        this.listener = listener;
+        //this.listener = listener;
     }
 
-    private void notifyLifeChange() {
+   /*  private void notifyLifeChange() {
         if (listener != null) {
             listener.onLifeChanged(lives);
         }
-    }
+    } */
 }

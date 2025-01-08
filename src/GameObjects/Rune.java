@@ -4,7 +4,7 @@ import java.io.Serializable;
 import src.GameController.GameFlowController;
 import src.Mechanics.PositionPoint;
 
-public class Rune extends Entity implements Serializable{
+public class Rune extends Entity{
     boolean isFound;
 
     public Rune(PositionPoint position, Hall hall) {

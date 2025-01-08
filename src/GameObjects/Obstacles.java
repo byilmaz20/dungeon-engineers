@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import src.Mechanics.PositionPoint;
 
-public class Obstacles extends Entity implements Serializable{
+public class Obstacles extends Entity{
     private ObstacleType type;
 
     public Obstacles(PositionPoint position, Hall hall, ObstacleType type) {

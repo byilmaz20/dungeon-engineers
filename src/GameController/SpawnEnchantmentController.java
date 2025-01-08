@@ -1,5 +1,7 @@
 package src.GameController;
 
+import java.io.Serializable;
+
 import src.GameObjects.CloakOfProtectionEnchantment;
 import src.GameObjects.Enchantment;
 import src.GameObjects.EnchantmentTypes;
@@ -10,7 +12,7 @@ import src.GameObjects.RevealEnchantment;
 import src.Mechanics.GridEnvironment;
 import src.Mechanics.PositionPoint;
 
-public class SpawnEnchantmentController {
+public class SpawnEnchantmentController implements Serializable{
     private GridEnvironment grid;
 
     public SpawnEnchantmentController(GridEnvironment grid) {

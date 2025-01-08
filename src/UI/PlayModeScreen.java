@@ -1,14 +1,21 @@
 package src.UI;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+
 import static java.lang.Math.abs;
 import javax.swing.*;
 import src.GameController.GameFlowController;
 import src.GameController.GameModeController;
 import src.GameController.ITimeControllers;
+import src.GameController.SaveGameController;
 import src.GameController.TimeController;
 import src.GameObjects.*;
 import src.GameObjects.Obstacles.ObstacleType;
@@ -249,13 +256,46 @@ private void clearAllTints() {
         });
         backgroundPanel.add(helpButton);
     }
+    
     private void setExitButton() {
         exitButton = new JButton();
         exitButton.setBounds(1045, 37, 77, 77);
         exitButton.setOpaque(false);
         exitButton.setContentAreaFilled(false);
         exitButton.setBorderPainted(false);
-        exitButton.addActionListener(e -> System.exit(0));
+        exitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (!isPaused) pauseGame();
+                int response = JOptionPane.showConfirmDialog(null, "Do you want to save the game before exiting?", "Confirm Exit",
+                        JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (response == JOptionPane.NO_OPTION) {
+                    System.exit(0);
+                } else if (response == JOptionPane.YES_OPTION) {
+                    String saveName = JOptionPane.showInputDialog(null, "Enter a name for your save file:", "Save Game", JOptionPane.PLAIN_MESSAGE);
+                    if (saveName != null && !saveName.trim().isEmpty()) {
+                        String saveDir = "Saves";
+                        File saveFolder = new File(saveDir);
+                        if (!saveFolder.exists()) saveFolder.mkdirs();
+                        String filePath = saveDir + File.separator + saveName + ".dat";
+                        try (FileOutputStream fileOut = new FileOutputStream(filePath);
+                            ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
+                            SaveGameController sgc = new SaveGameController();
+                            out.writeObject(sgc.getCurrentHall());
+                            out.writeObject(sgc.getCurrentHallIndex());
+                            // Ensure other objects are serializable before uncommenting
+                            // out.writeObject(sgc.getGridEnvironment());
+                            // out.writeObject(sgc.getPlayModeScreen());
+                            // out.writeObject(sgc.getTimeController());
+                            JOptionPane.showMessageDialog(null, "Game saved successfully as \"" + saveName + "\".", "Save Successful", JOptionPane.INFORMATION_MESSAGE);
+                            System.exit(0);
+                        } catch (Exception ex) {
+                            JOptionPane.showMessageDialog(null, "Failed to save the game: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+                }
+            }
+        });
         backgroundPanel.add(exitButton);
     }
     private void setInventoryDisplay() {

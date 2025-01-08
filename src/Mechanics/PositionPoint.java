@@ -1,8 +1,9 @@
 package src.Mechanics;
 
+import java.io.Serializable;
 import java.util.Random;
 
-public class PositionPoint {
+public class PositionPoint implements Serializable{
     public int x;
     public int y;
     

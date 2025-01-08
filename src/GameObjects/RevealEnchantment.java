@@ -1,4 +1,5 @@
 package src.GameObjects;
+import java.io.Serializable;
 import java.util.Random;
 import src.GameController.EnchantmentTimeController;
 import src.GameController.RevealTimeController;
@@ -7,7 +8,7 @@ import src.Mechanics.PositionPoint;
 import src.Mechanics.Timer;
 import src.UI.PlayModeScreen;
 
-public class RevealEnchantment extends Enchantment {
+public class RevealEnchantment extends Enchantment implements Serializable{
     private EnchantmentTimeController enchantmentTimeController;
     private RevealTimeController revealTimeController;
     private Timer revealUseTimer;

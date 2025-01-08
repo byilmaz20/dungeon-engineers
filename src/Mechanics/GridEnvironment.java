@@ -1,5 +1,6 @@
 package src.Mechanics;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -14,7 +15,7 @@ import src.GameObjects.MonsterTypes;
 import src.GameObjects.Obstacles;
 import src.GameObjects.Rune;
 
-public class GridEnvironment {
+public class GridEnvironment implements Serializable{
     public Hero hero;
     public Rune rune;
     Hall hall;

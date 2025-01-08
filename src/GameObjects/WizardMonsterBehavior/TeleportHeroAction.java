@@ -1,5 +1,6 @@
 package src.GameObjects.WizardMonsterBehavior;
 
+import java.io.Serializable;
 import java.util.Random;
 
 import src.GameController.WizardTimeController;
@@ -8,7 +9,7 @@ import src.Mechanics.Direction.DirectionEnum;
 import src.Mechanics.GridEnvironment;
 import src.Mechanics.PositionPoint;
 
-public class TeleportHeroAction implements IWizardBehavior {
+public class TeleportHeroAction implements IWizardBehavior, Serializable {
     public void takeAction(WizardTimeController wizardTimeController) {
         GridEnvironment grid = wizardTimeController.getGrid();
         wizardTimeController.getTimer().pauseTimer();

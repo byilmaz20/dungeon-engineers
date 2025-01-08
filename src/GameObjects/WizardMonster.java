@@ -1,5 +1,6 @@
 package src.GameObjects;
 
+import java.io.Serializable;
 import java.util.Random;
 import src.GameController.WizardTimeController;
 import src.Mechanics.GridEnvironment;

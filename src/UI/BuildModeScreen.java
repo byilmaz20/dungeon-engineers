@@ -2,6 +2,7 @@ package src.UI;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -12,9 +13,10 @@ import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import src.GameController.BuildModeController;
 import src.GameController.GameFlowController;
+import src.GameController.SaveGameController;
 import src.GameObjects.Hall;
 
-public class BuildModeScreen extends JPanel {
+public class BuildModeScreen extends JPanel implements Serializable{
 
     private final Map<String, JPanel> hallPanels; // Store hall panels
     private final Map<String, String> objectImages; // Store object image paths
@@ -628,7 +630,8 @@ public class BuildModeScreen extends JPanel {
                 //System.out.println(hall);
             }
             
-            new GameFlowController();
+            GameFlowController gameflowcont = new GameFlowController();
+            SaveGameController.setGameFlowController(gameflowcont);
             frame.setVisible(false);
         } else {
             UIManager.put("OptionPane.background", new Color(168, 160, 136)); 

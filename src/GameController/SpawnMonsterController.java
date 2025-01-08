@@ -1,5 +1,7 @@
 package src.GameController;
 
+import java.io.Serializable;
+
 import src.GameObjects.ArcherMonster;
 import src.GameObjects.FighterMonster;
 import src.GameObjects.Hall;
@@ -12,7 +14,7 @@ import src.GameObjects.WizardMonster;
 import src.Mechanics.GridEnvironment;
 import src.Mechanics.PositionPoint;
 
-public class SpawnMonsterController {
+public class SpawnMonsterController implements Serializable{
     private GridEnvironment grid;
 
     public SpawnMonsterController(GridEnvironment grid) { 

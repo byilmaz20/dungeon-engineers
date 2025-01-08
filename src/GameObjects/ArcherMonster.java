@@ -1,8 +1,10 @@
 package src.GameObjects;
+import java.io.Serializable;
+
 import src.Mechanics.PositionPoint;
 
 
-public class ArcherMonster extends Monster {
+public class ArcherMonster extends Monster implements Serializable{
     boolean hasAttacked = false;
     public ArcherMonster(PositionPoint position, Hall hall){
         super(position, hall);

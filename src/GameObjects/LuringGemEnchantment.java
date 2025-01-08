@@ -1,4 +1,6 @@
 package src.GameObjects;
+import java.io.Serializable;
+
 import src.GameController.EnchantmentTimeController;
 import src.GameController.LuringGemController;
 import src.Mechanics.Direction;
@@ -6,7 +8,7 @@ import src.Mechanics.GridEnvironment;
 import src.Mechanics.PositionPoint;
 import src.Mechanics.Timer;
 
-public class LuringGemEnchantment extends Enchantment {
+public class LuringGemEnchantment extends Enchantment implements Serializable{
     private EnchantmentTimeController enchantmentTimeController;
     private LuringGemController luringGemController;
     private Timer luringGemTimer;

@@ -1,12 +1,14 @@
 package src.GameController;
 
+import java.io.Serializable;
+
 import src.GameObjects.Enchantment;
 import src.GameObjects.Hall;
 import src.Mechanics.GridEnvironment;
 import src.Mechanics.Timer;
 import src.UI.PlayModeScreen;
 
-public class PlayModeController{
+public class PlayModeController implements Serializable{
     
     Hall currentHall;
     Enchantment activeEnchantment;

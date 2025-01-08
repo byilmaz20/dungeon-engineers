@@ -1,5 +1,8 @@
 package src.GameObjects;
-public enum EnchantmentTypes {
+
+import java.io.Serializable;
+
+public enum EnchantmentTypes implements Serializable{
     EXTRA_TIME_ENCHANTMENT,
     CLOAK_OF_PROTECTION_ENCHANTMENT,
     REVEAL_ENCHANTMENT,

@@ -1,5 +1,7 @@
 package src.GameController;
 
+import java.io.Serializable;
+
 import src.GameObjects.FighterMonster;
 import src.GameObjects.Hall;
 import src.GameObjects.HallTypes;
@@ -12,7 +14,7 @@ import src.Mechanics.GridEnvironment;
 import src.Mechanics.PositionPoint;
 import src.Mechanics.Timer;
 
-public class FighterTimeController implements ITimeControllers {
+public class FighterTimeController implements ITimeControllers, Serializable {
     private Timer timer;
     private boolean isPaused;
     private double initialTime;

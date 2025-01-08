@@ -1,11 +1,13 @@
 package src.GameObjects;
+import java.io.Serializable;
+
 import src.GameController.FighterTimeController;
 import src.Mechanics.Direction;
 import src.Mechanics.GridEnvironment;
 import src.Mechanics.PositionPoint;
 import src.Mechanics.Timer;
 
-public class FighterMonster extends Monster {
+public class FighterMonster extends Monster implements Serializable{
     private FighterTimeController fighterTimeController;
     private Timer fighterTimer;
     

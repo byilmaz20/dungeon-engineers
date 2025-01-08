@@ -1,9 +1,11 @@
 package src.UI;
 
 import java.awt.*;
+import java.io.Serializable;
+
 import javax.swing.*;
 
-public class GameOverScreen extends UIScreen {
+public class GameOverScreen extends UIScreen implements Serializable{
 
     public GameOverScreen(String backgroundPath, String reason) {
         super(1200, 900, "Game Over");

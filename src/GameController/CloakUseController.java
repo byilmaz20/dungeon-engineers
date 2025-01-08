@@ -1,9 +1,11 @@
 package src.GameController;
 
+import java.io.Serializable;
+
 import src.Mechanics.GridEnvironment;
 import src.Mechanics.Timer;
 
-public class CloakUseController implements ITimeControllers {
+public class CloakUseController implements ITimeControllers, Serializable {
     private Timer timer;
     private boolean isPaused;
     private double initialTime;

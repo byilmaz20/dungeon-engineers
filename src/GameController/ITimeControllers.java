@@ -7,6 +7,9 @@ public interface ITimeControllers {
     public void applyTimeEchantment();
     public Timer getTimer();
     public double disposeTimer();
+    public void startTimeController();
+    public double getRemainingTimeLoaded();
+    public void startTimeController(double remainingTimeLoaded);
 
     
 }

@@ -11,14 +11,16 @@ import src.UI.PlayModeScreen;
 public class RevealTimeController implements ITimeControllers,Serializable {
     private Timer timer;
     private boolean isPaused;
-    private double intitialTime;
+    private double initialTime;
     private double lastRuneCheck;
+    private double remainingTimeLoaded;
     private final double RevealTime = 10.0;
     GridEnvironment grid;
     PlayModeScreen playModeScreen;
     PositionPoint topLeft;
     Boolean tenSecPassed;
     PositionPoint runePosition;
+
     
     public RevealTimeController(GridEnvironment grid, PlayModeScreen playModeScreen, PositionPoint topLeft) {
         this.timer = new Timer();
@@ -29,14 +31,14 @@ public class RevealTimeController implements ITimeControllers,Serializable {
         this.tenSecPassed = false;
         this.lastRuneCheck = 0.0;
         this.runePosition = grid.getRune().getPosition();
-        this.intitialTime = grid.getHall().getObstacles().size() * 5;
+        this.initialTime = grid.getHall().getObstacles().size() * 5;
         grid.addTimeController(this);
     }
     public Timer getTimer() {
         return timer;
     }
     public void startTimeController() {
-        timer.startTimer(intitialTime, this::checkMechanics, this::printStatus);
+        timer.startTimer(initialTime, this::checkMechanics, this::printStatus);
     }
     private void checkMechanics() {
         double elapsedTime = Math.floor(timer.getElapsedTime());
@@ -72,9 +74,16 @@ public class RevealTimeController implements ITimeControllers,Serializable {
     public void applyTimeEchantment() {
         // TODO Auto-generated method stub;
     }
+    public void startTimeController(double remainingTimeLoaded) {
+        timer.startTimer(remainingTimeLoaded, this::checkMechanics, this::printStatus);
+        initialTime = remainingTimeLoaded;
+    }
     public double disposeTimer() {
-        double remainingTime = timer.disposeTimer();
+        remainingTimeLoaded = timer.disposeTimer();
         this.timer = null;
-        return remainingTime;
+        return remainingTimeLoaded;
+    }
+    public double getRemainingTimeLoaded() {
+        return remainingTimeLoaded;
     }
 }

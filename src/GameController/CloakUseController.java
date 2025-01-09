@@ -10,6 +10,7 @@ public class CloakUseController implements ITimeControllers, Serializable {
     private boolean isPaused;
     private double initialTime;
     private boolean isProtectionActive;
+    private double remainingTimeLoaded;
 
     private final double CloakTime = 20.0;
     GridEnvironment grid;
@@ -79,9 +80,19 @@ public class CloakUseController implements ITimeControllers, Serializable {
             assert false : "Invalid mode";
         }
     }
-    public double disposeTimer() {
-        double remainingTime = timer.disposeTimer();
-        this.timer = null;
-        return remainingTime;
+
+    public void startTimeController(double remainingTimeLoaded) {
+        timer.startTimer(remainingTimeLoaded, this::checkMechanics, this::printStatus);
+        initialTime = remainingTimeLoaded;
     }
+    
+    public double disposeTimer() {
+        remainingTimeLoaded = timer.disposeTimer();
+        this.timer = null;
+        return remainingTimeLoaded;
+    }
+    public double getRemainingTimeLoaded() {
+        return remainingTimeLoaded;
+    }
+    
 }

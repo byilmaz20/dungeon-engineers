@@ -5,7 +5,7 @@ import java.io.Serializable;
 import src.Mechanics.GridEnvironment;
 import src.Mechanics.Timer;
 
-public class LuringGemController implements ITimeControllers,Serializable {
+public class LuringGemTimeController implements ITimeControllers,Serializable {
     private Timer timer;
     private boolean isPaused;
     private double initialTime;
@@ -15,7 +15,7 @@ public class LuringGemController implements ITimeControllers,Serializable {
     private final double FoolingTime = 5.0;
     GridEnvironment grid;
 
-    public LuringGemController(GridEnvironment grid) {
+    public LuringGemTimeController(GridEnvironment grid) {
 
         this.timer = new Timer();
         this.isPaused = false;
@@ -78,9 +78,18 @@ public class LuringGemController implements ITimeControllers,Serializable {
             assert false : "Invalid mode";
         }
     }
-    public double disposeTimer() {
-        double remainingTime = timer.disposeTimer();
-        this.timer = null;
-        return remainingTime;
+    public void startTimeController(double remainingTimeLoaded) {
+        timer.startTimer(remainingTimeLoaded, this::checkMechanics, this::printStatus);
+        initialTime = remainingTimeLoaded;
     }
+    private double remainingTimeLoaded;
+    public double disposeTimer() {
+        remainingTimeLoaded = timer.disposeTimer();
+        this.timer = null;
+        return remainingTimeLoaded;
+    }
+    public double getRemainingTimeLoaded() {
+        return remainingTimeLoaded;
+    }
+
 }

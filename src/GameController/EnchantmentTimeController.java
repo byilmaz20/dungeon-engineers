@@ -41,8 +41,6 @@ public class EnchantmentTimeController implements ITimeControllers,Serializable 
 
         if (elapsedTime >= EnchantmentRemoveDelay && enchantment.position != null) {
             grid.removeEntity(enchantment);
-
-
         }
 
     }
@@ -74,9 +72,18 @@ public class EnchantmentTimeController implements ITimeControllers,Serializable 
         
         
     }
+   
+    public void startTimeController(double remainingTimeLoaded) {
+        timer.startTimer(remainingTimeLoaded, this::checkMechanics, this::printStatus);
+        initialTime = remainingTimeLoaded;
+    }
+    private double remainingTimeLoaded;
     public double disposeTimer() {
-        double remainingTime = timer.disposeTimer();
+        remainingTimeLoaded = timer.disposeTimer();
         this.timer = null;
-        return remainingTime;
+        return remainingTimeLoaded;
+    }
+    public double getRemainingTimeLoaded() {
+        return remainingTimeLoaded;
     }
 }

@@ -2,7 +2,7 @@ package src.GameObjects;
 import java.io.Serializable;
 
 import src.GameController.EnchantmentTimeController;
-import src.GameController.LuringGemController;
+import src.GameController.LuringGemTimeController;
 import src.Mechanics.Direction;
 import src.Mechanics.GridEnvironment;
 import src.Mechanics.PositionPoint;
@@ -10,7 +10,7 @@ import src.Mechanics.Timer;
 
 public class LuringGemEnchantment extends Enchantment implements Serializable{
     private EnchantmentTimeController enchantmentTimeController;
-    private LuringGemController luringGemController;
+    private LuringGemTimeController luringGemController;
     private Timer luringGemTimer;
     private Timer enchantmentTimer;
     private GridEnvironment grid;
@@ -23,7 +23,7 @@ public class LuringGemEnchantment extends Enchantment implements Serializable{
         this.grid = grid;
         enchantmentTimeController.startTimeController();
         enchantmentTimer = enchantmentTimeController.getTimer();
-        this.luringGemController = new LuringGemController(grid);
+        this.luringGemController = new LuringGemTimeController(grid);
 
     }    
     

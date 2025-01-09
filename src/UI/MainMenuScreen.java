@@ -4,6 +4,7 @@ import java.awt.Cursor;
 import java.awt.Font;
 import javax.swing.*;
 import src.GameController.GameModeController;
+import src.Mechanics.SoundManager;
 
 
 public class MainMenuScreen extends UIScreen {
@@ -16,11 +17,14 @@ public class MainMenuScreen extends UIScreen {
     private TransparentButton hardModeButton;
     private String selectedMode = "hard";
 
+    private SoundManager buttonClickSound;
+
     public MainMenuScreen() {
         super(1090, 810, "Main Menu", 
         "src/Images/BackgroundImages/mainMenuBackground.png");        
         
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        buttonClickSound = new SoundManager("src/voices/clickbutton.wav");
         
         initializeComponents();
     
@@ -48,12 +52,16 @@ public class MainMenuScreen extends UIScreen {
         GameModeController.getInstance().setGameMode("hard");
     
         easyModeButton.addActionListener(e -> {
+            buttonClickSound.playSound(); // Tıklama sesi çal
             selectedMode = "easy";
             GameModeController.getInstance().setGameMode("easy");
             updateButtonStyles();
         });
     
+        
+
         hardModeButton.addActionListener(e -> {
+            buttonClickSound.playSound(); // Tıklama sesi çal
             selectedMode = "hard";
             GameModeController.getInstance().setGameMode("hard");
             updateButtonStyles();
@@ -94,8 +102,10 @@ public class MainMenuScreen extends UIScreen {
         startGameButton.setOpaque(false);
         startGameButton.setContentAreaFilled(false);
         startGameButton.setBorderPainted(false);
+
     
         startGameButton.addActionListener(e -> {
+            buttonClickSound.playSound(); // Tıklama sesi çal
             this.dispose();
             new BuildModeScreen(); // Pass the selected mode
         });
@@ -110,6 +120,7 @@ public class MainMenuScreen extends UIScreen {
         loadGameButton.setBorderPainted(false);
     
         loadGameButton.addActionListener(e -> {
+            buttonClickSound.playSound();
             this.dispose();
             new LoadGameScreen(); // Pass the selected mode
         });
@@ -126,6 +137,7 @@ public class MainMenuScreen extends UIScreen {
         helpButton.setContentAreaFilled(false);
         helpButton.setBorderPainted(false);
             helpButton.addActionListener(e -> {
+            buttonClickSound.playSound(); // Tıklama sesi çal    
             this.setVisible(false);
             new HelpScreen(this);
             //TODO: IF CALLED FROM THE MAIN SCREEN, ARRANGE IT
@@ -140,7 +152,10 @@ public class MainMenuScreen extends UIScreen {
         exitButton.setOpaque(false);
         exitButton.setContentAreaFilled(false);
         exitButton.setBorderPainted(false);
-        exitButton.addActionListener(e -> System.exit(0));
+        exitButton.addActionListener(e -> {
+            buttonClickSound.playSound(); // Tıklama sesi çal
+            System.exit(0);
+        });
         backgroundPanel.add(exitButton);
     }
 

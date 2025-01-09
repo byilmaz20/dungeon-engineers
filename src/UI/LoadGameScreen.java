@@ -11,11 +11,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.Serializable;
+import src.Mechanics.SoundManager;
 
 public class LoadGameScreen extends JFrame implements Serializable{
     private static final String SAVE_DIR = "Saves"; // Directory for saved files
+    private SoundManager buttonClickSound;
 
     public LoadGameScreen() {
+        buttonClickSound = new SoundManager("src/voices/clickbutton.wav");
         setTitle("Load Game");
         setSize(400, 600);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -62,6 +65,7 @@ public class LoadGameScreen extends JFrame implements Serializable{
         loadButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                buttonClickSound.playSound(); // Tıklama sesi çal
                 String selectedFile = fileList.getSelectedValue();
                 if (selectedFile == null) {
                     JOptionPane.showMessageDialog(LoadGameScreen.this, "Please select a save file.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -78,6 +82,7 @@ public class LoadGameScreen extends JFrame implements Serializable{
         cancelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                buttonClickSound.playSound(); // Tıklama sesi çal
                 dispose(); // Close the load game screen
                 new MainMenuScreen();
             }

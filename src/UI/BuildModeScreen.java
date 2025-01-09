@@ -15,6 +15,7 @@ import src.GameController.BuildModeController;
 import src.GameController.GameFlowController;
 import src.GameController.SaveGameController;
 import src.GameObjects.Hall;
+import src.Mechanics.SoundManager;
 
 public class BuildModeScreen extends JPanel implements Serializable{
 
@@ -27,12 +28,16 @@ public class BuildModeScreen extends JPanel implements Serializable{
     public static final Map<String, Map<Point, String>> hallObjectPlacements = new HashMap<>(); //store the coordinates of each object for each hall
     private JFrame frame;
     private static int[] indexes = new int[1000];
+    private SoundManager buttonClickSound;
     
+
     public BuildModeScreen() {
         hallPanels = new HashMap<>();
         objectImages = new HashMap<>();
         hallObjectCounts = new HashMap<>();
         hallMinimumCounts = new HashMap<>();
+
+        buttonClickSound = new SoundManager("src/voices/clickbutton.wav");
 
         setupObjectImages();
         setupHallConstraints();
@@ -128,6 +133,7 @@ public class BuildModeScreen extends JPanel implements Serializable{
         Image scaledExitImage = exitIcon.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH);
         exitButton.setIcon(new ImageIcon(scaledExitImage));
         exitButton.addActionListener(e -> {
+            buttonClickSound.playSound();
             SwingUtilities.getWindowAncestor(this).dispose(); 
             new MainMenuScreen(); 
         });
@@ -186,7 +192,11 @@ public class BuildModeScreen extends JPanel implements Serializable{
             }
         });
         
-        easyInitButton.addActionListener(e -> startEasyInit());
+        easyInitButton.addActionListener(e -> {
+            buttonClickSound.playSound(); // Tıklama sesi çal
+            startEasyInit(); 
+        });
+        
         
         gbc.gridy = objects.length+1;
         gbc.insets = new Insets(-70, 0, 10, 0);
@@ -213,7 +223,11 @@ public class BuildModeScreen extends JPanel implements Serializable{
             }
         });
         
-        randomInitButton.addActionListener(e -> startRandomInit());
+        randomInitButton.addActionListener(e -> {
+            buttonClickSound.playSound(); // Tıklama sesi çal
+            startRandomInit(); 
+        });
+        
         
         gbc.gridy = objects.length + 1;
         gbc.insets = new Insets(30, 0, 10, 0);
@@ -238,7 +252,11 @@ public class BuildModeScreen extends JPanel implements Serializable{
             }
         });
         
-        startGameButton.addActionListener(e -> checkRequirementsAndStartGame());
+        startGameButton.addActionListener(e -> {
+            buttonClickSound.playSound(); // Tıklama sesi çal
+            checkRequirementsAndStartGame(); 
+        });
+        
         
         gbc.gridy = objects.length + 1;
         gbc.insets = new Insets(130, 0, 10, 0);

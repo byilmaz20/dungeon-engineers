@@ -74,4 +74,9 @@ public class EnchantmentTimeController implements ITimeControllers,Serializable 
         
         
     }
+    public double disposeTimer() {
+        double remainingTime = timer.disposeTimer();
+        this.timer = null;
+        return remainingTime;
+    }
 }

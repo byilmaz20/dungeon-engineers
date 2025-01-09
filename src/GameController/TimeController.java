@@ -186,4 +186,10 @@ public class TimeController implements ITimeControllers, Serializable {
     public synchronized double getRemainingTime() {
         return timer.getRemainingTime();
     }
+
+    public double disposeTimer() {
+        double remainingTime = timer.disposeTimer();
+        this.timer = null;
+        return remainingTime;
+    }
 }

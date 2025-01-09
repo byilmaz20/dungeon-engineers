@@ -124,4 +124,9 @@ public class FighterTimeController implements ITimeControllers, Serializable {
 
         controller.startGame();
     }
+    public double disposeTimer() {
+        double remainingTime = timer.disposeTimer();
+        this.timer = null;
+        return remainingTime;
+    }
 }

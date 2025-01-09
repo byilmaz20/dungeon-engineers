@@ -6,6 +6,7 @@ public interface ITimeControllers {
     public void pressPauseButton();
     public void applyTimeEchantment();
     public Timer getTimer();
+    public double disposeTimer();
 
     
 }

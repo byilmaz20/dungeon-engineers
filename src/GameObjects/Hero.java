@@ -7,7 +7,7 @@ import src.Mechanics.PositionPoint;
 
 public class Hero extends Entity {
     int lives; 
-    transient Inventory inventory;  //(Bag containing Enchantments)
+    Inventory inventory;  //(Bag containing Enchantments)
     boolean  ProtectionStatus;  //(Indicates if thecloak of protection is active)
     boolean FoolingStatus;
     private Direction lureDirection;

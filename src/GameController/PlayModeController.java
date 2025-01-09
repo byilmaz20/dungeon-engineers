@@ -42,6 +42,11 @@ public class PlayModeController implements Serializable{
         return timeController;
     }
 
+    public void openDoor() {
+        isDoorOpen = true;
+    }
+
+    
 
     
 

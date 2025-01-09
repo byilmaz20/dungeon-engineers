@@ -162,4 +162,9 @@ public class WizardTimeController implements ITimeControllers,Serializable {
     public void setLastRuneSpawnTime(double lastRuneSpawnTime) {
         this.lastRuneSpawnTime = lastRuneSpawnTime;
     }
+    public double disposeTimer() {
+        double remainingTime = timer.disposeTimer();
+        this.timer = null;
+        return remainingTime;
+    }
 }

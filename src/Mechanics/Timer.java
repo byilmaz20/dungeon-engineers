@@ -101,4 +101,16 @@ public class Timer implements Serializable{
     public synchronized double getElapsedTime() {
         return elapsedTime;
     }
+
+    public synchronized void stopTimer() {
+        if (timerThread != null) {
+            timerThread.interrupt();
+        }
+    }
+
+    public synchronized double disposeTimer() {
+        double remainingTime = this.elapsedTime;
+        stopTimer();
+        return remainingTime;
+    }
 }

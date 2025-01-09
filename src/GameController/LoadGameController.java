@@ -45,7 +45,8 @@ public class LoadGameController implements Serializable{
 
                     BuildModeController.Halls = halls;
 
-                    new GameFlowController(currentHallIndex, hall, hero);
+                    GameFlowController gmf = new GameFlowController(currentHallIndex, hall, hero);
+                    SaveGameController.setGameFlowController(gmf);
                 } else {
                     JOptionPane.showMessageDialog(null, "Failed to load the game file.", "Error", JOptionPane.ERROR_MESSAGE);
                 }

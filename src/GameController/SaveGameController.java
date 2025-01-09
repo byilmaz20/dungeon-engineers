@@ -12,9 +12,8 @@ public class SaveGameController implements Serializable{
 
     private int currentHallIndex; // Tracks the current hall in the sequence
     Hall currentHall;
-    
-
     public static GameFlowController gameState;
+
     public static void setGameFlowController(GameFlowController gmf){
         gameState = gmf;
     }
@@ -27,6 +26,10 @@ public class SaveGameController implements Serializable{
     }
     public int getCurrentHallIndex(){
         return this.currentHallIndex;
+    }
+
+    public GameFlowController getGameFlowController(){
+        return gameState;
     }
     
 

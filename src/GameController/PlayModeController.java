@@ -7,6 +7,7 @@ import src.GameObjects.Hall;
 import src.Mechanics.GridEnvironment;
 import src.Mechanics.Timer;
 import src.UI.PlayModeScreen;
+import src.GameObjects.Hero;
 
 public class PlayModeController implements Serializable{
     
@@ -21,6 +22,20 @@ public class PlayModeController implements Serializable{
     public PlayModeController(Hall hall) {
         this.currentHall = hall;
         this.grid = new GridEnvironment(currentHall);
+        //grid.update(leveldata)
+
+        this.monsterSpawner = new SpawnMonsterController(grid);
+        monsterSpawner.spawnMonster();
+        this.activeEnchantment = null;
+        this.isDoorOpen = false;
+        this.timeController = grid.getMainTimeController();
+        Timer timer = timeController.getTimer();
+        this.playModeScreen = new PlayModeScreen(grid, timeController);
+
+    }
+    public PlayModeController(Hall hall, Hero hero) {
+        this.currentHall = hall;
+        this.grid = new GridEnvironment(currentHall, hero);
         //grid.update(leveldata)
 
         this.monsterSpawner = new SpawnMonsterController(grid);

@@ -68,6 +68,32 @@ public class GridEnvironment implements Serializable{
         }
         this.mainTimeController = new TimeController(this);
     }
+    public GridEnvironment(Hall hall, Hero hero) {
+        this.map = new Entity[mapWidth][mapHeight];
+        this.hall = hall;
+        this.hero = hero;
+        this.rune = new Rune(getRandomPositionForRune(), hall);
+        hall.entities.add(rune);
+        hall.entities.add(hero);
+        this.timeControllers = new ArrayList<>();
+
+        for (Entity entity : hall.getEntitys()) { // Use the getter method
+            //System.out.println(entity.getClass().getSimpleName() + " at: " + entity.position);
+            if (entity instanceof Rune) {
+                // TODO1: varolan obstacleı silmeden rune u üstüne yapıştır.
+                map[entity.position.x][entity.position.y] = entity; // Place the entity on the grid
+                //System.out.println("Entity placed on grid at: " + entity.position);
+            }else{
+                if (isPositionValid(entity.position)) {
+                    map[entity.position.x][entity.position.y] = entity; // Place the entity on the grid
+                    //System.out.println("Entity placed on grid at: " + entity.position);
+                } else {
+                    //System.out.println("Invalid position for entity: " + entity.position);
+                }
+            }
+        }
+        this.mainTimeController = new TimeController(this);
+    }
     public TimeController getMainTimeController() {
         return this.mainTimeController;
     }

@@ -281,8 +281,15 @@ private void clearAllTints() {
                         if (!saveFolder.exists()) saveFolder.mkdirs();
                         String filePath = saveDir + File.separator + saveName + ".dat";
                         try (FileOutputStream fileOut = new FileOutputStream(filePath);
+
+                            
                             ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
+                            for (ITimeControllers timeController : gridEnvironment.getTimeControllers()) {
+                                timeController.disposeTimer();
+                            }
+                            
                             SaveGameController sgc = new SaveGameController();
+
                             out.writeObject(sgc.getCurrentHall());
                             out.writeObject(sgc.getCurrentHallIndex());
                             out.writeObject(BuildModeController.Halls);

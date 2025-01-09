@@ -83,9 +83,11 @@ public class TimeController implements ITimeControllers, Serializable {
     }
 
     public void startTimeController(double remainingTimeLoaded) {
+        timer = new Timer();
         timer.startTimer(remainingTimeLoaded, this::checkMechanics, this::printStatus);
         initialTime = remainingTimeLoaded;
     }
+ 
 
     public void setInitialTime(double initialTime) {
         this.initialTime = initialTime;
@@ -192,12 +194,11 @@ public class TimeController implements ITimeControllers, Serializable {
     }
 
     public double disposeTimer() {
-        double remainingTime = timer.disposeTimer();
+        remainingTimeLoaded = timer.disposeTimer();
         this.timer = null;
-        return remainingTime;
+        return remainingTimeLoaded;
     }
-    public synchronized double getRemainingTimeLoaded() {
-        remainingTimeLoaded = timer.getRemainingTime();
+    public double getRemainingTimeLoaded() {
         return remainingTimeLoaded;
     }
 }

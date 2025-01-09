@@ -1,7 +1,7 @@
 package src.GameObjects;
 import java.io.Serializable;
 
-import src.GameController.CloakUseController;
+import src.GameController.CloakUseTimeController;
 import src.GameController.EnchantmentTimeController;
 import src.GameObjects.EnchantmentTypes;
 import src.Mechanics.GridEnvironment;
@@ -10,7 +10,7 @@ import src.Mechanics.Timer;
 
 public class CloakOfProtectionEnchantment extends Enchantment implements Serializable{
     private EnchantmentTimeController enchantmentTimeController;
-    private CloakUseController cloakUseController;
+    private CloakUseTimeController cloakUseController;
     private Timer cloakUseTimer;
     private Timer enchantmentTimer;
     private GridEnvironment grid;
@@ -22,7 +22,7 @@ public class CloakOfProtectionEnchantment extends Enchantment implements Seriali
         this.grid = grid;
         enchantmentTimeController.startTimeController();
         enchantmentTimer = enchantmentTimeController.getTimer();
-        this.cloakUseController = new CloakUseController(grid);
+        this.cloakUseController = new CloakUseTimeController(grid);
     }
     
     public void applyEffect(){

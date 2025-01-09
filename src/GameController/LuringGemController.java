@@ -78,4 +78,9 @@ public class LuringGemController implements ITimeControllers,Serializable {
             assert false : "Invalid mode";
         }
     }
+    public double disposeTimer() {
+        double remainingTime = timer.disposeTimer();
+        this.timer = null;
+        return remainingTime;
+    }
 }

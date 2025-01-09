@@ -72,4 +72,9 @@ public class RevealTimeController implements ITimeControllers,Serializable {
     public void applyTimeEchantment() {
         // TODO Auto-generated method stub;
     }
+    public double disposeTimer() {
+        double remainingTime = timer.disposeTimer();
+        this.timer = null;
+        return remainingTime;
+    }
 }

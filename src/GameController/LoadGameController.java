@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
+import java.util.Map;
 
 import javax.swing.JOptionPane;
 
@@ -27,6 +28,7 @@ public class LoadGameController implements Serializable{
                     
                     Hall hall = (Hall) in.readObject();
                     int currentHallIndex = (int) in.readObject();
+                    Map halls = (Map) in.readObject();
 
                 System.out.println("Game loaded successfully from: " + filePath);
                 
@@ -36,6 +38,7 @@ public class LoadGameController implements Serializable{
                 if (hall != null) {
                     JOptionPane.showMessageDialog(null, "Game Loaded! Player: " + hall.getHallTypes());
                     // Start the loaded game or transition to the game screen
+                    BuildModeController.Halls = halls;
                     new GameFlowController(currentHallIndex, hall);
                 } else {
                     JOptionPane.showMessageDialog(null, "Failed to load the game file.", "Error", JOptionPane.ERROR_MESSAGE);

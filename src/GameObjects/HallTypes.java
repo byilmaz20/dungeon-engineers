@@ -1,6 +1,8 @@
 package src.GameObjects;
 
-public enum HallTypes {
+import java.io.Serializable;
+
+public enum HallTypes implements Serializable {
     EARTH,
     AIR,
     WATER,

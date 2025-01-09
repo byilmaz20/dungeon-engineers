@@ -21,6 +21,8 @@ public class PlayModeController implements Serializable{
     public PlayModeController(Hall hall) {
         this.currentHall = hall;
         this.grid = new GridEnvironment(currentHall);
+        //grid.update(leveldata)
+
         this.monsterSpawner = new SpawnMonsterController(grid);
         monsterSpawner.spawnMonster();
         this.activeEnchantment = null;
@@ -39,6 +41,8 @@ public class PlayModeController implements Serializable{
     public TimeController getTimeController() {
         return timeController;
     }
+
+
     
 
 

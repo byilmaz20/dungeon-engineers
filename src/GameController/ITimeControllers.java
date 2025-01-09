@@ -1,8 +1,10 @@
 package src.GameController;
 
+import java.io.Serializable;
+
 import src.Mechanics.Timer;
 
-public interface ITimeControllers {
+public interface ITimeControllers extends Serializable{
     public void pressPauseButton();
     public void applyTimeEchantment();
     public Timer getTimer();

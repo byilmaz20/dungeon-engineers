@@ -292,9 +292,9 @@ private void clearAllTints() {
                         String filePath = saveDir + File.separator + saveName + ".dat";
                         try (FileOutputStream fileOut = new FileOutputStream(filePath);
                              ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
-                            /* for (ITimeControllers timeController : gridEnvironment.getTimeControllers()) {
+                            for (ITimeControllers timeController : gridEnvironment.getTimeControllers()) {
                                 timeController.disposeTimer();
-                            } */
+                            } 
     
                             SaveGameController sgc = new SaveGameController();
     

@@ -25,7 +25,6 @@ public class LoadGameController implements Serializable{
             // Deserialize the object from the file
             try (FileInputStream fileIn = new FileInputStream(filePath);
                  ObjectInputStream in = new ObjectInputStream(fileIn)) {
-                    
                     Hall hall = (Hall) in.readObject();
                     int currentHallIndex = (int) in.readObject();
                     Map halls = (Map) in.readObject();

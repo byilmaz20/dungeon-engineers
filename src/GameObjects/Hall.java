@@ -13,7 +13,7 @@ public class Hall implements Serializable{
     List<Monster> monsters;         // Sublist for Monsters
     List<Obstacles> obstacles;      // Sublist for Obstacles
     int minimumObjectsRequired;
-    private List<ITimeControllers> timeControllers;
+    List<ITimeControllers> timeControllers;
     
     public Hall(HallTypes hallType) {
         this.timeControllers = new ArrayList<>();

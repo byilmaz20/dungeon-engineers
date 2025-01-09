@@ -23,7 +23,7 @@ public class GridEnvironment implements Serializable{
     int mapWidth = 25; // Fixed grid width
     int mapHeight = 25; // Fixed grid height
     TimeController mainTimeController;
-    private GridChangeListener gridChangeListener;
+    transient private GridChangeListener gridChangeListener;
     private List<ITimeControllers> timeControllers;
     public Obstacles runeInObject;
 

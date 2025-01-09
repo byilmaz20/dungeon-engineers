@@ -11,8 +11,8 @@ import src.UI.PlayModeScreen;
 public class RevealEnchantment extends Enchantment implements Serializable{
     private EnchantmentTimeController enchantmentTimeController;
     private RevealTimeController revealTimeController;
-    private Timer revealUseTimer;
-    private Timer enchantmentTimer;
+    transient private Timer revealUseTimer;
+    transient private Timer enchantmentTimer;
     private GridEnvironment grid;
 
 

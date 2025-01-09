@@ -73,6 +73,7 @@ public class GridEnvironment implements Serializable{
     }
     public void addTimeController(ITimeControllers timeController) {
         this.timeControllers.add(timeController);
+        hall.addTimeController(timeController);
     }
     public List<ITimeControllers> getTimeControllers() {
         return this.timeControllers;

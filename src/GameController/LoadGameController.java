@@ -38,7 +38,13 @@ public class LoadGameController implements Serializable{
                 if (hall != null) {
                     JOptionPane.showMessageDialog(null, "Game Loaded! Player: " + hall.getHallTypes());
                     // Start the loaded game or transition to the game screen
+
+                    for (ITimeControllers timeController : hall.getTimeControllers()) {
+                        timeController.startTimeController(timeController.getRemainingTimeLoaded());
+                    }
+
                     BuildModeController.Halls = halls;
+
                     new GameFlowController(currentHallIndex, hall);
                 } else {
                     JOptionPane.showMessageDialog(null, "Failed to load the game file.", "Error", JOptionPane.ERROR_MESSAGE);

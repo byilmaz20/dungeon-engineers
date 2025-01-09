@@ -16,7 +16,7 @@ import src.Mechanics.Timer;
 /*
 yeni hall olusunca grid gridini kullanarak 
 timeController = new TimeController(grid) yapılacak
-sonra timeController.startGame() yapılacak
+sonra timeController.startTimeController() yapılacak
 sonra her sey otomatik calisacak
 ekranda time gostermek icin de sonradan ekleyecez
 ornek kullanım bunun maininde
@@ -26,6 +26,7 @@ public class TimeController implements ITimeControllers, Serializable {
     private Timer timer;
     private boolean isPaused;
     private double initialTime;
+    private double remainingTimeLoaded;
 
     private double monsterSpawnInterval;
     private double enchantmentSpawnInterval;
@@ -64,9 +65,7 @@ public class TimeController implements ITimeControllers, Serializable {
         } else {
             assert false : "Invalid mode";
         }
-        
         //todo monster için ayrıca girdi verebilsin
-        
         spawner = new SpawnMonsterController(grid);
         grid.addTimeController(this);
     }
@@ -79,8 +78,13 @@ public class TimeController implements ITimeControllers, Serializable {
         return timer;
     }
 
-    public void startGame() {
+    public void startTimeController() {
         timer.startTimer(initialTime, this::checkMechanics, this::printStatus);
+    }
+
+    public void startTimeController(double remainingTimeLoaded) {
+        timer.startTimer(remainingTimeLoaded, this::checkMechanics, this::printStatus);
+        initialTime = remainingTimeLoaded;
     }
 
     public void setInitialTime(double initialTime) {
@@ -159,7 +163,7 @@ public class TimeController implements ITimeControllers, Serializable {
         System.out.println(hall);
 
         TimeController controller = new TimeController(grid);
-        controller.startGame();
+        controller.startTimeController();
 
 /* 
         try {
@@ -191,5 +195,9 @@ public class TimeController implements ITimeControllers, Serializable {
         double remainingTime = timer.disposeTimer();
         this.timer = null;
         return remainingTime;
+    }
+    public synchronized double getRemainingTimeLoaded() {
+        remainingTimeLoaded = timer.getRemainingTime();
+        return remainingTimeLoaded;
     }
 }

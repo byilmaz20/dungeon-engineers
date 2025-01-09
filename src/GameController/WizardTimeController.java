@@ -26,6 +26,7 @@ public class WizardTimeController implements ITimeControllers,Serializable {
     private WizardMonster wizard;
     private IWizardBehavior wizardBehavior;
 
+
     private double lastRuneSpawnTime;
 
     private final double RuneStartDelay = 5.0;
@@ -137,7 +138,7 @@ public class WizardTimeController implements ITimeControllers,Serializable {
         System.out.println(hall);
 
         TimeController controller = new TimeController(grid);
-        controller.startGame();
+        controller.startTimeController();
     }
 
     public double getElapsedTime() {
@@ -162,9 +163,17 @@ public class WizardTimeController implements ITimeControllers,Serializable {
     public void setLastRuneSpawnTime(double lastRuneSpawnTime) {
         this.lastRuneSpawnTime = lastRuneSpawnTime;
     }
+    public void startTimeController(double remainingTimeLoaded) {
+        timer.startTimer(remainingTimeLoaded, this::checkMechanics, this::printStatus);
+        initialTime = remainingTimeLoaded;
+    }
+    private double remainingTimeLoaded;
     public double disposeTimer() {
-        double remainingTime = timer.disposeTimer();
+        remainingTimeLoaded = timer.disposeTimer();
         this.timer = null;
-        return remainingTime;
+        return remainingTimeLoaded;
+    }
+    public double getRemainingTimeLoaded() {
+        return remainingTimeLoaded;
     }
 }

@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import src.GameController.ITimeControllers;
+
 public class Hall implements Serializable{
     public HallTypes hallType;
     public List<Entity> entities;          // Main list of all entities
@@ -11,9 +13,11 @@ public class Hall implements Serializable{
     List<Monster> monsters;         // Sublist for Monsters
     List<Obstacles> obstacles;      // Sublist for Obstacles
     int minimumObjectsRequired;
+    private List<ITimeControllers> timeControllers;
     
     public Hall(HallTypes hallType) {
-        
+        this.timeControllers = new ArrayList<>();
+
         this.hallType = hallType;
         this.entities = new ArrayList<>();
         this.enchantments = new ArrayList<>();
@@ -78,6 +82,13 @@ public class Hall implements Serializable{
     }
     public List<Entity> getEntitys(){
         return entities;
+    }
+
+    public void addTimeController(ITimeControllers timeController) {
+        this.timeControllers.add(timeController);
+    }
+    public List<ITimeControllers> getTimeControllers() {
+        return this.timeControllers;
     }
    
 

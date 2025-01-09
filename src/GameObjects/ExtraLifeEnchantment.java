@@ -8,7 +8,7 @@ import src.Mechanics.Timer;
 
 public class ExtraLifeEnchantment extends Enchantment implements Serializable{
     private EnchantmentTimeController enchantmentTimeController;
-    private Timer enchantmentTimer;
+    transient private Timer enchantmentTimer;
     private GridEnvironment grid;
     public ExtraLifeEnchantment(PositionPoint position, Hall hall, GridEnvironment grid) {
         super(position, hall);

@@ -11,8 +11,8 @@ import src.Mechanics.Timer;
 public class LuringGemEnchantment extends Enchantment implements Serializable{
     private EnchantmentTimeController enchantmentTimeController;
     private LuringGemTimeController luringGemController;
-    private Timer luringGemTimer;
-    private Timer enchantmentTimer;
+    transient private Timer luringGemTimer;
+    transient private Timer enchantmentTimer;
     private GridEnvironment grid;
     public LuringGemEnchantment(PositionPoint position, Hall hall, GridEnvironment grid) {
         super(position, hall);

@@ -3,7 +3,7 @@ public class GameModeController {
     private static GameModeController instance;
     private String gameMode; // "easy" or "hard"
 
-    private GameModeController() {
+    public GameModeController() {
     }
 
     public static GameModeController getInstance() {
@@ -20,4 +20,5 @@ public class GameModeController {
     public String getGameMode() {
         return gameMode;
     }
+    
 }

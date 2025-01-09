@@ -1,0 +1,29 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "type": "shell",
+            "command": "javac",
+            "args": [
+                "-d",
+                "bin",
+                "-cp",
+                "lib/junit-platform-console-standalone-1.11.4.jar",
+                "src/**/*.java"
+            ],
+            "group": "build"
+        },
+        {
+            "label": "test",
+            "type": "shell",
+            "command": "java",
+            "args": [
+                "-cp",
+                "bin;lib/junit-platform-console-standalone-1.11.4.jar",
+                "org.junit.platform.console.ConsoleLauncher",
+                "--scan-class-path"
+            ]
+        }
+    ]
+}

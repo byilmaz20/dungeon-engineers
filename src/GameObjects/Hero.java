@@ -16,10 +16,16 @@ public class Hero extends Entity {
     public Hero(PositionPoint heroPosition, Hall hall) {
         super(heroPosition, hall);
         String mode = GameModeController.getInstance().getGameMode();
-        if (mode.equals("easy")) {
-            this.lives = 5;
-        } else if (mode.equals("hard")) {
-            this.lives = 3;
+        if (mode != null) {
+            if (mode.equals("easy")) {
+                this.lives = 5;
+            } else if (mode.equals("hard")) {
+                this.lives = 3;
+            } else {
+                this.lives = 3; // Default life count if mode is unknown
+            }
+        } else {
+            this.lives = 3; // Default life count if mode is null
         }
         this.inventory = new Inventory();
         this.ProtectionStatus = false;

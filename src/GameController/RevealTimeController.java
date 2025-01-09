@@ -75,6 +75,7 @@ public class RevealTimeController implements ITimeControllers,Serializable {
         // TODO Auto-generated method stub;
     }
     public void startTimeController(double remainingTimeLoaded) {
+        timer = new Timer();
         timer.startTimer(remainingTimeLoaded, this::checkMechanics, this::printStatus);
         initialTime = remainingTimeLoaded;
     }

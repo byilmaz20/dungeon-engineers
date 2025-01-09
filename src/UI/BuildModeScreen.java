@@ -325,7 +325,7 @@ public class BuildModeScreen extends JPanel implements Serializable{
         selectedObjectIcon = (ImageIcon) objectLabel.getIcon();
     }
 
-    private void placeSelectedObject(JLabel cell, String hallName) {
+    public void placeSelectedObject(JLabel cell, String hallName) {
         if (((ImageIcon) cell.getIcon()).getDescription()!="cell"){
             
             ImageIcon icon = new ImageIcon("src/Images/BackgroundImages/cell.png");
@@ -796,6 +796,14 @@ public class BuildModeScreen extends JPanel implements Serializable{
 
         return newArray;
     }
+
+    public void setSelectedObjectIcon(ImageIcon selectedObjectIcon) {
+        this.selectedObjectIcon=  selectedObjectIcon;
+    }
+    public Map<String, Integer> getHallObjectCounts() {
+        return hallObjectCounts;
+    }
+
 }
 
 

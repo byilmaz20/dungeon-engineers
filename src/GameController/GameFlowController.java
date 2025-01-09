@@ -5,6 +5,7 @@ import java.util.List;
 import src.GameObjects.Hall;
 import src.GameObjects.HallTypes;
 import src.UI.GameOverScreen;
+import src.GameObjects.Hero;
 
 public class GameFlowController implements Serializable{
     private static final List<HallTypes> hallSequence = List.of(
@@ -22,11 +23,11 @@ public class GameFlowController implements Serializable{
         playModeController = new PlayModeController(currentHall);
     }
 
-    public GameFlowController(int currentHallIndex, Hall savedCurrentHall) {
+    public GameFlowController(int currentHallIndex, Hall savedCurrentHall, Hero savedHero) {
         GameFlowController.currentHall = savedCurrentHall;
         GameFlowController.currentHallIndex = currentHallIndex;
 
-        playModeController = new PlayModeController(GameFlowController.currentHall);
+        playModeController = new PlayModeController(GameFlowController.currentHall, savedHero);
 
     }
     
@@ -69,6 +70,10 @@ public class GameFlowController implements Serializable{
     }
     public Hall getCurrentHall(){
         return currentHall;
+    }
+
+    public PlayModeController getPlayModeController(){
+        return playModeController;
     }
 
 }

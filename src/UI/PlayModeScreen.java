@@ -301,7 +301,8 @@ private void clearAllTints() {
                             out.writeObject(sgc.getCurrentHall());
                             out.writeObject(sgc.getCurrentHallIndex());
                             out.writeObject(BuildModeController.Halls);
-    
+                            out.writeObject(sgc.getPlayModeController().getGrid().getHero());
+
                             // Ensure other objects are serializable before uncommenting
                             // out.writeObject(sgc.getGridEnvironment());
                             // out.writeObject(sgc.getPlayModeScreen());

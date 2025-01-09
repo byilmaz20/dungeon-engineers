@@ -61,9 +61,9 @@ public class GameOverScreen extends UIScreen implements Serializable{
         exitButton.setBackground(new Color(139, 0, 0)); // Koyu kırmızı
         exitButton.setFocusPainted(false);
         exitButton.addActionListener(e -> {
-            buttonClickSound.playSound();
-            System.out.println("Exit button clicked. Exiting game...");
-            System.exit(0); // Oyunu kapatır
+        buttonClickSound.playSound();
+        System.out.println("Exit button clicked. Exiting game...");
+        System.exit(0); // Oyunu kapatır
             
         });
 

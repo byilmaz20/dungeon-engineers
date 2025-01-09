@@ -50,7 +50,7 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
     private JPanel inventoryPanel;
     private JPanel[][] tintPanels = new JPanel[gridHeight][gridWidth]; // Array to hold tints for each cell
     private SoundManager buttonClickSound;
-
+    private SoundManager buttonMoveSound;
 
     private GridEnvironment gridEnvironment; // Reference to the GridEnvironment
 
@@ -92,6 +92,7 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
         updateTime(remainingTime);
         setVisible(true);
         buttonClickSound = new SoundManager("src/voices/clickbutton.wav");
+        buttonMoveSound = new SoundManager("src/voices/move.wav");
     }
     public void applyRedTint(PositionPoint topLeft, boolean highlightActive) {
     // Clear all previous tints
@@ -277,10 +278,13 @@ private void clearAllTints() {
                 if (!isPaused) pauseGame();
                 int response = JOptionPane.showConfirmDialog(null, "Do you want to save the game before exiting?", "Confirm Exit",
                         JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                        buttonClickSound.playSound();
                 if (response == JOptionPane.NO_OPTION) {
+                    buttonClickSound.playSound();
                     System.exit(0);
                 } else if (response == JOptionPane.YES_OPTION) {
                     String saveName = JOptionPane.showInputDialog(null, "Enter a name for your save file:", "Save Game", JOptionPane.PLAIN_MESSAGE);
+                    buttonClickSound.playSound();
                     if (saveName != null && !saveName.trim().isEmpty()) {
                         String saveDir = "Saves";
                         File saveFolder = new File(saveDir);
@@ -564,21 +568,30 @@ private void initializeInventoryChangeListener() {
     @Override
     public void keyPressed(KeyEvent e) {
         //System.out.println("Key Pressed");
+        buttonMoveSound.playSound();
         int keyCode = e.getKeyCode();
 
         switch (keyCode) {
             case KeyEvent.VK_LEFT:
                 //System.out.println("Left key pressed");
+                buttonMoveSound.playSound();
                 gridEnvironment.moveEntity(gridEnvironment.hero, new Direction(DirectionEnum.LEFT));
+                
                 break;
             case KeyEvent.VK_RIGHT:
+                buttonMoveSound.playSound();
                 gridEnvironment.moveEntity(gridEnvironment.hero, new Direction(DirectionEnum.RIGHT));
+                
                 break;
             case KeyEvent.VK_UP:
+                buttonMoveSound.playSound();
                 gridEnvironment.moveEntity(gridEnvironment.hero, new Direction(DirectionEnum.UP));
+                
                 break;
             case KeyEvent.VK_DOWN:
+                buttonMoveSound.playSound();
                 gridEnvironment.moveEntity(gridEnvironment.hero, new Direction(DirectionEnum.DOWN));
+                
                 break;
             case KeyEvent.VK_P:
                 if (gridEnvironment.getHero().getInventory().checkAvailability(EnchantmentTypes.CLOAK_OF_PROTECTION_ENCHANTMENT)){

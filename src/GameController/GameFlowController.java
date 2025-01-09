@@ -72,6 +72,10 @@ public class GameFlowController implements Serializable{
         return currentHall;
     }
 
+    public PlayModeController getPlayModeController(){
+        return playModeController;
+    }
+
 }
 
 

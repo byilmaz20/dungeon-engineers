@@ -9,8 +9,8 @@ import java.util.Map;
 public class Inventory implements Serializable{
         private final List<Enchantment> items;
 
-    private final Map<EnchantmentTypes, Integer> enchantmentQuantities;
-        private Runnable inventoryChangeListener; // Listener for inventory changes
+        private final Map<EnchantmentTypes, Integer> enchantmentQuantities;
+        transient private Runnable inventoryChangeListener; // Listener for inventory changes
 
     public Inventory() {
         this(0, 0, 0); 

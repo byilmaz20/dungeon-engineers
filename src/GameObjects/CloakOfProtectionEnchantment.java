@@ -11,8 +11,8 @@ import src.Mechanics.Timer;
 public class CloakOfProtectionEnchantment extends Enchantment implements Serializable{
     private EnchantmentTimeController enchantmentTimeController;
     private CloakUseTimeController cloakUseController;
-    private Timer cloakUseTimer;
-    private Timer enchantmentTimer;
+    transient private Timer cloakUseTimer;
+    transient private Timer enchantmentTimer;
     private GridEnvironment grid;
     public CloakOfProtectionEnchantment(PositionPoint position, Hall hall, GridEnvironment grid) {
         super(position, hall);

@@ -259,7 +259,7 @@ private void clearAllTints() {
         backgroundPanel.add(helpButton);
     }
     
-    private void setExitButton() {
+      private void setExitButton() {
         exitButton = new JButton();
         exitButton.setBounds(1045, 37, 77, 77);
         exitButton.setOpaque(false);
@@ -281,20 +281,17 @@ private void clearAllTints() {
                         if (!saveFolder.exists()) saveFolder.mkdirs();
                         String filePath = saveDir + File.separator + saveName + ".dat";
                         try (FileOutputStream fileOut = new FileOutputStream(filePath);
-
-                            
-                            ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
-                            for (ITimeControllers timeController : gridEnvironment.getTimeControllers()) {
+                             ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
+                            /* for (ITimeControllers timeController : gridEnvironment.getTimeControllers()) {
                                 timeController.disposeTimer();
-                            }
-                            
+                            } */
+    
                             SaveGameController sgc = new SaveGameController();
-
+    
                             out.writeObject(sgc.getCurrentHall());
                             out.writeObject(sgc.getCurrentHallIndex());
                             out.writeObject(BuildModeController.Halls);
-                           
-
+    
                             // Ensure other objects are serializable before uncommenting
                             // out.writeObject(sgc.getGridEnvironment());
                             // out.writeObject(sgc.getPlayModeScreen());
@@ -304,12 +301,20 @@ private void clearAllTints() {
                         } catch (Exception ex) {
                             JOptionPane.showMessageDialog(null, "Failed to save the game: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                         }
+                    } else {
+                        // User clicked cancel or entered an invalid name, resume the game
+                        resumeGame();
                     }
+                } else {
+                    // User clicked cancel on the confirm dialog, resume the game
+                    resumeGame();
                 }
             }
         });
         backgroundPanel.add(exitButton);
     }
+    
+    
     private void setInventoryDisplay() {
     inventoryPanel = new JPanel();
     inventoryPanel.setBounds(868, 480, 220, 100); // Shifted panel slightly downwards

@@ -12,6 +12,21 @@ public class ArcherMonster extends Monster implements Serializable{
 
     }
 
+    /*
+     * Method: shootArrow
+     *
+     * Requires:
+     * - A valid Hero object is provided.
+     * - The positions of the ArcherMonster and the Hero are initialized and valid.
+     *
+     * Modifies:
+     * - The life count of the Hero if the Hero is within 4 squares and not protected.
+     * - The `hasAttacked` field of the ArcherMonster to true if an attack is successful.
+     *
+     * Effects:
+     * - Returns true if the ArcherMonster successfully shoots an arrow at the Hero.
+     * - Returns false if the Hero is not within range, is protected, or the ArcherMonster has already attacked.
+     */
     
     public boolean shootArrow(Hero hero) {
         PositionPoint archerPosition = this.getPosition(); 
@@ -33,7 +48,7 @@ public class ArcherMonster extends Monster implements Serializable{
     }
         
         
-    private PositionPoint getPosition() {
+    public PositionPoint getPosition() {
         return this.position;
     }
 

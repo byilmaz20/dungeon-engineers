@@ -12,6 +12,8 @@ import java.io.ObjectOutputStream;
 
 import static java.lang.Math.abs;
 import javax.swing.*;
+
+import src.GameController.BuildModeController;
 import src.GameController.GameFlowController;
 import src.GameController.GameModeController;
 import src.GameController.ITimeControllers;
@@ -283,6 +285,9 @@ private void clearAllTints() {
                             SaveGameController sgc = new SaveGameController();
                             out.writeObject(sgc.getCurrentHall());
                             out.writeObject(sgc.getCurrentHallIndex());
+                            out.writeObject(BuildModeController.Halls);
+                           
+
                             // Ensure other objects are serializable before uncommenting
                             // out.writeObject(sgc.getGridEnvironment());
                             // out.writeObject(sgc.getPlayModeScreen());

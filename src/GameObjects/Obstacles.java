@@ -1,5 +1,7 @@
 package src.GameObjects;
 
+import java.io.Serializable;
+
 import src.Mechanics.PositionPoint;
 
 public class Obstacles extends Entity {
@@ -32,7 +34,7 @@ public class Obstacles extends Entity {
     }
 
     // Enum for obstacle types
-    public enum ObstacleType {
+    public enum ObstacleType implements Serializable {
         SKULL,
         STAIR,
         RECTANGLE,

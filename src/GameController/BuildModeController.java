@@ -13,7 +13,7 @@ import src.Mechanics.PositionPoint;
 import src.UI.BuildModeScreen;
 
 public class BuildModeController implements Serializable{
-    public static final Map<String, Hall> Halls = new HashMap<>();
+    public static Map<String, Hall> Halls = new HashMap<>();
 
     public BuildModeController(){
 

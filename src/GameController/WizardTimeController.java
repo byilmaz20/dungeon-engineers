@@ -27,6 +27,7 @@ public class WizardTimeController implements ITimeControllers,Serializable {
     private IWizardBehavior wizardBehavior;
 
 
+
     private double lastRuneSpawnTime;
 
     private final double RuneStartDelay = 5.0;
@@ -138,6 +139,7 @@ public class WizardTimeController implements ITimeControllers,Serializable {
         System.out.println(hall);
 
         TimeController controller = new TimeController(grid);
+        controller.startTimeController();
         controller.startTimeController();
     }
 

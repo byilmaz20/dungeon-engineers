@@ -8,8 +8,8 @@ import src.Mechanics.PositionPoint;
 import src.Mechanics.Timer;
 
 public class WizardMonster extends Monster {
-    transient private WizardTimeController wizardTimeController;
-    transient private Timer wizardTimer;
+    private WizardTimeController wizardTimeController;
+    private Timer wizardTimer;
     public WizardMonster(PositionPoint position, Hall hall, GridEnvironment grid) {
         super(position, hall);
         this.type = MonsterTypes.WizardMonster;

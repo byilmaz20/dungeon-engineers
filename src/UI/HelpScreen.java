@@ -2,17 +2,22 @@ package src.UI;
 
 import java.awt.*;
 import javax.swing.*;
+import src.Mechanics.SoundManager;
 
 public class HelpScreen extends UIScreen {
     private JButton BackGameButton;
     private JPanel leftPanel;
     private UIScreen previous_Screen;
+    private SoundManager buttonClickSound; 
+
 
     public HelpScreen(UIScreen previous_Screen) {
         super(1200, 900, "Help", "src/Images/BackgroundImages/helpbackground.png");
         initializeComponents();
         setVisible(true);
        this.previous_Screen= previous_Screen;
+
+       buttonClickSound = new SoundManager("src/voices/clickbutton.wav");
     }
 
     private void initializeComponents() {
@@ -233,6 +238,8 @@ public class HelpScreen extends UIScreen {
         BackGameButton = new JButton("BACK");
         BackGameButton.setFont(new Font("Times New Roman", Font.BOLD, 20));
         BackGameButton.addActionListener(e -> {
+        buttonClickSound.playSound();
+
             this.dispose();
             if (previous_Screen instanceof PlayModeScreen) {
                 ((PlayModeScreen) previous_Screen).resumeGame();

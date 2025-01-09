@@ -26,6 +26,7 @@ import src.Mechanics.Direction.DirectionEnum;
 import src.Mechanics.GridEnvironment;
 import src.Mechanics.PositionPoint;
 import src.Mechanics.Timer;
+import src.Mechanics.SoundManager;
 
 public class PlayModeScreen extends UIScreen implements KeyListener{
     private final int gridWidth = 25; // Number of columns
@@ -48,6 +49,7 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
     private JPanel lifePanel;
     private JPanel inventoryPanel;
     private JPanel[][] tintPanels = new JPanel[gridHeight][gridWidth]; // Array to hold tints for each cell
+    private SoundManager buttonClickSound;
 
 
     private GridEnvironment gridEnvironment; // Reference to the GridEnvironment
@@ -89,6 +91,7 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
 
         updateTime(remainingTime);
         setVisible(true);
+        buttonClickSound = new SoundManager("src/voices/clickbutton.wav");
     }
     public void applyRedTint(PositionPoint topLeft, boolean highlightActive) {
     // Clear all previous tints
@@ -180,6 +183,7 @@ private void clearAllTints() {
         pauseGameButton.setIcon(pauseIcon); // İlk başta pause ikonunu göster
     
         pauseGameButton.addActionListener(e -> {
+            buttonClickSound.playSound();
             if (!isPaused) {
                 pauseGame();
             } else {
@@ -251,6 +255,7 @@ private void clearAllTints() {
         helpButton.setContentAreaFilled(false);
         helpButton.setBorderPainted(false);
             helpButton.addActionListener(e -> {
+            buttonClickSound.playSound();
             this.setVisible(false);
             //time pause olmalı
             if (!isPaused) pauseGame();
@@ -268,6 +273,7 @@ private void clearAllTints() {
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                buttonClickSound.playSound();
                 if (!isPaused) pauseGame();
                 int response = JOptionPane.showConfirmDialog(null, "Do you want to save the game before exiting?", "Confirm Exit",
                         JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);

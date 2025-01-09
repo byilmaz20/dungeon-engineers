@@ -667,7 +667,7 @@ private void initializeInventoryChangeListener() {
             //System.out.println("Rune has been clicked: " + x + ", " + y);
             checkRuneFound();
         }
-        if (gridEnvironment.map[x][y] instanceof Enchantment) {
+        if (gridEnvironment.map[x][y] instanceof Enchantment && !isPaused) {
             Enchantment enchantment = (Enchantment) gridEnvironment.map[x][y];
             String mode = GameModeController.getInstance().getGameMode();
             if (mode.equals("easy")) {

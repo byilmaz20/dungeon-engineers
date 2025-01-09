@@ -8,7 +8,7 @@ import src.Mechanics.PositionPoint;
 import src.Mechanics.Timer;
 
 public class FighterMonster extends Monster implements Serializable{
-    transient private FighterTimeController fighterTimeController;
+    private FighterTimeController fighterTimeController;
     transient private Timer fighterTimer;
     
     public FighterMonster(PositionPoint position, Hall hall, GridEnvironment grid) {

@@ -5,7 +5,7 @@ import java.io.Serializable;
 import src.Mechanics.GridEnvironment;
 import src.Mechanics.Timer;
 
-public class CloakUseController implements ITimeControllers, Serializable {
+public class CloakUseTimeController implements ITimeControllers, Serializable {
     private Timer timer;
     private boolean isPaused;
     private double initialTime;
@@ -15,7 +15,7 @@ public class CloakUseController implements ITimeControllers, Serializable {
     private final double CloakTime = 20.0;
     GridEnvironment grid;
 
-    public CloakUseController(GridEnvironment grid) {
+    public CloakUseTimeController(GridEnvironment grid) {
         String mode = GameModeController.getInstance().getGameMode();
         this.timer = new Timer();
         this.isPaused = false;

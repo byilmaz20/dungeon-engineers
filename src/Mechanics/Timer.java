@@ -109,7 +109,7 @@ public class Timer implements Serializable{
     }
 
     public synchronized double disposeTimer() {
-        double remainingTime = this.elapsedTime;
+        double remainingTime = this.getRemainingTime();
         stopTimer();
         return remainingTime;
     }

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
 import src.GameController.ITimeControllers;
 import src.GameController.TimeController;
 import src.GameObjects.Enchantment;
@@ -104,6 +105,22 @@ public class GridEnvironment implements Serializable{
     public List<ITimeControllers> getTimeControllers() {
         return this.timeControllers;
     }
+    /**
+     * Requires:
+     * - `position` is not null and represents a valid position object.
+     * - `mapWidth` and `mapHeight` are initialized and represent the map dimensions.
+     * - `map` is a 2D array representing the game area, and it has a size of `mapWidth x mapHeight`.
+     *
+     * Modifies:
+     * - None. This method only performs checks and does not modify any object or variable.
+     *
+     * Effects:
+     * - Returns true if:
+     *   - The position is within the boundaries of the map.
+     *   - The position is unoccupied in the `map` (value is `null`).
+     * - Returns false otherwise.
+     */
+
 
     private boolean isPositionValid(PositionPoint position) {
         return position.x >= 0 && position.x < mapWidth &&

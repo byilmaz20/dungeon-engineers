@@ -1,9 +1,10 @@
 package src.Tests;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import src.Mechanics.PositionPoint;
+import lib.*;
 import src.GameController.GameModeController;
 import src.GameObjects.ArcherMonster;
 import src.GameObjects.Hero;

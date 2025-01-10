@@ -3,7 +3,7 @@ package src.GameObjects;
 import src.GameController.GameModeController;
 import src.Mechanics.Direction;
 import src.Mechanics.PositionPoint;
-
+import src.Mechanics.SoundManager;
 
 public class Hero extends Entity {
     int lives; 
@@ -12,6 +12,7 @@ public class Hero extends Entity {
     boolean FoolingStatus;
     private Direction lureDirection;
     transient private LifeCountListener listener;
+    private SoundManager buttonLoseLifeSound;
 
     public Hero(PositionPoint heroPosition, Hall hall) {
         super(heroPosition, hall);
@@ -25,6 +26,7 @@ public class Hero extends Entity {
         this.ProtectionStatus = false;
         this.FoolingStatus = false;
         lureDirection = null;
+        buttonLoseLifeSound = new SoundManager("src/voices/loselife.wav");
     }
 
     public Direction getLureDirection() {
@@ -60,7 +62,9 @@ public class Hero extends Entity {
         notifyLifeChange();
     }
     public void decreaseLifeCount(){
+        buttonLoseLifeSound.playSound();
         this.lives -= 1;
+
         notifyLifeChange();
         System.out.println("Life count decreased t "+this.lives);
     }

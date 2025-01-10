@@ -1,14 +1,20 @@
 package src.Tests;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import src.Mechanics.PositionPoint;
+import src.GameController.GameModeController;
+import src.GameObjects.ArcherMonster;
+import src.GameObjects.Hero;
+import src.GameObjects.Hall;
+import src.GameObjects.HallTypes;
 
 public class isPositionValidTest {
     private int mapWidth;
     private int mapHeight;
     private Object[][] map;
+    private PositionPoint point;
 
     @BeforeEach
     void setUp() {
@@ -20,7 +26,7 @@ public class isPositionValidTest {
     void testValidPosition() {
         PositionPoint position = new PositionPoint(3, 3);
         map[3][3] = null; // Ensure the position is unoccupied.
-        assertTrue(isPositionValid(position));
+        assertTrue(position.isPositionValid(position));
     }
     @Test
     void testPositionOutOfBounds() {

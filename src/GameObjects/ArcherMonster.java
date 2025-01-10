@@ -37,7 +37,7 @@ public class ArcherMonster extends Monster implements Serializable{
 
         // Check if the hero is within 4 squares and protection status
         if (distance < 4 && hero.checkProtection()==false ) { //TODO && 
-            hasAttacked == false
+            hasAttacked = false;
             hero.decreaseLifeCount();
             //System.out.printf("Archer Monster shot an arrow at the hero! Hero's life count: %d\n", hero.getLives());
             hasAttacked = true;

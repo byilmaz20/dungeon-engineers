@@ -37,7 +37,6 @@ public class Timer implements Serializable{
         this.isPaused = false;
         this.lastUpdateTime = System.currentTimeMillis();
         tickCallback.accept((int) Math.ceil(remainingTime));
-        //todo eger cagırılan fonksiyonun suresi uzadıgı icin visual guncelleme sıkıntısı cıkarsa kontrol et
         timerThread = new Thread(() -> {
             while (remainingTime > 0) {
                 long loopStartTime = System.currentTimeMillis();
@@ -67,8 +66,7 @@ public class Timer implements Serializable{
                 }
                 notifyTimeChange();
             }
-            //System.out.println("Timer Finished!");
-            //TODO burada aksiyon alınacak UI baglantısı icin
+
         });
         timerThread.start();
     }
@@ -78,6 +76,7 @@ public class Timer implements Serializable{
             isPaused = true;
             //System.out.printf("Timer Paused! Elapsed Time: %.3f\n", elapsedTime);
         }
+        
     }
 
     public synchronized void resumeTimer() {
@@ -86,6 +85,7 @@ public class Timer implements Serializable{
             lastUpdateTime = System.currentTimeMillis();
             //System.out.printf("Timer Resumed! Elapsed Time: %.3f\n", elapsedTime);
         }
+        
     }
 
     public synchronized void addTime(double seconds) {
@@ -101,4 +101,13 @@ public class Timer implements Serializable{
     public synchronized double getElapsedTime() {
         return elapsedTime;
     }
+
+
+    public long getlastUpdateTime() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getLastUpdateTime'");
+    }
+
+
+    
 }

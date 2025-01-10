@@ -11,6 +11,8 @@ import src.GameController.GameModeController;
 import src.GameObjects.ArcherMonster;
 import src.GameObjects.Entity;
 import src.GameObjects.Hero;
+import src.GameObjects.Obstacles;
+import src.GameObjects.Obstacles.ObstacleType;
 import src.GameObjects.Hall;
 import src.GameObjects.HallTypes;
 
@@ -27,7 +29,7 @@ public class isPositionValidTest {
         hall = new Hall(HallTypes.AIR);
         PositionPoint coordinates = new PositionPoint(0, 0);
 
-        hall.put(coordinates, obj);
+        hall.placeEntity(new Obstacles(coordinates, hall, ObstacleType.SKULL));
         grid = new GridEnvironment(hall);
         PositionPoint heroPosition = new PositionPoint(3, 0); // Within range
         Hero hero = new Hero(heroPosition, hall);
@@ -38,7 +40,7 @@ public class isPositionValidTest {
     void testValidPosition() {
         PositionPoint position = new PositionPoint(3, 3);
         grid.map[3][3] = null; // Ensure the position is unoccupied.
-        assertFalse(grid.isPositionValid(position), "Position should be valid.");
+        assertTrue(grid.isPositionValid(position), "Position should be valid.");
     }
     @Test
     void testPositionOutOfBounds() {
@@ -47,9 +49,9 @@ public class isPositionValidTest {
     }
     @Test
     void testPositionOccupied() {
-        PositionPoint position = new PositionPoint(2, 2);
-        grid.map[2][2] = (Entity) new Object(); // Mark the position as occupied.
-        assertFalse(grid.isPositionValid(position));
+        PositionPoint coordinates = new PositionPoint(2, 2);
+        grid.map[2][2] = new Obstacles(coordinates, hall, ObstacleType.SKULL); // Mark the position as occupied.
+        assertFalse(grid.isPositionValid(coordinates));
     }
 
     

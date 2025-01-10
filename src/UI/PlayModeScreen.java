@@ -51,6 +51,9 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
     private JPanel[][] tintPanels = new JPanel[gridHeight][gridWidth]; // Array to hold tints for each cell
     private SoundManager buttonClickSound;
     private SoundManager buttonMoveSound;
+    private SoundManager buttonCollectEnchantmentSound;
+    private SoundManager buttonLoseLifeSound;
+    private SoundManager DoorOpenSound;
 
     private GridEnvironment gridEnvironment; // Reference to the GridEnvironment
 
@@ -93,6 +96,9 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
         setVisible(true);
         buttonClickSound = new SoundManager("src/voices/clickbutton.wav");
         buttonMoveSound = new SoundManager("src/voices/move.wav");
+        buttonCollectEnchantmentSound = new SoundManager("src/voices/CollectEnchantment.wav");
+        buttonLoseLifeSound = new SoundManager("src/voices/loselife.wav");
+        DoorOpenSound = new SoundManager("src/voices/door.wav");
     }
     public void applyRedTint(PositionPoint topLeft, boolean highlightActive) {
     // Clear all previous tints
@@ -603,6 +609,7 @@ private void initializeInventoryChangeListener() {
                 if (gridEnvironment.getHero().getInventory().checkAvailability(EnchantmentTypes.CLOAK_OF_PROTECTION_ENCHANTMENT)){
                     CloakOfProtectionEnchantment cloak = new CloakOfProtectionEnchantment(null, null, gridEnvironment);
                     cloak.applyEffect();
+                    buttonCollectEnchantmentSound.playSound();
                     gridEnvironment.getHero().getInventory().remove(EnchantmentTypes.CLOAK_OF_PROTECTION_ENCHANTMENT);
                 }
                 
@@ -610,12 +617,14 @@ private void initializeInventoryChangeListener() {
             case KeyEvent.VK_R:
                 if (gridEnvironment.getHero().getInventory().checkAvailability(EnchantmentTypes.REVEAL_ENCHANTMENT)){
                     RevealEnchantment reveal = new RevealEnchantment(gridEnvironment.getHero().getPosition(),gridEnvironment.getHall(), gridEnvironment);
+                    buttonCollectEnchantmentSound.playSound();
                     reveal.applyEffect(this);
                     gridEnvironment.getHero().getInventory().remove(EnchantmentTypes.REVEAL_ENCHANTMENT);
                 }
                 break;
             case KeyEvent.VK_B:
                 if (gridEnvironment.getHero().getInventory().checkAvailability(EnchantmentTypes.LURING_GEM_ENCHANTMENT)){
+                    buttonCollectEnchantmentSound.playSound();///////fırlatma sesi olmalı
                     bPressed = true;
                     gridEnvironment.getHero().getInventory().remove(EnchantmentTypes.LURING_GEM_ENCHANTMENT);
                 }
@@ -673,25 +682,33 @@ private void initializeInventoryChangeListener() {
             String mode = GameModeController.getInstance().getGameMode();
             if (mode.equals("easy")) {
                 if (enchantment.getType() == EnchantmentTypes.EXTRA_LIFE_ENCHANTMENT && gridEnvironment.getHero().getLives() < 5) {
+                    buttonCollectEnchantmentSound.playSound();
                     enchantment.applyEffect();
                     System.out.println("Extra Life Enchantment has been clicked: " + x + ", " + y);
+                
                 }
             }
             else if (mode.equals("hard")) {
                 if (enchantment.getType() == EnchantmentTypes.EXTRA_LIFE_ENCHANTMENT && gridEnvironment.getHero().getLives() < 3) {
+                    buttonCollectEnchantmentSound.playSound();
                     enchantment.applyEffect();
                     System.out.println("Extra Life Enchantment has been clicked: " + x + ", " + y);
+                    
                 }
             }
             
             if (enchantment.getType() == EnchantmentTypes.EXTRA_TIME_ENCHANTMENT) {
+                buttonCollectEnchantmentSound.playSound();
                 enchantment.applyEffect();
                 System.out.println("Extra Time Enchantment has been clicked: " + x + ", " + y);
+                
             }
             else {
                 System.out.println("Enchantment has been clicked: " + x + ", " + y);
+                buttonCollectEnchantmentSound.playSound();
                 gridEnvironment.getHero().getInventory().add(enchantment);
             }
+            buttonCollectEnchantmentSound.playSound();
             gridEnvironment.removeEntity(enchantment);
 
         }
@@ -703,7 +720,7 @@ private void initializeInventoryChangeListener() {
                 gridEnvironment.hero.position.y == gridEnvironment.rune.position.y) || 
             (abs(gridEnvironment.hero.position.y - gridEnvironment.rune.position.y) == 1 && 
                 gridEnvironment.hero.position.x == gridEnvironment.rune.position.x)) {
-            
+            DoorOpenSound.playSound();
             isAdjacent = true;
         }
    

@@ -15,7 +15,7 @@ public class CloakOfProtectionEnchantment extends Enchantment implements Seriali
     transient private Timer cloakUseTimer;
     transient private Timer enchantmentTimer;
     private GridEnvironment grid;
-    private SoundManager buttonCollectEnchantmentSound;
+    transient private SoundManager buttonCollectEnchantmentSound;
 
 
     public CloakOfProtectionEnchantment(PositionPoint position, Hall hall, GridEnvironment grid) {

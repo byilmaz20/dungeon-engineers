@@ -15,7 +15,7 @@ public class LuringGemEnchantment extends Enchantment implements Serializable{
     transient private Timer luringGemTimer;
     transient private Timer enchantmentTimer;
     private GridEnvironment grid;
-    private SoundManager buttonCollectEnchantmentSound;
+    transient private SoundManager buttonCollectEnchantmentSound;
 
     public LuringGemEnchantment(PositionPoint position, Hall hall, GridEnvironment grid) {
         super(position, hall);

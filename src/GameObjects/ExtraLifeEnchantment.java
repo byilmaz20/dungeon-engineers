@@ -11,7 +11,7 @@ public class ExtraLifeEnchantment extends Enchantment implements Serializable{
     private EnchantmentTimeController enchantmentTimeController;
     transient private Timer enchantmentTimer;
     private GridEnvironment grid;
-    private SoundManager buttonCollectEnchantmentSound;
+    transient private SoundManager buttonCollectEnchantmentSound;
     
     public ExtraLifeEnchantment(PositionPoint position, Hall hall, GridEnvironment grid) {
         super(position, hall);

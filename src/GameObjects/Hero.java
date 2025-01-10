@@ -12,7 +12,7 @@ public class Hero extends Entity {
     boolean FoolingStatus;
     private Direction lureDirection;
     transient private LifeCountListener listener;
-    private SoundManager buttonLoseLifeSound;
+    transient private SoundManager buttonLoseLifeSound;
 
     public Hero(PositionPoint heroPosition, Hall hall) {
         super(heroPosition, hall);

@@ -12,7 +12,7 @@ public class Enchantment extends Entity implements Serializable{
     EnchantmentTypes type;
     boolean  isStorable;
     int duration;
-    private SoundManager buttonCollectEnchantmentSound;
+    transient private SoundManager buttonCollectEnchantmentSound;
 
     
     public Enchantment(PositionPoint position, Hall hall) {

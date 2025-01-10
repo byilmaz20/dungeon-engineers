@@ -15,7 +15,7 @@ public class RevealEnchantment extends Enchantment implements Serializable{
     transient private Timer revealUseTimer;
     transient private Timer enchantmentTimer;
     private GridEnvironment grid;
-    private SoundManager buttonCollectEnchantmentSound;
+    transient private SoundManager buttonCollectEnchantmentSound;
 
     public RevealEnchantment(PositionPoint position, Hall hall, GridEnvironment grid) {
         super(position, hall);

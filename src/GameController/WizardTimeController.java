@@ -123,13 +123,14 @@ public class WizardTimeController implements ITimeControllers,Serializable {
         Obstacles obstacle2 = new Obstacles(position5, hall, ObstacleType.CHEST);
         hall.placeEntity(obstacle);
         hall.placeEntity(obstacle2);
-
-        GridEnvironment grid = new GridEnvironment(hall);
+        
+        Hero hero  = new Hero(position3, hall);
+        GridEnvironment grid = new GridEnvironment(hall, hero);
 
 
         Monster monster = new Monster(position2, hall);
         WizardMonster wizard = new WizardMonster(position3, hall, grid);
-        Hero hero  = new Hero(position3, hall);
+        
         Rune rune = new Rune(position, hall);
         hall.placeEntity(rune);
         hall.placeEntity(hero);

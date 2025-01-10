@@ -704,6 +704,7 @@ public class BuildModeScreen extends JPanel implements Serializable{
             return "Unknown Object";
         }
         String description = icon.getDescription();
+        System.err.println(description);
         
         if (description == null) {
             System.err.println("ImageIcon description is null for icon: " + icon);

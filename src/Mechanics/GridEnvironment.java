@@ -122,7 +122,7 @@ public class GridEnvironment implements Serializable{
      */
 
 
-    private boolean isPositionValid(PositionPoint position) {
+    public boolean isPositionValid(PositionPoint position) {
         return position.x >= 0 && position.x < mapWidth &&
                position.y >= 0 && position.y < mapHeight &&
                map[position.x][position.y] == null;

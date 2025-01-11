@@ -1,8 +1,13 @@
 package src.GameObjects;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.io.Serializable;
 import java.util.Random;
+
+import src.GameController.GameModeController;
 import src.GameController.WizardTimeController;
+import src.GameObjects.Obstacles.ObstacleType;
 import src.Mechanics.GridEnvironment;
 import src.Mechanics.PositionPoint;
 import src.Mechanics.Timer;
@@ -17,17 +22,31 @@ public class WizardMonster extends Monster {
         wizardTimeController.startTimeController();
         wizardTimer = wizardTimeController.getTimer();
     }
-    // public void teleportRune(GridEnvironment grid) {
-    //     Random random = new Random();
+    
 
-    //     PositionPoint runePosition = grid.rune.position;
-    //     PositionPoint newrunePosition = grid.rune.position;
-    //     while (runePosition == newrunePosition ) { 
-    //         newrunePosition = grid.getHall().getObstacles().get(random.nextInt(grid.getHall().getObstacles().size())).position;
-    //     }
-    //     grid.rune.position  = newrunePosition;
-    //     System.out.println("Rune has been spawned to " + newrunePosition.x +", "+ newrunePosition.y);
-    // }
+    /**
+     * Teleports the rune in the grid to a new random position on an obstacle within the hall.
+     * 
+     * Requires:
+     * - The `grid` must not be null.
+     * - The `grid.rune` must not be null.
+     * - The `grid.getHall()` must not be null.
+     * - The `grid.getHall().getObstacles()` must not be null or empty.
+     * - The hall must contain more than one obstacle.
+     * 
+     * Modifies:
+     * - The `position` of the `rune` in the `grid`.
+     * 
+     * Effects:
+     * - Randomly selects a new position from the obstacles in the hall for the rune.
+     * - Ensures the new position is different from the current position of the rune.
+     * - Throws `IllegalArgumentException` if:
+     *   - `grid` is null.
+     *   - `grid.rune` is null.
+     *   - `grid.getHall()` is null.
+     *   - `grid.getHall().getObstacles()` is null or empty.
+     *   - The hall contains only one obstacle.
+     */
 
     public void teleportRune(GridEnvironment grid) {
         if (grid == null || grid.rune == null || grid.getHall() == null || grid.getHall().getObstacles() == null || grid.getHall().getObstacles().isEmpty()) {
@@ -37,7 +56,9 @@ public class WizardMonster extends Monster {
         Random random = new Random();
         PositionPoint runePosition = grid.rune.position;
         PositionPoint newRunePosition;
-
+        if (grid.getHall().getObstacles().size() == 1) {
+            throw new IllegalArgumentException("There must be more than one obstacle in the hall");
+        }
         do {
             newRunePosition = grid.getHall()
                                 .getObstacles()
@@ -49,4 +70,5 @@ public class WizardMonster extends Monster {
         System.out.println("Rune has been spawned to " + newRunePosition.x + ", " + newRunePosition.y);
     }
 
+    
 }

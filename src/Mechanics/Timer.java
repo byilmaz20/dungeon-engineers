@@ -73,19 +73,21 @@ public class Timer implements Serializable{
         timerThread.start();
     }
 
-    public synchronized void pauseTimer() {
+    public synchronized boolean pauseTimer() {
         if (!isPaused) {
             isPaused = true;
             //System.out.printf("Timer Paused! Elapsed Time: %.3f\n", elapsedTime);
         }
+        return isPaused;
     }
 
-    public synchronized void resumeTimer() {
+    public synchronized boolean resumeTimer() {
         if (isPaused) {
             isPaused = false;
             lastUpdateTime = System.currentTimeMillis();
             //System.out.printf("Timer Resumed! Elapsed Time: %.3f\n", elapsedTime);
         }
+        return isPaused;
     }
 
     public synchronized void addTime(double seconds) {
@@ -113,4 +115,10 @@ public class Timer implements Serializable{
         stopTimer();
         return remainingTime;
     }
+
+    public long getlastUpdateTime() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getLastUpdateTime'");
+    }
+
 }

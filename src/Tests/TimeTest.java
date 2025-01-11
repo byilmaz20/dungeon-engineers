@@ -1,30 +1,5 @@
 package src.Tests;
 
-/**
- * Starts the timer with the specified initial time, periodically invoking the mechanics callback
- * and tick callback as the timer counts down.
- * 
- * Requires:
- * - `initialTime > 0`: The initial time must be a positive value.
- * - `mechanicsCallback != null`: The mechanics callback must not be null.
- * - `tickCallback != null`: The tick callback must not be null.
- * 
- * Modifies:
- * - `remainingTime`: Initializes it to `initialTime` and decrements it as time progresses.
- * - `elapsedTime`: Tracks the total elapsed time since the timer started.
- * - `isPaused`: Controls whether the timer is paused or running.
- * - `lastUpdateTime`: Updates to track the last system time when the timer was running.
- * - `timerThread`: Initializes and starts a new thread to manage the timer logic.
- * 
- * Effects:
- * - Starts a new thread that:
- *   - Periodically decrements `remainingTime` and updates `elapsedTime`.
- *   - Invokes the `mechanicsCallback` whenever the elapsed time progresses by one or more seconds.
- *   - Invokes the `tickCallback` with the current `remainingTime` at each tick.
- * - Notifies listeners of time changes using `notifyTimeChange()`.
- * - Ends execution when `remainingTime` reaches 0 or if interrupted.
- */
-
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.AfterEach;
@@ -34,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import src.Mechanics.Timer;
 
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicReference;
+
 
 public class TimeTest {
     private Timer timer;

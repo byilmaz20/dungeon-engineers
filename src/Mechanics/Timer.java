@@ -3,6 +3,36 @@ package src.Mechanics;
 import java.io.Serializable;
 import java.util.function.Consumer;
 
+/**
+ * Starts the timer with the specified initial time, periodically invoking the mechanics callback
+ * and tick callback as the timer counts down.
+ * 
+ * Requires:
+ * - `initialTime > 0`: The initial time must be a positive value greater than zero.
+ * - `mechanicsCallback != null`: The mechanics callback must not be null and must be executable.
+ * - `tickCallback != null`: The tick callback must not be null and must be executable.
+ * 
+ * Modifies:
+ * - `remainingTime`: Sets this variable to `initialTime` and decrements it periodically as time progresses.
+ * - `elapsedTime`: Tracks the total elapsed time since the timer started and updates it on every tick.
+ * - `isPaused`: Sets to `false` at the start and can be toggled during the timer's lifecycle.
+ * - `lastUpdateTime`: Updates to the current system time at each tick or whenever the timer's state changes (e.g., resume).
+ * - `timerThread`: Initializes and starts a new thread to handle the timer's countdown logic.
+ * 
+ * Effects:
+ * - Creates and starts a new thread (`timerThread`) to manage the timer.
+ * - Periodically:
+ *   - Decrements `remainingTime` and updates `elapsedTime`.
+ *   - Invokes `mechanicsCallback` whenever `elapsedTime` progresses by one or more seconds.
+ *   - Invokes `tickCallback` with the current `remainingTime` on each tick.
+ * - Updates the `lastUpdateTime` to calculate accurate time deltas for time progression.
+ * - Calls `notifyTimeChange()` to notify listeners of changes in `remainingTime`.
+ * - Stops execution when `remainingTime` reaches 0 or if the thread is interrupted.
+ * - Ensures thread safety with synchronized blocks to handle concurrent access to shared variables.
+ * - Throws `IllegalArgumentException` if `initialTime <= 0` or if either callback is null.
+ */
+
+
 public class Timer implements Serializable{
     private double remainingTime;
     private double elapsedTime;
@@ -71,20 +101,21 @@ public class Timer implements Serializable{
         timerThread.start();
     }
 
-    public synchronized void pauseTimer() {
+    public synchronized boolean pauseTimer() {
         if (!isPaused) {
             isPaused = true;
             //System.out.printf("Timer Paused! Elapsed Time: %.3f\n", elapsedTime);
         }
-        
+        return isPaused;
     }
 
-    public synchronized void resumeTimer() {
+    public synchronized boolean resumeTimer() {
         if (isPaused) {
             isPaused = false;
             lastUpdateTime = System.currentTimeMillis();
             //System.out.printf("Timer Resumed! Elapsed Time: %.3f\n", elapsedTime);
         }
+        return isPaused;
         
     }
 

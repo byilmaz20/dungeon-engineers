@@ -7,7 +7,7 @@ import src.Mechanics.GridEnvironment;
 import src.Mechanics.PositionPoint;
 import src.Mechanics.Timer;
 import src.UI.PlayModeScreen;
-import src.Mechanics.SoundManager;
+//import src.Mechanics.SoundManager;
 
 public class RevealEnchantment extends Enchantment implements Serializable{
     private EnchantmentTimeController enchantmentTimeController;
@@ -15,11 +15,11 @@ public class RevealEnchantment extends Enchantment implements Serializable{
     transient private Timer revealUseTimer;
     transient private Timer enchantmentTimer;
     private GridEnvironment grid;
-    transient private SoundManager buttonCollectEnchantmentSound;
+    //transient private SoundManager buttonCollectEnchantmentSound;
 
     public RevealEnchantment(PositionPoint position, Hall hall, GridEnvironment grid) {
         super(position, hall);
-        buttonCollectEnchantmentSound = new SoundManager("src/voices/CollectEnchantment.wav");
+      //  buttonCollectEnchantmentSound = new SoundManager("src/voices/CollectEnchantment.wav");
         this.type = EnchantmentTypes.REVEAL_ENCHANTMENT;
         this.isStorable = false;
         this.enchantmentTimeController = new EnchantmentTimeController(grid, this);
@@ -33,7 +33,7 @@ public class RevealEnchantment extends Enchantment implements Serializable{
     public void applyEffect(PlayModeScreen playModeScreen) {
         // Get the top-left corner of the 4x4 square
         
-        buttonCollectEnchantmentSound.playSound();
+        //buttonCollectEnchantmentSound.playSound();
         PositionPoint topLeft = getSquareTopLeft(grid);
 
         // Call PlayModeScreen to apply the red tint

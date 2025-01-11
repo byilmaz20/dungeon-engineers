@@ -5,13 +5,13 @@ import src.GameController.EnchantmentTimeController;
 import src.Mechanics.GridEnvironment;
 import src.Mechanics.PositionPoint;
 import src.Mechanics.Timer;
-import src.Mechanics.SoundManager;
+//import src.Mechanics.SoundManager;
 
 public class ExtraLifeEnchantment extends Enchantment implements Serializable{
     private EnchantmentTimeController enchantmentTimeController;
     transient private Timer enchantmentTimer;
     private GridEnvironment grid;
-    transient private SoundManager buttonCollectEnchantmentSound;
+    //transient private SoundManager buttonCollectEnchantmentSound;
     
     public ExtraLifeEnchantment(PositionPoint position, Hall hall, GridEnvironment grid) {
         super(position, hall);
@@ -20,14 +20,14 @@ public class ExtraLifeEnchantment extends Enchantment implements Serializable{
         this.grid = grid;
         enchantmentTimeController.startTimeController();
         enchantmentTimer = enchantmentTimeController.getTimer();
-        buttonCollectEnchantmentSound = new SoundManager("src/voices/CollectEnchantment.wav");
+      //  buttonCollectEnchantmentSound = new SoundManager("src/voices/CollectEnchantment.wav");
     }    
 
 
 
 
     public void applyEffect(){
-        buttonCollectEnchantmentSound.playSound();
+        //buttonCollectEnchantmentSound.playSound();
         grid.getHero().increaseLifeCount();
     }
 

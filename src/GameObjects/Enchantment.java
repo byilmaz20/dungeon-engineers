@@ -3,7 +3,7 @@ import src.Mechanics.PositionPoint;
 
 import java.io.Serializable;
 import java.util.Random;
-import src.Mechanics.SoundManager;
+//import src.Mechanics.SoundManager;
 
 
 
@@ -12,7 +12,7 @@ public class Enchantment extends Entity implements Serializable{
     EnchantmentTypes type;
     boolean  isStorable;
     int duration;
-    transient private SoundManager buttonCollectEnchantmentSound;
+  //  transient private SoundManager buttonCollectEnchantmentSound;
 
     
     public Enchantment(PositionPoint position, Hall hall) {
@@ -20,7 +20,7 @@ public class Enchantment extends Entity implements Serializable{
         this.type = selectRandomEnchantment();
         this.isStorable = false;
         this.duration = 6;
-        buttonCollectEnchantmentSound = new SoundManager("src/voices/CollectEnchantment.wav");
+    //    buttonCollectEnchantmentSound = new SoundManager("src/voices/CollectEnchantment.wav");
     }
 
     public static EnchantmentTypes selectRandomEnchantment() {
@@ -34,12 +34,12 @@ public class Enchantment extends Entity implements Serializable{
         return this.type;
     }
     public void CollectEnchantment(){
-        buttonCollectEnchantmentSound.playSound();
+      //  buttonCollectEnchantmentSound.playSound();
         // Collect the enchantment
     }
     // Abstract method applyEffect
     public void applyEffect(){
-        buttonCollectEnchantmentSound.playSound();
+        //buttonCollectEnchantmentSound.playSound();
         // Apply the effect of the enchantment
     }
     public void removeEnchantment(){
@@ -53,12 +53,12 @@ public class Enchantment extends Entity implements Serializable{
     }
 
     public void addItem(Enchantment enchantment){
-        buttonCollectEnchantmentSound.playSound();
+        //buttonCollectEnchantmentSound.playSound();
         // Add an item to the enchantment
     }
     public void decreaseItem(EnchantmentTypes enchantmentType){
         // Decrease the item
-        buttonCollectEnchantmentSound.playSound();
+        //buttonCollectEnchantmentSound.playSound();
     }
     
 }

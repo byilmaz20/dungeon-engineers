@@ -26,6 +26,8 @@ package src.Tests;
  */
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -115,6 +117,11 @@ public void testPauseAndResumeTimer() throws InterruptedException {
 }
 
 
+
+@AfterEach 
+public void teardown() { 
+timer.pauseTimer(); // Safely stop the timer thread to avoid interference. 
+}
     
 
 }

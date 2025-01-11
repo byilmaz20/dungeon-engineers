@@ -6,13 +6,13 @@ import src.GameController.ITimeControllers;
 import src.Mechanics.GridEnvironment;
 import src.Mechanics.PositionPoint;
 import src.Mechanics.Timer;
-import src.Mechanics.SoundManager;
+//import src.Mechanics.SoundManager;
 
 public class ExtraTimeEnchantment extends Enchantment implements Serializable{
     private EnchantmentTimeController enchantmentTimeController;
     transient private Timer enchantmentTimer;
     private GridEnvironment grid;
-    transient private SoundManager buttonCollectEnchantmentSound;
+    //transient private SoundManager buttonCollectEnchantmentSound;
 
     public ExtraTimeEnchantment(PositionPoint position, Hall hall, GridEnvironment grid) {
         super(position, hall);
@@ -21,11 +21,11 @@ public class ExtraTimeEnchantment extends Enchantment implements Serializable{
         this.grid = grid;
         enchantmentTimeController.startTimeController();
         enchantmentTimer = enchantmentTimeController.getTimer();
-        buttonCollectEnchantmentSound = new SoundManager("src/voices/CollectEnchantment.wav");
+      //  buttonCollectEnchantmentSound = new SoundManager("src/voices/CollectEnchantment.wav");
     }
     public void applyEffect(){
         for (ITimeControllers timeController : this.grid.getTimeControllers()) {
-            buttonCollectEnchantmentSound.playSound();
+        //    buttonCollectEnchantmentSound.playSound();
             timeController.applyTimeEchantment();
     }
 

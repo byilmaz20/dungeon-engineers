@@ -7,7 +7,7 @@ import src.GameObjects.EnchantmentTypes;
 import src.Mechanics.GridEnvironment;
 import src.Mechanics.PositionPoint;
 import src.Mechanics.Timer;
-import src.Mechanics.SoundManager;
+//import src.Mechanics.SoundManager;
 
 public class CloakOfProtectionEnchantment extends Enchantment implements Serializable{
     private EnchantmentTimeController enchantmentTimeController;
@@ -15,7 +15,7 @@ public class CloakOfProtectionEnchantment extends Enchantment implements Seriali
     transient private Timer cloakUseTimer;
     transient private Timer enchantmentTimer;
     private GridEnvironment grid;
-    transient private SoundManager buttonCollectEnchantmentSound;
+    //transient private SoundManager buttonCollectEnchantmentSound;
 
 
     public CloakOfProtectionEnchantment(PositionPoint position, Hall hall, GridEnvironment grid) {
@@ -27,13 +27,13 @@ public class CloakOfProtectionEnchantment extends Enchantment implements Seriali
         enchantmentTimeController.startTimeController();
         enchantmentTimer = enchantmentTimeController.getTimer();
         this.cloakUseController = new CloakUseTimeController(grid);
-        buttonCollectEnchantmentSound = new SoundManager("src/voices/CollectEnchantment.wav");
+       // buttonCollectEnchantmentSound = new SoundManager("src/voices/CollectEnchantment.wav");
 
     }
     
     public void applyEffect(){
         grid.getHero().activateProtection();
-        buttonCollectEnchantmentSound.playSound();
+        //buttonCollectEnchantmentSound.playSound();
         System.out.println("Cloak of Protection effect has been applied.");
         cloakUseController.startTimeController();
         cloakUseTimer = cloakUseController.getTimer();

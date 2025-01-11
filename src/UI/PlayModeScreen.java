@@ -52,7 +52,7 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
     private SoundManager buttonClickSound;
     private SoundManager buttonMoveSound;
     private SoundManager buttonCollectEnchantmentSound;
-    private SoundManager buttonLoseLifeSound;
+    private SoundManager applyEnchantment;
     private SoundManager DoorOpenSound;
 
     private GridEnvironment gridEnvironment; // Reference to the GridEnvironment
@@ -97,7 +97,7 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
         buttonClickSound = new SoundManager("src/voices/clickbutton.wav");
         buttonMoveSound = new SoundManager("src/voices/move.wav");
         buttonCollectEnchantmentSound = new SoundManager("src/voices/CollectEnchantment.wav");
-        buttonLoseLifeSound = new SoundManager("src/voices/loselife.wav");
+        applyEnchantment = new SoundManager("src/voices/applyenchantment.wav");
         DoorOpenSound = new SoundManager("src/voices/door.wav");
     }
     public void applyRedTint(PositionPoint topLeft, boolean highlightActive) {
@@ -609,7 +609,7 @@ private void initializeInventoryChangeListener() {
                 if (gridEnvironment.getHero().getInventory().checkAvailability(EnchantmentTypes.CLOAK_OF_PROTECTION_ENCHANTMENT)){
                     CloakOfProtectionEnchantment cloak = new CloakOfProtectionEnchantment(null, null, gridEnvironment);
                     cloak.applyEffect();
-                    buttonCollectEnchantmentSound.playSound();
+                    applyEnchantment.playSound();
                     gridEnvironment.getHero().getInventory().remove(EnchantmentTypes.CLOAK_OF_PROTECTION_ENCHANTMENT);
                 }
                 
@@ -618,14 +618,14 @@ private void initializeInventoryChangeListener() {
                 if (gridEnvironment.getHero().getInventory().checkAvailability(EnchantmentTypes.REVEAL_ENCHANTMENT)){
                     RevealEnchantment reveal = new RevealEnchantment(gridEnvironment.getHero().getPosition(),gridEnvironment.getHall(), gridEnvironment);
                     reveal.applyEffect(this);
-                    buttonCollectEnchantmentSound.playSound();
+                    applyEnchantment.playSound();
                     gridEnvironment.getHero().getInventory().remove(EnchantmentTypes.REVEAL_ENCHANTMENT);
                 }
                 break;
             case KeyEvent.VK_B:
                 if (gridEnvironment.getHero().getInventory().checkAvailability(EnchantmentTypes.LURING_GEM_ENCHANTMENT)){
                     bPressed = true;
-                    buttonCollectEnchantmentSound.playSound();///////fırlatma sesi olmalı
+                    applyEnchantment.playSound();///////fırlatma sesi olmalı
                     gridEnvironment.getHero().getInventory().remove(EnchantmentTypes.LURING_GEM_ENCHANTMENT);
                     
                 }
@@ -684,7 +684,7 @@ private void initializeInventoryChangeListener() {
             if (mode.equals("easy")) {
                 if (enchantment.getType() == EnchantmentTypes.EXTRA_LIFE_ENCHANTMENT && gridEnvironment.getHero().getLives() < 5) {
                     enchantment.applyEffect();
-                    buttonCollectEnchantmentSound.playSound();
+                    applyEnchantment.playSound();
                     System.out.println("Extra Life Enchantment has been clicked: " + x + ", " + y);
                 
                 }
@@ -692,7 +692,7 @@ private void initializeInventoryChangeListener() {
             else if (mode.equals("hard")) {
                 if (enchantment.getType() == EnchantmentTypes.EXTRA_LIFE_ENCHANTMENT && gridEnvironment.getHero().getLives() < 3) {
                     enchantment.applyEffect();
-                    buttonCollectEnchantmentSound.playSound();
+                    applyEnchantment.playSound();
                     System.out.println("Extra Life Enchantment has been clicked: " + x + ", " + y);
                     
                 }
@@ -700,7 +700,7 @@ private void initializeInventoryChangeListener() {
             
             if (enchantment.getType() == EnchantmentTypes.EXTRA_TIME_ENCHANTMENT) {
                 enchantment.applyEffect();
-                buttonCollectEnchantmentSound.playSound();
+                applyEnchantment.playSound();
                 System.out.println("Extra Time Enchantment has been clicked: " + x + ", " + y);
                 
             }

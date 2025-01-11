@@ -129,7 +129,7 @@ public class BuildModeScreen extends JPanel implements Serializable{
         exitButton.setBorderPainted(false);
         exitButton.setContentAreaFilled(false);
         exitButton.setFocusPainted(false);
-        ImageIcon exitIcon = new ImageIcon("src/Images/ObjectImages/exit2.png");
+        ImageIcon exitIcon = new ImageIcon("src/Images/ObjectImages/exit5.png");
         Image scaledExitImage = exitIcon.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH);
         exitButton.setIcon(new ImageIcon(scaledExitImage));
         exitButton.addActionListener(e -> {

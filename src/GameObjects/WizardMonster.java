@@ -1,7 +1,5 @@
 package src.GameObjects;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import java.io.Serializable;
 import java.util.Random;
 

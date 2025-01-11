@@ -19,90 +19,92 @@ import src.GameObjects.HallTypes;
 
 public class TeleportRuneTest {
     private WizardMonster wizardMonster;
-    private Hero hero;
     private GridEnvironment grid;
     private Hall hall;
     private Rune rune;
-    private Obstacles obstacle1;
-    private Obstacles obstacle2;
-    private Obstacles obstacle3;
+    private Hero hero;
+    private Obstacles obstacle1, obstacle2, obstacle3;
 
     @BeforeEach
     void setUp() {
-        GameModeController gmc = new GameModeController() ;
-        gmc.setGameMode("easy"); 
+        GameModeController gmc = new GameModeController();
+        gmc.setGameMode("easy");
         GameModeController.getInstance().setGameMode("easy");
+
         PositionPoint wizardPosition = new PositionPoint(0, 0);
-        PositionPoint heroPosition = new PositionPoint(3, 0); 
+        PositionPoint heroPosition = new PositionPoint(3, 0);
         PositionPoint runePosition = new PositionPoint(5, 21);
         PositionPoint obstaclePosition1 = new PositionPoint(5, 21);
         PositionPoint obstaclePosition2 = new PositionPoint(21, 14);
         PositionPoint obstaclePosition3 = new PositionPoint(21, 4);
-        hall = new Hall(HallTypes.AIR); // Hall type doesn't matter
+
+        hall = new Hall(HallTypes.AIR);
         grid = new GridEnvironment(hall);
+
         wizardMonster = new WizardMonster(wizardPosition, hall, grid);
         rune = new Rune(runePosition, hall);
         hero = new Hero(heroPosition, hall);
         obstacle1 = new Obstacles(obstaclePosition1, hall, ObstacleType.CHEST);
         obstacle2 = new Obstacles(obstaclePosition2, hall, ObstacleType.CHEST);
         obstacle3 = new Obstacles(obstaclePosition3, hall, ObstacleType.CHEST);
+
         hall.placeEntity(rune);
         hall.placeEntity(hero);
         hall.placeEntity(obstacle1);
         hall.placeEntity(obstacle2);
         hall.placeEntity(obstacle3);
         hall.placeEntity(wizardMonster);
+        
+
+        
     }
 
     @Test
-    void testTeleportRune() {
-        wizardMonster.teleportRune(grid);
-        assertTrue(grid.rune.position != null);
+    void testTeleportRuneNormalCase() {
+        PositionPoint oldPosition = grid.getRune().getPosition(); // Get current position of the rune
+        wizardMonster.teleportRune(grid); // Call the teleport method
+        PositionPoint newPosition = grid.getRune().getPosition(); // Get the new position of the rune
+
+        // Ensure the rune has been moved to a new position
+        assertNotEquals(oldPosition, newPosition);
+
+        // Ensure the new position is one of the obstacle positions
+        assertTrue(
+            newPosition.equals(obstacle1.getPosition()) ||
+            newPosition.equals(obstacle2.getPosition()) ||
+            newPosition.equals(obstacle3.getPosition())
+        );
     }
 
     @Test
-    void testTeleportRuneTwice() {
+    void testTeleportRuneWhenOnlyOneObstacle() {
+        // Remove two obstacles to leave only one
+        hall.removeEntity(obstacle2);
+        hall.removeEntity(obstacle3);
+
+        PositionPoint oldPosition = grid.getRune().getPosition();
         wizardMonster.teleportRune(grid);
-        PositionPoint firstRunePosition = grid.rune.position;
-        wizardMonster.teleportRune(grid);
-        assertTrue(grid.rune.position != firstRunePosition);
+        PositionPoint newPosition = grid.getRune().getPosition();
+
+        // Rune's position should remain the same as there’s only one obstacle
+        assertEquals(oldPosition, newPosition);
     }
 
     @Test
-    void testTeleportRuneToObstacle() {
-        wizardMonster.teleportRune(grid);
-        assertTrue(grid.getHall().getObstacles().contains(grid.rune));
+    void testTeleportRuneWithNullGrid() {
+        // Ensure the method throws an exception for a null grid
+        assertThrows(IllegalArgumentException.class, () -> wizardMonster.teleportRune(null));
+    }
+
+    @Test
+    void testTeleportRuneWithNullRune() {
+        grid.setRune(null); // Remove the rune from the grid
+        assertThrows(IllegalArgumentException.class, () -> wizardMonster.teleportRune(grid));
+    }
+
+    @Test
+    void testTeleportRuneWithEmptyObstacles() {
+        hall.getObstacles().clear(); // Clear all obstacles
+        assertThrows(IllegalArgumentException.class, () -> wizardMonster.teleportRune(grid));
     }
 }
-
-/*
-Hall hall = new Hall(HallTypes.EARTH);
-        PositionPoint position = new PositionPoint(2, 4);
-        PositionPoint position2  =new PositionPoint(5, 21);
-        PositionPoint position3  =new PositionPoint(21, 14);
-        PositionPoint position4  =new PositionPoint(21, 14);
-        PositionPoint position5  =new PositionPoint(21, 14);
-
-        Obstacles obstacle = new Obstacles(position4, hall, ObstacleType.CHEST);
-        Obstacles obstacle2 = new Obstacles(position5, hall, ObstacleType.CHEST);
-        hall.placeEntity(obstacle);
-        hall.placeEntity(obstacle2);
-
-        GridEnvironment grid = new GridEnvironment(hall);
-
-
-        Monster monster = new Monster(position2, hall);
-        WizardMonster wizard = new WizardMonster(position3, hall, grid);
-        Hero hero  = new Hero(position3, hall);
-        Rune rune = new Rune(position, hall);
-        hall.placeEntity(rune);
-        hall.placeEntity(hero);
-        hall.placeEntity(monster);
-        hall.placeEntity(wizard);
-        
-        System.out.println(hall);
-
-        TimeController controller = new TimeController(grid);
-        controller.startTimeController();
-        controller.startTimeController();
- */

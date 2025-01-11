@@ -17,15 +17,36 @@ public class WizardMonster extends Monster {
         wizardTimeController.startTimeController();
         wizardTimer = wizardTimeController.getTimer();
     }
-    public void teleportRune(GridEnvironment grid) {
-        Random random = new Random();
+    // public void teleportRune(GridEnvironment grid) {
+    //     Random random = new Random();
 
-        PositionPoint runePosition = grid.rune.position;
-        PositionPoint newrunePosition = grid.rune.position;
-        while (runePosition == newrunePosition ) { 
-            newrunePosition = grid.getHall().getObstacles().get(random.nextInt(grid.getHall().getObstacles().size())).position;
+    //     PositionPoint runePosition = grid.rune.position;
+    //     PositionPoint newrunePosition = grid.rune.position;
+    //     while (runePosition == newrunePosition ) { 
+    //         newrunePosition = grid.getHall().getObstacles().get(random.nextInt(grid.getHall().getObstacles().size())).position;
+    //     }
+    //     grid.rune.position  = newrunePosition;
+    //     System.out.println("Rune has been spawned to " + newrunePosition.x +", "+ newrunePosition.y);
+    // }
+
+    public void teleportRune(GridEnvironment grid) {
+        if (grid == null || grid.rune == null || grid.getHall() == null || grid.getHall().getObstacles() == null || grid.getHall().getObstacles().isEmpty()) {
+            throw new IllegalArgumentException("Grid, rune, hall, or obstacles must not be null or empty");
         }
-        grid.rune.position  = newrunePosition;
-        System.out.println("Rune has been spawned to " + newrunePosition.x +", "+ newrunePosition.y);
-}
+
+        Random random = new Random();
+        PositionPoint runePosition = grid.rune.position;
+        PositionPoint newRunePosition;
+
+        do {
+            newRunePosition = grid.getHall()
+                                .getObstacles()
+                                .get(random.nextInt(grid.getHall().getObstacles().size()))
+                                .position;
+        } while (runePosition.equals(newRunePosition));
+
+        grid.rune.position = newRunePosition;
+        System.out.println("Rune has been spawned to " + newRunePosition.x + ", " + newRunePosition.y);
+    }
+
 }

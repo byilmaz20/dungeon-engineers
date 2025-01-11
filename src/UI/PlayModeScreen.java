@@ -617,16 +617,17 @@ private void initializeInventoryChangeListener() {
             case KeyEvent.VK_R:
                 if (gridEnvironment.getHero().getInventory().checkAvailability(EnchantmentTypes.REVEAL_ENCHANTMENT)){
                     RevealEnchantment reveal = new RevealEnchantment(gridEnvironment.getHero().getPosition(),gridEnvironment.getHall(), gridEnvironment);
-                    buttonCollectEnchantmentSound.playSound();
                     reveal.applyEffect(this);
+                    buttonCollectEnchantmentSound.playSound();
                     gridEnvironment.getHero().getInventory().remove(EnchantmentTypes.REVEAL_ENCHANTMENT);
                 }
                 break;
             case KeyEvent.VK_B:
                 if (gridEnvironment.getHero().getInventory().checkAvailability(EnchantmentTypes.LURING_GEM_ENCHANTMENT)){
-                    buttonCollectEnchantmentSound.playSound();///////fırlatma sesi olmalı
                     bPressed = true;
+                    buttonCollectEnchantmentSound.playSound();///////fırlatma sesi olmalı
                     gridEnvironment.getHero().getInventory().remove(EnchantmentTypes.LURING_GEM_ENCHANTMENT);
+                    
                 }
                 
                 break;
@@ -682,24 +683,24 @@ private void initializeInventoryChangeListener() {
             String mode = GameModeController.getInstance().getGameMode();
             if (mode.equals("easy")) {
                 if (enchantment.getType() == EnchantmentTypes.EXTRA_LIFE_ENCHANTMENT && gridEnvironment.getHero().getLives() < 5) {
-                    buttonCollectEnchantmentSound.playSound();
                     enchantment.applyEffect();
+                    buttonCollectEnchantmentSound.playSound();
                     System.out.println("Extra Life Enchantment has been clicked: " + x + ", " + y);
                 
                 }
             }
             else if (mode.equals("hard")) {
                 if (enchantment.getType() == EnchantmentTypes.EXTRA_LIFE_ENCHANTMENT && gridEnvironment.getHero().getLives() < 3) {
-                    buttonCollectEnchantmentSound.playSound();
                     enchantment.applyEffect();
+                    buttonCollectEnchantmentSound.playSound();
                     System.out.println("Extra Life Enchantment has been clicked: " + x + ", " + y);
                     
                 }
             }
             
             if (enchantment.getType() == EnchantmentTypes.EXTRA_TIME_ENCHANTMENT) {
-                buttonCollectEnchantmentSound.playSound();
                 enchantment.applyEffect();
+                buttonCollectEnchantmentSound.playSound();
                 System.out.println("Extra Time Enchantment has been clicked: " + x + ", " + y);
                 
             }
@@ -708,7 +709,7 @@ private void initializeInventoryChangeListener() {
                 buttonCollectEnchantmentSound.playSound();
                 gridEnvironment.getHero().getInventory().add(enchantment);
             }
-            buttonCollectEnchantmentSound.playSound();
+            
             gridEnvironment.removeEntity(enchantment);
 
         }

@@ -31,7 +31,22 @@ public class FighterMonster extends Monster implements Serializable{
             moveRandomly(grid);
         }
     }
-
+ /**
+ * Checks if the hero is within a 3x3 attack range of the monster and decreases the hero's life count if attacked.
+ *
+ * Requires:
+ * - `hero` is a valid and non-null Hero object.
+ * - The `hero` object must have a valid `PositionPoint` associated with it.
+ * - The monster's position (`this.position`) must be valid and initialized.
+ *
+ * Modifies:
+ * - Decreases the life count of the `hero` if the hero is within the 3x3 attack range of the monster.
+ *
+ * Effects:
+ * - If the hero's position lies within the 3x3 area around the monster's position (including diagonals), 
+ *   the hero's life count is decreased by one.
+ * - Returns `true` if the hero was attacked (i.e., within range), and `false` otherwise.
+ */
     public boolean fighterAttack(Hero hero){
         PositionPoint heroPosition = hero.getPosition(); 
         int monsterX = this.position.getX();

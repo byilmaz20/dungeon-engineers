@@ -7,12 +7,18 @@ import javax.swing.*;
 import src.Mechanics.SoundManager;
 
 public class GameOverScreen extends UIScreen implements Serializable{
-    private SoundManager buttonClickSound;
+    transient private SoundManager buttonClickSound;
+    transient private SoundManager gameOverSound;
+
     public GameOverScreen(String backgroundPath, String reason) {
         super(1200, 900, "Game Over");
+
         buttonClickSound = new SoundManager("src/voices/clickbutton.wav");
+        gameOverSound = new SoundManager("src/voices/gameover.wav");
+
         JPanel customBackgroundPanel = new JPanel() {
             private final Image backgroundImage = new ImageIcon(backgroundPath).getImage();
+            
 
             @Override
             protected void paintComponent(Graphics g) {
@@ -74,7 +80,9 @@ public class GameOverScreen extends UIScreen implements Serializable{
         buttonPanel.add(exitButton);
 
         customBackgroundPanel.add(buttonPanel, BorderLayout.SOUTH);
-
+        gameOverSound.playSound(); 
+  
         setVisible(true);
+         
     }
 }

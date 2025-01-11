@@ -95,7 +95,7 @@ public void testPauseAndResumeTimer() throws InterruptedException {
 
 @AfterEach 
 public void teardown() { 
-timer.pauseTimer(); // Safely stop the timer thread to avoid interference. 
+timer.stopTimer(); // Safely stop the timer thread to avoid interference. 
 }
     
 

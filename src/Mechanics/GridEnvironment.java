@@ -68,6 +68,11 @@ public class GridEnvironment implements Serializable{
         }
         this.mainTimeController = new TimeController(this);
     }
+
+    public void setRune(Rune rune) {
+        this.rune = rune;
+    }
+
     public GridEnvironment(Hall hall, Hero hero) {
         this.map = new Entity[mapWidth][mapHeight];
         this.hall = hall;

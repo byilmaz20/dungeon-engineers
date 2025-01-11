@@ -11,6 +11,9 @@ public class Obstacles extends Entity {
         super(position, hall); // Initialize the base Entity class
         this.type = type;
     }
+    public PositionPoint getPosition() {
+        return position;
+    }
 
     // Check if the obstacle contains the rune
     public boolean containsRune(Rune rune) {

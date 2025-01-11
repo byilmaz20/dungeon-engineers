@@ -59,6 +59,13 @@ public class Hall implements Serializable{
     // Remove an entity and update sublists if needed
     public void removeEntity(Entity entity) {
         entities.remove(entity); // Remove from main list
+        if (entity instanceof Enchantment) {
+            enchantments.remove((Enchantment) entity);
+        } else if (entity instanceof Monster) {
+            monsters.remove((Monster) entity);
+        } else if (entity instanceof Obstacles) {
+            obstacles.remove((Obstacles) entity);
+        }
         //System.out.println("Entity removed: " + entity.getClass().getSimpleName());
     }
 

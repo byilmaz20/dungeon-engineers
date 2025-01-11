@@ -51,6 +51,10 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
     private JPanel[][] tintPanels = new JPanel[gridHeight][gridWidth]; // Array to hold tints for each cell
     private SoundManager buttonClickSound;
     private SoundManager buttonMoveSound;
+    private SoundManager buttonCollectEnchantmentSound;
+    private SoundManager applyEnchantment;
+    private SoundManager DoorOpenSound;
+    private MP3PLAYER remainingTimeSound;
 
     private GridEnvironment gridEnvironment; // Reference to the GridEnvironment
 
@@ -93,6 +97,10 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
         setVisible(true);
         buttonClickSound = new SoundManager("src/voices/clickbutton.wav");
         buttonMoveSound = new SoundManager("src/voices/move.wav");
+        buttonCollectEnchantmentSound = new SoundManager("src/voices/CollectEnchantment.wav");
+        applyEnchantment = new SoundManager("src/voices/applyenchantment.wav");
+        DoorOpenSound = new SoundManager("src/voices/door.wav");
+        remainingTimeSound=  new MP3PLAYER("src/voices/runningtime.mp3");
     }
     public void applyRedTint(PositionPoint topLeft, boolean highlightActive) {
     // Clear all previous tints
@@ -177,9 +185,9 @@ private void clearAllTints() {
     
         // Pause ve resume ikonlarını yükle
                 
-        Icon resumeIcon = new ImageIcon(new ImageIcon("src/Images/ObjectImages/ResumeIcon.png")
+        Icon resumeIcon = new ImageIcon(new ImageIcon("src/Images/ObjectImages/resume5.png")
                 .getImage().getScaledInstance(77, 77, Image.SCALE_SMOOTH)); // Resume ikonu
-        Icon pauseIcon = new ImageIcon(new ImageIcon("src/Images/ObjectImages/pauseIcon.png")
+        Icon pauseIcon = new ImageIcon(new ImageIcon("src/Images/ObjectImages/pause5.png")
         .getImage().getScaledInstance(77, 77, Image.SCALE_SMOOTH)); // Pause ikonu
         pauseGameButton.setIcon(pauseIcon); // İlk başta pause ikonunu göster
     
@@ -196,7 +204,7 @@ private void clearAllTints() {
     }
 
     private void pauseGame(){
-        Icon resumeIcon = new ImageIcon(new ImageIcon("src/Images/ObjectImages/ResumeIcon.png")
+        Icon resumeIcon = new ImageIcon(new ImageIcon("src/Images/ObjectImages/resume5.png")
                 .getImage().getScaledInstance(77, 77, Image.SCALE_SMOOTH)); // Resume ikonu
         for (ITimeControllers timeController : gridEnvironment.getTimeControllers()) {
             timeController.pressPauseButton();
@@ -206,7 +214,7 @@ private void clearAllTints() {
     }
     
     public void resumeGame() {
-        Icon pauseIcon = new ImageIcon(new ImageIcon("src/Images/ObjectImages/pauseIcon.png")
+        Icon pauseIcon = new ImageIcon(new ImageIcon("src/Images/ObjectImages/pause5.png")
                 .getImage().getScaledInstance(77, 77, Image.SCALE_SMOOTH)); // Pause icon
     
         for (ITimeControllers timeController : gridEnvironment.getTimeControllers()) {
@@ -238,16 +246,6 @@ private void clearAllTints() {
     }
 
 
-    private void setTimeDisplay() {
-        timeLabel = new JLabel("" + remainingTime);
-        timeLabel.setBounds(1070, 185, 150, 50); 
-        timeLabel.setFont(new Font("Arial", Font.BOLD, 50)); 
-        //timeLabel.setForeground(Color.BLACK); 
-        timeLabel.setForeground(Color.decode("#262b2d"));
-        timeLabel.setOpaque(false); 
-        timeLabel.setText("" + (int) remainingTime);
-        backgroundPanel.add(timeLabel);
-    }
         
     private void setHelpButton() {
         helpButton = new JButton();
@@ -255,22 +253,35 @@ private void clearAllTints() {
         helpButton.setOpaque(false);
         helpButton.setContentAreaFilled(false);
         helpButton.setBorderPainted(false);
-            helpButton.addActionListener(e -> {
+    
+        // Resim eklemek için ImageIcon kullanımı
+        ImageIcon helpIcon = new ImageIcon("src/Images/ObjectImages/help5.png"); // Resminizin dosya yolunu buraya yazın
+        Image scaledImage = helpIcon.getImage().getScaledInstance(77, 77, Image.SCALE_SMOOTH); // Buton boyutuna göre resmi ölçeklendir
+        helpButton.setIcon(new ImageIcon(scaledImage));
+    
+        helpButton.addActionListener(e -> {
             buttonClickSound.playSound();
             this.setVisible(false);
-            //time pause olmalı
+            // time pause olmalı
             if (!isPaused) pauseGame();
             new HelpScreen(this);
         });
+    
         backgroundPanel.add(helpButton);
     }
     
-      private void setExitButton() {
+    private void setExitButton() {
         exitButton = new JButton();
         exitButton.setBounds(1045, 37, 77, 77);
         exitButton.setOpaque(false);
         exitButton.setContentAreaFilled(false);
         exitButton.setBorderPainted(false);
+    
+        // Resim eklemek için ImageIcon kullanımı
+        ImageIcon exitIcon = new ImageIcon("src/Images/ObjectImages/exit5.png"); // Resminizin dosya yolunu buraya yazın
+        Image scaledImage = exitIcon.getImage().getScaledInstance(77, 77, Image.SCALE_SMOOTH); // Buton boyutuna göre resmi ölçeklendir
+        exitButton.setIcon(new ImageIcon(scaledImage));
+    
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -278,7 +289,7 @@ private void clearAllTints() {
                 if (!isPaused) pauseGame();
                 int response = JOptionPane.showConfirmDialog(null, "Do you want to save the game before exiting?", "Confirm Exit",
                         JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-                        buttonClickSound.playSound();
+                buttonClickSound.playSound();
                 if (response == JOptionPane.NO_OPTION) {
                     buttonClickSound.playSound();
                     System.exit(0);
@@ -294,7 +305,7 @@ private void clearAllTints() {
                              ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
                             for (ITimeControllers timeController : gridEnvironment.getTimeControllers()) {
                                 timeController.disposeTimer();
-                            } 
+                            }
     
                             SaveGameController sgc = new SaveGameController();
     
@@ -302,7 +313,7 @@ private void clearAllTints() {
                             out.writeObject(sgc.getCurrentHallIndex());
                             out.writeObject(BuildModeController.Halls);
                             out.writeObject(sgc.getPlayModeController().getGrid().getHero());
-
+    
                             // Ensure other objects are serializable before uncommenting
                             // out.writeObject(sgc.getGridEnvironment());
                             // out.writeObject(sgc.getPlayModeScreen());
@@ -322,6 +333,7 @@ private void clearAllTints() {
                 }
             }
         });
+    
         backgroundPanel.add(exitButton);
     }
     
@@ -454,20 +466,38 @@ private void initializeInventoryChangeListener() {
             }
         }
     }
+    
 
-    private void updateTime(double remainingTime) { //TODO text eklenecek
-        this.remainingTime = remainingTime;
-        //System.out.println("Time updated: " + remainingTime);
-        if (!isPaused){
-            timeLabel.setText("" + (int) remainingTime);
-            
-        }
-        if (remainingTime <= 0) {
-            this.dispose();
-            pauseGame();
-           
-        }
+private void setTimeDisplay() {
+    timeLabel = new JLabel("" + (int) remainingTime);
+    timeLabel.setBounds(1070, 185, 150, 50); 
+    timeLabel.setFont(new Font("Arial", Font.BOLD, 50)); 
+    timeLabel.setForeground(Color.decode("#262b2d")); // Varsayılan renk
+    timeLabel.setOpaque(false); 
+    backgroundPanel.add(timeLabel);
+}
+
+
+private void updateTime(double remainingTime) { 
+    this.remainingTime = remainingTime;
+
+    if (!isPaused) {
+        timeLabel.setText("" + (int) remainingTime); // Metni güncelle
     }
+
+    if (remainingTime <= 0) {
+        this.dispose();
+        pauseGame();
+    }
+
+    // 10 ile 1 arasında kaldığında metni kırmızıya çevir, diğer durumlarda varsayılan renge dön
+    if (remainingTime <= 10 && remainingTime > 0) {
+        timeLabel.setForeground(Color.decode("#B22222")); //borda gibi bir renk 
+        remainingTimeSound.playSound();
+    } else {
+        timeLabel.setForeground(Color.decode("#262b2d")); // Varsayılan renk
+    }
+}
 
     private void updateLifeCount(int lifeCount) {
         lifePanel.removeAll(); 
@@ -603,6 +633,7 @@ private void initializeInventoryChangeListener() {
                 if (gridEnvironment.getHero().getInventory().checkAvailability(EnchantmentTypes.CLOAK_OF_PROTECTION_ENCHANTMENT)){
                     CloakOfProtectionEnchantment cloak = new CloakOfProtectionEnchantment(null, null, gridEnvironment);
                     cloak.applyEffect();
+                    applyEnchantment.playSound();
                     gridEnvironment.getHero().getInventory().remove(EnchantmentTypes.CLOAK_OF_PROTECTION_ENCHANTMENT);
                 }
                 
@@ -611,13 +642,16 @@ private void initializeInventoryChangeListener() {
                 if (gridEnvironment.getHero().getInventory().checkAvailability(EnchantmentTypes.REVEAL_ENCHANTMENT)){
                     RevealEnchantment reveal = new RevealEnchantment(gridEnvironment.getHero().getPosition(),gridEnvironment.getHall(), gridEnvironment);
                     reveal.applyEffect(this);
+                    applyEnchantment.playSound();
                     gridEnvironment.getHero().getInventory().remove(EnchantmentTypes.REVEAL_ENCHANTMENT);
                 }
                 break;
             case KeyEvent.VK_B:
                 if (gridEnvironment.getHero().getInventory().checkAvailability(EnchantmentTypes.LURING_GEM_ENCHANTMENT)){
                     bPressed = true;
+                    applyEnchantment.playSound();///////fırlatma sesi olmalı
                     gridEnvironment.getHero().getInventory().remove(EnchantmentTypes.LURING_GEM_ENCHANTMENT);
+                    
                 }
                 
                 break;
@@ -674,24 +708,32 @@ private void initializeInventoryChangeListener() {
             if (mode.equals("easy")) {
                 if (enchantment.getType() == EnchantmentTypes.EXTRA_LIFE_ENCHANTMENT && gridEnvironment.getHero().getLives() < 5) {
                     enchantment.applyEffect();
+                    applyEnchantment.playSound();
                     System.out.println("Extra Life Enchantment has been clicked: " + x + ", " + y);
+                
                 }
             }
             else if (mode.equals("hard")) {
                 if (enchantment.getType() == EnchantmentTypes.EXTRA_LIFE_ENCHANTMENT && gridEnvironment.getHero().getLives() < 3) {
                     enchantment.applyEffect();
+                    applyEnchantment.playSound();
                     System.out.println("Extra Life Enchantment has been clicked: " + x + ", " + y);
+                    
                 }
             }
             
             if (enchantment.getType() == EnchantmentTypes.EXTRA_TIME_ENCHANTMENT) {
                 enchantment.applyEffect();
+                applyEnchantment.playSound();
                 System.out.println("Extra Time Enchantment has been clicked: " + x + ", " + y);
+                
             }
             else {
                 System.out.println("Enchantment has been clicked: " + x + ", " + y);
+                buttonCollectEnchantmentSound.playSound();
                 gridEnvironment.getHero().getInventory().add(enchantment);
             }
+            
             gridEnvironment.removeEntity(enchantment);
 
         }
@@ -703,7 +745,7 @@ private void initializeInventoryChangeListener() {
                 gridEnvironment.hero.position.y == gridEnvironment.rune.position.y) || 
             (abs(gridEnvironment.hero.position.y - gridEnvironment.rune.position.y) == 1 && 
                 gridEnvironment.hero.position.x == gridEnvironment.rune.position.x)) {
-            
+            DoorOpenSound.playSound();
             isAdjacent = true;
         }
    

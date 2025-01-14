@@ -6,6 +6,8 @@ import src.Mechanics.PositionPoint;
 
 public class ArcherMonster extends Monster implements Serializable{
     boolean hasAttacked = false;
+    private double lastAttackTime = -4.0;
+
     public ArcherMonster(PositionPoint position, Hall hall){
         super(position, hall);
         this.type = MonsterTypes.ArcherMonster;
@@ -32,14 +34,17 @@ public class ArcherMonster extends Monster implements Serializable{
         PositionPoint archerPosition = this.getPosition(); 
         PositionPoint heroPosition = hero.getPosition(); 
 
+
         // Calculate the distance between the archer monster and the hero
         double distance = archerPosition.distanceTo(heroPosition);
-
+        double elapsedTime = Math.floor(hall.getMainTimeController().getTimer().getElapsedTime());
         // Check if the hero is within 4 squares and protection status
-        if (distance < 4 && hero.checkProtection()==false ) { //TODO && hasAttacked == false
+        if (distance < 4 && hero.checkProtection()==false 
+        && lastAttackTime + 3.0 < elapsedTime) { //TODO && hasAttacked == false
             hero.decreaseLifeCount();
             //System.out.printf("Archer Monster shot an arrow at the hero! Hero's life count: %d\n", hero.getLives());
             hasAttacked = true;
+            lastAttackTime = elapsedTime;
             return true;
         
         } else {

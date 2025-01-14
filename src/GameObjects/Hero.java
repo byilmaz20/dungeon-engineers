@@ -66,7 +66,7 @@ public class Hero extends Entity {
         this.lives -= 1;
 
         notifyLifeChange();
-        System.out.println("Life count decreased t "+this.lives);
+        System.out.println("Life count decreased to "+this.lives + " at time: " + hall.getMainTimeController().getTimer().getElapsedTime());
     }
 
     public void setLifeCount(int life){

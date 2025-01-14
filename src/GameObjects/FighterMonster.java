@@ -10,6 +10,7 @@ import src.Mechanics.Timer;
 public class FighterMonster extends Monster implements Serializable{
     private FighterTimeController fighterTimeController;
     transient private Timer fighterTimer;
+    private double lastAttackTime = -4.0;
     
     public FighterMonster(PositionPoint position, Hall hall, GridEnvironment grid) {
         super(position, hall);
@@ -57,12 +58,15 @@ public class FighterMonster extends Monster implements Serializable{
         int maxX = monsterX + 1;
         int minY = monsterY - 1;
         int maxY = monsterY + 1;
-    
-        // Check if the hero is within the 3x3 square
+
+        double elapsedTime = fighterTimer.getElapsedTime();
+        // Check if the hero is within the 3x3 square and if ith has been 3 seconds since the last attack
         if (heroPosition.getX() >= minX && heroPosition.getX() <= maxX &&
-            heroPosition.getY() >= minY && heroPosition.getY() <= maxY) {
+            heroPosition.getY() >= minY && heroPosition.getY() <= maxY
+            && lastAttackTime + 3.0 < elapsedTime) {
             // Hero is within attack range
             hero.decreaseLifeCount();
+            lastAttackTime = elapsedTime;
             return true;
         } else {
             // Hero is out of range

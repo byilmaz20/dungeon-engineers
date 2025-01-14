@@ -14,6 +14,7 @@ public class Hall implements Serializable{
     List<Obstacles> obstacles;      // Sublist for Obstacles
     int minimumObjectsRequired;
     List<ITimeControllers> timeControllers;
+    ITimeControllers mainTimeController;
     
     public Hall(HallTypes hallType) {
         this.timeControllers = new ArrayList<>();
@@ -39,6 +40,14 @@ public class Hall implements Serializable{
             default:
                 break;
         }
+    }
+
+    public void setMainTimeController(ITimeControllers timeController) {
+
+        this.mainTimeController = timeController;
+    }
+    public ITimeControllers getMainTimeController() {
+        return mainTimeController;
     }
 
     // Place an entity and update sublists if needed

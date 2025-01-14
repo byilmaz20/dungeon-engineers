@@ -67,6 +67,7 @@ public class GridEnvironment implements Serializable{
             }
         }
         this.mainTimeController = new TimeController(this);
+        hall.setMainTimeController(mainTimeController);
     }
 
     public void setRune(Rune rune) {
@@ -98,6 +99,7 @@ public class GridEnvironment implements Serializable{
             }
         }
         this.mainTimeController = new TimeController(this);
+        hall.setMainTimeController(mainTimeController);
     }
     public TimeController getMainTimeController() {
         return this.mainTimeController;

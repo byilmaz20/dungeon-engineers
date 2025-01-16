@@ -73,7 +73,7 @@ public class SpawnMonsterController implements Serializable{
 
             // Place the monster on the grid
             if (grid.moveEntity(monster)) {
-                //System.out.println("Spawned " + monster.getType() + " at position: " + randomLocation);
+                System.out.println("Spawned " + monster.getType() + " at position: " + randomLocation);
                     return monster;
 
             } else {

@@ -10,7 +10,6 @@ import src.Mechanics.Timer;
 
 public class ExtraTimeEnchantment extends Enchantment implements Serializable{
     private EnchantmentTimeController enchantmentTimeController;
-    private Timer enchantmentTimer;
     private GridEnvironment grid;
     //transient private SoundManager buttonCollectEnchantmentSound;
 
@@ -20,7 +19,6 @@ public class ExtraTimeEnchantment extends Enchantment implements Serializable{
         this.enchantmentTimeController = new EnchantmentTimeController(grid, this);
         this.grid = grid;
         enchantmentTimeController.startTimeController();
-        enchantmentTimer = enchantmentTimeController.getTimer();
       //  buttonCollectEnchantmentSound = new SoundManager("src/voices/CollectEnchantment.wav");
     }
     public void applyEffect(){

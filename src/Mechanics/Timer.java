@@ -38,8 +38,8 @@ public class Timer implements Serializable{
     private double elapsedTime;
     private boolean isPaused;
     private long lastUpdateTime;
-    transient private Thread timerThread;
-    transient private TimeChangeListener timeChangeListener;
+    private Thread timerThread;
+    private TimeChangeListener timeChangeListener;
 
     public interface TimeChangeListener {
         void onTimeChanged(double remainingTime);

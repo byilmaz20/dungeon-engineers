@@ -29,6 +29,10 @@ public class Hero extends Entity {
         buttonLoseLifeSound = new SoundManager("src/voices/loselife.wav");
     }
 
+    public void setButtonLoseLifeSound() {
+        this.buttonLoseLifeSound = new SoundManager("src/voices/loselife.wav");
+    }
+
     public Direction getLureDirection() {
         return lureDirection;
     }
@@ -62,6 +66,9 @@ public class Hero extends Entity {
         notifyLifeChange();
     }
     public void decreaseLifeCount(){
+        if (buttonLoseLifeSound == null) {
+            setButtonLoseLifeSound();
+        }
         buttonLoseLifeSound.playSound();
         this.lives -= 1;
 
@@ -116,6 +123,7 @@ return this.inventory;    }
     }
     
     public synchronized void setLifeCountListener(LifeCountListener listener) {
+        setButtonLoseLifeSound();
         this.listener = listener;
     }
 

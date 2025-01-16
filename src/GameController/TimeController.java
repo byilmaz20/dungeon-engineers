@@ -69,6 +69,14 @@ public class TimeController implements ITimeControllers, Serializable {
         spawner = new SpawnMonsterController(grid);
         grid.addTimeController(this);
     }
+    public void startTimeController(double remainingTimeLoaded) {
+        this.timer = new Timer();
+        spawner = new SpawnMonsterController(grid);
+        grid.addTimeController(this);
+        this.isPaused = false;
+        initialTime = remainingTimeLoaded;
+        timer.startTimer(remainingTimeLoaded, this::checkMechanics, this::printStatus);
+    }
 
     public double getInitialTime() {
         return initialTime;
@@ -82,12 +90,7 @@ public class TimeController implements ITimeControllers, Serializable {
         timer.startTimer(initialTime, this::checkMechanics, this::printStatus);
     }
 
-    public void startTimeController(double remainingTimeLoaded) {
-        this.timer = new Timer();
-        this.isPaused = false;
-        initialTime = remainingTimeLoaded;
-        timer.startTimer(remainingTimeLoaded, this::checkMechanics, this::printStatus);
-    }
+    
     
  
 

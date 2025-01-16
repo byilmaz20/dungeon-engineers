@@ -39,6 +39,7 @@ public class PlayModeController implements Serializable{
 
     }
     public PlayModeController(Hall hall, Hero hero, TimeController savedTimeController) {
+
         this.currentHall = hall;
         this.grid = new GridEnvironment(currentHall, hero);
         grid.setMainTimeController(savedTimeController);

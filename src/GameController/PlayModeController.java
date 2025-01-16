@@ -49,6 +49,8 @@ public class PlayModeController implements Serializable{
         for (ITimeControllers timeController : hall.getTimeControllers()) {
             
             timeController.setGrid(grid);
+            grid.addTimeController(timeController);
+
         }
 
         

@@ -66,9 +66,8 @@ public class GridEnvironment implements Serializable{
                 }
             }
         }
-        this.mainTimeController = new TimeController(this);
-        hall.setMainTimeController(mainTimeController);
     }
+
 
     public void setRune(Rune rune) {
         this.rune = rune;
@@ -98,16 +97,22 @@ public class GridEnvironment implements Serializable{
                 }
             }
         }
-        this.mainTimeController = new TimeController(this);
-        hall.setMainTimeController(mainTimeController);
     }
     public TimeController getMainTimeController() {
         return this.mainTimeController;
     }
-    public void addTimeController(ITimeControllers timeController) {
-        this.timeControllers.add(timeController);
-        hall.addTimeController(timeController);
+    public void setMainTimeController(TimeController timeController) {
+        this.mainTimeController = timeController;
+        addTimeController(timeController);
     }
+
+    public void addTimeController(ITimeControllers timeController) {
+        if (!this.timeControllers.contains(timeController)) {
+            this.timeControllers.add(timeController);
+            hall.addTimeController(timeController);
+        }
+    }
+
     public List<ITimeControllers> getTimeControllers() {
         return this.timeControllers;
     }
@@ -121,7 +126,6 @@ public class GridEnvironment implements Serializable{
     public boolean checkMovement(Entity entity, Direction direction) {
         // Calculate the new position
         PositionPoint newPosition = entity.position.move(direction.getDirectionEnum());
-
         // Validate the new position
         return isPositionValid(newPosition);
     }

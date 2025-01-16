@@ -35,6 +35,18 @@ public class CloakUseTimeController implements ITimeControllers, Serializable {
     public Timer getTimer() {
         return timer;
     }
+    public void setTimer() {
+        timer = new Timer();
+    }
+    public void setTimerAfterLoad(double remainingTimeLoaded) {
+        timer.startTimer(initialTime, this::checkMechanics, this::printStatus);
+        timer.setRemainingTimeForLoad(remainingTimeLoaded);
+    }
+    public void startTimeController(double remainingTimeLoaded) {
+        timer = new Timer();
+        timer.startTimer(remainingTimeLoaded, this::checkMechanics, this::printStatus);
+        initialTime = remainingTimeLoaded;
+    }
 
     public void startTimeController() {
         timer.startTimer(initialTime, this::checkMechanics, this::printStatus);
@@ -81,11 +93,7 @@ public class CloakUseTimeController implements ITimeControllers, Serializable {
         }
     }
 
-    public void startTimeController(double remainingTimeLoaded) {
-        timer = new Timer();
-        timer.startTimer(remainingTimeLoaded, this::checkMechanics, this::printStatus);
-        initialTime = remainingTimeLoaded;
-    }
+    
     
     public double disposeTimer() {
         remainingTimeLoaded = timer.disposeTimer();

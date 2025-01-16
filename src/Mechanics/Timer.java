@@ -145,6 +145,10 @@ public class Timer implements Serializable{
         stopTimer();
         return remainingTime;
     }
+    public synchronized void setRemainingTimeForLoad(double remainingTimeLoaded) {
+        remainingTime = remainingTimeLoaded;
+        lastUpdateTime = System.currentTimeMillis();
+    }
 
     public long getlastUpdateTime() {
         // TODO Auto-generated method stub

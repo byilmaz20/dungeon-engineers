@@ -27,11 +27,11 @@ public class GameFlowController implements Serializable{
             winnerSound = new SoundManager("src/voices/winnersound.wav");
         }
     
-        public GameFlowController(int currentHallIndex, Hall savedCurrentHall, Hero savedHero) {
+        public GameFlowController(int currentHallIndex, Hall savedCurrentHall, Hero savedHero, TimeController currentMaTimeController) {
             GameFlowController.currentHall = savedCurrentHall;
             GameFlowController.currentHallIndex = currentHallIndex;
     
-            playModeController = new PlayModeController(GameFlowController.currentHall, savedHero);
+            playModeController = new PlayModeController(GameFlowController.currentHall, savedHero, currentMaTimeController);
     
         }
         

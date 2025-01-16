@@ -8,6 +8,8 @@ public interface ITimeControllers extends Serializable{
     public void pressPauseButton();
     public void applyTimeEchantment();
     public Timer getTimer();
+    public void setTimer();
+    public void setTimerAfterLoad(double remainingTimeLoaded);
     public double disposeTimer();
     public void startTimeController();
     public double getRemainingTimeLoaded();

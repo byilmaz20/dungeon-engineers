@@ -54,6 +54,13 @@ public class WizardTimeController implements ITimeControllers,Serializable {
     public Timer getTimer() {
         return timer;
     }
+    public void setTimer() {
+        timer = new Timer();
+    }
+    public void setTimerAfterLoad(double remainingTimeLoaded) {
+        timer.startTimer(initialTime, this::checkMechanics, this::printStatus);
+        timer.setRemainingTimeForLoad(remainingTimeLoaded);
+    }
 
     public void startTimeController() {
         timer.startTimer(initialTime, this::checkMechanics, this::printStatus);

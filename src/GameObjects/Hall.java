@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import src.GameController.ITimeControllers;
+import src.GameController.TimeController;
 
 public class Hall implements Serializable{
     public HallTypes hallType;
@@ -40,11 +41,12 @@ public class Hall implements Serializable{
             default:
                 break;
         }
+        
     }
 
     public void setMainTimeController(ITimeControllers timeController) {
-
         this.mainTimeController = timeController;
+        addTimeController(timeController);
     }
     public ITimeControllers getMainTimeController() {
         return mainTimeController;
@@ -101,8 +103,11 @@ public class Hall implements Serializable{
     }
 
     public void addTimeController(ITimeControllers timeController) {
-        this.timeControllers.add(timeController);
+        if (!this.timeControllers.contains(timeController)) {
+            this.timeControllers.add(timeController);
+        }
     }
+    
     public List<ITimeControllers> getTimeControllers() {
         return this.timeControllers;
     }

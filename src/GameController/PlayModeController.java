@@ -1,6 +1,7 @@
 package src.GameController;
 
 import java.io.Serializable;
+import java.sql.Time;
 
 import src.GameObjects.Enchantment;
 import src.GameObjects.Hall;
@@ -22,6 +23,12 @@ public class PlayModeController implements Serializable{
     public PlayModeController(Hall hall) {
         this.currentHall = hall;
         this.grid = new GridEnvironment(currentHall);
+
+        timeController = new TimeController(grid);
+
+        hall.setMainTimeController(timeController);
+        grid.setMainTimeController(timeController);
+
         //grid.update(leveldata)
 
         this.monsterSpawner = new SpawnMonsterController(grid);
@@ -33,10 +40,13 @@ public class PlayModeController implements Serializable{
         this.playModeScreen = new PlayModeScreen(grid, timeController);
 
     }
-    public PlayModeController(Hall hall, Hero hero) {
+    public PlayModeController(Hall hall, Hero hero, TimeController currentMainTimeController) {
         this.currentHall = hall;
         this.grid = new GridEnvironment(currentHall, hero);
         //grid.update(leveldata)
+
+        hall.setMainTimeController(currentMainTimeController);
+        grid.setMainTimeController(currentMainTimeController);
 
         this.monsterSpawner = new SpawnMonsterController(grid);
         monsterSpawner.spawnMonster();

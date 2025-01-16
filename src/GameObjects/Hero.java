@@ -62,7 +62,8 @@ public class Hero extends Entity {
         notifyLifeChange();
     }
     public void decreaseLifeCount(){
-        buttonLoseLifeSound.playSound();
+        if (buttonLoseLifeSound != null)
+            buttonLoseLifeSound.playSound();
         this.lives -= 1;
 
         notifyLifeChange();

@@ -9,7 +9,6 @@ import src.Mechanics.Timer;
 
 public class FighterMonster extends Monster implements Serializable{
     private FighterTimeController fighterTimeController;
-    transient private Timer fighterTimer;
     private double lastAttackTime = -4.0;
     
     public FighterMonster(PositionPoint position, Hall hall, GridEnvironment grid) {
@@ -17,7 +16,6 @@ public class FighterMonster extends Monster implements Serializable{
         this.type = MonsterTypes.FighterMonster;
         this.fighterTimeController = new FighterTimeController(grid, this);
         fighterTimeController.startTimeController();
-        fighterTimer = fighterTimeController.getTimer();
     }
     public void moveRandomly(GridEnvironment grid) {
         // Select a random direction
@@ -59,7 +57,7 @@ public class FighterMonster extends Monster implements Serializable{
         int minY = monsterY - 1;
         int maxY = monsterY + 1;
 
-        double elapsedTime = fighterTimer.getElapsedTime();
+        double elapsedTime = fighterTimeController.getTimer().getElapsedTime();
         // Check if the hero is within the 3x3 square and if ith has been 3 seconds since the last attack
         if (heroPosition.getX() >= minX && heroPosition.getX() <= maxX &&
             heroPosition.getY() >= minY && heroPosition.getY() <= maxY

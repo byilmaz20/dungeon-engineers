@@ -25,7 +25,7 @@ ornek kullanım bunun maininde
 public class TimeController implements ITimeControllers, Serializable {
     private Timer timer;
     private boolean isPaused;
-    private double initialTime;
+    public double initialTime;
     private double remainingTimeLoaded;
 
     private double monsterSpawnInterval;
@@ -81,7 +81,7 @@ public class TimeController implements ITimeControllers, Serializable {
         timer = new Timer();
     }
     public void setTimerAfterLoad(double remainingTimeLoaded) {
-        timer.startTimer(initialTime, this::checkMechanics, this::printStatus);
+        timer.startTimer(remainingTimeLoaded, this::checkMechanics, this::printStatus);
         timer.setRemainingTimeForLoad(remainingTimeLoaded);
     }
 
@@ -152,43 +152,7 @@ public class TimeController implements ITimeControllers, Serializable {
         }
     }
 
-    public static void main(String[] args) {
-        Hall hall = new Hall(HallTypes.EARTH);
-        PositionPoint position = new PositionPoint(2, 4);
-        PositionPoint position2  =new PositionPoint(5, 21);
-        PositionPoint position3  =new PositionPoint(21, 14);
-        PositionPoint position4  =new PositionPoint(21, 14);
-
-        Monster monster = new Monster(position2, hall);
-        Hero hero  = new Hero(position3, hall);
-        Rune rune = new Rune(position, hall);
-        Obstacles obstacle = new Obstacles(position4, hall, ObstacleType.CHEST);
-        hall.placeEntity(rune);
-        hall.placeEntity(hero);
-        hall.placeEntity(monster);
-        hall.placeEntity(obstacle);
-
-        GridEnvironment grid = new GridEnvironment(hall);
-        System.out.println(hall);
-
-        TimeController controller = new TimeController(grid);
-        controller.startTimeController();
-
-/* 
-        try {
-            
-            Thread.sleep(5000);
-            controller.pressPauseButton();
-            Thread.sleep(3000);
-            controller.pressPauseButton();
-            Thread.sleep(7000);
-            controller.pressPauseButton();
-            Thread.sleep(2000);
-            controller.pressPauseButton();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }*/
-    }
+    
 
     public void setInitializeTime(Timer remainingTime){
         this.initialTime = remainingTime.getRemainingTime();

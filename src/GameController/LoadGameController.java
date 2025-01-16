@@ -54,8 +54,9 @@ public class LoadGameController implements Serializable{
                             + "for instanceof: " + timeController.getClass().getName());
                             if (timeController.getClass() == TimeController.class) {
                                 currentMainTimeController = (TimeController) timeController;
+                            timeController.setTimerAfterLoad(timeController.getRemainingTimeLoaded());
                         }
-                        timeController.setTimerAfterLoad(timeController.getRemainingTimeLoaded());
+                        
                         // if (timeController.getRemainingTimeLoaded() > 0) timeController.setTimerAfterLoad(timeController.getRemainingTimeLoaded());
                     }
 

@@ -84,33 +84,6 @@ public class SpawnMonsterController implements Serializable{
         return null;
     }
     
-    
-    public static void main(String[] args) {
-        // Step 1: Create a Hall instance (e.g., EARTH hall)
-        Hall hall = new Hall(HallTypes.EARTH);
-
-        // Step 2: Initialize the GridEnvironment with the Hall
-        GridEnvironment grid = new GridEnvironment(hall);
-
-        // Step 3: Create a SpawnMonsterController to spawn monsters
-        SpawnMonsterController spawner = new SpawnMonsterController(grid);
-
-        // Step 4: Spawn multiple monsters
-        System.out.println("Spawning monsters...");
-        for (int i = 0; i < 5; i++) { // Spawn 5 monsters
-            spawner.spawnMonster();
-        }
-
-        // Step 5: Print the grid to check monster positions
-        System.out.println("\nFinal grid after spawning monsters:");
-        printGrid(grid);
-
-        // Step 6: Print the list of monsters in the hall
-        System.out.println("\nMonsters in the hall:");
-        for (Monster monster : hall.getMonsters()) {
-            System.out.println(monster.getType() + " at position: " + monster.position);
-        }
-    }
 
     // Helper method to print the grid
     public static void printGrid(GridEnvironment grid) {

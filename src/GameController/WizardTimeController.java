@@ -118,39 +118,6 @@ public class WizardTimeController implements ITimeControllers,Serializable {
         }
     }
 
-    public static void main(String[] args) {
-        Hall hall = new Hall(HallTypes.EARTH);
-        PositionPoint position = new PositionPoint(2, 4);
-        PositionPoint position2  =new PositionPoint(5, 21);
-        PositionPoint position3  =new PositionPoint(21, 14);
-        PositionPoint position4  =new PositionPoint(21, 14);
-        PositionPoint position5  =new PositionPoint(21, 14);
-
-        Obstacles obstacle = new Obstacles(position4, hall, ObstacleType.CHEST);
-        Obstacles obstacle2 = new Obstacles(position5, hall, ObstacleType.CHEST);
-        hall.placeEntity(obstacle);
-        hall.placeEntity(obstacle2);
-        
-        Hero hero  = new Hero(position3, hall);
-        GridEnvironment grid = new GridEnvironment(hall, hero);
-
-
-        Monster monster = new Monster(position2, hall);
-        WizardMonster wizard = new WizardMonster(position3, hall, grid);
-        
-        Rune rune = new Rune(position, hall);
-        hall.placeEntity(rune);
-        hall.placeEntity(hero);
-        hall.placeEntity(monster);
-        hall.placeEntity(wizard);
-        
-        System.out.println(hall);
-
-        TimeController controller = new TimeController(grid);
-        controller.startTimeController();
-        controller.startTimeController();
-    }
-
     public double getElapsedTime() {
         return timer.getElapsedTime();
     }

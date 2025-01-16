@@ -25,6 +25,7 @@ public class PlayModeController implements Serializable{
         this.grid = new GridEnvironment(currentHall);
 
         timeController = new TimeController(grid);
+        System.out.println("IN HERE 1 !!!");
 
         hall.setMainTimeController(timeController);
         grid.setMainTimeController(timeController);
@@ -37,13 +38,16 @@ public class PlayModeController implements Serializable{
         this.isDoorOpen = false;
         this.timeController = grid.getMainTimeController();
         Timer timer = timeController.getTimer();
+        timeController.startTimeController();
         this.playModeScreen = new PlayModeScreen(grid, timeController);
-
+        
     }
     public PlayModeController(Hall hall, Hero hero, TimeController currentMainTimeController) {
         this.currentHall = hall;
         this.grid = new GridEnvironment(currentHall, hero);
         //grid.update(leveldata)
+        System.out.println("IN HERE 2 !!!" + currentMainTimeController.initialTime);
+        ;
 
         hall.setMainTimeController(currentMainTimeController);
         grid.setMainTimeController(currentMainTimeController);
@@ -55,6 +59,7 @@ public class PlayModeController implements Serializable{
         this.timeController = grid.getMainTimeController();
         Timer timer = timeController.getTimer();
         this.playModeScreen = new PlayModeScreen(grid, timeController);
+        //timeController.startTimeController();
 
     }
     public GridEnvironment getGrid() {

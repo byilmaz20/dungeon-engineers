@@ -306,9 +306,21 @@ private void clearAllTints() {
                             }
     
                             SaveGameController sgc = new SaveGameController();
-    
+                            int indexofsgc = sgc.getCurrentHallIndex();
                             out.writeObject(sgc.getCurrentHall());
                             out.writeObject(sgc.getCurrentHallIndex());
+                            
+                            if (indexofsgc == 3) {
+                                BuildModeController.Halls.remove("Hall of FIRE");
+                                indexofsgc-=1;
+                            }
+                            if (indexofsgc == 2) {
+                                BuildModeController.Halls.remove("Hall of EARTH");
+                                indexofsgc-=1;
+                            }
+                            if (indexofsgc == 1) {
+                                BuildModeController.Halls.remove("Hall of AIR");
+                            }
                             out.writeObject(BuildModeController.Halls);
                             out.writeObject(sgc.getPlayModeController().getGrid().getHero());
     

@@ -12,8 +12,8 @@ import src.Mechanics.Timer;
 public class CloakOfProtectionEnchantment extends Enchantment implements Serializable{
     private EnchantmentTimeController enchantmentTimeController;
     private CloakUseTimeController cloakUseController;
-    transient private Timer cloakUseTimer;
-    transient private Timer enchantmentTimer;
+    private Timer cloakUseTimer;
+    private Timer enchantmentTimer;
     private GridEnvironment grid;
     //transient private SoundManager buttonCollectEnchantmentSound;
 

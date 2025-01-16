@@ -12,7 +12,7 @@ import src.Mechanics.Timer;
 
 public class WizardMonster extends Monster {
     private WizardTimeController wizardTimeController;
-    transient private Timer wizardTimer;
+    private Timer wizardTimer;
     public WizardMonster(PositionPoint position, Hall hall, GridEnvironment grid) {
         super(position, hall);
         this.type = MonsterTypes.WizardMonster;

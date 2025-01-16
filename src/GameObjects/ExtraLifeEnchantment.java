@@ -9,7 +9,7 @@ import src.Mechanics.Timer;
 
 public class ExtraLifeEnchantment extends Enchantment implements Serializable{
     private EnchantmentTimeController enchantmentTimeController;
-    transient private Timer enchantmentTimer;
+    private Timer enchantmentTimer;
     private GridEnvironment grid;
     //transient private SoundManager buttonCollectEnchantmentSound;
     

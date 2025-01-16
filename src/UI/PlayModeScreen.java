@@ -54,6 +54,7 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
     private SoundManager buttonCollectEnchantmentSound;
     private SoundManager applyEnchantment;
     private SoundManager DoorOpenSound;
+    private MP3PLAYER remainingTimeSound;
 
     private GridEnvironment gridEnvironment; // Reference to the GridEnvironment
 
@@ -99,6 +100,7 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
         buttonCollectEnchantmentSound = new SoundManager("src/voices/CollectEnchantment.wav");
         applyEnchantment = new SoundManager("src/voices/applyenchantment.wav");
         DoorOpenSound = new SoundManager("src/voices/door.wav");
+        remainingTimeSound=  new MP3PLAYER("src/voices/runningtime.mp3");
     }
     public void applyRedTint(PositionPoint topLeft, boolean highlightActive) {
     // Clear all previous tints
@@ -500,11 +502,12 @@ private void updateTime(double remainingTime) {
         pauseGame();
     }
 
-    // 10 ile 1 arasında kaldığında metni kırmızıya çevir, diğer durumlarda varsayılan renge dön
+    
     if (remainingTime <= 10 && remainingTime > 0) {
         timeLabel.setForeground(Color.decode("#B22222"));
+        remainingTimeSound.playSound();
     } else {
-        timeLabel.setForeground(Color.decode("#262b2d")); // Varsayılan renk
+        timeLabel.setForeground(Color.decode("#262b2d")); 
     }
 }
 

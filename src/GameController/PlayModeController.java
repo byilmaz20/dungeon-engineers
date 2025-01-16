@@ -49,7 +49,7 @@ public class PlayModeController implements Serializable{
         System.out.println("IN HERE 2 !!!" + currentMainTimeController.initialTime);
         ;
 
-        hall.setMainTimeController(currentMainTimeController);
+        //hall.setMainTimeController(currentMainTimeController);
         grid.setMainTimeController(currentMainTimeController);
 
         this.monsterSpawner = new SpawnMonsterController(grid);

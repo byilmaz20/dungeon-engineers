@@ -71,6 +71,8 @@ public class TimeController implements ITimeControllers, Serializable {
     }
     public void startTimeController(double remainingTimeLoaded) {
         this.timer = new Timer();
+        this.lastMonsterSpawnTime = -monsterStartDelay;
+        this.lastEnchantmentTime = -enchantmentStartDelay;
         spawner = new SpawnMonsterController(grid);
         grid.addTimeController(this);
         this.isPaused = false;

@@ -12,8 +12,6 @@ import src.UI.PlayModeScreen;
 public class RevealEnchantment extends Enchantment implements Serializable{
     private EnchantmentTimeController enchantmentTimeController;
     private RevealTimeController revealTimeController;
-    private Timer revealUseTimer;
-    private Timer enchantmentTimer;
     private GridEnvironment grid;
     //transient private SoundManager buttonCollectEnchantmentSound;
 
@@ -26,7 +24,6 @@ public class RevealEnchantment extends Enchantment implements Serializable{
         this.grid = grid;
         enchantmentTimeController.startTimeController();
         this.revealTimeController = new RevealTimeController(grid, null, null);
-        enchantmentTimer = enchantmentTimeController.getTimer();
     } 
 
 
@@ -40,7 +37,6 @@ public class RevealEnchantment extends Enchantment implements Serializable{
         playModeScreen.applyRedTint(topLeft, true);
         this.revealTimeController = new RevealTimeController(grid, playModeScreen, topLeft);
         revealTimeController.startTimeController();
-        revealUseTimer = revealTimeController.getTimer();
 
         // Optionally, you can log this action for debugging
         System.out.println("Applied red tint to square starting at: (" + topLeft.x + ", " + topLeft.y + ")");

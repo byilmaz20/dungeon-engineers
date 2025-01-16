@@ -83,10 +83,13 @@ public class TimeController implements ITimeControllers, Serializable {
     }
 
     public void startTimeController(double remainingTimeLoaded) {
-        timer = new Timer();
-        timer.startTimer(remainingTimeLoaded, this::checkMechanics, this::printStatus);
+        this.timer = new Timer();
+        this.isPaused = false;
         initialTime = remainingTimeLoaded;
+        timer.startTimer(remainingTimeLoaded, this::checkMechanics, this::printStatus);
+        
     }
+    
  
 
     public void setInitialTime(double initialTime) {

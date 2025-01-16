@@ -21,21 +21,27 @@ public class PlayModeController implements Serializable{
 
     public PlayModeController(Hall hall) {
         this.currentHall = hall;
+        
         this.grid = new GridEnvironment(currentHall);
+
+        TimeController timeController = new TimeController(grid);
+        grid.setMainTimeController(timeController);
+
         //grid.update(leveldata)
 
         this.monsterSpawner = new SpawnMonsterController(grid);
         monsterSpawner.spawnMonster();
         this.activeEnchantment = null;
         this.isDoorOpen = false;
-        this.timeController = grid.getMainTimeController();
         Timer timer = timeController.getTimer();
+        timeController.startTimeController();
         this.playModeScreen = new PlayModeScreen(grid, timeController);
 
     }
-    public PlayModeController(Hall hall, Hero hero) {
+    public PlayModeController(Hall hall, Hero hero, TimeController savedTimeController) {
         this.currentHall = hall;
         this.grid = new GridEnvironment(currentHall, hero);
+        grid.setMainTimeController(savedTimeController);
         //grid.update(leveldata)
 
         this.monsterSpawner = new SpawnMonsterController(grid);

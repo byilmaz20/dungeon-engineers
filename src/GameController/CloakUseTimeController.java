@@ -85,6 +85,7 @@ public class CloakUseTimeController implements ITimeControllers, Serializable {
         timer = new Timer();
         timer.startTimer(remainingTimeLoaded, this::checkMechanics, this::printStatus);
         initialTime = remainingTimeLoaded;
+        this.isPaused = false;
     }
     
     public double disposeTimer() {

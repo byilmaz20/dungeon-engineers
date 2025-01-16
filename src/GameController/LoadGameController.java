@@ -15,6 +15,7 @@ import src.GameObjects.Hero;
 import src.UI.LoadGameScreen;
 
 public class LoadGameController implements Serializable{
+    public static TimeController currentMainTimeController;
     public static void loadGame(String saveName) {
         System.out.println(saveName);
         try {
@@ -40,12 +41,14 @@ public class LoadGameController implements Serializable{
                     // Start the loaded game or transition to the game screen
 
                     for (ITimeControllers timeController : hall.getTimeControllers()) {
+                        if (timeController.getClass() == TimeController.class) 
+                            currentMainTimeController = (TimeController) timeController;
                         timeController.startTimeController(timeController.getRemainingTimeLoaded());
                     }
 
                     BuildModeController.Halls = halls;
 
-                    GameFlowController gmf = new GameFlowController(currentHallIndex, hall, hero);
+                    GameFlowController gmf = new GameFlowController(currentHallIndex, hall, hero, currentMainTimeController);
                     SaveGameController.setGameFlowController(gmf);
                 } else {
                     JOptionPane.showMessageDialog(null, "Failed to load the game file.", "Error", JOptionPane.ERROR_MESSAGE);

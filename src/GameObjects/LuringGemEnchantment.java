@@ -12,8 +12,8 @@ import src.Mechanics.Timer;
 public class LuringGemEnchantment extends Enchantment implements Serializable{
     private EnchantmentTimeController enchantmentTimeController;
     private LuringGemTimeController luringGemController;
-    transient private Timer luringGemTimer;
-    transient private Timer enchantmentTimer;
+    private Timer luringGemTimer;
+    private Timer enchantmentTimer;
     private GridEnvironment grid;
     //transient private SoundManager buttonCollectEnchantmentSound;
 

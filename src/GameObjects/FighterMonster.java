@@ -9,7 +9,7 @@ import src.Mechanics.Timer;
 
 public class FighterMonster extends Monster implements Serializable{
     private FighterTimeController fighterTimeController;
-    transient private Timer fighterTimer;
+    private Timer fighterTimer;
     private double lastAttackTime = -4.0;
     
     public FighterMonster(PositionPoint position, Hall hall, GridEnvironment grid) {

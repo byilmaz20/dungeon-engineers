@@ -7,8 +7,8 @@ import javax.swing.*;
 import src.Mechanics.SoundManager;
 
 public class GameOverScreen extends UIScreen implements Serializable{
-    transient private SoundManager buttonClickSound;
-    transient private SoundManager gameOverSound;
+    private SoundManager buttonClickSound;
+    private SoundManager gameOverSound;
 
     public GameOverScreen(String backgroundPath, String reason) {
         super(1200, 900, "Game Over");

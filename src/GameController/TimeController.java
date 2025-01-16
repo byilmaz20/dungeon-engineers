@@ -69,6 +69,13 @@ public class TimeController implements ITimeControllers, Serializable {
         spawner = new SpawnMonsterController(grid);
         grid.addTimeController(this);
     }
+    public void startTimeController(double remainingTimeLoaded) {
+        this.timer = new Timer();
+        spawner = new SpawnMonsterController(grid);
+        grid.addTimeController(this);
+        this.isPaused = false;
+        timer.startTimer(remainingTimeLoaded, this::checkMechanics, this::printStatus);
+    }
 
     public double getInitialTime() {
         return initialTime;
@@ -82,11 +89,8 @@ public class TimeController implements ITimeControllers, Serializable {
         timer.startTimer(initialTime, this::checkMechanics, this::printStatus);
     }
 
-    public void startTimeController(double remainingTimeLoaded) {
-        timer = new Timer();
-        timer.startTimer(remainingTimeLoaded, this::checkMechanics, this::printStatus);
-        initialTime = remainingTimeLoaded;
-    }
+    
+    
  
 
     public void setInitialTime(double initialTime) {
@@ -107,14 +111,15 @@ public class TimeController implements ITimeControllers, Serializable {
         double remainingTime = timer.getRemainingTime();
         if (remainingTime <= 0) {
             System.out.println("Time finished Game Over!");
+            this.disposeTimer();
             GameFlowController.endGame("src/Images/BackgroundImages/gameover.png", "Time's up!");
             //System.exit(0);
         }
 
         if (elapsedTime >= enchantmentStartDelay && elapsedTime - lastEnchantmentTime >= enchantmentSpawnInterval) {
             lastEnchantmentTime = elapsedTime;
-            SpawnEnchantmentController enchantmentSpawn = new SpawnEnchantmentController(grid);
-            enchantmentSpawn.spawnEnchantment();
+            SpawnEnchantmentController enchantmentSpawn = new SpawnEnchantmentController();
+            enchantmentSpawn.spawnEnchantment(grid);
             //System.out.printf("Remaining Time After Enchantment: %d seconds\n", (int) Math.ceil(timer.getRemainingTime()));
         }
     }
@@ -145,43 +150,7 @@ public class TimeController implements ITimeControllers, Serializable {
         }
     }
 
-    public static void main(String[] args) {
-        Hall hall = new Hall(HallTypes.EARTH);
-        PositionPoint position = new PositionPoint(2, 4);
-        PositionPoint position2  =new PositionPoint(5, 21);
-        PositionPoint position3  =new PositionPoint(21, 14);
-        PositionPoint position4  =new PositionPoint(21, 14);
-
-        Monster monster = new Monster(position2, hall);
-        Hero hero  = new Hero(position3, hall);
-        Rune rune = new Rune(position, hall);
-        Obstacles obstacle = new Obstacles(position4, hall, ObstacleType.CHEST);
-        hall.placeEntity(rune);
-        hall.placeEntity(hero);
-        hall.placeEntity(monster);
-        hall.placeEntity(obstacle);
-
-        GridEnvironment grid = new GridEnvironment(hall);
-        System.out.println(hall);
-
-        TimeController controller = new TimeController(grid);
-        controller.startTimeController();
-
-/* 
-        try {
-            
-            Thread.sleep(5000);
-            controller.pressPauseButton();
-            Thread.sleep(3000);
-            controller.pressPauseButton();
-            Thread.sleep(7000);
-            controller.pressPauseButton();
-            Thread.sleep(2000);
-            controller.pressPauseButton();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }*/
-    }
+    
 
     public void setInitializeTime(Timer remainingTime){
         this.initialTime = remainingTime.getRemainingTime();
@@ -200,5 +169,8 @@ public class TimeController implements ITimeControllers, Serializable {
     }
     public double getRemainingTimeLoaded() {
         return remainingTimeLoaded;
+    }
+    public void setGrid(GridEnvironment grid) {
+        this.grid = grid;
     }
 }

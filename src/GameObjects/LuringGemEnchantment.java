@@ -12,8 +12,6 @@ import src.Mechanics.Timer;
 public class LuringGemEnchantment extends Enchantment implements Serializable{
     private EnchantmentTimeController enchantmentTimeController;
     private LuringGemTimeController luringGemController;
-    private Timer luringGemTimer;
-    private Timer enchantmentTimer;
     private GridEnvironment grid;
     //transient private SoundManager buttonCollectEnchantmentSound;
 
@@ -25,7 +23,6 @@ public class LuringGemEnchantment extends Enchantment implements Serializable{
         this.enchantmentTimeController = new EnchantmentTimeController(grid, this);
         this.grid = grid;
         enchantmentTimeController.startTimeController();
-        enchantmentTimer = enchantmentTimeController.getTimer();
         this.luringGemController = new LuringGemTimeController(grid);
 
     }    
@@ -36,7 +33,6 @@ public class LuringGemEnchantment extends Enchantment implements Serializable{
 
         grid.getHero().activateFooling();
         luringGemController.startTimeController();
-        luringGemTimer = luringGemController.getTimer();
         System.out.println("Applying Luring Gem effect in direction: " + direction);
     }
 }

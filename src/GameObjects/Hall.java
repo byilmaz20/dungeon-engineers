@@ -43,7 +43,6 @@ public class Hall implements Serializable{
     }
 
     public void setMainTimeController(ITimeControllers timeController) {
-
         this.mainTimeController = timeController;
     }
     public ITimeControllers getMainTimeController() {

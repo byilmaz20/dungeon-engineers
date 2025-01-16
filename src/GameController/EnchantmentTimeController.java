@@ -27,6 +27,10 @@ public class EnchantmentTimeController implements ITimeControllers,Serializable 
 
     }
 
+    public GridEnvironment getGrid() {
+        return grid;
+    }
+
     public Timer getTimer() {
         return timer;
     }
@@ -74,10 +78,12 @@ public class EnchantmentTimeController implements ITimeControllers,Serializable 
     }
    
     public void startTimeController(double remainingTimeLoaded) {
-        timer = new Timer();
-        timer.startTimer(remainingTimeLoaded, this::checkMechanics, this::printStatus);
+        this.timer = new Timer();
+        this.isPaused = false;
         initialTime = remainingTimeLoaded;
+        timer.startTimer(remainingTimeLoaded, this::checkMechanics, this::printStatus);
     }
+    
     private double remainingTimeLoaded;
     public double disposeTimer() {
         remainingTimeLoaded = timer.disposeTimer();
@@ -86,5 +92,9 @@ public class EnchantmentTimeController implements ITimeControllers,Serializable 
     }
     public double getRemainingTimeLoaded() {
         return remainingTimeLoaded;
+    }
+
+    public void setGrid(GridEnvironment grid) {
+        this.grid = grid;
     }
 }

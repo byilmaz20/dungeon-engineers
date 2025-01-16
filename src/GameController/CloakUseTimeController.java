@@ -72,19 +72,20 @@ public class CloakUseTimeController implements ITimeControllers, Serializable {
         String mode = GameModeController.getInstance().getGameMode();
         if (mode.equals("easy")){
             timer.addTime(10.0);
-            System.out.printf("easy mode in enchantment controller: Remaining Time Increased by 10 seconds\n");
+            //System.out.printf("easy mode in enchantment controller: Remaining Time Increased by 10 seconds\n");
         } else if (mode.equals("hard")){
             timer.addTime(5.0);
-            System.out.printf("hard mode in enchantment controller: Remaining Time Increased by 5 seconds\n");
+            //System.out.printf("hard mode in enchantment controller: Remaining Time Increased by 5 seconds\n");
         } else {
             assert false : "Invalid mode";
         }
     }
 
     public void startTimeController(double remainingTimeLoaded) {
-        timer = new Timer();
-        timer.startTimer(remainingTimeLoaded, this::checkMechanics, this::printStatus);
+        this.timer = new Timer();
+        this.isPaused = false;
         initialTime = remainingTimeLoaded;
+        timer.startTimer(remainingTimeLoaded, this::checkMechanics, this::printStatus);
     }
     
     public double disposeTimer() {
@@ -94,6 +95,9 @@ public class CloakUseTimeController implements ITimeControllers, Serializable {
     }
     public double getRemainingTimeLoaded() {
         return remainingTimeLoaded;
+    }
+    public void setGrid(GridEnvironment grid) {
+        this.grid = grid;
     }
     
 }

@@ -2,6 +2,7 @@ package src.GameObjects;
 
 import java.io.Serializable;
 
+import src.Mechanics.GridEnvironment;
 import src.Mechanics.PositionPoint;
 
 public abstract class Entity implements Serializable{

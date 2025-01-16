@@ -66,8 +66,13 @@ public class GridEnvironment implements Serializable{
                 }
             }
         }
-        this.mainTimeController = new TimeController(this);
+        
+    }
+
+    public void setMainTimeController(TimeController mainTimeController) {
+        this.mainTimeController = mainTimeController;
         hall.setMainTimeController(mainTimeController);
+        this.addTimeController(mainTimeController);
     }
 
     public void setRune(Rune rune) {
@@ -98,16 +103,17 @@ public class GridEnvironment implements Serializable{
                 }
             }
         }
-        this.mainTimeController = new TimeController(this);
-        hall.setMainTimeController(mainTimeController);
     }
     public TimeController getMainTimeController() {
         return this.mainTimeController;
     }
     public void addTimeController(ITimeControllers timeController) {
-        this.timeControllers.add(timeController);
-        hall.addTimeController(timeController);
+        if (!timeControllers.contains(timeController)){
+            timeControllers.add(timeController);
+            hall.addTimeController(timeController);
+        }
     }
+
     public List<ITimeControllers> getTimeControllers() {
         return this.timeControllers;
     }

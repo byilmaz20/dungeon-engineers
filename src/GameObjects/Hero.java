@@ -29,6 +29,10 @@ public class Hero extends Entity {
         buttonLoseLifeSound = new SoundManager("src/voices/loselife.wav");
     }
 
+    public void setButtonLoseLifeSound() {
+        this.buttonLoseLifeSound = new SoundManager("src/voices/loselife.wav");
+    }
+
     public Direction getLureDirection() {
         return lureDirection;
     }
@@ -59,9 +63,13 @@ public class Hero extends Entity {
 
     public void increaseLifeCount(){
         this.lives += 1;
+        System.out.println("Life count increased to "+this.lives + " at time: " + hall.getMainTimeController().getTimer().getElapsedTime());
         notifyLifeChange();
     }
     public void decreaseLifeCount(){
+        if (buttonLoseLifeSound == null) {
+            setButtonLoseLifeSound();
+        }
         buttonLoseLifeSound.playSound();
         this.lives -= 1;
 
@@ -72,6 +80,11 @@ public class Hero extends Entity {
     public void setLifeCount(int life){
         this.lives = life;
     }
+
+    public void setInventory(Inventory inventory) {
+        this.inventory = inventory;
+    }
+    
     public int getLives() {
         return this.lives;
     }
@@ -116,6 +129,7 @@ return this.inventory;    }
     }
     
     public synchronized void setLifeCountListener(LifeCountListener listener) {
+        setButtonLoseLifeSound();
         this.listener = listener;
     }
 

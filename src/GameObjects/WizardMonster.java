@@ -12,13 +12,11 @@ import src.Mechanics.Timer;
 
 public class WizardMonster extends Monster {
     private WizardTimeController wizardTimeController;
-    private Timer wizardTimer;
     public WizardMonster(PositionPoint position, Hall hall, GridEnvironment grid) {
         super(position, hall);
         this.type = MonsterTypes.WizardMonster;
         this.wizardTimeController = new WizardTimeController(grid, this);
         wizardTimeController.startTimeController();
-        wizardTimer = wizardTimeController.getTimer();
     }
     
 

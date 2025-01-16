@@ -167,6 +167,7 @@ public class WizardTimeController implements ITimeControllers,Serializable {
         this.lastRuneSpawnTime = lastRuneSpawnTime;
     }
     public void startTimeController(double remainingTimeLoaded) {
+        this.lastRuneSpawnTime = -RuneStartDelay;
         this.timer = new Timer();
         this.isPaused = false;
         initialTime = remainingTimeLoaded;

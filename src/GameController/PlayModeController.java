@@ -2,6 +2,8 @@ package src.GameController;
 
 import java.io.Serializable;
 
+import javax.swing.text.html.parser.Entity;
+
 import src.GameObjects.Enchantment;
 import src.GameObjects.Hall;
 import src.Mechanics.GridEnvironment;
@@ -44,6 +46,12 @@ public class PlayModeController implements Serializable{
         this.grid = new GridEnvironment(currentHall, hero);
         grid.setMainTimeController(savedTimeController);
         //grid.update(leveldata)
+        for (ITimeControllers timeController : hall.getTimeControllers()) {
+            
+            timeController.setGrid(grid);
+        }
+
+        
 
         this.monsterSpawner = new SpawnMonsterController(grid);
         monsterSpawner.spawnMonster();

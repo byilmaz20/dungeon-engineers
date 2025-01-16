@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.util.Map;
 
 import javax.swing.JOptionPane;
+import javax.swing.text.html.parser.Entity;
 
 import src.GameController.GameFlowController;
 import src.GameObjects.Hall;
@@ -44,7 +45,9 @@ public class LoadGameController implements Serializable{
                         if (timeController.getClass() == TimeController.class) 
                             currentMainTimeController = (TimeController) timeController;
                         timeController.startTimeController(timeController.getRemainingTimeLoaded());
+                        System.out.println("Time Controller " + timeController.getClass() + "Started with remainig time: "+ timeController.getRemainingTimeLoaded());
                     }
+                    
 
                     BuildModeController.Halls = halls;
 

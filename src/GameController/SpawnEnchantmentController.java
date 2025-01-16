@@ -13,13 +13,11 @@ import src.Mechanics.GridEnvironment;
 import src.Mechanics.PositionPoint;
 
 public class SpawnEnchantmentController implements Serializable{
-    private GridEnvironment grid;
 
-    public SpawnEnchantmentController(GridEnvironment grid) {
-        this.grid = grid; // Initialize with the grid
+    public SpawnEnchantmentController() {
     }
 
-    public Enchantment spawnEnchantment() {
+    public Enchantment spawnEnchantment(GridEnvironment grid) {
         PositionPoint randomLocation = grid.selectRandomLocation(); // Get a random empty position
         if (randomLocation != null) {
             // Create a random enchantment
@@ -51,7 +49,7 @@ public class SpawnEnchantmentController implements Serializable{
 
             // Place the enchantment on the grid
             if (grid.moveEntity(enchantment)) {
-                //System.out.println("Spawned " + enchantment.getType() + " at position: " + randomLocation);
+                System.out.println("Spawned " + enchantment.getType() + " at position: " + randomLocation);
                         return enchantment;
             } else {
                 //System.out.println("Failed to place the enchantment at position: " + randomLocation);

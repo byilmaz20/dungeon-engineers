@@ -52,7 +52,9 @@ public class FighterTimeController implements ITimeControllers, Serializable {
     }
 
     private void checkMechanics() {
+        
         double elapsedTime = Math.floor(timer.getElapsedTime());
+        System.out.println("Checking Mechanics for fighter" + elapsedTime + lastFighterMoveTime);
         //System.out.printf("Checking Mechanics - Elapsed Time until fighter spawn: %.0f\n", elapsedTime);
 
         if (elapsedTime >= FighterStartDelay && elapsedTime - lastFighterMoveTime >= 1.0 && grid.getHero().checkFooling()==false) {
@@ -92,46 +94,17 @@ public class FighterTimeController implements ITimeControllers, Serializable {
         }
     }
 
-    public static void main(String[] args) {
-        Hall hall = new Hall(HallTypes.EARTH);
-        PositionPoint position = new PositionPoint(2, 4);
-        PositionPoint position2  =new PositionPoint(5, 21);
-        PositionPoint position3  =new PositionPoint(21, 14);
-        PositionPoint position4  =new PositionPoint(21, 14);
-        PositionPoint position5  =new PositionPoint(21, 14);
-
-        Obstacles obstacle = new Obstacles(position4, hall, ObstacleType.CHEST);
-        Obstacles obstacle2 = new Obstacles(position5, hall, ObstacleType.CHEST);
-        hall.placeEntity(obstacle);
-        hall.placeEntity(obstacle2);
-
-        GridEnvironment grid = new GridEnvironment(hall);
-
-        WizardMonster wizard = new WizardMonster(position3, hall, grid);
-        FighterMonster fighter = new FighterMonster(position3, hall, grid);
-        Hero hero  = new Hero(position3, hall);
-        Rune rune = new Rune(position, hall);
-        hall.placeEntity(rune);
-        hall.placeEntity(hero);
-        hall.placeEntity(wizard);
-        hall.placeEntity(fighter);
-        
-        System.out.println(hall);
-
-        grid.getMainTimeController().startTimeController();
-
-        TimeController controller = new TimeController(grid);
-
-        controller.startTimeController();
-    }
+    
     public void startTimeController(double remainingTimeLoaded) {
         this.timer = new Timer();
+        lastFighterMoveTime = -FighterStartDelay;
         this.isPaused = false;
         initialTime = remainingTimeLoaded;
         timer.startTimer(remainingTimeLoaded, this::checkMechanics, this::printStatus);
     }
     
     private double remainingTimeLoaded;
+
     public double disposeTimer() {
         remainingTimeLoaded = timer.disposeTimer();
         this.timer = null;
@@ -139,5 +112,8 @@ public class FighterTimeController implements ITimeControllers, Serializable {
     }
     public double getRemainingTimeLoaded() {
         return remainingTimeLoaded;
+    }
+    public void setGrid(GridEnvironment grid) {
+        this.grid = grid;
     }
 }

@@ -508,6 +508,7 @@ private void updateTime(double remainingTime) {
         lifePanel.revalidate(); 
         lifePanel.repaint(); 
         if (gridEnvironment.getHero().getLives() <= 0) {
+            timeController.disposeTimer();
             GameFlowController.endGame("src/Images/BackgroundImages/gameover.png","No lives remaining!");
             this.dispose();
             pauseGame();

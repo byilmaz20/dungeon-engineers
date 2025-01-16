@@ -27,6 +27,10 @@ public class EnchantmentTimeController implements ITimeControllers,Serializable 
 
     }
 
+    public GridEnvironment getGrid() {
+        return grid;
+    }
+
     public Timer getTimer() {
         return timer;
     }
@@ -88,5 +92,9 @@ public class EnchantmentTimeController implements ITimeControllers,Serializable 
     }
     public double getRemainingTimeLoaded() {
         return remainingTimeLoaded;
+    }
+
+    public void setGrid(GridEnvironment grid) {
+        this.grid = grid;
     }
 }

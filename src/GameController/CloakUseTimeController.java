@@ -96,5 +96,8 @@ public class CloakUseTimeController implements ITimeControllers, Serializable {
     public double getRemainingTimeLoaded() {
         return remainingTimeLoaded;
     }
+    public void setGrid(GridEnvironment grid) {
+        this.grid = grid;
+    }
     
 }

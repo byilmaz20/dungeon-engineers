@@ -2,6 +2,7 @@ package src.GameController;
 
 import java.io.Serializable;
 
+import src.Mechanics.GridEnvironment;
 import src.Mechanics.Timer;
 
 public interface ITimeControllers extends Serializable{
@@ -12,6 +13,7 @@ public interface ITimeControllers extends Serializable{
     public void startTimeController();
     public double getRemainingTimeLoaded();
     public void startTimeController(double remainingTimeLoaded);
+    public void setGrid(GridEnvironment grid);
 
     
 }

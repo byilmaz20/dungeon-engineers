@@ -22,7 +22,7 @@ public class ExtraTimeEnchantment extends Enchantment implements Serializable{
       //  buttonCollectEnchantmentSound = new SoundManager("src/voices/CollectEnchantment.wav");
     }
     public void applyEffect(){
-        for (ITimeControllers timeController : this.grid.getTimeControllers()) {
+        for (ITimeControllers timeController : this.enchantmentTimeController.getGrid().getTimeControllers()) {
         //    buttonCollectEnchantmentSound.playSound();
             timeController.applyTimeEchantment();
     }

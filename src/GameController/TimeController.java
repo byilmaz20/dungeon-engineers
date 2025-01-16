@@ -74,7 +74,6 @@ public class TimeController implements ITimeControllers, Serializable {
         spawner = new SpawnMonsterController(grid);
         grid.addTimeController(this);
         this.isPaused = false;
-        initialTime = remainingTimeLoaded;
         timer.startTimer(remainingTimeLoaded, this::checkMechanics, this::printStatus);
     }
 

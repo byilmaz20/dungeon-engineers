@@ -23,7 +23,7 @@ public class FighterMonster extends Monster implements Serializable{
         // Check if movement is valid and attempt to move
         if (grid.checkMovement(this, new Direction(randomDirection))) {
                 grid.moveEntity(this, new Direction(randomDirection));
-                System.out.println("FighterMonster moved randomly to: " + this.position);
+                //System.out.println("FighterMonster moved randomly to: " + this.position);
         } 
         else {
             //System.out.println("FighterMonster's random move was blocked.");

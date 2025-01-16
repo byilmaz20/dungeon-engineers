@@ -49,7 +49,7 @@ public class SpawnEnchantmentController implements Serializable{
 
             // Place the enchantment on the grid
             if (grid.moveEntity(enchantment)) {
-                System.out.println("Spawned " + enchantment.getType() + " at position: " + randomLocation);
+                //System.out.println("Spawned " + enchantment.getType() + " at position: " + randomLocation);
                         return enchantment;
             } else {
                 //System.out.println("Failed to place the enchantment at position: " + randomLocation);

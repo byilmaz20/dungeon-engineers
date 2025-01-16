@@ -54,7 +54,7 @@ public class FighterTimeController implements ITimeControllers, Serializable {
     private void checkMechanics() {
         
         double elapsedTime = Math.floor(timer.getElapsedTime());
-        System.out.println("Checking Mechanics for fighter" + elapsedTime + lastFighterMoveTime);
+        //System.out.println("Checking Mechanics for fighter" + elapsedTime + lastFighterMoveTime);
         //System.out.printf("Checking Mechanics - Elapsed Time until fighter spawn: %.0f\n", elapsedTime);
 
         if (elapsedTime >= FighterStartDelay && elapsedTime - lastFighterMoveTime >= 1.0 && grid.getHero().checkFooling()==false) {

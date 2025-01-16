@@ -74,10 +74,10 @@ public class EnchantmentTimeController implements ITimeControllers,Serializable 
     }
    
     public void startTimeController(double remainingTimeLoaded) {
-        timer = new Timer();
-        timer.startTimer(remainingTimeLoaded, this::checkMechanics, this::printStatus);
-        initialTime = remainingTimeLoaded;
+        this.timer = new Timer();
         this.isPaused = false;
+        initialTime = remainingTimeLoaded;
+        timer.startTimer(remainingTimeLoaded, this::checkMechanics, this::printStatus);
     }
     
     private double remainingTimeLoaded;

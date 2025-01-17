@@ -4,9 +4,9 @@ import java.io.Serializable;
 import java.util.List;
 import src.GameObjects.Hall;
 import src.GameObjects.HallTypes;
-import src.UI.GameOverScreen;
 import src.GameObjects.Hero;
 import src.Mechanics.SoundManager;
+import src.UI.GameOverScreen;
 
 public class GameFlowController implements Serializable{
     private static final List<HallTypes> hallSequence = List.of(
@@ -37,32 +37,38 @@ public class GameFlowController implements Serializable{
         
         public static void proceedNextHall() {
             if (playModeController != null) {
+                // Dispose old screen, stop timers, etc.
                 playModeController.disposeScreen();
                 for (ITimeControllers timeController : playModeController.getGrid().getTimeControllers()) {
                     timeController.getTimer().pauseTimer();
                 }
             }
-    
-            System.out.println(currentHall.hallType + " hall completed!");
-    
-            // Check if all halls are completed
-            if (currentHallIndex == hallSequence.size() - 1) {
-                
-                winnerSound.playSound();
-            endGame("src/Images/BackgroundImages/gameoverwin.png"," ");
-            
-            return;
-        }
-
-        // Move to the next hall
-        currentHallIndex = (currentHallIndex + 1) % hallSequence.size();
-        HallTypes nextHallType = hallSequence.get(currentHallIndex);
-        System.out.println('\n' + "Entering the Hall of " + nextHallType + "...");
         
-        currentHall = BuildModeController.Halls.get("Hall of " + nextHallType);
-        playModeController = new PlayModeController(currentHall);
-
-    }
+            System.out.println(currentHall.hallType + " hall completed!");
+        
+            // If we finished the last hall, end the game
+            if (currentHallIndex == hallSequence.size() - 1) {
+                winnerSound.playSound();
+                endGame("src/Images/BackgroundImages/gameoverwin.png", " ");
+                return;
+            }
+        
+            // Grab the existing Hero from the old hall's grid
+            Hero existingHero = playModeController.getGrid().getHero();
+            // This ensures we keep the same hero object with same lives, inventory, etc.
+        
+            // Move to the next hall
+            currentHallIndex = (currentHallIndex + 1) % hallSequence.size();
+            HallTypes nextHallType = hallSequence.get(currentHallIndex);
+            System.out.println("\nEntering the Hall of " + nextHallType + "...");
+        
+            // Retrieve the new Hall
+            currentHall = BuildModeController.Halls.get("Hall of " + nextHallType);
+        
+            // Instead of PlayModeController(currentHall), reuse the hero
+            playModeController = new PlayModeController(currentHall, existingHero);
+        }
+        
 
     public static void endGame(String backgroundPath,String reason) {
         gameFinished = true;

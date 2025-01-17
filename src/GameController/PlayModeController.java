@@ -1,15 +1,12 @@
 package src.GameController;
 
 import java.io.Serializable;
-
-import javax.swing.text.html.parser.Entity;
-
 import src.GameObjects.Enchantment;
 import src.GameObjects.Hall;
+import src.GameObjects.Hero;
 import src.Mechanics.GridEnvironment;
 import src.Mechanics.Timer;
 import src.UI.PlayModeScreen;
-import src.GameObjects.Hero;
 
 public class PlayModeController implements Serializable{
     
@@ -20,7 +17,29 @@ public class PlayModeController implements Serializable{
     SpawnMonsterController monsterSpawner;
     PlayModeScreen playModeScreen;
     TimeController timeController; // asıl time controller spawn monster ve enchnatmentı kontrol eder.
-
+    public PlayModeController(Hall hall, Hero hero) {
+        this.currentHall = hall;
+        // Instead of making a new Hero, reuse the one passed in:
+        this.grid = new GridEnvironment(currentHall, hero);
+    
+        // Create a brand-new TimeController for the new hall (if that’s your intention)
+        // Or if you want to preserve time across halls, you can pass an existing TimeController.
+        TimeController timeController = new TimeController(grid);
+        grid.setMainTimeController(timeController);
+    
+        this.monsterSpawner = new SpawnMonsterController(grid);
+        monsterSpawner.spawnMonster();
+        this.activeEnchantment = null;
+        this.isDoorOpen = false;
+    
+        // Start the hall timer
+        Timer timer = timeController.getTimer();
+        timeController.startTimeController();
+    
+        // Build the play mode screen as usual
+        this.playModeScreen = new PlayModeScreen(grid, timeController);
+    }
+    
     public PlayModeController(Hall hall) {
         this.currentHall = hall;
         

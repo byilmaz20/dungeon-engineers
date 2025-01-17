@@ -28,7 +28,13 @@ public class Hero extends Entity {
         lureDirection = null;
         buttonLoseLifeSound = new SoundManager("src/voices/loselife.wav");
     }
-
+    public void copyStateFrom(Hero otherHero) {
+        this.lives = otherHero.lives;
+        this.inventory = otherHero.inventory;
+        this.ProtectionStatus = otherHero.ProtectionStatus;
+        this.FoolingStatus = otherHero.FoolingStatus;
+    }
+    
     public void setButtonLoseLifeSound() {
         this.buttonLoseLifeSound = new SoundManager("src/voices/loselife.wav");
     }

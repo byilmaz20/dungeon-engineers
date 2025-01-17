@@ -7,7 +7,7 @@ import java.io.FileInputStream;
 public class MP3PLAYER {
     private Player player;
     private String filePath;
-
+    private boolean isPlaying = false;
 
 
     // Constructor: Dosya yolunu alır
@@ -17,6 +17,7 @@ public class MP3PLAYER {
 
     // MP3 çalma metodu
     public void playSound() {
+        isPlaying= true;
         try (FileInputStream fis = new FileInputStream(filePath)) {
             player = new Player(fis);
             Thread playThread = new Thread(() -> {
@@ -36,6 +37,7 @@ public class MP3PLAYER {
     public void stop() {
         if (player != null) {
             player.close();
+            isPlaying = false;
         }
     }
 }

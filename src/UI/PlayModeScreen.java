@@ -495,20 +495,19 @@ private void updateTime(double remainingTime) {
 
     if (!isPaused) {
         timeLabel.setText("" + (int) remainingTime); // Metni güncelle
-    }
-
+        if (remainingTime <= 10 && remainingTime > 0) {
+            timeLabel.setForeground(Color.decode("#B22222")); // Kırmızı 
+    
+                remainingTimeSound.playSound(); 
+            }
+    
+        }
+    
     if (remainingTime <= 0) {
         this.dispose();
         pauseGame();
     }
 
-    
-    if (remainingTime <= 10 && remainingTime > 0) {
-        timeLabel.setForeground(Color.decode("#B22222"));
-        remainingTimeSound.playSound();
-    } else {
-        timeLabel.setForeground(Color.decode("#262b2d")); 
-    }
 }
 
     private void updateLifeCount(int lifeCount) {

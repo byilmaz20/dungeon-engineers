@@ -110,7 +110,9 @@ public class GridEnvironment implements Serializable{
     public void addTimeController(ITimeControllers timeController) {
         if (!timeControllers.contains(timeController)){
             timeControllers.add(timeController);
-            hall.addTimeController(timeController);
+            if (!hall.getTimeControllers().contains(timeController)){
+                hall.addTimeController(timeController);
+            }
         }
     }
 

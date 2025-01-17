@@ -19,6 +19,9 @@ public class PlayModeController implements Serializable{
     TimeController timeController; // asıl time controller spawn monster ve enchnatmentı kontrol eder.
     public PlayModeController(Hall hall, Hero hero) {
         this.currentHall = hall;
+        Hall testHall = hall;
+        GridEnvironment testgrid = new GridEnvironment(testHall);
+        hero.setPositon(testgrid.selectRandomLocation());
         // Instead of making a new Hero, reuse the one passed in:
         this.grid = new GridEnvironment(currentHall, hero);
     
@@ -62,6 +65,9 @@ public class PlayModeController implements Serializable{
     public PlayModeController(Hall hall, Hero hero, TimeController savedTimeController) {
 
         this.currentHall = hall;
+        Hall testHall = hall;
+        GridEnvironment testgrid = new GridEnvironment(testHall);
+        hero.setPositon(testgrid.selectRandomLocation());
         this.grid = new GridEnvironment(currentHall, hero);
         grid.setMainTimeController(savedTimeController);
         //grid.update(leveldata)

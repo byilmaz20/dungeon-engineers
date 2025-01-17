@@ -46,14 +46,13 @@ public class PlayModeController implements Serializable{
         this.grid = new GridEnvironment(currentHall, hero);
         grid.setMainTimeController(savedTimeController);
         //grid.update(leveldata)
-        for (ITimeControllers timeController : hall.getTimeControllers()) {
+        for (ITimeControllers tcr : hall.getTimeControllers()) {
+            tcr.setGrid(grid);
+            grid.addTimeController(tcr);
             
-            timeController.setGrid(grid);
-            grid.addTimeController(timeController);
-
         }
-
         
+
 
         this.monsterSpawner = new SpawnMonsterController(grid);
         monsterSpawner.spawnMonster();

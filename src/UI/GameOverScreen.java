@@ -1,10 +1,24 @@
 package src.UI;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.io.Serializable;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+
 import src.Mechanics.SoundManager;
+
 
 public class GameOverScreen extends UIScreen implements Serializable{
     private SoundManager buttonClickSound;
@@ -60,26 +74,47 @@ public class GameOverScreen extends UIScreen implements Serializable{
 
         customBackgroundPanel.add(messagePanel, BorderLayout.CENTER);
 
-        // "Exit Game" butonu
+
+        // "Exit Game" button
         JButton exitButton = new JButton("Exit Game");
-        exitButton.setFont(new Font("Arial", Font.BOLD, 25));
-        exitButton.setForeground(Color.WHITE);
-        exitButton.setBackground(new Color(139, 0, 0)); // Koyu kırmızı
+        exitButton.setFont(new Font("Serif", Font.BOLD, 25)); // Rustic-style font
+        exitButton.setForeground(new Color(255, 250, 240)); // Off-white text (natural tone)
+        exitButton.setBackground(new Color(101, 67, 33)); // Brownish color for a rustic feel
         exitButton.setFocusPainted(false);
+        exitButton.setOpaque(true);
+        exitButton.setBorderPainted(false);
         exitButton.addActionListener(e -> {
-        buttonClickSound.playSound();
-        System.out.println("Exit button clicked. Exiting game...");
-        System.exit(0); // Oyunu kapatır
-            
+            buttonClickSound.playSound();
+            System.out.println("Exit button clicked. Exiting game...");
+            System.exit(0); // Close the game
         });
+        // "Start New Game" button
+        JButton newGameButton = new JButton("Start New Game");
+        newGameButton.setFont(new Font("Serif", Font.BOLD, 25)); // Rustic-style font
+        newGameButton.setForeground(new Color(255, 250, 240)); // Off-white text (natural tone)
+        newGameButton.setBackground(new Color(34, 139, 34)); // Forest green for a natural look
+        newGameButton.setFocusPainted(false);
+        newGameButton.setOpaque(true);
+        newGameButton.setBorderPainted(false);
+        newGameButton.addActionListener(e -> {
+            buttonClickSound.playSound();
+            new MainMenuScreen();
+            dispose(); // Close the GameOverScreen
+            // Add your game restart logic here
+        });
+        // "Exit Game" button
 
-        // Buton için alt panel
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.setOpaque(false); // Şeffaf arka plan
-        buttonPanel.setBorder(BorderFactory.createEmptyBorder(20, 0, 50, 0)); // Alt boşluk
-        buttonPanel.add(exitButton);
 
-        customBackgroundPanel.add(buttonPanel, BorderLayout.SOUTH);
+
+
+        JPanel bottomPanel = new JPanel();
+        bottomPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 10));
+        bottomPanel.setOpaque(false); // Transparent background
+        bottomPanel.add(exitButton);
+        bottomPanel.add(newGameButton);
+        customBackgroundPanel.add(bottomPanel, BorderLayout.SOUTH);
+        
+
         gameOverSound.playSound(); 
   
         setVisible(true);

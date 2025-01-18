@@ -36,6 +36,7 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
     private JPanel[][] gridPanels; // Panels for each grid cell
     private boolean isPaused = false;
     private boolean bPressed = false;
+   
 
     private JButton pauseGameButton;
     private JButton helpButton;
@@ -55,7 +56,7 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
     private SoundManager applyEnchantment;
     private SoundManager DoorOpenSound;
     private MP3PLAYER remainingTimeSound;
-
+    private MP3PLAYER backgroundHMusic;
     private GridEnvironment gridEnvironment; // Reference to the GridEnvironment
 
 
@@ -94,13 +95,17 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
         this.remainingTime = this.timer.getRemainingTime();
 
         updateTime(remainingTime);
-        setVisible(true);
+        
         buttonClickSound = new SoundManager("src/voices/clickbutton.wav");
         buttonMoveSound = new SoundManager("src/voices/move.wav");
         buttonCollectEnchantmentSound = new SoundManager("src/voices/CollectEnchantment.wav");
         applyEnchantment = new SoundManager("src/voices/applyenchantment.wav");
         DoorOpenSound = new SoundManager("src/voices/door.wav");
         remainingTimeSound=  new MP3PLAYER("src/voices/runningtime.mp3");
+        backgroundHMusic = new MP3PLAYER("src/voices/background1.mp3");
+        backgroundHMusic.playBackgroundMusic(true);
+        
+        setVisible(true);
     }
     public void applyRedTint(PositionPoint topLeft, boolean highlightActive) {
     // Clear all previous tints
@@ -731,7 +736,6 @@ private void updateTime(double remainingTime) {
                     enchantment.applyEffect();
                     applyEnchantment.playSound();
                     System.out.println("Extra Life Enchantment has been clicked: " + x + ", " + y);
-                    
                 }
             }
             
@@ -760,13 +764,15 @@ private void updateTime(double remainingTime) {
                 gridEnvironment.hero.position.x == gridEnvironment.rune.position.x)) {
             remainingTimeSound.stop();
             DoorOpenSound.playSound();
+            backgroundHMusic.playBackgroundMusic(false);
             isAdjacent = true;
         }
    
         if (isAdjacent && !isPaused){
             remainingTimeSound.stop();
+            backgroundHMusic.stop();
             gridEnvironment.rune.found();
-            
+            backgroundHMusic.playBackgroundMusic(false);
             return true;
         }
         return false;

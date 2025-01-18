@@ -65,7 +65,7 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
 
         super(1200, 900, "Play Mode Screen", 
 
-        "src/Images/BackgroundImages/HALL.png");
+        "src/Images/BackgroundImages/timershift.png");
         //650x650
         this.timeController = timeController;
         this.timer = this.timeController.getTimer();
@@ -176,7 +176,7 @@ private void clearAllTints() {
         ImageIcon resizedHallIcon = new ImageIcon(resizedHallImage);
         JLabel label = new JLabel(resizedHallIcon);
         this.setLayout(null);
-        label.setBounds(430, 1, 200, 150);
+        label.setBounds(430, 0, 220, 150);
         this.add(label, BorderLayout.CENTER);
         this.setVisible(true);
     }
@@ -487,7 +487,7 @@ private void initializeInventoryChangeListener() {
 
 private void setTimeDisplay() {
     timeLabel = new JLabel("" + (int) remainingTime);
-    timeLabel.setBounds(1070, 185, 150, 50); 
+    timeLabel.setBounds(1020, 190, 150, 50); 
     timeLabel.setFont(new Font("Arial", Font.BOLD, 50)); 
     timeLabel.setForeground(Color.decode("#262b2d")); // Varsayılan renk
     timeLabel.setOpaque(false); 

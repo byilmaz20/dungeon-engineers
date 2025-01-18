@@ -39,7 +39,7 @@ public class GameFlowController implements Serializable{
             if (playModeController != null) {
                 playModeController.disposeScreen();
                 for (ITimeControllers timeController : playModeController.getGrid().getTimeControllers()) {
-                    timeController.getTimer().pauseTimer();
+                    timeController.getTimer().disposeTimer();
                 }
             }
     

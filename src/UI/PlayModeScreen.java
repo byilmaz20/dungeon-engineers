@@ -757,11 +757,13 @@ private void updateTime(double remainingTime) {
                 gridEnvironment.hero.position.y == gridEnvironment.rune.position.y) || 
             (abs(gridEnvironment.hero.position.y - gridEnvironment.rune.position.y) == 1 && 
                 gridEnvironment.hero.position.x == gridEnvironment.rune.position.x)) {
+            remainingTimeSound.stop();
             DoorOpenSound.playSound();
             isAdjacent = true;
         }
    
         if (isAdjacent && !isPaused){
+            remainingTimeSound.stop();
             gridEnvironment.rune.found();
             
             return true;

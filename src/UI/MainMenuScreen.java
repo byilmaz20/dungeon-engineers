@@ -2,7 +2,11 @@ package src.UI;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
-import javax.swing.*;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+
 import src.GameController.GameModeController;
 import src.Mechanics.SoundManager;
 
@@ -121,8 +125,8 @@ public class MainMenuScreen extends UIScreen {
     
         loadGameButton.addActionListener(e -> {
             buttonClickSound.playSound();
-            this.dispose();
-            new LoadGameScreen(); // Pass the selected mode
+            //this.dispose();
+            new LoadGameScreen(this); // Pass the selected mode
         });
         backgroundPanel.add(loadGameButton);
     }

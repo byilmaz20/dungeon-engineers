@@ -529,6 +529,7 @@ private void updateTime(double remainingTime) {
         lifePanel.repaint(); 
         if (gridEnvironment.getHero().getLives() <= 0) {
             timeController.disposeTimer();
+            backgroundHMusic.playBackgroundMusic(false);
             GameFlowController.endGame("src/Images/BackgroundImages/gameover.png","No lives remaining!");
             this.dispose();
             pauseGame();

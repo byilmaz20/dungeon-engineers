@@ -106,6 +106,7 @@ public class MainMenuScreen extends UIScreen {
         startGameButton.setOpaque(false);
         startGameButton.setContentAreaFilled(false);
         startGameButton.setBorderPainted(false);
+        startGameButton.setFocusable(false);
 
     
         startGameButton.addActionListener(e -> {
@@ -122,6 +123,7 @@ public class MainMenuScreen extends UIScreen {
         loadGameButton.setOpaque(false);
         loadGameButton.setContentAreaFilled(false);
         loadGameButton.setBorderPainted(false);
+        loadGameButton.setFocusable(false);
     
         loadGameButton.addActionListener(e -> {
             buttonClickSound.playSound();
@@ -140,6 +142,7 @@ public class MainMenuScreen extends UIScreen {
         helpButton.setOpaque(false);
         helpButton.setContentAreaFilled(false);
         helpButton.setBorderPainted(false);
+        helpButton.setFocusable(false);
             helpButton.addActionListener(e -> {
             buttonClickSound.playSound(); // Tıklama sesi çal    
             this.setVisible(false);
@@ -156,6 +159,7 @@ public class MainMenuScreen extends UIScreen {
         exitButton.setOpaque(false);
         exitButton.setContentAreaFilled(false);
         exitButton.setBorderPainted(false);
+        exitButton.setFocusable(false);
         exitButton.addActionListener(e -> {
             buttonClickSound.playSound(); // Tıklama sesi çal
             System.exit(0);

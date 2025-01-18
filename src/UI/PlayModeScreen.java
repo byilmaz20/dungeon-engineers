@@ -495,12 +495,13 @@ private void updateTime(double remainingTime) {
 
     if (!isPaused) {
         timeLabel.setText("" + (int) remainingTime); // Metni güncelle
-        if (remainingTime <= 10 && remainingTime > 0) {
-            timeLabel.setForeground(Color.decode("#B22222")); // Kırmızı 
-    
+        if (remainingTime <= 10 ) {
+            timeLabel.setForeground(Color.decode("#B22222")); // Kırmızı    
                 remainingTimeSound.playSound(); 
             }
-    
+        if (remainingTime <= 0 ) {  
+                 remainingTimeSound.stop(); 
+            }
         }
     
     if (remainingTime <= 0) {

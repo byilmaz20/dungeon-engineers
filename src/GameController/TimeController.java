@@ -126,12 +126,22 @@ public class TimeController implements ITimeControllers, Serializable {
         }
     }
 
-    private void printStatus(int remainingTime) { //todo bunu UI guncellemesi icin tickcallback olarak degistircez
+    private void printStatus(int remainingTime) {
+        if (timer == null) {
+            //System.err.println("Error: Timer is null. Cannot calculate elapsed time.");
+            return;
+        }
+    
         double elapsedTime = Math.floor(timer.getElapsedTime());
         //System.out.printf("Remaining Time: %d, Elapsed Time: %.0f\n", remainingTime, elapsedTime);
     }
+    
 
     public void pressPauseButton() {
+        if (timer == null) {
+            //System.err.println("Error: Timer is null. Cannot toggle pause/resume.");
+            return;
+        }
         if (isPaused) {
             timer.resumeTimer();
         } else {

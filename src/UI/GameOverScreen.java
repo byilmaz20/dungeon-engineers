@@ -114,7 +114,7 @@ public class GameOverScreen extends UIScreen implements Serializable{
         bottomPanel.add(newGameButton);
         customBackgroundPanel.add(bottomPanel, BorderLayout.SOUTH);
         
-
+    
         gameOverSound.playSound(); 
   
         setVisible(true);

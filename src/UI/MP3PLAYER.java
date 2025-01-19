@@ -55,9 +55,17 @@ public class MP3PLAYER {
     }
 
     public void stop() {
+        isLooping = false; // Döngüsel müziği durdur
         if (player != null) {
-            player.close();
-           
+            player.close(); // Çalan müziği kes
+        }
+        if (playThread != null && playThread.isAlive()) {
+            try {
+                playThread.join(500); // Thread'in bitmesini bekle
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
+    
 }

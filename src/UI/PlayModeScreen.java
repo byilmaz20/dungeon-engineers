@@ -56,7 +56,7 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
     private SoundManager applyEnchantment;
     private SoundManager DoorOpenSound;
     private MP3PLAYER remainingTimeSound;
-    private MP3PLAYER backgroundHMusic;
+    //private MP3PLAYER backgroundHMusic;
     private GridEnvironment gridEnvironment; // Reference to the GridEnvironment
 
 
@@ -102,8 +102,8 @@ public class PlayModeScreen extends UIScreen implements KeyListener{
         applyEnchantment = new SoundManager("src/voices/applyenchantment.wav");
         DoorOpenSound = new SoundManager("src/voices/door.wav");
         remainingTimeSound=  new MP3PLAYER("src/voices/runningtime.mp3");
-        backgroundHMusic = new MP3PLAYER("src/voices/background1.mp3");
-        backgroundHMusic.playBackgroundMusic(true);
+        //backgroundHMusic = new MP3PLAYER("src/voices/background1.mp3");
+        //backgroundHMusic.playBackgroundMusic(true);
         
         setVisible(true);
     }
@@ -529,7 +529,7 @@ private void updateTime(double remainingTime) {
         lifePanel.repaint(); 
         if (gridEnvironment.getHero().getLives() <= 0) {
             timeController.disposeTimer();
-            backgroundHMusic.playBackgroundMusic(false);
+            //backgroundHMusic.playBackgroundMusic(false);
             GameFlowController.endGame("src/Images/BackgroundImages/gameover.png","No lives remaining!");
             this.dispose();
             pauseGame();
@@ -765,15 +765,15 @@ private void updateTime(double remainingTime) {
                 gridEnvironment.hero.position.x == gridEnvironment.rune.position.x)) {
             remainingTimeSound.stop();
             DoorOpenSound.playSound();
-            backgroundHMusic.playBackgroundMusic(false);
+            //backgroundHMusic.playBackgroundMusic(false);
             isAdjacent = true;
         }
    
         if (isAdjacent && !isPaused){
             remainingTimeSound.stop();
-            backgroundHMusic.stop();
+            //backgroundHMusic.stop();
             gridEnvironment.rune.found();
-            backgroundHMusic.playBackgroundMusic(false);
+            //backgroundHMusic.playBackgroundMusic(false);
             return true;
         }
         return false;

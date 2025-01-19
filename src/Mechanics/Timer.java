@@ -131,8 +131,11 @@ public class Timer implements Serializable{
     }
 
     public synchronized double getElapsedTime() {
+        
         return elapsedTime;
     }
+
+    
 
     public synchronized void stopTimer() {
         if (timerThread != null) {

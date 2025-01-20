@@ -1,19 +1,14 @@
 package src.GameController;
 
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.util.Map;
 
 import javax.swing.JOptionPane;
-import javax.swing.text.html.parser.Entity;
 
-import src.GameController.GameFlowController;
 import src.GameObjects.Hall;
 import src.GameObjects.Hero;
-import src.UI.LoadGameScreen;
 
 public class LoadGameController implements Serializable{
     public static TimeController currentMainTimeController;
@@ -38,7 +33,7 @@ public class LoadGameController implements Serializable{
                 System.out.println(currentHallIndex);
 
                 if (hall != null) {
-                    JOptionPane.showMessageDialog(null, "Game Loaded! Player: " + hall.getHallTypes());
+                    //JOptionPane.showMessageDialog(null, "Game Loaded! Player: " + hall.getHallTypes());
                     // Start the loaded game or transition to the game screen
 
                     for (ITimeControllers timeController : hall.getTimeControllers()) {

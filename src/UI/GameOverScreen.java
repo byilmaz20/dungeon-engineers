@@ -88,21 +88,7 @@ public class GameOverScreen extends UIScreen implements Serializable{
             System.out.println("Exit button clicked. Exiting game...");
             System.exit(0); // Close the game
         });
-        // "Start New Game" button
-        JButton newGameButton = new JButton("Start New Game");
-        newGameButton.setFont(new Font("Serif", Font.BOLD, 25)); // Rustic-style font
-        newGameButton.setForeground(new Color(255, 250, 240)); // Off-white text (natural tone)
-        newGameButton.setBackground(new Color(34, 139, 34)); // Forest green for a natural look
-        newGameButton.setFocusPainted(false);
-        newGameButton.setOpaque(true);
-        newGameButton.setBorderPainted(false);
-        newGameButton.addActionListener(e -> {
-            buttonClickSound.playSound();
-            new MainMenuScreen();
-            dispose(); // Close the GameOverScreen
-            // Add your game restart logic here
-        });
-        // "Exit Game" button
+
 
 
 
@@ -111,7 +97,6 @@ public class GameOverScreen extends UIScreen implements Serializable{
         bottomPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 10));
         bottomPanel.setOpaque(false); // Transparent background
         bottomPanel.add(exitButton);
-        bottomPanel.add(newGameButton);
         customBackgroundPanel.add(bottomPanel, BorderLayout.SOUTH);
         
     

@@ -14,7 +14,7 @@ public class TeleportRuneAction implements IWizardBehavior, Serializable {
         double RuneStartDelay = wizardTimeController.getRuneStartDelay();
         WizardMonster wizard = wizardTimeController.getWizard();
         GridEnvironment grid = wizardTimeController.getGrid();
-        if (elapsedTime >= RuneStartDelay && elapsedTime - lastRuneSpawnTime >= 6.0) {
+        if (elapsedTime >= RuneStartDelay && elapsedTime - lastRuneSpawnTime >= 5.0) {
             wizard.teleportRune(grid);
             wizardTimeController.setLastRuneSpawnTime(elapsedTime);
             //System.out.println("Rune has been spawned!");

@@ -52,15 +52,15 @@ public class TimeController implements ITimeControllers, Serializable {
         String mode = GameModeController.getInstance().getGameMode();
         if (mode.equals("easy")) {
             this.initialTime = grid.getHall().getObstacles().size() * 5 * 1.2;
-            this.monsterSpawnInterval = 8.0;
+            this.monsterSpawnInterval = 10.0;
             this.enchantmentSpawnInterval = 5.0;
-            this.monsterStartDelay = 8.0;
+            this.monsterStartDelay = 10.0;
             this.enchantmentStartDelay = 5.0;
         } else if (mode.equals("hard")) {
             this.initialTime = grid.getHall().getObstacles().size() * 5;
-            this.monsterSpawnInterval = 6.0;
+            this.monsterSpawnInterval = 8.0;
             this.enchantmentSpawnInterval = 12.0;
-            this.monsterStartDelay = 6.0;
+            this.monsterStartDelay = 8.0;
             this.enchantmentStartDelay = 12.0;
         } else {
             assert false : "Invalid mode";

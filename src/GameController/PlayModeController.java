@@ -20,6 +20,7 @@ public class PlayModeController implements Serializable{
     boolean  isDoorOpen;
     GridEnvironment grid;
     SpawnMonsterController monsterSpawner;
+    SpawnEnchantmentController enchantmentSpawner;
     PlayModeScreen playModeScreen;
     TimeController timeController; // asıl time controller spawn monster ve enchnatmentı kontrol eder.
     public PlayModeController(Hall hall, Hero hero) {
@@ -36,6 +37,8 @@ public class PlayModeController implements Serializable{
     
         this.monsterSpawner = new SpawnMonsterController(grid);
         monsterSpawner.spawnMonster();
+        this.enchantmentSpawner = new SpawnEnchantmentController();
+        enchantmentSpawner.spawnEnchantment(grid);
         this.activeEnchantment = null;
         this.isDoorOpen = false;
     

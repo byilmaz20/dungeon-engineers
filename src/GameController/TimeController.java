@@ -39,7 +39,7 @@ public class TimeController implements ITimeControllers, Serializable {
     
     GridEnvironment grid;
     SpawnMonsterController spawner;
-
+    SpawnEnchantmentController enchantmentSpawn;
     
 
 
@@ -68,6 +68,7 @@ public class TimeController implements ITimeControllers, Serializable {
         //todo monster için ayrıca girdi verebilsin
         spawner = new SpawnMonsterController(grid);
         grid.addTimeController(this);
+        enchantmentSpawn = new SpawnEnchantmentController();
     }
     public void startTimeController(double remainingTimeLoaded) {
         this.timer = new Timer();
@@ -120,7 +121,8 @@ public class TimeController implements ITimeControllers, Serializable {
 
         if (elapsedTime >= enchantmentStartDelay && elapsedTime - lastEnchantmentTime >= enchantmentSpawnInterval) {
             lastEnchantmentTime = elapsedTime;
-            SpawnEnchantmentController enchantmentSpawn = new SpawnEnchantmentController();
+            
+
             enchantmentSpawn.spawnEnchantment(grid);
             //System.out.printf("Remaining Time After Enchantment: %d seconds\n", (int) Math.ceil(timer.getRemainingTime()));
         }

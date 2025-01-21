@@ -70,17 +70,13 @@ public class PlayModeController implements Serializable{
 
     }
     public PlayModeController(Hall hall, Hero hero, TimeController savedTimeController) {
-
         this.currentHall = hall;
-        PositionPoint randomPos = findRandomFreePosition(hall, 25, 25);
-    hero.setPositon(randomPos);
         this.grid = new GridEnvironment(currentHall, hero);
         grid.setMainTimeController(savedTimeController);
         //grid.update(leveldata)
         for (ITimeControllers tcr : hall.getTimeControllers()) {
             tcr.setGrid(grid);
             grid.addTimeController(tcr);
-            
         }
         
 
